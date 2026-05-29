@@ -1,417 +1,458 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+<meta charset="UTF-8"/>  
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>  
+<title>☠️ 𝐅𝐎𝐔𝐑 𝐒𝐄𝐕𝐄𝐍 NeT-SiTE ☠️</title>  
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>  
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>  
+<style>  
+:root{  
+--bg:#050b14;  
+--card:#101826;  
+--blue:#00bfff;  
+--blue2:#0077ff;  
+--text:#ffffff;  
+--muted:#9aa4b2;  
+--border:#1f2b3d;  
+--green:#25D366;  
+--gold:#ffd700;  
+--neon:#00f0ff;  
+--danger:#ff3b30;
+}  
+  
+*{  
+margin:0;  
+padding:0;  
+box-sizing:border-box;  
+font-family:Segoe UI,sans-serif;  
+}  
+  
+body{  
+background:linear-gradient(to bottom,#030712,#071120);  
+color:white;  
+display:flex;  
+overflow-x:hidden;  
+position:relative;  
+}  
+  
+/* PARTICLE BACKGROUND */  
+#particles {  
+    position: fixed;  
+    top: 0; left: 0;  
+    width: 100%; height: 100%;  
+    pointer-events: none;  
+    z-index: 1;  
+    opacity: 0.12;  
+}  
+  
+/* TOP CORNER BRANDING */  
+.top-corner{  
+position:fixed;  
+top:10px;  
+right:10px;  
+font-size:0.75rem;  
+font-weight:bold;  
+color:#00bfff;  
+text-align:center;  
+z-index:9999;  
+line-height:1.2;  
+text-shadow:0 0 10px #00bfff;  
+animation:glow 2s infinite alternate;  
+}  
+  
+/* SIDEBAR NAVIGATION */  
+.sidebar{  
+width:280px;  
+height:100vh;  
+background:rgba(10,15,25,0.96);  
+border-right:1px solid #1f2b3d;  
+position:fixed;  
+padding:20px;  
+overflow-y:auto;  
+z-index:1000;  
+backdrop-filter:blur(10px);  
+}  
+  
+.brand{  
+text-align:center;  
+font-size:1.5rem;  
+font-weight:900;  
+margin-bottom:25px;  
+color:white;  
+text-shadow:0 0 20px #00bfff;  
+animation:glow 2s infinite alternate;  
+}  
+  
+.menu-title{  
+font-size:0.8rem;  
+color:#9aa4b2;  
+margin:15px 0 10px;  
+text-transform:uppercase;  
+}  
+  
+.menu-btn{  
+display:block;  
+width:100%;  
+padding:14px;  
+margin-bottom:12px;  
+background:#111827;  
+border:1px solid #1f2b3d;  
+color:white;  
+text-decoration:none;  
+border-radius:12px;  
+transition:0.3s;  
+font-weight:700;  
+cursor:pointer;  
+}  
+  
+.menu-btn:hover{  
+background:rgba(0,191,255,0.15);  
+transform:translateX(5px);  
+box-shadow:0 0 20px rgba(0,191,255,0.4);  
+}  
+  
+/* MAIN CONTENT INTERFACE */  
+.main{  
+margin-left:280px;  
+padding:25px;  
+width:100%;  
+position:relative;  
+z-index:2;  
+}  
+  
+/* HERO HEADER */  
+.header{  
+background:linear-gradient(135deg,#081120,#0d2038);  
+padding:35px;  
+border-radius:20px;  
+border:1px solid #16304f;  
+text-align:center;  
+margin-bottom:25px;  
+box-shadow:0 0 30px rgba(0,191,255,0.15);  
+}  
+  
+.skull-logo{  
+font-size:4rem;  
+margin-bottom:10px;  
+animation:float 3s infinite ease-in-out;  
+filter:drop-shadow(0 0 20px #00bfff);  
+}  
+  
+.main-title{  
+font-size:2.4rem;  
+font-weight:900;  
+color:white;  
+text-shadow:  
+0 0 10px #00bfff,  
+0 0 20px #0077ff,  
+0 0 40px #00bfff;  
+animation:glow 2s infinite alternate;  
+}  
+  
+.header p{  
+margin-top:10px;  
+color:#c0d9ff;  
+}  
+  
+/* DYNAMIC PAGES */  
+.page{  
+display:none;  
+animation:fade 0.4s ease;  
+}  
+  
+.active-page{  
+display:block;  
+}  
+  
+@keyframes fade{  
+from{opacity:0;transform:translateY(10px);}  
+to{opacity:1;transform:translateY(0);}  
+}  
+  
+/* INTERFACE CARDS */  
+.card{  
+background:rgba(16,24,38,0.96);  
+padding:22px;  
+border-radius:18px;  
+border:1px solid #1f2b3d;  
+margin-bottom:20px;  
+}  
+  
+/* CONFIG MODULE MODULES */  
+.config-box{  
+background:#0b1320;  
+padding:18px;  
+border-radius:14px;  
+border:1px solid #1d2b3f;  
+margin-bottom:20px;  
+transition:0.3s;  
+position:relative;  
+overflow:hidden;  
+}  
+  
+.config-box:hover{  
+transform:translateY(-5px);  
+box-shadow:0 0 25px rgba(0,191,255,0.3);  
+border-color:var(--neon);  
+}  
+  
+.config-box h3{  
+margin-bottom:10px;  
+}  
+  
+.config-box p{  
+color:#9aa4b2;  
+margin-bottom:15px;  
+line-height:1.6;  
+}  
+  
+/* INTERACTION BUTTONS */  
+.download-btn{  
+display:inline-block;  
+padding:12px 18px;  
+background:linear-gradient(to right,#00bfff,#0077ff);  
+border-radius:10px;  
+text-decoration:none;  
+color:white;  
+font-weight:800;  
+transition:0.3s;  
+}  
+  
+.download-btn:hover{  
+transform:scale(1.05);  
+box-shadow:0 0 20px rgba(0,191,255,0.5);  
+}  
+  
+/* MODULE TEXT INPUTS & FILTERS */  
+.search-bar {  
+    width: 100%;  
+    padding: 14px 18px;  
+    background: #0b1320;  
+    border: 1px solid #1f2b3d;  
+    border-radius: 12px;  
+    color: white;  
+    margin-bottom: 20px;  
+    font-size: 1rem;  
+}  
+  
+/* UTILITY SUB-ACTIONS */  
+.config-actions{  
+display:flex;  
+gap:10px;  
+margin-top:15px;  
+margin-bottom:15px;  
+flex-wrap:wrap;  
+}  
+  
+.action-btn{  
+padding:10px 14px;  
+border:none;  
+border-radius:10px;  
+background:#111827;  
+color:white;  
+font-weight:700;  
+cursor:pointer;  
+border:1px solid #1f2b3d;  
+}  
+  
+/* LOCAL COMMENTS LAYER */  
+.comment-input{  
+width:100%;  
+padding:12px;  
+border-radius:10px;  
+border:1px solid #1f2b3d;  
+background:#0b1320;  
+color:white;  
+outline:none;  
+margin-bottom:10px;  
+}  
+  
+.comment-btn{  
+padding:10px 16px;  
+border:none;  
+border-radius:10px;  
+background:linear-gradient(to right,#00bfff,#0077ff);  
+color:white;  
+font-weight:800;  
+cursor:pointer;  
+}  
+  
+.comment{  
+background:#0f1724;  
+padding:10px;  
+border-radius:10px;  
+margin-top:10px;  
+border:1px solid #1d2b3f;  
+}  
+  
+/* CHAT LAYER AND LIVE MODULE CONTAINER */  
+.chat-box {  
+    height: 320px;  
+    overflow-y: auto;  
+    background: #0b1320;  
+    border: 1px solid #1f2b3d;  
+    border-radius: 10px;  
+    padding: 12px;  
+    margin-bottom: 12px;  
+}  
+  
+.chat-message {  
+    margin-bottom: 10px;  
+    padding: 8px 12px;  
+    border-radius: 8px;  
+    background: #1a2538;  
+    max-width: 85%;  
+}  
+  
+.chat-message .time {  
+    font-size: 0.7rem;  
+    color: #9aa4b2;  
+    margin-top: 4px;  
+}  
 
-<title>☠️ FOUR SEVEN. NeT-SiTE ☠️</title>
-
-<!-- FIREBASE -->
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
-
-<style>
-:root{
---bg:#050b14;
---card:#101826;
---blue:#00bfff;
---blue2:#0077ff;
---text:#ffffff;
---muted:#9aa4b2;
---border:#1f2b3d;
---green:#25D366;
---gold:#ffd700;
---neon:#00f0ff;
-}
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Segoe UI,sans-serif;
-}
-
-body{
-background:linear-gradient(to bottom,#030712,#071120);
-color:white;
-display:flex;
-overflow-x:hidden;
-position:relative;
-}
-
-/* PARTICLE BACKGROUND */
-#particles {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    pointer-events: none;
-    z-index: 1;
-    opacity: 0.12;
-}
-
-/* TOP */
-.top-corner{
-position:fixed;
-top:10px;
-right:10px;
-font-size:0.75rem;
-font-weight:bold;
-color:#00bfff;
-text-align:center;
-z-index:9999;
-line-height:1.2;
-text-shadow:0 0 10px #00bfff;
-animation:glow 2s infinite alternate;
-}
-
-/* SIDEBAR */
-.sidebar{
-width:280px;
-height:100vh;
-background:rgba(10,15,25,0.96);
-border-right:1px solid #1f2b3d;
-position:fixed;
-padding:20px;
-overflow-y:auto;
-z-index:1000;
-backdrop-filter:blur(10px);
-}
-
-.brand{
-text-align:center;
-font-size:1.6rem;
-font-weight:900;
-margin-bottom:25px;
-color:white;
-text-shadow:0 0 20px #00bfff;
-animation:glow 2s infinite alternate;
-}
-
-.menu-title{
-font-size:0.8rem;
-color:#9aa4b2;
-margin:15px 0 10px;
-text-transform:uppercase;
-}
-
-.menu-btn{
-display:block;
-width:100%;
-padding:14px;
-margin-bottom:12px;
-background:#111827;
-border:1px solid #1f2b3d;
-color:white;
-text-decoration:none;
-border-radius:12px;
-transition:0.3s;
-font-weight:700;
-cursor:pointer;
-}
-
-.menu-btn:hover{
-background:rgba(0,191,255,0.15);
-transform:translateX(5px);
-box-shadow:0 0 20px rgba(0,191,255,0.4);
-}
-
-/* MAIN */
-.main{
-margin-left:280px;
-padding:25px;
-width:100%;
-position:relative;
-z-index:2;
-}
-
-/* HEADER */
-.header{
-background:linear-gradient(135deg,#081120,#0d2038);
-padding:35px;
-border-radius:20px;
-border:1px solid #16304f;
-text-align:center;
-margin-bottom:25px;
-box-shadow:0 0 30px rgba(0,191,255,0.15);
-}
-
-.skull-logo{
-font-size:4rem;
-margin-bottom:10px;
-animation:float 3s infinite ease-in-out;
-filter:drop-shadow(0 0 20px #00bfff);
-}
-
-.main-title{
-font-size:2.6rem;
-font-weight:900;
-color:white;
-text-shadow:
-0 0 10px #00bfff,
-0 0 20px #0077ff,
-0 0 40px #00bfff;
-animation:glow 2s infinite alternate;
-}
-
-.header p{
-margin-top:10px;
-color:#c0d9ff;
-}
-
-/* PAGE */
-.page{
-display:none;
-animation:fade 0.4s ease;
-}
-
-.active-page{
-display:block;
-}
-
-@keyframes fade{
-from{opacity:0;transform:translateY(10px);}
-to{opacity:1;transform:translateY(0);}
-}
-
-/* CARD */
-.card{
-background:rgba(16,24,38,0.96);
-padding:22px;
-border-radius:18px;
-border:1px solid #1f2b3d;
-margin-bottom:20px;
-}
-
-/* CONFIG */
-.config-box{
-background:#0b1320;
-padding:18px;
-border-radius:14px;
-border:1px solid #1d2b3f;
-margin-bottom:20px;
-transition:0.3s;
-position:relative;
-overflow:hidden;
-}
-
-.config-box:hover{
-transform:translateY(-5px);
-box-shadow:0 0 25px rgba(0,191,255,0.3);
-border-color:var(--neon);
-}
-
-.config-box h3{
-margin-bottom:10px;
-}
-
-.config-box p{
-color:#9aa4b2;
-margin-bottom:15px;
-line-height:1.6;
-}
-
-/* BUTTON */
-.download-btn{
-display:inline-block;
-padding:12px 18px;
-background:linear-gradient(to right,#00bfff,#0077ff);
-border-radius:10px;
-text-decoration:none;
-color:white;
-font-weight:800;
-transition:0.3s;
-}
-
-.download-btn:hover{
-transform:scale(1.05);
-box-shadow:0 0 20px rgba(0,191,255,0.5);
-}
-
-/* SEARCH BAR */
-.search-bar {
-    width: 100%;
-    padding: 14px 18px;
-    background: #0b1320;
+/* DYNAMIC LIVE COMMUNITY STREAM CONTAINER */
+.community-feed {
+    max-height: 500px;
+    overflow-y: auto;
     border: 1px solid #1f2b3d;
+    background: #070d19;
+    padding: 15px;
     border-radius: 12px;
-    color: white;
-    margin-bottom: 20px;
-    font-size: 1rem;
+    margin-top: 20px;
 }
 
-/* ACTIONS */
-.config-actions{
-display:flex;
-gap:10px;
-margin-top:15px;
-margin-bottom:15px;
-flex-wrap:wrap;
+.post-card {
+    background: #111a2e;
+    border-left: 4px solid var(--blue);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
-.action-btn{
-padding:10px 14px;
-border:none;
-border-radius:10px;
-background:#111827;
-color:white;
-font-weight:700;
-cursor:pointer;
-border:1px solid #1f2b3d;
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 0.85rem;
 }
 
-/* COMMENTS */
-.comment-input{
-width:100%;
-padding:12px;
-border-radius:10px;
-border:1px solid #1f2b3d;
-background:#0b1320;
-color:white;
-outline:none;
-margin-bottom:10px;
+.post-user {
+    color: var(--neon);
+    font-weight: bold;
 }
 
-.comment-btn{
-padding:10px 16px;
-border:none;
-border-radius:10px;
-background:linear-gradient(to right,#00bfff,#0077ff);
-color:white;
-font-weight:800;
-cursor:pointer;
+.post-time {
+    color: var(--muted);
 }
 
-.comment{
-background:#0f1724;
-padding:10px;
-border-radius:10px;
-margin-top:10px;
-border:1px solid #1d2b3f;
-}
-
-/* SOCIALS */
-.socials{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:15px;
-}
-
-.social-card{
-background:#0b1320;
-padding:20px;
-border-radius:14px;
-border:1px solid #1d2b3f;
-text-align:center;
-}
-
-.social-card a{
-display:inline-block;
-margin-top:12px;
-padding:12px 18px;
-border-radius:10px;
-text-decoration:none;
-color:white;
-font-weight:800;
-background:#25D366;
-}
-
-/* RULES & SAFETY */
-.rules li,
-.safety li{
-margin-bottom:15px;
-line-height:1.6;
-color:#d2d8e2;
-}
-
-/* OWNER */
-.owner-box{
-text-align:center;
-padding:25px;
-background:#0b1320;
-border-radius:16px;
-border:1px solid #1d2b3f;
-}
-
-/* FOOTER */
-.footer{
-text-align:center;
-margin-top:30px;
-color:#7f8ea3;
-font-size:0.9rem;
-}
-
-/* ANIMATIONS */
-@keyframes glow{
-from{text-shadow:0 0 10px #00bfff;}
-to{text-shadow:0 0 20px #00bfff,0 0 40px #0077ff,0 0 60px #00bfff;}
-}
-
-@keyframes float{
-0%{transform:translateY(0);}
-50%{transform:translateY(-8px);}
-100%{transform:translateY(0);}
-}
-
-/* MOBILE */
-.mobile-btn{
-display:none;
-position:fixed;
-top:15px;
-left:15px;
-z-index:2000;
-background:#111827;
-border:1px solid #1f2b3d;
-color:white;
-padding:12px 15px;
-border-radius:10px;
-cursor:pointer;
-}
-
-@media(max-width:768px){
-.sidebar{
-transform:translateX(-100%);
-transition:0.3s;
-}
-.sidebar.show{
-transform:translateX(0);
-}
-.main{
-margin-left:0;
-padding-top:80px;
-}
-.mobile-btn{
-display:block;
-}
-.main-title{
-font-size:2rem;
-}
-.socials{
-grid-template-columns:1fr;
-}
-}
-</style>
-</head>
-
-<body>
-
+.post-body {
+    color: #f3f4f6;
+    line-height: 1.5;
+    word-break: break-word;
+}  
+  
+/* LEGAL AND STRUCTURAL TEXT FORMATTING */  
+.legal-list {  
+    list-style: none;  
+    margin-top: 15px;  
+}  
+  
+.legal-list li {  
+    background: #0b1320;  
+    border: 1px solid #1f2b3d;  
+    padding: 16px;  
+    border-radius: 10px;  
+    margin-bottom: 15px;  
+    line-height: 1.6;  
+}  
+  
+.legal-list strong {  
+    color: var(--blue);  
+    display: block;  
+    font-size: 1.1rem;  
+    margin-bottom: 5px;  
+}  
+  
+/* PROFILE COMPONENT BOX */  
+.owner-box{  
+text-align:center;  
+padding:25px;  
+background:#0b1320;  
+border-radius:16px;  
+border:1px solid #1d2b3f;  
+}  
+  
+/* SYSTEM REAR LAYER FOOTER */  
+.footer{  
+text-align:center;  
+margin-top:30px;  
+color:#7f8ea3;  
+font-size:0.9rem;  
+}  
+  
+/* ANIMATIONS SCHEMA */  
+@keyframes glow{  
+from{text-shadow:0 0 10px #00bfff;}  
+to{text-shadow:0 0 20px #00bfff,0 0 40px #0077ff,0 0 60px #00bfff;}  
+}  
+  
+@keyframes float{  
+0%{transform:translateY(0);}  
+50%{transform:translateY(-8px);}  
+100%{transform:translateY(0);}  
+}  
+  
+/* MOBILE COMPATIBILITY OVERLAYS */  
+.mobile-btn{  
+display:none;  
+position:fixed;  
+top:15px;  
+left:15px;  
+z-index:2000;  
+background:#111827;  
+border:1px solid #1f2b3d;  
+color:white;  
+padding:12px 15px;  
+border-radius:10px;  
+cursor:pointer;  
+}  
+  
+@media(max-width:768px){  
+.sidebar{  
+transform:translateX(-100%);  
+transition:0.3s;  
+}  
+.sidebar.show{  
+transform:translateX(0);  
+}  
+.main{  
+margin-left:0;  
+padding-top:80px;  
+}  
+.mobile-btn{  
+display:block;  
+}  
+.main-title{  
+font-size:2rem;  
+}  
+}  
+</style>  
+</head>  
+<body>  
 <canvas id="particles"></canvas>
 
-<div class="top-corner">
-╔☠︎═══☠︎╗<br>
-𝐅𝐎𝐔𝐑 𝐒𝐄𝐕𝐄𝐍<br>
-╚☠︎═══☠︎╝
-</div>
-
+<div class="top-corner">  
+╔☠︎═══☠︎╗<br>  
+𝐅𝐎𝐔𝐑 𝐒𝐄𝐕𝐄𝐍<br>  
+╚☠︎═══☠︎╝  
+</div>  
 <button class="mobile-btn" onclick="toggleMenu()">☰</button>
 
-<div class="sidebar" id="sidebar">
-
-<div class="brand">
-☠️ FOUR SEVEN
-</div>
-
-<div class="menu-title">MAIN MENU</div>
-
+<div class="sidebar" id="sidebar">  
+<div class="brand">☠️ 𝐅𝐎𝐔𝐑 𝐒𝐄𝐕𝐄𝐍</div>  
+<div class="menu-title">MAIN MENU</div>  
 <a class="menu-btn" onclick="showPage('home-page')">🏠 Home</a>
 <a class="menu-btn" onclick="showPage('configs-page')">📥 Config Files</a>
 <a class="menu-btn" onclick="showPage('community-page')">💬 Community</a>
@@ -421,263 +462,456 @@ grid-template-columns:1fr;
 <a class="menu-btn" onclick="showPage('about-page')">👑 Owner</a>
 <a class="menu-btn" href="https://github.com/magabemack47-spec/four-seven-hub" target="_blank">🐙 GitHub</a>
 
-</div>
+<div class="menu-title">ELITE SECTION</div>  
+<a class="menu-btn" onclick="showSquadPage()">🔰 Squad of RST 🇦🇶</a>  
+</div>  
 
-<div class="main">
+<div class="main">  
+<div class="header">  
+<div class="skull-logo">☠️</div>  
+<h1 class="main-title">𝐅𝐎𝐔𝐑 𝐒𝐄𝐕𝐄𝐍 NeT-SiTE</h1>  
+<p>[ SYSTEM STATUS : ONLINE ]</p>  
+</div>  
 
-<div class="header">
+<div id="home-page" class="page active-page">  
+<div class="card">  
+<h2>☠️ Welcome</h2>  
+<p style="line-height:1.8;color:#cbd5e1;">  
+Welcome to the official 𝐅𝐎𝐔𝐑 𝐒𝐄𝐕𝐄𝐍 CONFIG HUB.  
+Download premium configs, join the community,  
+and enjoy fast secure access.  
+</p>  
+</div>  
+</div>  
 
-<div class="skull-logo">☠️</div>
+<div id="configs-page" class="page">  
+<div class="card">  
+<h2>📥 Config Files</h2>  
+<input type="text" id="searchInput" class="search-bar" placeholder="🔍 Search configs..." onkeyup="filterConfigs()">  
 
-<h1 class="main-title">
-𝐅𝐎𝐔𝐑 𝐒𝐄𝐕𝐄𝐍. NeT-SiTE
-</h1>
+<div class="config-box" data-search="rst mtn">  
+<h3>𝐅𝐎𝐔𝐑 𝐒𝐄𝐕𝐄𝐍 RST MTN</h3>  
+<p>Premium secure RST config by 𝐅𝐎𝐔𝐑 𝐒𝐄𝐕𝐄𝐍.</p>  
+<p style="color:#00bfff;">📅 Posted: 29 May 2026</p>  
+<a class="download-btn" href="https://ouo.io/8251Zl" target="_blank" onclick="increaseDownload('config1'); simulateDownload(this)">⬇ Download File</a>  
+<div class="config-actions">  
+<button class="action-btn">⬇ Downloads: <span id="downloads-config1">0</span></button>  
+</div>  
+<input type="text" class="comment-input" id="input-config1" placeholder="Write a comment...">  
+<button class="comment-btn" onclick="addComment('config1')">Post</button>  
+<div id="comments-config1"></div>  
+</div>  
 
-<p>[ SYSTEM STATUS : ONLINE ]</p>
+<div class="config-box" data-search="tls">  
+<h3>MTN TLS CONFIG</h3>  
+<p>Fast secure TLS config powered by 𝐅𝐎𝐔𝐑 𝐒𝐄𝐕𝐄𝐍.</p>  
+<p style="color:#00bfff;">📅 Posted: 29 May 2026</p>  
+<a class="download-btn" href="https://ouo.io/EaguwR" target="_blank" onclick="increaseDownload('config2'); simulateDownload(this)">⬇ Download File</a>  
+<div class="config-actions">  
+<button class="action-btn">⬇ Downloads: <span id="downloads-config2">0</span></button>  
+</div>  
+<input type="text" class="comment-input" id="input-config2" placeholder="Write a comment...">  
+<button class="comment-btn" onclick="addComment('config2')">Post</button>  
+<div id="comments-config2"></div>  
+</div>  
 
-</div>
+<div class="config-box" data-search="500mb">  
+<h3>MTN 500MB CONFIG</h3>  
+<p>Official 𝐅𝐎𝐔𝐑 𝐒𝐄𝐕𝐄𝐍 config file for MTN users.</p>  
+<p style="color:#00bfff;">📅 Posted: 29 May 2026</p>  
+<a class="download-btn" href="https://ouo.io/MQwA5jq" target="_blank" onclick="increaseDownload('config3'); simulateDownload(this)">⬇ Download File</a>  
+<div class="config-actions">  
+<button class="action-btn">⬇ Downloads: <span id="downloads-config3">0</span></button>  
+</div>  
+<input type="text" class="comment-input" id="input-config3" placeholder="Write a comment...">  
+<button class="comment-btn" onclick="addComment('config3')">Post</button>  
+<div id="comments-config3"></div>  
+</div>  
+</div>  
+</div>  
 
-<!-- HOME -->
-<div id="home-page" class="page active-page">
+<div id="community-page" class="page">
 <div class="card">
-<h2>☠️ Welcome</h2>
-<p style="line-height:1.8;color:#cbd5e1;">
-Welcome to the official FOUR SEVEN CONFIG HUB.
-Download premium configs, join the community,
-and enjoy fast secure access.
-</p>
+<h2>💬 Global Community Board</h2>
+<p style="color: var(--muted); margin-bottom: 15px;">Share information, network configurations, and updates. Visible to everyone. Posts expire automatically after 7 days.</p>
+
+<div class="config-box" style="background:#0f1724;">
+<h3 style="color:var(--blue); margin-bottom:12px;">Create Public Post</h3>
+<input type="text" id="com-name-input" class="comment-input" placeholder="Your Name / Alias" style="margin-bottom:10px;">
+<textarea id="com-msg-input" class="comment-input" placeholder="Type your message here..." style="height:100px; resize:vertical; margin-bottom:10px;"></textarea>
+<button class="comment-btn" onclick="submitCommunityPost()" style="width:100%;">🚀 Broadcast Message</button>
+</div>
+
+<h3>📡 Live Feed</h3>
+<div id="community-feed" class="community-feed">
+</div>
 </div>
 </div>
 
-<!-- CONFIGS -->
-<div id="configs-page" class="page">
+<div id="earn-page" class="page">  
+<div class="card">  
+<h2>💰 Earn Free Money</h2>  
+<p style="line-height:1.8;color:#cbd5e1;">  
+Join this platform and start earning real money for free.<br><br>  
+Click the button below to get started.  
+</p>  
+<a href="https://a1.wa710.cc/go/28258927" target="_blank" class="download-btn" style="background:linear-gradient(to right,#25D366,#00bfff);">🚀 Start Earning Now</a>  
+</div>  
+</div>  
 
+<div id="rules-page" class="page">
 <div class="card">
-<h2>📥 Config Files</h2>
-
-<input type="text" id="searchInput" class="search-bar" placeholder="🔍 Search configs..." onkeyup="filterConfigs()">
-
-<!-- CONFIG 1 -->
-<div class="config-box" data-search="rst mtn">
-<h3>FOUR SEVEN RST MTN</h3>
-<p>Premium secure RST config by FOUR SEVEN.</p>
-<p style="color:#00bfff;">📅 Posted: 29 May 2026</p>
-<a class="download-btn" href="https://ouo.io/8251Zl" target="_blank" onclick="increaseDownload('config1'); simulateDownload(this)">
-⬇ Download File
-</a>
-<div class="config-actions">
-<button class="action-btn">⬇ Downloads: <span id="downloads-config1">0</span></button>
-</div>
-<input type="text" class="comment-input" id="input-config1" placeholder="Write a comment...">
-<button class="comment-btn" onclick="addComment('config1')">Post</button>
-<div id="comments-config1"></div>
-</div>
-
-<!-- CONFIG 2 -->
-<div class="config-box" data-search="tls">
-<h3>MTN TLS CONFIG</h3>
-<p>Fast secure TLS config powered by FOUR SEVEN.</p>
-<p style="color:#00bfff;">📅 Posted: 29 May 2026</p>
-<a class="download-btn" href="https://ouo.io/EaguwR" target="_blank" onclick="increaseDownload('config2'); simulateDownload(this)">
-⬇ Download File
-</a>
-<div class="config-actions">
-<button class="action-btn">⬇ Downloads: <span id="downloads-config2">0</span></button>
-</div>
-<input type="text" class="comment-input" id="input-config2" placeholder="Write a comment...">
-<button class="comment-btn" onclick="addComment('config2')">Post</button>
-<div id="comments-config2"></div>
-</div>
-
-<!-- CONFIG 3 -->
-<div class="config-box" data-search="500mb">
-<h3>MTN 500MB CONFIG</h3>
-<p>Official FOUR SEVEN config file for MTN users.</p>
-<p style="color:#00bfff;">📅 Posted: 29 May 2026</p>
-<a class="download-btn" href="https://ouo.io/MQwA5jq" target="_blank" onclick="increaseDownload('config3'); simulateDownload(this)">
-⬇ Download File
-</a>
-<div class="config-actions">
-<button class="action-btn">⬇ Downloads: <span id="downloads-config3">0</span></button>
-</div>
-<input type="text" class="comment-input" id="input-config3" placeholder="Write a comment...">
-<button class="comment-btn" onclick="addComment('config3')">Post</button>
-<div id="comments-config3"></div>
-</div>
-
+<h2>📜 Official Hub Regulations & Terms</h2>
+<p style="color: var(--muted)">Failure to comply with platform guidelines will result in an immediate and irreversible IP ban.</p>
+<ul class="legal-list">
+<li><strong>1. File Sharing & Config Integrity</strong> All payloads, files, and tunnel network data files shared must be thoroughly checked for malicious injection scripts. Modifying another developer's configuration files without appropriate credit is strictly illegal.</li>
+<li><strong>2. No Malicious Tool Distribution</strong> The upload or distribution of malware, ransomware, botnets, or link-shorteners redirecting users to hazardous, unverified scripts is explicitly prohibited on this platform.</li>
+<li><strong>3. Zero-Tolerance Spam Policy</strong> The global community board and comment fields must remain free of repetitive link spamming, advertising unverified channels, or flooding servers with artificial traffic.</li>
+<li><strong>4. Respect the Elite Hierarchy</strong> Squad configurations and instructions deployed within the RST layout must remain internal. Disclosing access patterns or passwords to outer channels is classified as breach of code.</li>
+<li><strong>5. No Account Scraping</strong> Automated web-scraping, denial of service attacks against this platform, or trying to harvest Firebase data links illegally will be intercepted and flagged directly to ISPs.</li>
+</ul>
 </div>
 </div>
 
-<!-- EARN MONEY -->
-<div id="earn-page" class="page">
+<div id="safety-page" class="page">
 <div class="card">
-<h2>💰 Earn Free Money</h2>
-<p style="line-height:1.8;color:#cbd5e1;">
-Join this platform and start earning real money for free.<br><br>
-Click the button below to get started.
-</p>
-<a href="https://a1.wa710.cc/go/28258927" target="_blank" class="download-btn" style="background:linear-gradient(to right,#25D366,#00bfff);">
-🚀 Start Earning Now
-</a>
+<h2>🛡️ Cyber Security & Safety Manual</h2>
+<p style="color: var(--muted)">Protect your identity and hardware while deploying network configurations.</p>
+<ul class="legal-list">
+<li><strong>1. Secure Tunnel Execution</strong> Always inspect your client applications (such as TLS Tunnel, HTTP Custom, or custom RST tools) before initializing a configuration file. Keep your base software updated to avoid memory leak exploits.</li>
+<li><strong>2. Avoid Personal Information Exposure</strong> When posting onto the public community board, never expose your private phone number, network IP gateway addresses, hardware IMEI numbers, or specific location codes.</li>
+<li><strong>3. Link Redirection Protocols</strong> External download resources use link validation techniques. Always utilize ad-blockers or isolated sandbox environments if navigating unknown third-party shortener channels.</li>
+<li><strong>4. Account Credential Security</strong> Do not use your primary network keys or private security credentials for experimental proxy configuration scripts. Create distinct tester variables to prevent account termination from cellular carrier filters.</li>
+<li><strong>5. Reported Vulnerabilities</strong> If you discover an expired configuration producing a direct security hazard or a user violating safety practices, contact the platform administrator immediately via the provided serious inquiry channels.</li>
+</ul>
 </div>
 </div>
 
-<!-- Other pages (Community, Rules, Safety, Owner) remain the same -->
+<div id="squad-page" class="page">  
+<div class="card">  
+<h2>🔰 Squad of RST 🇦🇶</h2>  
+<p><strong>Password Protected Squad Chat & Configs</strong></p>  
+<div id="squad-login">  
+<input type="password" id="squad-password" placeholder="Enter Password" style="width:100%; padding:12px; margin:10px 0; background:#0b1320; border:1px solid #1f2b3d; color:white; border-radius:10px;">  
+<button class="action-btn" onclick="checkSquadPassword()" style="background:linear-gradient(to right,#00bfff,#0077ff); width:100%;">🔓 Join Squad</button>  
+</div>  
+<div id="squad-content" style="display:none;">  
+<h3>✅ Squad Members</h3>  
+<div class="config-box" style="background:#0f1724; line-height: 2; font-weight: bold; font-family:'Courier New', Courier, monospace;">  
+𖤍 𝐅𝐎𝐔𝐑 𝐒𝐄𝐕𝐄𝐍 𖤍🇦🇶<br>  
+𝐳𝐄𝐭 𝐅𝐥𝐀𝐬𝐇 𝐫𝐒𝐭🇦🇶<br>  
+SIBUSISO N🇦🇶<br>  
+𝐈𝐭𝐬𝐬 𝐃𝐚 𝐈𝐧𝐭𝐢𝐦𝐢𝐝𝐚𝐭𝐨𝐫 𝐑𝐒𝐓❄  
+</div>  
+<h3 style="margin:20px 0 10px;">💬 Squad Live Chat</h3>  
+<div id="chat-box" class="chat-box"></div>  
+<input type="text" id="chat-input" placeholder="Type message here..." style="width:78%; padding:12px; background:#0b1320; border:1px solid #1f2b3d; color:white; border-radius:10px;">  
+<button class="action-btn" onclick="sendChatMessage()" style="width:20%; background:linear-gradient(to right,#25D366,#00bfff);">Send</button>  
+<h3 style="margin-top:25px;">Post New Config (Squad Only)</h3>  
+<input type="text" id="new-config-name" placeholder="Config Name" style="width:100%;padding:12px;margin:8px 0;background:#0b1320;border:1px solid #1f2b3d;color:white;border-radius:10px;">  
+<textarea id="new-config-desc" placeholder="Description" style="width:100%;height:80px;padding:12px;margin:8px 0;background:#0b1320;border:1px solid #1f2b3d;color:white;border-radius:10px;"></textarea>  
+<input type="text" id="new-config-link" placeholder="Download Link" style="width:100%;padding:12px;margin:8px 0;background:#0b1320;border:1px solid #1f2b3d;color:white;border-radius:10px;">  
+<button class="action-btn" onclick="postSquadConfig()" style="background:linear-gradient(to right,#25D366,#00bfff); width:100%;">🚀 Post Config</button>  
+</div>  
+</div>  
+</div>  
 
-<div id="about-page" class="page">
-<div class="card">
-<div class="owner-box">
-<h2 style="color:#ffd700;">⟦ 𝐅𝐎𝐔𝐑 ⨯ 𝐒𝐄𝐕𝐄𝐍 ⟧</h2>
-<p style="margin:15px 0;color:#cbd5e1;font-size:1.1rem;">
-Skilled developer and network specialist. I deploy powerful bots and help people create custom tunnel files for stable and fast connections.<br><br>
-I created this website in <strong>May 2026</strong> to share premium resources with the community.
-</p>
-<p style="margin-top:20px;color:#00bfff;">
-📞 Contact Me: <strong>+27602225117</strong><br>
-💬 WhatsApp only for serious inquiries.
-</p>
-</div>
-</div>
-</div>
+<div id="about-page" class="page">  
+<div class="card">  
+<div class="owner-box">  
+<h2 style="color:#ffd700;">𝐅𝐎𝐔𝐑 𝐒𝐄𝐕𝐄𝐍</h2>  
+<p style="margin:15px 0;color:#cbd5e1;font-size:1.1rem;">  
+Skilled developer and network specialist. I deploy powerful bots and help people create custom tunnel files for stable and fast connections.<br><br>  
+I created this website in <strong>May 2026</strong> to share premium resources with the community.  
+</p>  
+<p style="margin-top:20px;color:#00bfff;">  
+📞 Contact Me: <strong>+27602225117</strong><br>  
+💬 WhatsApp only for serious inquiries.  
+</p>  
+</div>  
+</div>  
+</div>  
 
-<div class="footer">
-© 2026 FOUR SEVEN — ALL RIGHTS RESERVED
-</div>
+<div class="footer">  
+© 2026 𝐅𝐎𝐔𝐑 𝐒𝐄𝐕𝐄𝐍 — ALL RIGHTS RESERVED  
+</div>  
+</div>  
 
-</div>
+<script>  
+// Particle Canvas setup
+const canvas = document.getElementById('particles');  
+const ctx = canvas.getContext('2d');  
+canvas.width = window.innerWidth;  
+canvas.height = window.innerHeight;  
+  
+let particlesArray = [];  
+class Particle {  
+    constructor(){  
+        this.x = Math.random() * canvas.width;  
+        this.y = Math.random() * canvas.height;  
+        this.size = Math.random() * 2 + 0.5;  
+        this.speedX = Math.random() * 0.6 - 0.3;  
+        this.speedY = Math.random() * 0.6 - 0.3;  
+    }  
+    update(){  
+        this.x += this.speedX;  
+        this.y += this.speedY;  
+        if(this.x < 0 || this.x > canvas.width) this.speedX *= -1;  
+        if(this.y < 0 || this.y > canvas.height) this.speedY *= -1;  
+    }  
+    draw(){  
+        ctx.fillStyle = '#00bfff';  
+        ctx.beginPath();  
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);  
+        ctx.fill();  
+    }  
+}  
+function initParticles(){  
+    particlesArray = [];  
+    for(let i = 0; i < 70; i++) particlesArray.push(new Particle());  
+}  
+function animateParticles(){  
+    ctx.clearRect(0,0,canvas.width,canvas.height);  
+    for(let i = 0; i < particlesArray.length; i++){  
+        particlesArray[i].update();  
+        particlesArray[i].draw();  
+    }  
+    requestAnimationFrame(animateParticles);  
+}  
+window.addEventListener('resize', () => {  
+    canvas.width = window.innerWidth;  
+    canvas.height = window.innerHeight;  
+    initParticles();  
+});  
+initParticles();
+animateParticles();
+  
+// Firebase Configuration
+const firebaseConfig = {  
+apiKey: "PASTE_API_KEY",  
+authDomain: "PASTE_AUTH_DOMAIN",  
+databaseURL: "PASTE_DATABASE_URL",  
+projectId: "PASTE_PROJECT_ID",  
+storageBucket: "PASTE_STORAGE_BUCKET",  
+messagingSenderId: "PASTE_SENDER_ID",  
+appId: "PASTE_APP_ID"  
+};  
+  
+firebase.initializeApp(firebaseConfig);  
+const db = firebase.database();  
+  
+function toggleMenu(){  
+document.getElementById("sidebar").classList.toggle("show");  
+}  
+  
+function showPage(pageId){  
+const pages=document.querySelectorAll(".page");  
+pages.forEach(page=>{ page.classList.remove("active-page"); });  
+document.getElementById(pageId).classList.add("active-page");  
+  
+if(window.innerWidth < 768){  
+document.getElementById("sidebar").classList.remove("show");  
+}
 
-<script>
-// Your full script (particles, firebase, functions, etc.)
-const canvas = document.getElementById('particles');
-const ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+if(pageId === 'community-page') {
+    loadCommunityFeed();
+}
+}  
+  
+function showSquadPage(){  
+showPage('squad-page');  
+document.getElementById('squad-login').style.display = 'block';  
+document.getElementById('squad-content').style.display = 'none';  
+}  
+  
+function checkSquadPassword(){  
+const pass = document.getElementById('squad-password').value.trim();  
+if(pass === "#RST.4d7"){  
+    document.getElementById('squad-login').style.display = 'none';  
+    document.getElementById('squad-content').style.display = 'block';  
+    loadSquadChat();  
+    alert("✅ Welcome to RST Squad 🇦🇶 - Chat is now active");  
+} else {  
+    alert("❌ Wrong Password");  
+    document.getElementById('squad-password').value = "";  
+}  
+}  
+  
+// Real-time Squad Chat Engine  
+function loadSquadChat(){  
+const chatBox = document.getElementById('chat-box');  
+db.ref("squad-chat").orderByChild("timestamp").on("value", (snapshot) => {  
+    chatBox.innerHTML = "";  
+    snapshot.forEach((child) => {  
+        const msg = child.val();  
+        const div = document.createElement("div");  
+        div.className = "chat-message";  
+        div.innerHTML = `  
+            <strong>Member:</strong> ${msg.text}<br>  
+            <span class="time">${new Date(msg.timestamp).toLocaleTimeString()}</span>  
+        `;  
+        chatBox.appendChild(div);  
+    });  
+    chatBox.scrollTop = chatBox.scrollHeight;  
+});  
+}  
+  
+function sendChatMessage(){  
+const input = document.getElementById('chat-input');  
+const text = input.value.trim();  
+if(text !== ""){  
+    db.ref("squad-chat").push({  
+        text: text,  
+        timestamp: Date.now()  
+    });  
+    input.value = "";  
+}  
+}  
 
-let particlesArray = [];
-class Particle {
-    constructor(){
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 2 + 0.5;
-        this.speedX = Math.random() * 0.6 - 0.3;
-        this.speedY = Math.random() * 0.6 - 0.3;
+// Real-Time Global Community Board Engine with 7-Day Filtering
+function submitCommunityPost() {
+    const nameInput = document.getElementById('com-name-input');
+    const msgInput = document.getElementById('com-msg-input');
+    const name = nameInput.value.trim();
+    const msg = msgInput.value.trim();
+    
+    if(name === "" || msg === "") {
+        alert("❌ Both Name and Message fields must be filled!");
+        return;
     }
-    update(){
-        this.x += this.speedX;
-        this.y += this.speedY;
-        if(this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-        if(this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-    }
-    draw(){
-        ctx.fillStyle = '#00bfff';
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-    }
-}
-function initParticles(){
-    particlesArray = [];
-    for(let i = 0; i < 70; i++) particlesArray.push(new Particle());
-}
-function animateParticles(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    for(let i = 0; i < particlesArray.length; i++){
-        particlesArray[i].update();
-        particlesArray[i].draw();
-    }
-    requestAnimationFrame(animateParticles);
-}
-window.addEventListener('resize', () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    initParticles();
-});
-
-const firebaseConfig = {
-apiKey: "PASTE_API_KEY",
-authDomain: "PASTE_AUTH_DOMAIN",
-databaseURL: "PASTE_DATABASE_URL",
-projectId: "PASTE_PROJECT_ID",
-storageBucket: "PASTE_STORAGE_BUCKET",
-messagingSenderId: "PASTE_SENDER_ID",
-appId: "PASTE_APP_ID"
-};
-
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
-
-function toggleMenu(){
-document.getElementById("sidebar").classList.toggle("show");
+    
+    db.ref("community-posts").push({
+        userName: name,
+        message: msg,
+        timestamp: Date.now()
+    });
+    
+    msgInput.value = "";
+    alert("🚀 Message broadcasted successfully!");
 }
 
-function showPage(pageId){
-const pages=document.querySelectorAll(".page");
-pages.forEach(page=>{ page.classList.remove("active-page"); });
-document.getElementById(pageId).classList.add("active-page");
-
-if(window.innerWidth < 768){
-document.getElementById("sidebar").classList.remove("show");
-}
-}
-
-function increaseDownload(config){
-let ref = db.ref("downloads/" + config);
-ref.transaction((count)=>{ return (count || 0) + 1; });
-}
-
-function simulateDownload(btn){
-btn.style.transition = "0.4s";
-btn.innerHTML = "⬇ Downloading...";
-setTimeout(() => {
-    btn.innerHTML = "✅ Downloaded!";
-    setTimeout(() => {
-        btn.innerHTML = "⬇ Download File";
-    }, 2000);
-}, 1200);
-}
-
-["config1","config2","config3"].forEach(config=>{
-db.ref("downloads/" + config).on("value",(snapshot)=>{
-document.getElementById("downloads-" + config).innerText = snapshot.val() || 0;
-});
-});
-
-function addComment(config){
-let input = document.getElementById("input-" + config);
-let text = input.value.trim();
-if(text !== ""){
-db.ref("comments/" + config).push({text:text});
-input.value="";
-}
-}
-
-["config1","config2","config3"].forEach(config=>{
-db.ref("comments/" + config).on("value",(snapshot)=>{
-let commentsDiv = document.getElementById("comments-" + config);
-commentsDiv.innerHTML="";
-snapshot.forEach((child)=>{
-let data = child.val();
-let comment = document.createElement("div");
-comment.className="comment";
-comment.innerText=data.text;
-commentsDiv.prepend(comment);
-});
-});
-});
-
-function filterConfigs(){
-const term = document.getElementById('searchInput').value.toLowerCase();
-document.querySelectorAll('.config-box').forEach(box => {
-    const searchable = box.getAttribute('data-search') || '';
-    box.style.display = searchable.includes(term) ? 'block' : 'none';
-});
+function loadCommunityFeed() {
+    const feedBox = document.getElementById('community-feed');
+    const sevenDaysInMs = 7 * 24 * 60 * 60 * 1000;
+    const now = Date.now();
+    
+    db.ref("community-posts").orderByChild("timestamp").on("value", (snapshot) => {
+        feedBox.innerHTML = "";
+        let postsArray = [];
+        
+        snapshot.forEach((child) => {
+            const post = child.val();
+            // Verify if post is under 7 days old
+            if (now - post.timestamp < sevenDaysInMs) {
+                postsArray.push(post);
+            }
+        });
+        
+        postsArray.reverse(); // Order from newest to oldest
+        
+        if(postsArray.length === 0) {
+            feedBox.innerHTML = `<p style="color:var(--muted); text-align:center; padding:20px;">No active posts available. Be the first to broadcast!</p>`;
+            return;
+        }
+        
+        postsArray.forEach(post => {
+            const dateObj = new Date(post.timestamp);
+            const formattedTime = dateObj.toLocaleDateString() + " @ " + dateObj.toLocaleTimeString();
+            
+            const card = document.createElement("div");
+            card.className = "post-card";
+            card.innerHTML = `
+                <div class="post-header">
+                    <span class="post-user">👤 ${escapeHtml(post.userName)}</span>
+                    <span class="post-time">📅 ${formattedTime}</span>
+                </div>
+                <div class="post-body">${escapeHtml(post.message).replace(/\n/g, '<br>')}</div>
+            `;
+            feedBox.appendChild(card);
+        });
+    });
 }
 
-window.onload = () => {
-    initParticles();
-    animateParticles();
-};
-</script>
-
-</body>
+function escapeHtml(text) {
+    return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}  
+  
+function postSquadConfig(){  
+alert("✅ Config Posted! (Squad members only)");  
+document.getElementById('new-config-name').value = '';  
+document.getElementById('new-config-desc').value = '';  
+document.getElementById('new-config-link').value = '';  
+}  
+  
+function increaseDownload(config){  
+let ref = db.ref("downloads/" + config);  
+ref.transaction((count)=>{ return (count || 0) + 1; });  
+}  
+  
+function simulateDownload(btn){  
+btn.style.transition = "0.4s";  
+btn.innerHTML = "⬇ Downloading...";  
+setTimeout(() => {  
+    btn.innerHTML = "✅ Downloaded!";  
+    setTimeout(() => {  
+        btn.innerHTML = "⬇ Download File";  
+    }, 2000);  
+}, 1200);  
+}  
+  
+["config1","config2","config3"].forEach(config=>{  
+db.ref("downloads/" + config).on("value",(snapshot)=>{  
+document.getElementById("downloads-" + config).innerText = snapshot.val() || 0;  
+});  
+});  
+  
+function addComment(config){  
+let input = document.getElementById("input-" + config);  
+let text = input.value.trim();  
+if(text !== ""){  
+db.ref("comments/" + config).push({text:text});  
+input.value="";  
+}  
+}  
+  
+["config1","config2","config3"].forEach(config=>{  
+db.ref("comments/" + config).on("value",(snapshot)=>{  
+let commentsDiv = document.getElementById("comments-" + config);  
+commentsDiv.innerHTML="";  
+snapshot.forEach((child)=>{  
+let data = child.val();  
+let comment = document.createElement("div");  
+comment.className="comment";  
+comment.innerText=data.text;  
+commentsDiv.prepend(comment);  
+});  
+});  
+});  
+  
+function filterConfigs(){  
+    const input = document.getElementById('searchInput');  
+    const filter = input.value.toLowerCase();  
+    const configBoxes = document.querySelectorAll('.config-box');  
+      
+    configBoxes.forEach(box => {  
+        const searchText = box.getAttribute('data-search') || '';  
+        const headingText = box.querySelector('h3').innerText.toLowerCase();  
+          
+        if(searchText.toLowerCase().includes(filter) || headingText.includes(filter)) {  
+            box.style.display = "";  
+        } else {  
+            box.style.display = "none";  
+        }  
+    });  
+}  
+</script>  
+</body>  
 </html>
+ 
+
+        
