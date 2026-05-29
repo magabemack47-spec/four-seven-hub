@@ -1,18 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="theme-color" content="#00bfff">
-<meta name="description" content="FOUR SEVEN HUB official configs and downloads">
+<title>☠️ FOUR SEVEN. NeT-SiTE ☠️</title>
 
-<title>☠️ FOUR SEVEN HUB ☠️</title>
+<!-- FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 
 <style>
-
 :root{
 --bg:#050b14;
 --card:#101826;
@@ -23,6 +21,7 @@
 --border:#1f2b3d;
 --green:#25D366;
 --gold:#ffd700;
+--neon:#00f0ff;
 }
 
 *{
@@ -34,63 +33,65 @@ font-family:Segoe UI,sans-serif;
 
 body{
 background:linear-gradient(to bottom,#030712,#071120);
-color:var(--text);
+color:white;
 display:flex;
 overflow-x:hidden;
+position:relative;
 }
 
-/* TOP CORNER */
+/* PARTICLE BACKGROUND */
+#particles {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.12;
+}
 
+/* TOP */
 .top-corner{
 position:fixed;
 top:10px;
 right:10px;
-font-size:0.8rem;
+font-size:0.75rem;
 font-weight:bold;
 color:#00bfff;
 text-align:center;
 z-index:9999;
 line-height:1.2;
-text-shadow:
-0 0 5px #00bfff,
-0 0 10px #00bfff,
-0 0 20px #0077ff;
+text-shadow:0 0 10px #00bfff;
 animation:glow 2s infinite alternate;
 }
 
 /* SIDEBAR */
-
 .sidebar{
 width:280px;
 height:100vh;
-background:rgba(10,15,25,0.95);
-backdrop-filter:blur(10px);
-border-right:1px solid var(--border);
+background:rgba(10,15,25,0.96);
+border-right:1px solid #1f2b3d;
 position:fixed;
 padding:20px;
 overflow-y:auto;
 z-index:1000;
-transition:0.3s;
+backdrop-filter:blur(10px);
 }
 
 .brand{
 text-align:center;
-font-size:1.5rem;
+font-size:1.6rem;
 font-weight:900;
 margin-bottom:25px;
 color:white;
-text-shadow:
-0 0 10px #00bfff,
-0 0 20px #0077ff;
+text-shadow:0 0 20px #00bfff;
 animation:glow 2s infinite alternate;
 }
 
 .menu-title{
 font-size:0.8rem;
-color:var(--muted);
+color:#9aa4b2;
 margin:15px 0 10px;
 text-transform:uppercase;
-letter-spacing:1px;
 }
 
 .menu-btn{
@@ -99,8 +100,9 @@ width:100%;
 padding:14px;
 margin-bottom:12px;
 background:#111827;
-border:1px solid var(--border);
+border:1px solid #1f2b3d;
 color:white;
+text-decoration:none;
 border-radius:12px;
 transition:0.3s;
 font-weight:700;
@@ -109,20 +111,20 @@ cursor:pointer;
 
 .menu-btn:hover{
 background:rgba(0,191,255,0.15);
-transform:translateX(6px);
+transform:translateX(5px);
 box-shadow:0 0 20px rgba(0,191,255,0.4);
 }
 
 /* MAIN */
-
 .main{
 margin-left:280px;
 padding:25px;
 width:100%;
+position:relative;
+z-index:2;
 }
 
 /* HEADER */
-
 .header{
 background:linear-gradient(135deg,#081120,#0d2038);
 padding:35px;
@@ -141,7 +143,7 @@ filter:drop-shadow(0 0 20px #00bfff);
 }
 
 .main-title{
-font-size:2.5rem;
+font-size:2.6rem;
 font-weight:900;
 color:white;
 text-shadow:
@@ -154,11 +156,9 @@ animation:glow 2s infinite alternate;
 .header p{
 margin-top:10px;
 color:#c0d9ff;
-font-size:0.95rem;
 }
 
-/* PAGE SYSTEM */
-
+/* PAGE */
 .page{
 display:none;
 animation:fade 0.4s ease;
@@ -169,46 +169,35 @@ display:block;
 }
 
 @keyframes fade{
-from{
-opacity:0;
-transform:translateY(10px);
-}
-to{
-opacity:1;
-transform:translateY(0);
-}
+from{opacity:0;transform:translateY(10px);}
+to{opacity:1;transform:translateY(0);}
 }
 
 /* CARD */
-
 .card{
-background:rgba(16,24,38,0.95);
+background:rgba(16,24,38,0.96);
 padding:22px;
 border-radius:18px;
-border:1px solid var(--border);
+border:1px solid #1f2b3d;
 margin-bottom:20px;
-box-shadow:0 0 20px rgba(0,0,0,0.2);
 }
 
-.card h2{
-margin-bottom:18px;
-font-size:1.4rem;
-}
-
-/* CONFIG BOX */
-
+/* CONFIG */
 .config-box{
 background:#0b1320;
 padding:18px;
 border-radius:14px;
 border:1px solid #1d2b3f;
-margin-bottom:18px;
+margin-bottom:20px;
 transition:0.3s;
+position:relative;
+overflow:hidden;
 }
 
 .config-box:hover{
-transform:translateY(-3px);
-box-shadow:0 0 20px rgba(0,191,255,0.2);
+transform:translateY(-5px);
+box-shadow:0 0 25px rgba(0,191,255,0.3);
+border-color:var(--neon);
 }
 
 .config-box h3{
@@ -216,12 +205,12 @@ margin-bottom:10px;
 }
 
 .config-box p{
-color:var(--muted);
-margin-bottom:14px;
+color:#9aa4b2;
+margin-bottom:15px;
+line-height:1.6;
 }
 
 /* BUTTON */
-
 .download-btn{
 display:inline-block;
 padding:12px 18px;
@@ -238,8 +227,19 @@ transform:scale(1.05);
 box-shadow:0 0 20px rgba(0,191,255,0.5);
 }
 
-/* CONFIG ACTIONS */
+/* SEARCH BAR */
+.search-bar {
+    width: 100%;
+    padding: 14px 18px;
+    background: #0b1320;
+    border: 1px solid #1f2b3d;
+    border-radius: 12px;
+    color: white;
+    margin-bottom: 20px;
+    font-size: 1rem;
+}
 
+/* ACTIONS */
 .config-actions{
 display:flex;
 gap:10px;
@@ -256,21 +256,10 @@ background:#111827;
 color:white;
 font-weight:700;
 cursor:pointer;
-transition:0.3s;
 border:1px solid #1f2b3d;
 }
 
-.action-btn:hover{
-background:rgba(0,191,255,0.15);
-box-shadow:0 0 15px rgba(0,191,255,0.4);
-}
-
 /* COMMENTS */
-
-.comment-section{
-margin-top:12px;
-}
-
 .comment-input{
 width:100%;
 padding:12px;
@@ -292,22 +281,15 @@ font-weight:800;
 cursor:pointer;
 }
 
-.comments-list{
-margin-top:15px;
-}
-
 .comment{
 background:#0f1724;
 padding:10px;
 border-radius:10px;
-margin-bottom:10px;
+margin-top:10px;
 border:1px solid #1d2b3f;
-color:#dbe7ff;
-font-size:0.9rem;
 }
 
 /* SOCIALS */
-
 .socials{
 display:grid;
 grid-template-columns:1fr 1fr;
@@ -330,11 +312,10 @@ border-radius:10px;
 text-decoration:none;
 color:white;
 font-weight:800;
-background:var(--green);
+background:#25D366;
 }
 
-/* LISTS */
-
+/* RULES & SAFETY */
 .rules li,
 .safety li{
 margin-bottom:15px;
@@ -343,7 +324,6 @@ color:#d2d8e2;
 }
 
 /* OWNER */
-
 .owner-box{
 text-align:center;
 padding:25px;
@@ -352,82 +332,18 @@ border-radius:16px;
 border:1px solid #1d2b3f;
 }
 
-.owner-box h2{
-color:var(--gold);
-margin-bottom:10px;
-}
-
 /* FOOTER */
-
 .footer{
 text-align:center;
-margin-top:25px;
+margin-top:30px;
 color:#7f8ea3;
 font-size:0.9rem;
 }
 
-/* MOBILE */
-
-.mobile-btn{
-display:none;
-position:fixed;
-top:15px;
-left:15px;
-z-index:2000;
-background:#111827;
-border:1px solid var(--border);
-color:white;
-padding:12px 15px;
-border-radius:10px;
-cursor:pointer;
-}
-
-@media(max-width:768px){
-
-.sidebar{
-transform:translateX(-100%);
-}
-
-.sidebar.show{
-transform:translateX(0);
-}
-
-.main{
-margin-left:0;
-padding-top:80px;
-}
-
-.mobile-btn{
-display:block;
-}
-
-.socials{
-grid-template-columns:1fr;
-}
-
-.main-title{
-font-size:2rem;
-}
-
-.top-corner{
-font-size:0.65rem;
-}
-}
-
 /* ANIMATIONS */
-
 @keyframes glow{
-from{
-text-shadow:
-0 0 10px #00bfff,
-0 0 20px #0077ff;
-}
-to{
-text-shadow:
-0 0 20px #00bfff,
-0 0 40px #0077ff,
-0 0 60px #00bfff;
-}
+from{text-shadow:0 0 10px #00bfff;}
+to{text-shadow:0 0 20px #00bfff,0 0 40px #0077ff,0 0 60px #00bfff;}
 }
 
 @keyframes float{
@@ -436,11 +352,49 @@ text-shadow:
 100%{transform:translateY(0);}
 }
 
-</style>
+/* MOBILE */
+.mobile-btn{
+display:none;
+position:fixed;
+top:15px;
+left:15px;
+z-index:2000;
+background:#111827;
+border:1px solid #1f2b3d;
+color:white;
+padding:12px 15px;
+border-radius:10px;
+cursor:pointer;
+}
 
+@media(max-width:768px){
+.sidebar{
+transform:translateX(-100%);
+transition:0.3s;
+}
+.sidebar.show{
+transform:translateX(0);
+}
+.main{
+margin-left:0;
+padding-top:80px;
+}
+.mobile-btn{
+display:block;
+}
+.main-title{
+font-size:2rem;
+}
+.socials{
+grid-template-columns:1fr;
+}
+}
+</style>
 </head>
 
 <body>
+
+<canvas id="particles"></canvas>
 
 <div class="top-corner">
 ╔☠︎═══☠︎╗<br>
@@ -458,17 +412,12 @@ text-shadow:
 
 <div class="menu-title">MAIN MENU</div>
 
-<button class="menu-btn" onclick="showPage('home-page')">🏠 Home</button>
-
-<button class="menu-btn" onclick="showPage('configs-page')">📥 Config Files</button>
-
-<button class="menu-btn" onclick="showPage('community-page')">💬 Community</button>
-
-<button class="menu-btn" onclick="showPage('rules-page')">📜 Rules</button>
-
-<button class="menu-btn" onclick="showPage('safety-page')">🛡️ Safety</button>
-
-<button class="menu-btn" onclick="showPage('about-page')">⚡ About</button>
+<a class="menu-btn" onclick="showPage('home-page')">🏠 Home</a>
+<a class="menu-btn" onclick="showPage('configs-page')">📥 Config Files</a>
+<a class="menu-btn" onclick="showPage('community-page')">💬 Community</a>
+<a class="menu-btn" onclick="showPage('rules-page')">📜 Rules</a>
+<a class="menu-btn" onclick="showPage('safety-page')">🛡️ Safety</a>
+<a class="menu-btn" onclick="showPage('about-page')">⚡ About</a>
 
 </div>
 
@@ -479,15 +428,14 @@ text-shadow:
 <div class="skull-logo">☠️</div>
 
 <h1 class="main-title">
-⟦ FOUR SEVEN HUB ⟧
+𝐅𝐎𝐔𝐑 𝐒𝐄𝐕𝐄𝐍. NeT-SiTE
 </h1>
 
 <p>[ SYSTEM STATUS : ONLINE ]</p>
 
 </div>
 
-<!-- HOME PAGE -->
-
+<!-- HOME -->
 <div id="home-page" class="page active-page">
 
 <div class="card">
@@ -496,269 +444,128 @@ text-shadow:
 
 <p style="line-height:1.8;color:#cbd5e1;">
 Welcome to the official FOUR SEVEN CONFIG HUB.
-Download premium configs, stay updated,
-and enjoy secure files and projects.
+Download premium configs, join the community,
+and enjoy fast secure access.
 </p>
 
 </div>
 
 </div>
 
-<!-- CONFIG PAGE -->
-
+<!-- CONFIGS -->
 <div id="configs-page" class="page">
 
 <div class="card">
-
 <h2>📥 Config Files</h2>
 
+<input type="text" id="searchInput" class="search-bar" placeholder="🔍 Search configs..." onkeyup="filterConfigs()">
+
 <!-- CONFIG 1 -->
-
-<div class="config-box">
-
+<div class="config-box" data-search="rst mtn">
 <h3>FOUR SEVEN RST MTN</h3>
-
 <p>Premium secure RST config by FOUR SEVEN.</p>
-
-<a class="download-btn"
-href="https://drive.google.com/file/d/1RPYcR5l6U2CckOE0d64mZgVwVShew2iV/view?usp=drivesdk"
-target="_blank"
-onclick="increaseDownload(this)">
+<p style="color:#00bfff;">📅 Posted: 29 May 2026</p>
+<a class="download-btn" href="https://www.mediafire.com/file/cowwwaeu4ctjvuo/FOUR_SEVEN_RST_MTN.%25E2%2581%25B500MB.tls/file" target="_blank" onclick="increaseDownload('config1'); simulateDownload(this)">
 ⬇ Download File
 </a>
-
 <div class="config-actions">
-
-<button class="action-btn" onclick="likeFile(this)">
-❤️ <span class="like-count">0</span>
-</button>
-
-<button class="action-btn">
-⬇ <span class="download-count">0</span>
-</button>
-
+<button class="action-btn">⬇ Downloads: <span id="downloads-config1">0</span></button>
 </div>
-
-<div class="comment-section">
-
-<input type="text"
-class="comment-input"
-placeholder="Write a comment...">
-
-<button class="comment-btn"
-onclick="addComment(this)">
-Post
-</button>
-
-<div class="comments-list"></div>
-
-</div>
-
+<input type="text" class="comment-input" id="input-config1" placeholder="Write a comment...">
+<button class="comment-btn" onclick="addComment('config1')">Post</button>
+<div id="comments-config1"></div>
 </div>
 
 <!-- CONFIG 2 -->
-
-<div class="config-box">
-
+<div class="config-box" data-search="tls">
 <h3>MTN TLS CONFIG</h3>
-
-<p>Fast and secure TLS config powered by FOUR SEVEN.</p>
-
-<a class="download-btn"
-href="https://drive.google.com/file/d/1B97yRQZ-WlV0c-KvkPzo3yBmzeAMIn85/view?usp=drivesdk"
-target="_blank"
-onclick="increaseDownload(this)">
+<p>Fast secure TLS config powered by FOUR SEVEN.</p>
+<p style="color:#00bfff;">📅 Posted: 29 May 2026</p>
+<a class="download-btn" href="https://www.mediafire.com/file/7tmk01yqz5x1ndm/MTN.%25E2%2581%25B500MB%25E2%2580%25A2%25E2%2581%25B4D%25E2%2581%25B7.tls/file" target="_blank" onclick="increaseDownload('config2'); simulateDownload(this)">
 ⬇ Download File
 </a>
-
 <div class="config-actions">
-
-<button class="action-btn" onclick="likeFile(this)">
-❤️ <span class="like-count">0</span>
-</button>
-
-<button class="action-btn">
-⬇ <span class="download-count">0</span>
-</button>
-
+<button class="action-btn">⬇ Downloads: <span id="downloads-config2">0</span></button>
 </div>
-
-<div class="comment-section">
-
-<input type="text"
-class="comment-input"
-placeholder="Write a comment...">
-
-<button class="comment-btn"
-onclick="addComment(this)">
-Post
-</button>
-
-<div class="comments-list"></div>
-
-</div>
-
+<input type="text" class="comment-input" id="input-config2" placeholder="Write a comment...">
+<button class="comment-btn" onclick="addComment('config2')">Post</button>
+<div id="comments-config2"></div>
 </div>
 
 <!-- CONFIG 3 -->
-
-<div class="config-box">
-
+<div class="config-box" data-search="500mb">
 <h3>MTN 500MB CONFIG</h3>
-
 <p>Official FOUR SEVEN config file for MTN users.</p>
-
-<a class="download-btn"
-href="https://drive.google.com/file/d/1XiYoAuZwnRnCbjFgpnth7baHBylNnHGB/view?usp=drivesdk"
-target="_blank"
-onclick="increaseDownload(this)">
+<p style="color:#00bfff;">📅 Posted: 29 May 2026</p>
+<a class="download-btn" href="https://www.mediafire.com/file/dikxp7zjvdld3uq/mTn_5%25E2%2581%25B0%25E2%2581%25B0Mb.bdnet/file" target="_blank" onclick="increaseDownload('config3'); simulateDownload(this)">
 ⬇ Download File
 </a>
-
 <div class="config-actions">
-
-<button class="action-btn" onclick="likeFile(this)">
-❤️ <span class="like-count">0</span>
-</button>
-
-<button class="action-btn">
-⬇ <span class="download-count">0</span>
-</button>
-
+<button class="action-btn">⬇ Downloads: <span id="downloads-config3">0</span></button>
 </div>
-
-<div class="comment-section">
-
-<input type="text"
-class="comment-input"
-placeholder="Write a comment...">
-
-<button class="comment-btn"
-onclick="addComment(this)">
-Post
-</button>
-
-<div class="comments-list"></div>
-
+<input type="text" class="comment-input" id="input-config3" placeholder="Write a comment...">
+<button class="comment-btn" onclick="addComment('config3')">Post</button>
+<div id="comments-config3"></div>
 </div>
 
 </div>
-
 </div>
 
-</div>
-
-<!-- COMMUNITY PAGE -->
-
+<!-- COMMUNITY -->
 <div id="community-page" class="page">
-
 <div class="card">
-
-<h2>💬 Community</h2>
-
+<h2>💬 Social Community</h2>
 <div class="socials">
-
 <div class="social-card">
-
-<h3>⚡ FOUR SEVEN HUB</h3>
-
-<p>
-Official secure config and download platform
-powered by FOUR SEVEN.
-</p>
-
+<h3>WhatsApp Group</h3>
+<p>Join the official FOUR SEVEN group.</p>
+<a href="https://chat.whatsapp.com/CknxMJ2cMh5Au8K24bzwZX" target="_blank">Join Group</a>
 </div>
-
 <div class="social-card">
-
-<h3>💰 Earn Money</h3>
-
-<p>Visit this website and collect money.</p>
-
-<a href="https://a1.wa710.cc/go/28258927"
-target="_blank">
-Visit Website
-</a>
-
+<h3>WhatsApp Channel</h3>
+<p>Follow official updates and configs.</p>
+<a href="https://whatsapp.com/channel/0029Vb81d5DBqbr7lKirp91H" target="_blank">Follow Channel</a>
+</div>
+</div>
+</div>
 </div>
 
-</div>
-
-</div>
-
-</div>
-
-<!-- RULES PAGE -->
-
+<!-- RULES -->
 <div id="rules-page" class="page">
-
 <div class="card">
-
 <h2>📜 Site Rules</h2>
-
 <ul class="rules">
-
-<li>❌ Do not spam the website.</li>
-
+<li>❌ Do not spam the website or community groups.</li>
 <li>❌ Do not steal configs and claim ownership.</li>
-
 <li>❌ No fake links or harmful files allowed.</li>
-
-<li>✅ Respect all users.</li>
-
+<li>✅ Respect all community members.</li>
 <li>✅ Use configs responsibly.</li>
-
 </ul>
-
+</div>
 </div>
 
-</div>
-
-<!-- SAFETY PAGE -->
-
+<!-- SAFETY -->
 <div id="safety-page" class="page">
-
 <div class="card">
-
 <h2>🛡️ Safety & Security</h2>
-
 <ul class="safety">
-
 <li>🔒 All files are checked before upload.</li>
-
 <li>🔒 Official FOUR SEVEN links only.</li>
-
+<li>🔒 Never share passwords in groups.</li>
 <li>🔒 Download only from trusted links.</li>
-
 <li>🔒 Stay safe from fake websites.</li>
-
 </ul>
-
+</div>
 </div>
 
-</div>
-
-<!-- ABOUT PAGE -->
-
+<!-- ABOUT -->
 <div id="about-page" class="page">
-
 <div class="card">
-
-<h2>⚡ About FOUR SEVEN</h2>
-
 <div class="owner-box">
-
-<h2>𖤍 𝐅𝐎𝐔𝐑 𝐒𝐄𝐕𝐄𝐍 𖤍</h2>
-
-<p>
-Official developer and owner of the
-FOUR SEVEN CONFIG HUB.
-</p>
-
+<h2 style="color:#ffd700;">𖤍 𝐅𝐎𝐔𝐑 𝐒𝐄𝐕𝐄𝐍 𖤍</h2>
+<p style="margin-top:10px;color:#cbd5e1;">Official developer and owner of FOUR SEVEN HUB.</p>
 </div>
-
 </div>
-
 </div>
 
 <div class="footer">
@@ -768,79 +575,145 @@ FOUR SEVEN CONFIG HUB.
 </div>
 
 <script>
+// PARTICLES
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-function toggleMenu() {
+let particlesArray = [];
+class Particle {
+    constructor(){
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 0.5;
+        this.speedX = Math.random() * 0.6 - 0.3;
+        this.speedY = Math.random() * 0.6 - 0.3;
+    }
+    update(){
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if(this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+        if(this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+    }
+    draw(){
+        ctx.fillStyle = '#00bfff';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+    }
+}
+function initParticles(){
+    particlesArray = [];
+    for(let i = 0; i < 70; i++) particlesArray.push(new Particle());
+}
+function animateParticles(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    for(let i = 0; i < particlesArray.length; i++){
+        particlesArray[i].update();
+        particlesArray[i].draw();
+    }
+    requestAnimationFrame(animateParticles);
+}
+window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    initParticles();
+});
+
+/* FIREBASE CONFIG */
+const firebaseConfig = {
+apiKey: "PASTE_API_KEY",
+authDomain: "PASTE_AUTH_DOMAIN",
+databaseURL: "PASTE_DATABASE_URL",
+projectId: "PASTE_PROJECT_ID",
+storageBucket: "PASTE_STORAGE_BUCKET",
+messagingSenderId: "PASTE_SENDER_ID",
+appId: "PASTE_APP_ID"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+/* MENU */
+function toggleMenu(){
 document.getElementById("sidebar").classList.toggle("show");
 }
 
 function showPage(pageId){
-
 const pages=document.querySelectorAll(".page");
-
-pages.forEach(page=>{
-page.classList.remove("active-page");
-});
-
-document.getElementById(pageId)
-.classList.add("active-page");
+pages.forEach(page=>{ page.classList.remove("active-page"); });
+document.getElementById(pageId).classList.add("active-page");
 
 if(window.innerWidth < 768){
-document.getElementById("sidebar")
-.classList.remove("show");
+document.getElementById("sidebar").classList.remove("show");
 }
 }
 
-function likeFile(button){
-
-let count =
-button.querySelector(".like-count");
-
-count.innerText =
-parseInt(count.innerText)+1;
+/* DOWNLOAD COUNTER */
+function increaseDownload(config){
+let ref = db.ref("downloads/" + config);
+ref.transaction((count)=>{ return (count || 0) + 1; });
 }
 
-function increaseDownload(link){
-
-let box =
-link.closest(".config-box");
-
-let count =
-box.querySelector(".download-count");
-
-count.innerText =
-parseInt(count.innerText)+1;
+/* DOWNLOAD ANIMATION */
+function simulateDownload(btn){
+btn.style.transition = "0.4s";
+btn.innerHTML = "⬇ Downloading...";
+setTimeout(() => {
+    btn.innerHTML = "✅ Downloaded!";
+    setTimeout(() => {
+        btn.innerHTML = "⬇ Download File";
+    }, 2000);
+}, 1200);
 }
 
-function addComment(button){
-
-let section =
-button.parentElement;
-
-let input =
-section.querySelector(".comment-input");
-
-let commentsList =
-section.querySelector(".comments-list");
-
-if(input.value.trim() !== ""){
-
-let comment =
-document.createElement("div");
-
-comment.className = "comment";
-
-comment.innerText = input.value;
-
-commentsList.prepend(comment);
-
-input.value = "";
-}
-}
-
-window.addEventListener("offline", () => {
-console.log("Offline mode");
+/* LIVE DOWNLOADS */
+["config1","config2","config3"].forEach(config=>{
+db.ref("downloads/" + config).on("value",(snapshot)=>{
+document.getElementById("downloads-" + config).innerText = snapshot.val() || 0;
+});
 });
 
+/* COMMENTS */
+function addComment(config){
+let input = document.getElementById("input-" + config);
+let text = input.value.trim();
+if(text !== ""){
+db.ref("comments/" + config).push({text:text});
+input.value="";
+}
+}
+
+/* LIVE COMMENTS */
+["config1","config2","config3"].forEach(config=>{
+db.ref("comments/" + config).on("value",(snapshot)=>{
+let commentsDiv = document.getElementById("comments-" + config);
+commentsDiv.innerHTML="";
+snapshot.forEach((child)=>{
+let data = child.val();
+let comment = document.createElement("div");
+comment.className="comment";
+comment.innerText=data.text;
+commentsDiv.prepend(comment);
+});
+});
+});
+
+/* SEARCH FILTER */
+function filterConfigs(){
+const term = document.getElementById('searchInput').value.toLowerCase();
+document.querySelectorAll('.config-box').forEach(box => {
+    const searchable = box.getAttribute('data-search') || '';
+    box.style.display = searchable.includes(term) ? 'block' : 'none';
+});
+}
+
+// Initialize
+window.onload = () => {
+    initParticles();
+    animateParticles();
+};
 </script>
 
 </body>
