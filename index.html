@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
 <title>☠️ FOUR SEVEN. NeT-SiTE ☠️</title>
 
 <!-- FIREBASE -->
@@ -20,13 +21,14 @@
 --border:#1f2b3d;
 --green:#25D366;
 --gold:#ffd700;
+--neon:#00f0ff;
 }
 
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Segoe UI, sans-serif;
+font-family:Segoe UI,sans-serif;
 }
 
 body{
@@ -34,10 +36,20 @@ background:linear-gradient(to bottom,#030712,#071120);
 color:white;
 display:flex;
 overflow-x:hidden;
-min-height:100vh;
+position:relative;
 }
 
-/* TOP CORNER */
+/* PARTICLE BACKGROUND */
+#particles {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.12;
+}
+
+/* TOP */
 .top-corner{
 position:fixed;
 top:10px;
@@ -63,7 +75,6 @@ padding:20px;
 overflow-y:auto;
 z-index:1000;
 backdrop-filter:blur(10px);
-transition:0.3s;
 }
 
 .brand{
@@ -76,7 +87,6 @@ text-shadow:0 0 20px #00bfff;
 animation:glow 2s infinite alternate;
 }
 
-/* ... (rest of your original styles remain the same) ... */
 .menu-title{
 font-size:0.8rem;
 color:#9aa4b2;
@@ -105,13 +115,16 @@ transform:translateX(5px);
 box-shadow:0 0 20px rgba(0,191,255,0.4);
 }
 
+/* MAIN */
 .main{
 margin-left:280px;
 padding:25px;
 width:100%;
-min-height:100vh;
+position:relative;
+z-index:2;
 }
 
+/* HEADER */
 .header{
 background:linear-gradient(135deg,#081120,#0d2038);
 padding:35px;
@@ -133,12 +146,35 @@ filter:drop-shadow(0 0 20px #00bfff);
 font-size:2.6rem;
 font-weight:900;
 color:white;
-text-shadow:0 0 10px #00bfff, 0 0 20px #0077ff, 0 0 40px #00bfff;
+text-shadow:
+0 0 10px #00bfff,
+0 0 20px #0077ff,
+0 0 40px #00bfff;
 animation:glow 2s infinite alternate;
 }
 
-/* Keep all your other styles (card, config-box, etc.) */
-.card, .config-box, .social-card, .owner-box {
+.header p{
+margin-top:10px;
+color:#c0d9ff;
+}
+
+/* PAGE */
+.page{
+display:none;
+animation:fade 0.4s ease;
+}
+
+.active-page{
+display:block;
+}
+
+@keyframes fade{
+from{opacity:0;transform:translateY(10px);}
+to{opacity:1;transform:translateY(0);}
+}
+
+/* CARD */
+.card{
 background:rgba(16,24,38,0.96);
 padding:22px;
 border-radius:18px;
@@ -146,6 +182,35 @@ border:1px solid #1f2b3d;
 margin-bottom:20px;
 }
 
+/* CONFIG */
+.config-box{
+background:#0b1320;
+padding:18px;
+border-radius:14px;
+border:1px solid #1d2b3f;
+margin-bottom:20px;
+transition:0.3s;
+position:relative;
+overflow:hidden;
+}
+
+.config-box:hover{
+transform:translateY(-5px);
+box-shadow:0 0 25px rgba(0,191,255,0.3);
+border-color:var(--neon);
+}
+
+.config-box h3{
+margin-bottom:10px;
+}
+
+.config-box p{
+color:#9aa4b2;
+margin-bottom:15px;
+line-height:1.6;
+}
+
+/* BUTTON */
 .download-btn{
 display:inline-block;
 padding:12px 18px;
@@ -162,31 +227,134 @@ transform:scale(1.05);
 box-shadow:0 0 20px rgba(0,191,255,0.5);
 }
 
-/* Animations */
+/* SEARCH BAR */
+.search-bar {
+    width: 100%;
+    padding: 14px 18px;
+    background: #0b1320;
+    border: 1px solid #1f2b3d;
+    border-radius: 12px;
+    color: white;
+    margin-bottom: 20px;
+    font-size: 1rem;
+}
+
+/* ACTIONS */
+.config-actions{
+display:flex;
+gap:10px;
+margin-top:15px;
+margin-bottom:15px;
+flex-wrap:wrap;
+}
+
+.action-btn{
+padding:10px 14px;
+border:none;
+border-radius:10px;
+background:#111827;
+color:white;
+font-weight:700;
+cursor:pointer;
+border:1px solid #1f2b3d;
+}
+
+/* COMMENTS */
+.comment-input{
+width:100%;
+padding:12px;
+border-radius:10px;
+border:1px solid #1f2b3d;
+background:#0b1320;
+color:white;
+outline:none;
+margin-bottom:10px;
+}
+
+.comment-btn{
+padding:10px 16px;
+border:none;
+border-radius:10px;
+background:linear-gradient(to right,#00bfff,#0077ff);
+color:white;
+font-weight:800;
+cursor:pointer;
+}
+
+.comment{
+background:#0f1724;
+padding:10px;
+border-radius:10px;
+margin-top:10px;
+border:1px solid #1d2b3f;
+}
+
+/* SOCIALS */
+.socials{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+}
+
+.social-card{
+background:#0b1320;
+padding:20px;
+border-radius:14px;
+border:1px solid #1d2b3f;
+text-align:center;
+}
+
+.social-card a{
+display:inline-block;
+margin-top:12px;
+padding:12px 18px;
+border-radius:10px;
+text-decoration:none;
+color:white;
+font-weight:800;
+background:#25D366;
+}
+
+/* RULES & SAFETY */
+.rules li,
+.safety li{
+margin-bottom:15px;
+line-height:1.6;
+color:#d2d8e2;
+}
+
+/* OWNER */
+.owner-box{
+text-align:center;
+padding:25px;
+background:#0b1320;
+border-radius:16px;
+border:1px solid #1d2b3f;
+}
+
+/* FOOTER */
+.footer{
+text-align:center;
+margin-top:30px;
+color:#7f8ea3;
+font-size:0.9rem;
+}
+
+/* ANIMATIONS */
 @keyframes glow{
-from { text-shadow:0 0 10px #00bfff; }
-to { text-shadow:0 0 20px #00bfff, 0 0 40px #0077ff, 0 0 60px #00bfff; }
+from{text-shadow:0 0 10px #00bfff;}
+to{text-shadow:0 0 20px #00bfff,0 0 40px #0077ff,0 0 60px #00bfff;}
 }
 
 @keyframes float{
-0%,100%{transform:translateY(0);}
+0%{transform:translateY(0);}
 50%{transform:translateY(-8px);}
+100%{transform:translateY(0);}
 }
 
-/* Mobile */
-@media(max-width:768px){
-.sidebar{
-transform:translateX(-100%);
-}
-.sidebar.show{
-transform:translateX(0);
-}
-.main{
-margin-left:0;
-padding-top:80px;
-}
+/* MOBILE */
 .mobile-btn{
-display:block;
+display:none;
 position:fixed;
 top:15px;
 left:15px;
@@ -198,11 +366,35 @@ padding:12px 15px;
 border-radius:10px;
 cursor:pointer;
 }
+
+@media(max-width:768px){
+.sidebar{
+transform:translateX(-100%);
+transition:0.3s;
+}
+.sidebar.show{
+transform:translateX(0);
+}
+.main{
+margin-left:0;
+padding-top:80px;
+}
+.mobile-btn{
+display:block;
+}
+.main-title{
+font-size:2rem;
+}
+.socials{
+grid-template-columns:1fr;
+}
 }
 </style>
 </head>
 
 <body>
+
+<canvas id="particles"></canvas>
 
 <div class="top-corner">
 ╔☠︎═══☠︎╗<br>
@@ -213,47 +405,64 @@ cursor:pointer;
 <button class="mobile-btn" onclick="toggleMenu()">☰</button>
 
 <div class="sidebar" id="sidebar">
-<div class="brand">☠️ FOUR SEVEN</div>
+
+<div class="brand">
+☠️ FOUR SEVEN
+</div>
 
 <div class="menu-title">MAIN MENU</div>
+
 <a class="menu-btn" onclick="showPage('home-page')">🏠 Home</a>
 <a class="menu-btn" onclick="showPage('configs-page')">📥 Config Files</a>
 <a class="menu-btn" onclick="showPage('community-page')">💬 Community</a>
+<a class="menu-btn" onclick="showPage('earn-page')">💰 Earn Money</a>
 <a class="menu-btn" onclick="showPage('rules-page')">📜 Rules</a>
 <a class="menu-btn" onclick="showPage('safety-page')">🛡️ Safety</a>
-<a class="menu-btn" onclick="showPage('about-page')">⚡ About</a>
+<a class="menu-btn" onclick="showPage('about-page')">👑 Owner</a>
+<a class="menu-btn" href="https://github.com/magabemack47-spec/four-seven-hub" target="_blank">🐙 GitHub</a>
+
 </div>
 
 <div class="main">
+
 <div class="header">
+
 <div class="skull-logo">☠️</div>
-<h1 class="main-title">𝐅𝐎𝐔𝐑 𝐒𝐄𝐕𝐄𝐍. NeT-SiTE</h1>
+
+<h1 class="main-title">
+𝐅𝐎𝐔𝐑 𝐒𝐄𝐕𝐄𝐍. NeT-SiTE
+</h1>
+
 <p>[ SYSTEM STATUS : ONLINE ]</p>
+
 </div>
 
-<!-- Pages remain exactly the same as yours -->
-<!-- HOME, CONFIGS, COMMUNITY, RULES, SAFETY, ABOUT -->
-
+<!-- HOME -->
 <div id="home-page" class="page active-page">
 <div class="card">
 <h2>☠️ Welcome</h2>
 <p style="line-height:1.8;color:#cbd5e1;">
-Welcome to the official FOUR SEVEN CONFIG HUB.<br>
-Download premium configs, join the community, and enjoy fast secure access.
+Welcome to the official FOUR SEVEN CONFIG HUB.
+Download premium configs, join the community,
+and enjoy fast secure access.
 </p>
 </div>
 </div>
 
-<!-- CONFIGS PAGE (your configs kept) -->
+<!-- CONFIGS -->
 <div id="configs-page" class="page">
+
 <div class="card">
 <h2>📥 Config Files</h2>
 
-<div class="config-box">
+<input type="text" id="searchInput" class="search-bar" placeholder="🔍 Search configs..." onkeyup="filterConfigs()">
+
+<!-- CONFIG 1 -->
+<div class="config-box" data-search="rst mtn">
 <h3>FOUR SEVEN RST MTN</h3>
 <p>Premium secure RST config by FOUR SEVEN.</p>
 <p style="color:#00bfff;">📅 Posted: 29 May 2026</p>
-<a class="download-btn" href="https://drive.google.com/file/d/1RPYcR5l6U2CckOE0d64mZgVwVShew2iV/view?usp=drivesdk" target="_blank" onclick="increaseDownload('config1')">
+<a class="download-btn" href="https://ouo.io/8251Zl" target="_blank" onclick="increaseDownload('config1'); simulateDownload(this)">
 ⬇ Download File
 </a>
 <div class="config-actions">
@@ -264,113 +473,211 @@ Download premium configs, join the community, and enjoy fast secure access.
 <div id="comments-config1"></div>
 </div>
 
-<!-- Repeat for config2 and config3 (same as original) -->
-<!-- ... -->
+<!-- CONFIG 2 -->
+<div class="config-box" data-search="tls">
+<h3>MTN TLS CONFIG</h3>
+<p>Fast secure TLS config powered by FOUR SEVEN.</p>
+<p style="color:#00bfff;">📅 Posted: 29 May 2026</p>
+<a class="download-btn" href="https://ouo.io/EaguwR" target="_blank" onclick="increaseDownload('config2'); simulateDownload(this)">
+⬇ Download File
+</a>
+<div class="config-actions">
+<button class="action-btn">⬇ Downloads: <span id="downloads-config2">0</span></button>
+</div>
+<input type="text" class="comment-input" id="input-config2" placeholder="Write a comment...">
+<button class="comment-btn" onclick="addComment('config2')">Post</button>
+<div id="comments-config2"></div>
+</div>
+
+<!-- CONFIG 3 -->
+<div class="config-box" data-search="500mb">
+<h3>MTN 500MB CONFIG</h3>
+<p>Official FOUR SEVEN config file for MTN users.</p>
+<p style="color:#00bfff;">📅 Posted: 29 May 2026</p>
+<a class="download-btn" href="https://ouo.io/MQwA5jq" target="_blank" onclick="increaseDownload('config3'); simulateDownload(this)">
+⬇ Download File
+</a>
+<div class="config-actions">
+<button class="action-btn">⬇ Downloads: <span id="downloads-config3">0</span></button>
+</div>
+<input type="text" class="comment-input" id="input-config3" placeholder="Write a comment...">
+<button class="comment-btn" onclick="addComment('config3')">Post</button>
+<div id="comments-config3"></div>
+</div>
 
 </div>
 </div>
 
-<!-- Other pages (community, rules, etc.) unchanged -->
+<!-- EARN MONEY -->
+<div id="earn-page" class="page">
+<div class="card">
+<h2>💰 Earn Free Money</h2>
+<p style="line-height:1.8;color:#cbd5e1;">
+Join this platform and start earning real money for free.<br><br>
+Click the button below to get started.
+</p>
+<a href="https://a1.wa710.cc/go/28258927" target="_blank" class="download-btn" style="background:linear-gradient(to right,#25D366,#00bfff);">
+🚀 Start Earning Now
+</a>
+</div>
+</div>
+
+<!-- Other pages (Community, Rules, Safety, Owner) remain the same -->
+
+<div id="about-page" class="page">
+<div class="card">
+<div class="owner-box">
+<h2 style="color:#ffd700;">⟦ 𝐅𝐎𝐔𝐑 ⨯ 𝐒𝐄𝐕𝐄𝐍 ⟧</h2>
+<p style="margin:15px 0;color:#cbd5e1;font-size:1.1rem;">
+Skilled developer and network specialist. I deploy powerful bots and help people create custom tunnel files for stable and fast connections.<br><br>
+I created this website in <strong>May 2026</strong> to share premium resources with the community.
+</p>
+<p style="margin-top:20px;color:#00bfff;">
+📞 Contact Me: <strong>+27602225117</strong><br>
+💬 WhatsApp only for serious inquiries.
+</p>
+</div>
+</div>
+</div>
 
 <div class="footer">
 © 2026 FOUR SEVEN — ALL RIGHTS RESERVED
 </div>
+
 </div>
 
 <script>
-// === FIREBASE CONFIG ===
+// Your full script (particles, firebase, functions, etc.)
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particlesArray = [];
+class Particle {
+    constructor(){
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 0.5;
+        this.speedX = Math.random() * 0.6 - 0.3;
+        this.speedY = Math.random() * 0.6 - 0.3;
+    }
+    update(){
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if(this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+        if(this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+    }
+    draw(){
+        ctx.fillStyle = '#00bfff';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+    }
+}
+function initParticles(){
+    particlesArray = [];
+    for(let i = 0; i < 70; i++) particlesArray.push(new Particle());
+}
+function animateParticles(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    for(let i = 0; i < particlesArray.length; i++){
+        particlesArray[i].update();
+        particlesArray[i].draw();
+    }
+    requestAnimationFrame(animateParticles);
+}
+window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    initParticles();
+});
+
 const firebaseConfig = {
-    // TODO: Replace with your actual Firebase config
-    apiKey: "YOUR_API_KEY_HERE",
-    authDomain: "YOUR_PROJECT.firebaseapp.com",
-    databaseURL: "https://YOUR_PROJECT-default-rtdb.firebaseio.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT.appspot.com",
-    messagingSenderId: "123456789",
-    appId: "YOUR_APP_ID"
+apiKey: "PASTE_API_KEY",
+authDomain: "PASTE_AUTH_DOMAIN",
+databaseURL: "PASTE_DATABASE_URL",
+projectId: "PASTE_PROJECT_ID",
+storageBucket: "PASTE_STORAGE_BUCKET",
+messagingSenderId: "PASTE_SENDER_ID",
+appId: "PASTE_APP_ID"
 };
 
-let db;
-try {
-    firebase.initializeApp(firebaseConfig);
-    db = firebase.database();
-    console.log("✅ Firebase initialized");
-} catch (e) {
-    console.warn("⚠️ Firebase not configured. Real-time features disabled.");
-    db = null;
-}
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
 
-// === MENU ===
 function toggleMenu(){
-    document.getElementById("sidebar").classList.toggle("show");
+document.getElementById("sidebar").classList.toggle("show");
 }
 
 function showPage(pageId){
-    document.querySelectorAll(".page").forEach(page => {
-        page.classList.remove("active-page");
-    });
-    document.getElementById(pageId).classList.add("active-page");
+const pages=document.querySelectorAll(".page");
+pages.forEach(page=>{ page.classList.remove("active-page"); });
+document.getElementById(pageId).classList.add("active-page");
 
-    if(window.innerWidth < 768){
-        document.getElementById("sidebar").classList.remove("show");
-    }
+if(window.innerWidth < 768){
+document.getElementById("sidebar").classList.remove("show");
+}
 }
 
-// === DOWNLOAD COUNTER ===
 function increaseDownload(config){
-    if (!db) return;
-    let ref = db.ref("downloads/" + config);
-    ref.transaction((count) => (count || 0) + 1);
+let ref = db.ref("downloads/" + config);
+ref.transaction((count)=>{ return (count || 0) + 1; });
 }
 
-// Live Downloads
-function setupLiveDownloads() {
-    if (!db) return;
-    ["config1","config2","config3"].forEach(config => {
-        db.ref("downloads/" + config).on("value", (snapshot) => {
-            const el = document.getElementById("downloads-" + config);
-            if (el) el.innerText = snapshot.val() || 0;
-        });
-    });
+function simulateDownload(btn){
+btn.style.transition = "0.4s";
+btn.innerHTML = "⬇ Downloading...";
+setTimeout(() => {
+    btn.innerHTML = "✅ Downloaded!";
+    setTimeout(() => {
+        btn.innerHTML = "⬇ Download File";
+    }, 2000);
+}, 1200);
 }
 
-// === COMMENTS ===
+["config1","config2","config3"].forEach(config=>{
+db.ref("downloads/" + config).on("value",(snapshot)=>{
+document.getElementById("downloads-" + config).innerText = snapshot.val() || 0;
+});
+});
+
 function addComment(config){
-    if (!db) {
-        alert("Comments are disabled (Firebase not configured)");
-        return;
-    }
-    const input = document.getElementById("input-" + config);
-    const text = input.value.trim();
-    if(text !== ""){
-        db.ref("comments/" + config).push({ text: text, timestamp: Date.now() });
-        input.value = "";
-    }
+let input = document.getElementById("input-" + config);
+let text = input.value.trim();
+if(text !== ""){
+db.ref("comments/" + config).push({text:text});
+input.value="";
+}
 }
 
-function setupLiveComments() {
-    if (!db) return;
-    ["config1","config2","config3"].forEach(config => {
-        db.ref("comments/" + config).on("value", (snapshot) => {
-            const commentsDiv = document.getElementById("comments-" + config);
-            if (!commentsDiv) return;
-            commentsDiv.innerHTML = "";
-            snapshot.forEach((child) => {
-                const data = child.val();
-                const comment = document.createElement("div");
-                comment.className = "comment";
-                comment.innerHTML = `<small>\( {new Date(data.timestamp||Date.now()).toLocaleString()}</small><br> \){data.text}`;
-                commentsDiv.prepend(comment);
-            });
-        });
-    });
+["config1","config2","config3"].forEach(config=>{
+db.ref("comments/" + config).on("value",(snapshot)=>{
+let commentsDiv = document.getElementById("comments-" + config);
+commentsDiv.innerHTML="";
+snapshot.forEach((child)=>{
+let data = child.val();
+let comment = document.createElement("div");
+comment.className="comment";
+comment.innerText=data.text;
+commentsDiv.prepend(comment);
+});
+});
+});
+
+function filterConfigs(){
+const term = document.getElementById('searchInput').value.toLowerCase();
+document.querySelectorAll('.config-box').forEach(box => {
+    const searchable = box.getAttribute('data-search') || '';
+    box.style.display = searchable.includes(term) ? 'block' : 'none';
+});
 }
 
-// Initialize everything
-window.onload = function() {
-    setupLiveDownloads();
-    setupLiveComments();
+window.onload = () => {
+    initParticles();
+    animateParticles();
 };
 </script>
+
 </body>
 </html>
