@@ -443,7 +443,7 @@ font-size:1.6rem;
 
 <div class="top-corner">  
 ╔☠︎═══☠︎╗<br>  
-FOUR SEVEN <br>  
+FOUR SEVEN [R•S•T]<br>  
 ╚☠︎═══☠︎╝  
 </div>  
 <button class="mobile-btn" onclick="toggleMenu()">☰</button>
@@ -644,7 +644,7 @@ Click the button below to get started.
 <h2>🔰 Squad of RST 🇦🇶</h2>  
 <p><strong>Password Protected Squad Chat & Configs</strong></p>  
 <div id="squad-login">  
-<input type="password" id="squad-password" placeholder="Enter Password" style="width:100%; padding:12px; margin:10px 0; background:#0b1320; border:1px solid #1f2b3d; color:white; border-radius:10px;">  
+<input type="password" id="squad-password" placeholder="Enter Your Unique Security Password" style="width:100%; padding:12px; margin:10px 0; background:#0b1320; border:1px solid #1f2b3d; color:white; border-radius:10px;">  
 <button class="action-btn" onclick="checkSquadPassword()" style="background:linear-gradient(to right,#00bfff,#0077ff); width:100%;">🔓 Join Squad</button>  
 </div>  
 <div id="squad-content" style="display:none;">  
@@ -657,8 +657,12 @@ SIBUSISO N🇦🇶<br>
 </div>  
 <h3 style="margin:20px 0 10px;">💬 Squad Live Chat</h3>  
 <div id="chat-box" class="chat-box"></div>  
-<input type="text" id="chat-input" placeholder="Type message here..." style="width:78%; padding:12px; background:#0b1320; border:1px solid #1f2b3d; color:white; border-radius:10px;">  
-<button class="action-btn" onclick="sendChatMessage()" style="width:20%; background:linear-gradient(to right,#25D366,#00bfff);">Send</button>  
+
+<div style="display:flex; gap:10px; align-items:center;">
+    <input type="text" id="chat-input" placeholder="Type message here..." style="width:78%; padding:12px; background:#0b1320; border:1px solid #1f2b3d; color:white; border-radius:10px;">  
+    <button class="action-btn" onclick="sendChatMessage()" style="width:20%; background:linear-gradient(to right,#25D366,#00bfff); margin:0;">Send</button>  
+</div>
+
 <h3 style="margin-top:25px;">Post New Config (Squad Only)</h3>  
 <input type="text" id="new-config-name" placeholder="Config Name" style="width:100%;padding:12px;margin:8px 0;background:#0b1320;border:1px solid #1f2b3d;color:white;border-radius:10px;">  
 <textarea id="new-config-desc" placeholder="Description" style="width:100%;height:80px;padding:12px;margin:8px 0;background:#0b1320;border:1px solid #1f2b3d;color:white;border-radius:10px;"></textarea>  
@@ -728,9 +732,22 @@ const communityRef = database.ref('public_community_feed');
 const squadChatRef = database.ref('squad_secure_chat');
 const squadConfigRef = database.ref('squad_exclusive_configs');
 
-// New Paths for Owner Global Powers
+// Paths for Owner Global Powers
 const ownerBroadcastRef = database.ref('owner_global_broadcast');
 const ownerPublicConfigsRef = database.ref('owner_public_shared_configs');
+
+// Check on boot if user is already authenticated inside the Squad
+window.addEventListener('DOMContentLoaded', () => {
+    if(localStorage.getItem('squad_verified_identity')) {
+        const loginBox = document.getElementById('squad-login');
+        const contentBox = document.getElementById('squad-content');
+        if(loginBox && contentBox) {
+            loginBox.style.display = 'none';
+            contentBox.style.display = 'block';
+            initializeSquadSynchronizations();
+        }
+    }
+});
 
 // ==========================================
 // 2. BACKGROUND PARTICLE SYSTEMS EFFECT
@@ -911,18 +928,36 @@ communityRef.limitToLast(40).on('value', snapshot => {
     });
 });
 
-// ==========================================
-// 6. PASSWORD SECURED ELITE SQUAD SUITE
-// ==========================================
+// ========================================================
+// 6. PASSWORD SECURED ELITE SQUAD SUITE (IDENTITY LOCKED)
+// ========================================================
 function showSquadPage() {
     showPage('squad-page');
 }
 
 function checkSquadPassword() {
-    const passwordInput = document.getElementById('squad-password').value;
-    if(passwordInput === "RST47" || passwordInput === "rst47") {
+    const passwordInput = document.getElementById('squad-password').value.trim();
+    let verifiedName = "";
+
+    // Security Gate Verification Engine
+    if (passwordInput === "RST47" || passwordInput === "rst47") {
+        verifiedName = "FOUR SEVEN [R•S•T] 𖤍🇦🇶";
+    } else if (passwordInput === "ZET47" || passwordInput === "zet47") {
+        verifiedName = "𝐳𝐄𝐭 𝐅𝐥𝐀𝐬𝐇 𝐫𝐒𝐭🇦🇶";
+    } else if (passwordInput === "SIB47" || passwordInput === "sib47") {
+        verifiedName = "SIBUSISO N🇦🇶";
+    } else if (passwordInput === "INT47" || passwordInput === "int47") {
+        verifiedName = "𝐈𝐭𝐬𝐬 𝐃𝐚 𝐈𝐧𝐭𝐢𝐦𝐢𝐃𝐚𝐭𝐨𝐫 𝐑𝐒𝐓❄";
+    }
+
+    if (verifiedName !== "") {
         document.getElementById('squad-login').style.display = 'none';
         document.getElementById('squad-content').style.display = 'block';
+        
+        // Save un-fakeable user signature into browser memory hardware
+        localStorage.setItem('squad_verified_identity', verifiedName);
+        alert("ACCESS GRANTED: Terminal synced for " + verifiedName);
+        
         initializeSquadSynchronizations();
     } else {
         alert("ACCESS DENIED: Cryptographic key signature mismatch.");
@@ -943,9 +978,13 @@ function initializeSquadSynchronizations() {
             const dateObj = new Date(msg.timestamp);
             const timeString = dateObj.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
             
+            // Set dynamic distinct coloration templates
+            const isOwner = msg.sender.includes("FOUR SEVEN");
+            const senderColor = isOwner ? 'var(--blue)' : 'var(--neon)';
+            
             const msgHtml = `
                 <div class="chat-message">
-                    <strong style="color:var(--neon);">${escapeHtml(msg.sender)}:</strong> 
+                    <strong style="color:${senderColor};">${escapeHtml(msg.sender)}:</strong> 
                     <span>${escapeHtml(msg.text)}</span>
                     <div class="time">${timeString}</div>
                 </div>
@@ -961,8 +1000,14 @@ function sendChatMessage() {
     const msgText = chatInput.value.trim();
     if(!msgText) return;
     
+    // Grab verified identity straight out of secure background context
+    let msgSender = localStorage.getItem('squad_verified_identity');
+    if (!msgSender) {
+        msgSender = "Ghost Operator"; 
+    }
+    
     squadChatRef.push({
-        sender: "FOUR SEVEN [R•S•T]",
+        sender: msgSender, 
         text: msgText,
         timestamp: Date.now()
     }).then(() => {
@@ -1035,7 +1080,7 @@ squadConfigRef.on('value', snapshot => {
 });
 
 // =============================================================
-// 7. NEW: OWNER PANEL LOGIC (BROADCASTS & LIVE SHARING ENGINE)
+// 7. OWNER PANEL LOGIC (BROADCASTS & LIVE SHARING ENGINE)
 // =============================================================
 function verifyOwnerIdentity() {
     const systemPass = document.getElementById('owner-system-key').value;
