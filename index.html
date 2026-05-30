@@ -443,7 +443,7 @@ font-size:1.6rem;
 
 <div class="top-corner">  
 ╔☠︎═══☠︎╗<br>  
-FOUR SEVEN [R•S•T]<br>  
+FOUR SEVEN <br>  
 ╚☠︎═══☠︎╝  
 </div>  
 <button class="mobile-btn" onclick="toggleMenu()">☰</button>
@@ -462,6 +462,7 @@ FOUR SEVEN [R•S•T]<br>
 
 <div class="menu-title">ELITE SECTION</div>  
 <a class="menu-btn" onclick="showSquadPage()">🔰 Squad of RST 🇦🇶</a>  
+<a class="menu-btn" onclick="showPage('owner-panel-page')" style="border-color: var(--gold); color: var(--gold);">⚡ Owner Panel</a>
 </div>  
 
 <div class="main">  
@@ -474,6 +475,11 @@ FOUR SEVEN [R•S•T]<br>
 <div id="home-page" class="page active-page">  
 <div class="card">  
 <h2>☠️ Welcome</h2>  
+<div id="owner-broadcast-banner" style="display:none; background:rgba(255,215,0,0.1); border:1px solid var(--gold); padding:15px; border-radius:12px; margin-bottom:20px;">
+    <h3 style="color:var(--gold); margin-bottom:5px;">📢 OWNER BROADCAST:</h3>
+    <p id="broadcast-text" style="color:#ffffff; font-weight:bold;"></p>
+</div>
+
 <p style="line-height:1.8;color:#cbd5e1;">  
 Welcome to the official FOUR SEVEN [R•S•T] CONFIG HUB.  
 Download premium configs, join the community,  
@@ -488,6 +494,8 @@ and enjoy fast secure access.
 <input type="text" id="searchInput" class="search-bar" placeholder="🔍 Search configs..." onkeyup="filterConfigs()">  
 
 <div id="firebase-configs-container"></div>
+
+<div id="owner-public-configs-container"></div>
 
 <div class="config-box" data-search="rst mtn https">
 <h3>FOUR SEVEN [R•S•T] MTN [HTTPS]</h3>
@@ -660,6 +668,31 @@ SIBUSISO N🇦🇶<br>
 </div>  
 </div>  
 
+<div id="owner-panel-page" class="page">
+<div class="card">
+<h2>⚡ Exclusive Owner Controls</h2>
+<p style="color:var(--muted); margin-bottom:15px;">System identity gate validation required.</p>
+
+<div id="owner-login-box">
+    <input type="password" id="owner-system-key" placeholder="Enter System Password" style="width:100%; padding:12px; margin:10px 0; background:#0b1320; border:1px solid #1f2b3d; color:white; border-radius:10px;">  
+    <button class="action-btn" onclick="verifyOwnerIdentity()" style="background:linear-gradient(to right, var(--gold), #ff7700); width:100%;">🔓 Access Terminal</button>  
+</div>
+
+<div id="owner-terminal-content" style="display:none;">
+    <h3 style="color:var(--gold); margin-bottom:10px;">📢 Broadcast Message to Home Screen</h3>
+    <textarea id="owner-broadcast-input" class="comment-input" placeholder="Type a message to show on the welcome page..." style="height:80px; resize:vertical;"></textarea>
+    <button class="action-btn" onclick="deployOwnerBroadcast()" style="background:var(--blue); width:100%; margin-bottom:25px;">📡 Deploy Broadcast</button>
+
+    <h3 style="color:var(--neon); margin-bottom:10px;">🚀 Upload Global Configuration File</h3>
+    <input type="text" id="owner-file-name" placeholder="Config File Title (e.g. Vodacom Uncapped)" style="width:100%; padding:12px; margin-bottom:10px; background:#0b1320; border:1px solid #1f2b3d; color:white; border-radius:10px;">
+    <input type="text" id="owner-file-type" placeholder="File Type Format (e.g. HC, TLS, BDNET, EHI)" style="width:100%; padding:12px; margin-bottom:10px; background:#0b1320; border:1px solid #1f2b3d; color:white; border-radius:10px;">
+    <textarea id="owner-file-desc" class="comment-input" placeholder="Configuration features description payload details..."></textarea>
+    <input type="text" id="owner-file-link" placeholder="Download Link URL (Mediafire, ouo.io, etc)" style="width:100%; padding:12px; margin-bottom:15px; background:#0b1320; border:1px solid #1f2b3d; color:white; border-radius:10px;">
+    <button class="action-btn" onclick="deployOwnerPublicConfig()" style="background:var(--green); width:100%;">📦 Push File Live</button>
+</div>
+</div>
+</div>
+
 <div id="about-page" class="page">  
 <div class="card">  
 <div class="owner-box">  
@@ -694,6 +727,10 @@ const database = firebase.database();
 const communityRef = database.ref('public_community_feed');
 const squadChatRef = database.ref('squad_secure_chat');
 const squadConfigRef = database.ref('squad_exclusive_configs');
+
+// New Paths for Owner Global Powers
+const ownerBroadcastRef = database.ref('owner_global_broadcast');
+const ownerPublicConfigsRef = database.ref('owner_public_shared_configs');
 
 // ==========================================
 // 2. BACKGROUND PARTICLE SYSTEMS EFFECT
@@ -994,6 +1031,102 @@ squadConfigRef.on('value', snapshot => {
             </div>
         `;
         container.innerHTML += configHTML;
+    });
+});
+
+// =============================================================
+// 7. NEW: OWNER PANEL LOGIC (BROADCASTS & LIVE SHARING ENGINE)
+// =============================================================
+function verifyOwnerIdentity() {
+    const systemPass = document.getElementById('owner-system-key').value;
+    if(systemPass === "Four Seven" || systemPass === "four seven") {
+        document.getElementById('owner-login-box').style.display = 'none';
+        document.getElementById('owner-terminal-content').style.display = 'block';
+    } else {
+        alert("CRITICAL ERROR: Unauthorized system access denied.");
+    }
+}
+
+function deployOwnerBroadcast() {
+    const msg = document.getElementById('owner-broadcast-input').value.trim();
+    ownerBroadcastRef.set({
+        messageText: msg,
+        timestamp: Date.now()
+    }).then(() => {
+        alert("Broadcast array successfully pushed to home screen banner cloud execution layers.");
+    });
+}
+
+function deployOwnerPublicConfig() {
+    const title = document.getElementById('owner-file-name').value.trim();
+    const type = document.getElementById('owner-file-type').value.trim();
+    const desc = document.getElementById('owner-file-desc').value.trim();
+    const URL = document.getElementById('owner-file-link').value.trim();
+
+    if(!title || !type || !URL) {
+        alert("Operation aborted: Missing required configuration metadata parameter arrays.");
+        return;
+    }
+
+    ownerPublicConfigsRef.push({
+        title: title,
+        type: type,
+        description: desc,
+        link: URL,
+        timestamp: Date.now()
+    }).then(() => {
+        alert("Live file injection completed. Synced directly to user downloads index module.");
+        document.getElementById('owner-file-name').value = '';
+        document.getElementById('owner-file-type').value = '';
+        document.getElementById('owner-file-desc').value = '';
+        document.getElementById('owner-file-link').value = '';
+    });
+}
+
+// SYNC OWNER ALERTS DIRECTLY UNTO THE WELCOME DOM VIEW
+ownerBroadcastRef.on('value', snapshot => {
+    const banner = document.getElementById('owner-broadcast-banner');
+    const bText = document.getElementById('broadcast-text');
+    const data = snapshot.val();
+
+    if(data && data.messageText) {
+        banner.style.display = 'block';
+        bText.innerText = data.messageText;
+    } else {
+        banner.style.display = 'none';
+    }
+});
+
+// SYNC OWNER SHARED CONFIG FILES TO CONFIGS VIEW LAYOUT INDEPENDENTLY
+ownerPublicConfigsRef.on('value', snapshot => {
+    const container = document.getElementById('owner-public-configs-container');
+    if(!container) return;
+    container.innerHTML = '';
+
+    const files = snapshot.val();
+    if(!files) return;
+
+    Object.keys(files).reverse().forEach(key => {
+        const file = files[key];
+        const dateObj = new Date(file.timestamp || Date.now());
+        const dateString = dateObj.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+
+        const boxHTML = `
+            <div class="config-box" data-search="${escapeHtml(file.title)} ${escapeHtml(file.type)}">
+                <h3 style="color:var(--neon);">☠️ ${escapeHtml(file.title)}</h3>
+                <p>${escapeHtml(file.description || 'Verified direct connection asset distributed by admin terminal protocols.')}</p>
+                <p style="color:#ffd700;font-weight:bold;">↗️ File Type: ${escapeHtml(file.type)}</p>
+                <p style="color:#00bfff;">🇦🇶 Posted: ${dateString} [BY OWNER]</p>
+                <a class="download-btn" href="${escapeHtml(file.link)}" target="_blank" onclick="increaseDownload('${key}'); simulateDownload(this)">⬇ Download File</a>
+                <div class="config-actions">  
+                    <button class="action-btn">⬇ Downloads: <span id="downloads-${key}">0</span></button>  
+                </div>  
+                <input type="text" class="comment-input" id="input-${key}" placeholder="Write a comment...">  
+                <button class="comment-btn" onclick="addComment('${key}')">Post</button>  
+                <div id="comments-${key}"></div>  
+            </div>
+        `;
+        container.innerHTML += boxHTML;
     });
 });
 
