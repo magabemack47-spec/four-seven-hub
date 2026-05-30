@@ -79,8 +79,7 @@ text-align:center;
 font-size:1.5rem;  
 font-weight:900;  
 margin-bottom:25px;  
-color:white;  
-text-shadow:0 0 20px #00bfff;  
+color:white;  text-shadow:0 0 20px #00bfff;  
 animation:glow 2s infinite alternate;  
 }  
   
@@ -492,7 +491,7 @@ and enjoy fast secure access.
 <div class="config-box" data-search="rst mtn">  
 <h3>𝐅𝐎𝐔𝐑 𝐒𝐄𝐕𝐄𝐍 RST MTN</h3>  
 <p>Premium secure RST config by 𝐅𝐎𝐔𝐑 𝐒𝐄𝐕𝐄𝐍.</p>  
-<p style="color:#00bfff;">↗️ Posted: 29 May 2026</p>  
+<p style="color:#00bfff;">🇦🇶 Posted: 29 May 2026</p>  
 <a class="download-btn" href="https://ouo.io/8251Zl" target="_blank" onclick="increaseDownload('config1'); simulateDownload(this)">⬇ Download File</a>  
 <div class="config-actions">  
 <button class="action-btn">⬇ Downloads: <span id="downloads-config1">0</span></button>  
@@ -505,7 +504,7 @@ and enjoy fast secure access.
 <div class="config-box" data-search="tls">  
 <h3>MTN TLS CONFIG</h3>  
 <p>Fast secure TLS config powered by 𝐅𝐎𝐔𝐑 𝐒𝐄𝐕𝐄𝐍.</p>  
-<p style="color:#00bfff;">↗️ Posted: 29 May 2026</p>  
+<p style="color:#00bfff;">🇦🇶 Posted: 29 May 2026</p>  
 <a class="download-btn" href="https://ouo.io/EaguwR" target="_blank" onclick="increaseDownload('config2'); simulateDownload(this)">⬇ Download File</a>  
 <div class="config-actions">  
 <button class="action-btn">⬇ Downloads: <span id="downloads-config2">0</span></button>  
@@ -518,7 +517,7 @@ and enjoy fast secure access.
 <div class="config-box" data-search="500mb">  
 <h3>MTN 500MB CONFIG</h3>  
 <p>Official 𝐅𝐎𝐔𝐑 𝐒𝐄𝐕𝐄𝐍 config file for MTN users.</p>  
-<p style="color:#00bfff;">↗️ Posted: 29 May 2026</p>  
+<p style="color:#00bfff;">🇦🇶 Posted: 29 May 2026</p>  
 <a class="download-btn" href="https://ouo.io/MQwA5jq" target="_blank" onclick="increaseDownload('config3'); simulateDownload(this)">⬇ Download File</a>  
 <div class="config-actions">  
 <button class="action-btn">⬇ Downloads: <span id="downloads-config3">0</span></button>  
@@ -638,7 +637,24 @@ I created this website in <strong>May 2026</strong> to share premium resources w
 </div>  
 
 <script>  
-// Particle Canvas setup
+// ==========================================
+// 1. FIREBASE APP & DATABASE INITIALIZATION
+// ==========================================
+const firebaseConfig = {
+    databaseURL: "https://four-seven-net-site-default-rtdb.firebaseio.com/" 
+};
+// Initialize Firebase compatibility layers
+firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
+
+// Reference pointers for real-time streams
+const communityRef = database.ref('public_community_feed');
+const squadChatRef = database.ref('squad_secure_chat');
+const squadConfigRef = database.ref('squad_exclusive_configs');
+
+// ==========================================
+// 2. BACKGROUND PARTICLE SYSTEMS EFFECT
+// ==========================================
 const canvas = document.getElementById('particles');  
 const ctx = canvas.getContext('2d');  
 canvas.width = window.innerWidth;  
@@ -660,258 +676,255 @@ class Particle {
         if(this.y < 0 || this.y > canvas.height) this.speedY *= -1;  
     }  
     draw(){  
-        ctx.fillStyle = '#00bfff';  
-        ctx.beginPath();  
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);  
-        ctx.fill();  
-    }  
-}  
-function initParticles(){  
-    particlesArray = [];  
-    for(let i = 0; i < 70; i++) particlesArray.push(new Particle());  
-}  
-function animateParticles(){  
-    ctx.clearRect(0,0,canvas.width,canvas.height);  
-    for(let i = 0; i < particlesArray.length; i++){  
-        particlesArray[i].update();  
-        particlesArray[i].draw();  
-    }  
-    requestAnimationFrame(animateParticles);  
-}  
-window.addEventListener('resize', () => {  
-    canvas.width = window.innerWidth;  
-    canvas.height = window.innerHeight;  
-    initParticles();  
-});  
+        ctx.fillStyle = '#00bfff';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+    }
+}
+
+function initParticles(){
+    particlesArray = [];
+    for(let i = 0; i < 65; i++){
+        particlesArray.push(new Particle());
+    }
+}
+
+function animateParticles(){
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for(let i = 0; i < particlesArray.length; i++){
+        particlesArray[i].update();
+        particlesArray[i].draw();
+    }
+    requestAnimationFrame(animateParticles);
+}
 initParticles();
 animateParticles();
-  
-// Firebase Configuration
-const firebaseConfig = {  
-apiKey: "PASTE_API_KEY",  
-authDomain: "PASTE_AUTH_DOMAIN",  
-databaseURL: "PASTE_DATABASE_URL",  
-projectId: "PASTE_PROJECT_ID",  
-storageBucket: "PASTE_STORAGE_BUCKET",  
-messagingSenderId: "PASTE_SENDER_ID",  
-appId: "PASTE_APP_ID"  
-};  
-  
-firebase.initializeApp(firebaseConfig);  
-const db = firebase.database();  
-  
-function toggleMenu(){  
-document.getElementById("sidebar").classList.toggle("show");  
-}  
-  
-function showPage(pageId){  
-const pages=document.querySelectorAll(".page");  
-pages.forEach(page=>{ page.classList.remove("active-page"); });  
-document.getElementById(pageId).classList.add("active-page");  
-  
-if(window.innerWidth < 768){  
-document.getElementById("sidebar").classList.remove("show");  
+
+window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    initParticles();
+});
+
+// ==========================================
+// 3. CORE SINGLE PAGE APPLICATION ROUTING
+// ==========================================
+function showPage(pageId) {
+    const pages = document.querySelectorAll('.page');
+    pages.forEach(page => page.classList.remove('active-page'));
+    
+    const targetPage = document.getElementById(pageId);
+    if(targetPage) {
+        targetPage.classList.add('active-page');
+    }
+    
+    // Auto-close navigation panel drawer on mobile devices
+    if(window.innerWidth <= 768) {
+        document.getElementById('sidebar').classList.remove('show');
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-if(pageId === 'community-page') {
-    loadCommunityFeed();
+function toggleMenu() {
+    document.getElementById('sidebar').classList.toggle('show');
 }
-}  
-  
-function showSquadPage(){  
-showPage('squad-page');  
-document.getElementById('squad-login').style.display = 'block';  
-document.getElementById('squad-content').style.display = 'none';  
-}  
-  
-function checkSquadPassword(){  
-const pass = document.getElementById('squad-password').value.trim();  
-if(pass === "#RST.4d7"){  
-    document.getElementById('squad-login').style.display = 'none';  
-    document.getElementById('squad-content').style.display = 'block';  
-    loadSquadChat();  
-    alert("✅ Welcome to RST Squad 🇦🇶 - Chat is now active");  
-} else {  
-    alert("❌ Wrong Password");  
-    document.getElementById('squad-password').value = "";  
-}  
-}  
-  
-// Real-time Squad Chat Engine  
-function loadSquadChat(){  
-const chatBox = document.getElementById('chat-box');  
-db.ref("squad-chat").orderByChild("timestamp").on("value", (snapshot) => {  
-    chatBox.innerHTML = "";  
-    snapshot.forEach((child) => {  
-        const msg = child.val();  
-        const div = document.createElement("div");  
-        div.className = "chat-message";  
-        div.innerHTML = `  
-            <strong>Member:</strong> ${msg.text}<br>  
-            <span class="time">${new Date(msg.timestamp).toLocaleTimeString()}</span>  
-        `;  
-        chatBox.appendChild(div);  
-    });  
-    chatBox.scrollTop = chatBox.scrollHeight;  
-});  
-}  
-  
-function sendChatMessage(){  
-const input = document.getElementById('chat-input');  
-const text = input.value.trim();  
-if(text !== ""){  
-    db.ref("squad-chat").push({  
-        text: text,  
-        timestamp: Date.now()  
-    });  
-    input.value = "";  
-}  
-}  
 
-// Real-Time Global Community Board Engine with 7-Day Filtering
+// ==========================================
+// 4. CONFIG MANAGEMENT & SEARCH FILTERING
+// ==========================================
+function filterConfigs() {
+    const input = document.getElementById('searchInput').value.toLowerCase();
+    const boxes = document.querySelectorAll('.config-box');
+    
+    boxes.forEach(box => {
+        const attrSearch = box.getAttribute('data-search');
+        if(attrSearch) {
+            const searchData = attrSearch.toLowerCase();
+            const headingText = box.querySelector('h3').innerText.toLowerCase();
+            
+            if(searchData.includes(input) || headingText.includes(input)) {
+                box.style.display = "block";
+            } else {
+                box.style.display = "none";
+            }
+        }
+    });
+}
+
+// Simulated Counter Analytics Modules
+function increaseDownload(configKey) {
+    const counterEl = document.getElementById(`downloads-${configKey}`);
+    if(counterEl) {
+        let currentCount = parseInt(counterEl.innerText) || 0;
+        counterEl.innerText = currentCount + 1;
+    }
+}
+
+function simulateDownload(element) {
+    console.log("Config payload deployment initialized redirect to:", element.href);
+}
+
+// Local Standalone Comments Module Fallback
+function addComment(configKey) {
+    const inputEl = document.getElementById(`input-${configKey}`);
+    const commentContainer = document.getElementById(`comments-${configKey}`);
+    if(!inputEl || !inputEl.value.trim()) return;
+    
+    const commDiv = document.createElement('div');
+    commDiv.className = 'comment';
+    commDiv.innerText = inputEl.value;
+    commentContainer.appendChild(commDiv);
+    inputEl.value = '';
+}
+
+// ==========================================
+// 5. GLOBAL PUBLIC COMMUNITY BOARD STREAM
+// ==========================================
 function submitCommunityPost() {
     const nameInput = document.getElementById('com-name-input');
     const msgInput = document.getElementById('com-msg-input');
-    const name = nameInput.value.trim();
-    const msg = msgInput.value.trim();
     
-    if(name === "" || msg === "") {
-        alert("❌ Both Name and Message fields must be filled!");
+    const name = nameInput.value.trim() || "Anonymous Rebel";
+    const message = msgInput.value.trim();
+    
+    if(!message) {
+        alert("Transmission payload content cannot be empty.");
         return;
     }
     
-    db.ref("community-posts").push({
-        userName: name,
-        message: msg,
+    communityRef.push({
+        username: name,
+        bodyText: message,
         timestamp: Date.now()
+    }).then(() => {
+        msgInput.value = '';
+    }).catch(err => {
+        alert("Database execution dropped: " + err.message);
     });
-    
-    msgInput.value = "";
-    alert("🚀 Message broadcasted successfully!");
 }
 
-function loadCommunityFeed() {
-    const feedBox = document.getElementById('community-feed');
-    const sevenDaysInMs = 7 * 24 * 60 * 60 * 1000;
-    const now = Date.now();
+communityRef.limitToLast(40).on('value', snapshot => {
+    const feedContainer = document.getElementById('community-feed');
+    if(!feedContainer) return;
+    feedContainer.innerHTML = '';
     
-    db.ref("community-posts").orderByChild("timestamp").on("value", (snapshot) => {
-        feedBox.innerHTML = "";
-        let postsArray = [];
+    const data = snapshot.val();
+    if(!data) {
+        feedContainer.innerHTML = `<p style="color:var(--muted); text-align:center;">No broadcast signals detected in this sector.</p>`;
+        return;
+    }
+    
+    Object.keys(data).reverse().forEach(key => {
+        const item = data[key];
+        const dateObj = new Date(item.timestamp);
+        const timeString = dateObj.toLocaleDateString() + ' ' + dateObj.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
         
-        snapshot.forEach((child) => {
-            const post = child.val();
-            // Verify if post is under 7 days old
-            if (now - post.timestamp < sevenDaysInMs) {
-                postsArray.push(post);
-            }
-        });
-        
-        postsArray.reverse(); // Order from newest to oldest
-        
-        if(postsArray.length === 0) {
-            feedBox.innerHTML = `<p style="color:var(--muted); text-align:center; padding:20px;">No active posts available. Be the first to broadcast!</p>`;
-            return;
-        }
-        
-        postsArray.forEach(post => {
-            const dateObj = new Date(post.timestamp);
-            const formattedTime = dateObj.toLocaleDateString() + " @ " + dateObj.toLocaleTimeString();
-            
-            const card = document.createElement("div");
-            card.className = "post-card";
-            card.innerHTML = `
+        const postHTML = `
+            <div class="post-card">
                 <div class="post-header">
-                    <span class="post-user">👤 ${escapeHtml(post.userName)}</span>
-                    <span class="post-time">📅 ${formattedTime}</span>
+                    <span class="post-user">⚡ ${escapeHtml(item.username)}</span>
+                    <span class="post-time">${timeString}</span>
                 </div>
-                <div class="post-body">${escapeHtml(post.message).replace(/\n/g, '<br>')}</div>
+                <div class="post-body">${escapeHtml(item.bodyText)}</div>
+            </div>
+        `;
+        feedContainer.innerHTML += postHTML;
+    });
+});
+
+// ==========================================
+// 6. PASSWORD SECURED ELITE SQUAD SUITE
+// ==========================================
+function showSquadPage() {
+    showPage('squad-page');
+}
+
+function checkSquadPassword() {
+    const passwordInput = document.getElementById('squad-password').value;
+    if(passwordInput === "RST47" || passwordInput === "rst47") {
+        document.getElementById('squad-login').style.display = 'none';
+        document.getElementById('squad-content').style.display = 'block';
+        initializeSquadSynchronizations();
+    } else {
+        alert("ACCESS DENIED: Cryptographic key signature mismatch.");
+    }
+}
+
+function initializeSquadSynchronizations() {
+    squadChatRef.limitToLast(50).on('value', snapshot => {
+        const chatBox = document.getElementById('chat-box');
+        if(!chatBox) return;
+        chatBox.innerHTML = '';
+        
+        const messages = snapshot.val();
+        if(!messages) return;
+        
+        Object.keys(messages).forEach(key => {
+            const msg = messages[key];
+            const dateObj = new Date(msg.timestamp);
+            const timeString = dateObj.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            
+            const msgHtml = `
+                <div class="chat-message">
+                    <strong style="color:var(--neon);">${escapeHtml(msg.sender)}:</strong> 
+                    <span>${escapeHtml(msg.text)}</span>
+                    <div class="time">${timeString}</div>
+                </div>
             `;
-            feedBox.appendChild(card);
+            chatBox.innerHTML += msgHtml;
         });
+        chatBox.scrollTop = chatBox.scrollHeight;
     });
 }
 
-function escapeHtml(text) {
-    return text
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-}  
-  
-function postSquadConfig(){  
-alert("✅ Config Posted! (Squad members only)");  
-document.getElementById('new-config-name').value = '';  
-document.getElementById('new-config-desc').value = '';  
-document.getElementById('new-config-link').value = '';  
-}  
-  
-function increaseDownload(config){  
-let ref = db.ref("downloads/" + config);  
-ref.transaction((count)=>{ return (count || 0) + 1; });  
-}  
-  
-function simulateDownload(btn){  
-btn.style.transition = "0.4s";  
-btn.innerHTML = "⬇ Downloading...";  
-setTimeout(() => {  
-    btn.innerHTML = "✅ Downloaded!";  
-    setTimeout(() => {  
-        btn.innerHTML = "⬇ Download File";  
-    }, 2000);  
-}, 1200);  
-}  
-  
-["config1","config2","config3"].forEach(config=>{  
-db.ref("downloads/" + config).on("value",(snapshot)=>{  
-document.getElementById("downloads-" + config).innerText = snapshot.val() || 0;  
-});  
-});  
-  
-function addComment(config){  
-let input = document.getElementById("input-" + config);  
-let text = input.value.trim();  
-if(text !== ""){  
-db.ref("comments/" + config).push({text:text});  
-input.value="";  
-}  
-}  
-  
-["config1","config2","config3"].forEach(config=>{  
-db.ref("comments/" + config).on("value",(snapshot)=>{  
-let commentsDiv = document.getElementById("comments-" + config);  
-commentsDiv.innerHTML="";  
-snapshot.forEach((child)=>{  
-let data = child.val();  
-let comment = document.createElement("div");  
-comment.className="comment";  
-comment.innerText=data.text;  
-commentsDiv.prepend(comment);  
-});  
-});  
-});  
-  
-function filterConfigs(){  
-    const input = document.getElementById('searchInput');  
-    const filter = input.value.toLowerCase();  
-    const configBoxes = document.querySelectorAll('.config-box');  
-      
-    configBoxes.forEach(box => {  
-        const searchText = box.getAttribute('data-search') || '';  
-        const headingText = box.querySelector('h3').innerText.toLowerCase();  
-          
-        if(searchText.toLowerCase().includes(filter) || headingText.includes(filter)) {  
-            box.style.display = "";  
-        } else {  
-            box.style.display = "none";  
-        }  
-    });  
-}  
-</script>  
-</body>  
-</html>
- 
+function sendChatMessage() {
+    const chatInput = document.getElementById('chat-input');
+    const msgText = chatInput.value.trim();
+    if(!msgText) return;
+    
+    squadChatRef.push({
+        sender: "𝐅𝐎𝐔𝐑 𝐒𝐄𝐕𝐄𝐍 Member",
+        text: msgText,
+        timestamp: Date.now()
+    }).then(() => {
+        chatInput.value = '';
+    });
+}
 
-        
+document.getElementById('chat-input').addEventListener('keypress', function(e) {
+    if(e.key === 'Enter') {
+        sendChatMessage();
+    }
+});
+
+function postSquadConfig() {
+    const name = document.getElementById('new-config-name').value.trim();
+    const desc = document.getElementById('new-config-desc').value.trim();
+    const link = document.getElementById('new-config-link').value.trim();
+    
+    if(!name || !link) {
+        alert("Configuration operational fields missing parameters.");
+        return;
+    }
+    
+    squadConfigRef.push({
+        configName: name,
+        configDesc: desc,
+        downloadLink: link,
+        timestamp: Date.now()
+    }).then(() => {
+        alert("Operational deployment successful: Config broadcasted to database layer.");
+        document.getElementById('new-config-name').value = '';
+        document.getElementById('new-config-desc').value = '';
+        document.getElementById('new-config-link').value = '';
+    });
+}
+
+function escapeHtml(str) {
+    if(!str) return '';
+    return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+}
+</script>
+</body>
+</html>
