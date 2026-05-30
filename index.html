@@ -86,8 +86,7 @@ animation:glow 2s infinite alternate;
 .menu-title{  
 font-size:0.8rem;  
 color:#9aa4b2;  
-margin:15px 0 10px;  
-text-transform:uppercase;  
+margin:15px 0 10px;  text-transform:uppercase;  
 }  
   
 .menu-btn{  
@@ -487,6 +486,8 @@ and enjoy fast secure access.
 <h2>📥 Config Files</h2>  
 <input type="text" id="searchInput" class="search-bar" placeholder="🔍 Search configs..." onkeyup="filterConfigs()">  
 
+<div id="firebase-configs-container"></div>
+
 <div class="config-box" data-search="rst mtn https">
 <h3>𝐅𝐎𝐔𝐑 𝐒𝐄𝐕𝐄𝐍 RST MTN [HTTPS]</h3>
 <p>Premium secure RST config by 𝐅𝐎𝐔𝐑 𝐒𝐄𝐕𝐄𝐍.</p>
@@ -576,7 +577,7 @@ and enjoy fast secure access.
 <div id="community-page" class="page">
 <div class="card">
 <h2>💬 Global Community Board</h2>
-<p style="color: var(--muted); margin-bottom: 15px;">Share information, network configurations, and updates. Visible to everyone. Posts expire automatically after 7 days.</p>
+<p style="color: var(--muted); margin-bottom: 15px;">Share information, network configurations, and updates. Visible to everyone.</p>
 
 <div class="config-box" style="background:#0f1724;">
 <h3 style="color:var(--blue); margin-bottom:12px;">Create Public Post</h3>
@@ -644,7 +645,7 @@ Click the button below to get started.
 𖤍 𝐅𝐎𝐔𝐑 𝐒𝐄𝐕𝐄𝐍 𖤍🇦🇶<br>  
 𝐳𝐄𝐭 𝐅𝐥𝐀𝐬𝐇 𝐫𝐒𝐭🇦🇶<br>  
 SIBUSISO N🇦🇶<br>  
-𝐈𝐭𝐬𝐬 𝐃𝐚 𝐈𝐧𝐭𝐢𝐦𝐢𝐝𝐚𝐭𝐨𝐫 𝐑𝐒𝐓❄  
+𝐈𝐭𝐬𝐬 𝐃𝐚 𝐈𝐧𝐭𝐢𝐦𝐢𝐃𝐚𝐭𝐨𝐫 𝐑𝐒𝐓❄  
 </div>  
 <h3 style="margin:20px 0 10px;">💬 Squad Live Chat</h3>  
 <div id="chat-box" class="chat-box"></div>  
@@ -923,11 +924,13 @@ function sendChatMessage() {
     if(!msgText) return;
     
     squadChatRef.push({
-        sender: "Explicit RST User",
+        sender: "FOUR SEVEN [R•S•T]",
         text: msgText,
         timestamp: Date.now()
     }).then(() => {
         chatInput.value = '';
+    }).catch(err => {
+        alert("Squad Message Failed to Sync: " + err.message);
     });
 }
 
@@ -959,6 +962,39 @@ function postSquadConfig() {
         document.getElementById('new-config-link').value = '';
     });
 }
+
+// STREAM EXCLUSIVE SQUAD CONFIGS DIRECTLY INTO PUBLIC CONFIG WINDOW
+squadConfigRef.on('value', snapshot => {
+    const container = document.getElementById('firebase-configs-container');
+    if(!container) return;
+    container.innerHTML = '';
+    
+    const configs = snapshot.val();
+    if(!configs) return;
+    
+    Object.keys(configs).reverse().forEach(key => {
+        const conf = configs[key];
+        const dateObj = new Date(conf.timestamp || Date.now());
+        const dateString = dateObj.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+        
+        const configHTML = `
+            <div class="config-box" data-search="${escapeHtml(conf.configName)}">
+                <h3>👑 ${escapeHtml(conf.configName)} [SQUAD EXP]</h3>
+                <p>${escapeHtml(conf.configDesc || 'Exclusive connection asset shared via database connection layers.')}</p>
+                <p style="color:#ffd700;font-weight:bold;">↗️ File Type: DYNAMIC</p>
+                <p style="color:#00bfff;">🇦🇶 Posted: ${dateString}</p>
+                <a class="download-btn" href="${escapeHtml(conf.downloadLink)}" target="_blank" onclick="increaseDownload('${key}'); simulateDownload(this)">⬇ Download File</a>
+                <div class="config-actions">  
+                    <button class="action-btn">⬇ Downloads: <span id="downloads-${key}">0</span></button>  
+                </div>  
+                <input type="text" class="comment-input" id="input-${key}" placeholder="Write a comment...">  
+                <button class="comment-btn" onclick="addComment('${key}')">Post</button>  
+                <div id="comments-${key}"></div>  
+            </div>
+        `;
+        container.innerHTML += configHTML;
+    });
+});
 
 function escapeHtml(str) {
     if(!str) return '';
