@@ -1,2 +1,11 @@
-# four-seven-hub
-A project focused on VPN setup, secure connections, and network utilities
+╔════════════════════════════╗
+☠️      FOUR SEVEN HUB      ☠️
+╚════════════════════════════╝
+
+🚀 Config Files
+💬 Community
+🔰 Squad Access
+📥 Downloads
+⚡ Fast Updates
+
+⭐ Star • 👤 Follow • 🔔 Watch
