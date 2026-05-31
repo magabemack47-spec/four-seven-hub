@@ -1,0 +1,1645 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+<meta charset="UTF-8"/>  
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>  
+<title>☠️ 𝐅𝐎𝐔𝐑 𝐒𝐄𝐕𝐄𝐍 NeT-SiTE ☠️</title>  
+<meta name="google-site-verification" content="mlEENghD14RCPRQ1yvIE0GZ6O-hpFYtmOVga8DB1hek" />  
+<!-- Google AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5991476915949722" crossorigin="anonymous"></script>
+<!-- AMP Auto Ads -->
+<script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>  
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>  
+<style>  
+:root{  
+--bg:#050b14;  
+--card:#101826;  
+--blue:#00bfff;  
+--blue2:#0077ff;  
+--text:#ffffff;  
+--muted:#9aa4b2;  
+--border:#1f2b3d;  
+--green:#25D366;  
+--gold:#ffd700;  
+--neon:#00f0ff;  
+--danger:#ff3b30;
+}  
+
+*{  
+margin:0;  
+padding:0;  
+box-sizing:border-box;  
+font-family:monospace;  
+}  
+
+body{  
+background:linear-gradient(to bottom,#030712,#071120);  
+color:white;  
+display:flex;  
+overflow-x:hidden;  
+position:relative;  
+}  
+
+/* PARTICLE BACKGROUND */  
+#particles {  
+    position: fixed;  
+    top: 0; left: 0;  
+    width: 100%; height: 100%;  
+    pointer-events: none;  
+    z-index: 1;  
+    opacity: 0.12;  
+}  
+
+/* TOP CORNER BRANDING */  
+.top-corner{  
+position:fixed;  
+top:10px;  
+right:10px;  
+font-size:0.75rem;  
+font-weight:bold;  
+color:#00bfff;  
+text-align:center;  
+z-index:9999;  
+line-height:1.2;  
+text-shadow:0 0 10px #00bfff;  
+animation:glow 2s infinite alternate;  
+}  
+
+/* SIDEBAR NAVIGATION */  
+.sidebar{  
+width:280px;  
+height:100vh;  
+background:rgba(10,15,25,0.96);  
+border-right:1px solid #1f2b3d;  
+position:fixed;  
+padding:20px;  
+overflow-y:auto;  
+z-index:1000;  
+backdrop-filter:blur(10px);  
+}  
+
+.brand{  
+text-align:center;  
+font-size:1.3rem;  
+font-weight:900;  
+margin-bottom:25px;  
+color:white;  text-shadow:0 0 20px #00bfff;  
+animation:glow 2s infinite alternate;  
+}  
+
+.menu-title{  
+font-size:0.8rem;  
+color:#9aa4b2;  
+margin:15px 0 10px;  text-transform:uppercase;  
+}  
+
+.menu-btn{  
+display:block;  
+width:100%;  
+padding:14px;  
+margin-bottom:12px;  
+background:#111827;  
+border:1px solid #1f2b3d;  
+color:white;  
+text-decoration:none;  
+border-radius:12px;  
+transition:0.3s;  
+font-weight:700;  
+cursor:pointer;  
+}  
+
+.menu-btn:hover{  
+background:rgba(0,191,255,0.15);  
+transform:translateX(5px);  
+box-shadow:0 0 20px rgba(0,191,255,0.4);  
+}  
+
+/* MAIN CONTENT INTERFACE */  
+.main{  
+margin-left:280px;  
+padding:25px;  
+width:100%;  
+position:relative;  
+z-index:2;  
+}  
+
+/* HERO HEADER */  
+.header{  
+background:linear-gradient(135deg,#081120,#0d2038);  
+padding:35px;  
+border-radius:20px;  
+border:1px solid #16304f;  
+text-align:center;  
+margin-bottom:25px;  
+box-shadow:0 0 30px rgba(0,191,255,0.15);  
+}  
+
+.skull-logo{  
+font-size:4rem;  
+margin-bottom:10px;  
+animation:float 3s infinite ease-in-out;  
+filter:drop-shadow(0 0 20px #00bfff);  
+}  
+
+.main-title{  
+font-size:2rem;  
+font-weight:900;  
+color:white;  
+text-shadow:  
+0 0 10px #00bfff,  
+0 0 20px #0077ff,  
+0 0 40px #00bfff;  
+animation:glow 2s infinite alternate;  
+}  
+
+.header p{  
+margin-top:10px;  
+color:#c0d9ff;  
+}  
+
+/* DYNAMIC PAGES */  
+.page{  
+display:none;  
+animation:fade 0.4s ease;  
+}  
+
+.active-page{  
+display:block;  
+}  
+
+@keyframes fade{  
+from{opacity:0;transform:translateY(10px);}  
+to{opacity:1;transform:translateY(0);}  
+}  
+
+/* INTERFACE CARDS */  
+.card{  
+background:rgba(16,24,38,0.96);  
+padding:22px;  
+border-radius:18px;  
+border:1px solid #1f2b3d;  margin-bottom:20px;  
+}  
+
+/* CONFIG MODULE MODULES */  
+.config-box{  
+background:#0b1320;  
+padding:18px;  
+border-radius:14px;  
+border:1px solid #1d2b3f;  
+margin-bottom:20px;  
+transition:0.3s;  
+position:relative;  
+overflow:hidden;  
+}  
+
+.config-box:hover{  
+transform:translateY(-5px);  
+box-shadow:0 0 25px rgba(0,191,255,0.3);  
+border-color:var(--neon);  
+}  
+
+.config-box h3{  
+margin-bottom:10px;  
+}  
+
+.config-box p{  
+color:#9aa4b2;  
+margin-bottom:15px;  
+line-height:1.6;  
+}  
+
+/* INTERACTION BUTTONS */  
+.download-btn{  
+display:inline-block;  
+padding:12px 18px;  
+background:linear-gradient(to right,#00bfff,#0077ff);  
+border-radius:10px;  text-decoration:none;  
+color:white;  
+font-weight:800;  
+transition:0.3s;  
+}  
+
+.download-btn:hover{  
+transform:scale(1.05);  
+box-shadow:0 0 20px rgba(0,191,255,0.5);  
+}  
+
+/* MODULE TEXT INPUTS & FILTERS */  
+.search-bar {  
+    width: 100%;  
+    padding: 14px 18px;  
+    background: #0b1320;  
+    border: 1px solid #1f2b3d;  
+    border-radius: 12px;  
+    color: white;  
+    margin-bottom: 20px;  
+    font-size: 1rem;  
+}  
+
+/* UTILITY SUB-ACTIONS */  
+.config-actions{  
+display:flex;  
+gap:10px;  
+margin-top:15px;  
+margin-bottom:15px;  
+flex-wrap:wrap;  
+}  
+
+.action-btn{  
+padding:10px 14px;  
+border:none;  
+border-radius:10px;  
+background:#111827;  
+color:white;  
+font-weight:700;  
+cursor:pointer;  
+border:1px solid #1f2b3d;  
+}  
+
+/* LOCAL COMMENTS LAYER */  
+.comment-input{  
+width:100%;  
+padding:12px;  
+border-radius:10px;  
+border:1px solid #1f2b3d;  
+background:#0b1320;  
+color:white;  
+outline:none;  
+margin-bottom:10px;  
+}  
+
+.comment-btn{  
+padding:10px 16px;  
+border:none;  
+border-radius:10px;  
+background:linear-gradient(to right,#00bfff,#0077ff);  
+color:white;  
+font-weight:800;  
+cursor:pointer;  
+}  
+
+.comment{  
+background:#0f1724;  
+padding:10px;  
+border-radius:10px;  
+margin-top:10px;  
+border:1px solid #1d2b3f;  
+}  
+
+/* CHAT LAYER AND LIVE MODULE CONTAINER */  
+.chat-box {  
+    height: 320px;  
+    overflow-y: auto;  
+    background: #0b1320;  
+    border: 1px solid #1f2b3d;  
+    border-radius: 10px;  
+    padding: 12px;  
+    margin-bottom: 12px;  
+}  
+
+.chat-message {  
+    margin-bottom: 10px;  
+    padding: 8px 12px;  
+    border-radius: 8px;  
+    background: #1a2538;  
+    max-width: 85%;  
+}  
+
+.chat-message .time {  
+    font-size: 0.7rem;  
+    color: #9aa4b2;  
+    margin-top: 4px;  
+}  
+
+/* DYNAMIC LIVE COMMUNITY STREAM CONTAINER */
+.community-feed {
+    max-height: 500px;
+    overflow-y: auto;
+    border: 1px solid #1f2b3d;
+    background: #070d19;
+    padding: 15px;
+    border-radius: 12px;
+    margin-top: 20px;
+}
+
+.post-card {
+    background: #111a2e;
+    border-left: 4px solid var(--blue);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 0.85rem;
+}
+
+.post-user {
+    color: var(--neon);
+    font-weight: bold;
+}
+
+.post-time {
+    color: var(--muted);
+}
+
+.post-body {
+    color: #f3f4f6;
+    line-height: 1.5;
+    word-break: break-word;
+}  
+
+/* LEGAL AND STRUCTURAL TEXT FORMATTING */  
+.legal-list {  
+    list-style: none;  
+    margin-top: 15px;  
+}  
+
+.legal-list li {  
+    background: #0b1320;  
+    border: 1px solid #1f2b3d;  
+    padding: 16px;  
+    border-radius: 10px;  
+    margin-bottom: 15px;  
+    line-height: 1.6;  
+}  
+
+.legal-list strong {  
+    color: var(--blue);  
+    display: block;  
+    font-size: 1.1rem;  
+    margin-bottom: 5px;  
+}  
+
+/* PROFILE COMPONENT BOX */  
+.owner-box{  
+text-align:center;  
+padding:25px;  
+background:#0b1320;  
+border-radius:16px;  
+border:1px solid #1d2b3f;  
+}  
+
+/* SYSTEM REAR LAYER FOOTER */  
+.footer{  
+text-align:center;  
+margin-top:30px;  
+color:#7f8ea3;  
+font-size:0.9rem;  
+}  
+
+/* STATS CARDS */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, #0b1320, #071120);
+    padding: 20px;
+    border-radius: 16px;
+    border: 1px solid var(--neon);
+    text-align: center;
+    transition: 0.3s;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 20px rgba(0,191,255,0.3);
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--neon);
+    text-shadow: 0 0 10px var(--neon);
+}
+
+.stat-label {
+    color: var(--muted);
+    margin-top: 5px;
+    font-size: 0.85rem;
+}
+
+.member-list {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-top: 15px;
+}
+
+.member-item {
+    background: #0b1320;
+    padding: 12px;
+    margin-bottom: 8px;
+    border-radius: 10px;
+    border-left: 3px solid var(--green);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.member-name {
+    color: var(--neon);
+    font-weight: bold;
+}
+
+.remove-member-btn {
+    background: var(--danger);
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.75rem;
+}
+
+.squad-member-display {
+    background: #0f1724;
+    padding: 8px 12px;
+    margin: 5px 0;
+    border-radius: 8px;
+    border-left: 3px solid var(--gold);
+    font-weight: bold;
+    color: var(--neon);
+}
+
+/* ADS STYLES - added without removing anything */
+.ad-container {
+    background: rgba(0,0,0,0.2);
+    border-radius: 12px;
+    padding: 10px;
+    margin: 15px 0;
+    text-align: center;
+    border: 1px dashed rgba(0,191,255,0.3);
+}
+.ad-label {
+    font-size: 0.65rem;
+    color: var(--muted);
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+}
+.sidebar-ad {
+    margin: 15px 0;
+    padding: 10px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 10px;
+}
+  
+/* ANIMATIONS SCHEMA */  
+@keyframes glow{  
+from{text-shadow:0 0 10px #00bfff;}  
+to{text-shadow:0 0 20px #00bfff,0 0 40px #0077ff,0 0 60px #00bfff;}  
+}  
+
+@keyframes float{  
+0%{transform:translateY(0);}  
+50%{transform:translateY(-8px);}  
+100%{transform:translateY(0);}  
+}  
+
+/* MOBILE COMPATIBILITY OVERLAYS */  
+.mobile-btn{  
+display:none;  
+position:fixed;  
+top:15px;  
+left:15px;  
+z-index:2000;  
+background:#111827;  
+border:1px solid #1f2b3d;  
+color:white;  
+padding:12px 15px;  
+border-radius:10px;  
+cursor:pointer;  
+}  
+
+@media(max-width:768px){  
+.sidebar{  
+transform:translateX(-100%);  
+transition:0.3s;  
+}  
+.sidebar.show{  
+transform:translateX(0);  
+}  
+.main{  
+margin-left:0;  
+padding-top:80px;  
+}  
+.mobile-btn{  
+display:block;  
+}  
+.main-title{  
+font-size:1.6rem;  
+}  
+}  
+</style>  
+</head>  
+<body>  
+<!-- AMP Auto Ads -->
+<amp-auto-ads type="adsense"
+        data-ad-client="ca-pub-5991476915949722">
+</amp-auto-ads>
+
+<canvas id="particles"></canvas>
+
+<div class="top-corner">  
+╔☠︎═══☠︎╗<br>  
+FOUR SEVEN <br>  
+╚☠︎═══☠︎╝  
+</div>  
+<button class="mobile-btn" onclick="toggleMenu()">☰</button>
+
+<div class="sidebar" id="sidebar">  
+<div class="brand">☠️ FOUR SEVEN [R•S•T]</div>  
+
+<!-- Sidebar Ad Unit -->
+<div class="sidebar-ad">
+    <div class="ad-label">ADVERTISEMENT</div>
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-5991476915949722"
+         data-ad-slot="4481533034"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+<div class="menu-title">MAIN MENU</div>  
+<a class="menu-btn" onclick="showPage('home-page')">🏠 Home</a>
+<a class="menu-btn" onclick="showPage('configs-page')">📥 Config Files</a>
+<a class="menu-btn" onclick="showPage('community-page')">💬 Community</a>
+<a class="menu-btn" onclick="showPage('earn-page')">💰 Earn Money</a>
+<a class="menu-btn" onclick="showPage('rules-page')">📜 Rules</a>
+<a class="menu-btn" onclick="showPage('safety-page')">🛡️ Safety</a>
+<a class="menu-btn" onclick="showPage('about-page')">👑 Owner</a>
+<a class="menu-btn" href="https://github.com/magabemack47-spec/four-seven-hub" target="_blank">🐙 GitHub</a>
+
+<div class="menu-title">ELITE SECTION</div>  
+<a class="menu-btn" onclick="showSquadPage()">🔰 Squad of RST 🇦🇶</a>  
+<a class="menu-btn" onclick="showPage('owner-panel-page')" style="border-color: var(--gold); color: var(--gold);">⚡ Owner Panel</a>
+
+<!-- Second Sidebar Ad -->
+<div class="sidebar-ad" style="margin-top:15px;">
+    <div class="ad-label">SPONSOR</div>
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-5991476915949722"
+         data-ad-slot="4481533034"
+         data-ad-format="rectangle"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+</div>  
+
+<div class="main">  
+<div class="header">  
+<div class="skull-logo">☠️</div>  
+<h1 class="main-title">FOUR SEVEN [R•S•T] NeT-SiTE</h1>  
+<p>[ SYSTEM STATUS : ONLINE ]</p>  
+</div>  
+
+<!-- Header Banner Ad -->
+<div class="ad-container">
+    <div class="ad-label">ADVERTISEMENT</div>
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-5991476915949722"
+         data-ad-slot="4481533034"
+         data-ad-format="horizontal"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+<div id="home-page" class="page active-page">  
+<div class="card">  
+<h2>☠️ Welcome</h2>  
+<div id="owner-broadcast-banner" style="display:none; background:rgba(255,215,0,0.1); border:1px solid var(--gold); padding:15px; border-radius:12px; margin-bottom:20px;">
+    <h3 style="color:var(--gold); margin-bottom:5px;">📢 OWNER BROADCAST:</h3>
+    <p id="broadcast-text" style="color:#ffffff; font-weight:bold;"></p>
+</div>
+
+<p style="line-height:1.8;color:#cbd5e1;">  
+Welcome to the official FOUR SEVEN [R•S•T] CONFIG HUB.  
+Download premium configs, join the community,  
+and enjoy fast secure access.  
+</p>  
+</div>  
+<!-- In-content Ad -->
+<div class="ad-container">
+    <div class="ad-label">RECOMMENDED</div>
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-5991476915949722"
+         data-ad-slot="4481533034"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+</div>  
+
+<div id="configs-page" class="page">  
+<div class="card">  
+<h2>📥 Config Files</h2>  
+<input type="text" id="searchInput" class="search-bar" placeholder="🔍 Search configs..." onkeyup="filterConfigs()">  
+
+<div id="firebase-configs-container"></div>
+
+<div id="owner-public-configs-container"></div>
+</div>
+<!-- In-content Ad -->
+<div class="ad-container">
+    <div class="ad-label">SPONSORED</div>
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-5991476915949722"
+         data-ad-slot="4481533034"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+</div>
+
+<div id="community-page" class="page">
+<div class="card">
+<h2>💬 Global Community Board</h2>
+<p style="color: var(--muted); margin-bottom: 15px;">Share information, network configurations, and updates. Visible to everyone.</p>
+
+<div class="config-box" style="background:#0f1724;">
+<h3 style="color:var(--blue); margin-bottom:12px;">Create Public Post</h3>
+<input type="text" id="com-name-input" class="comment-input" placeholder="Your Name / Alias" style="margin-bottom:10px;">
+<textarea id="com-msg-input" class="comment-input" placeholder="Type your message here..." style="height:100px; resize:vertical; margin-bottom:10px;"></textarea>
+<button class="comment-btn" onclick="submitCommunityPost()" style="width:100%;">🚀 Broadcast Message</button>
+</div>
+
+<!-- Native Ad -->
+<div class="ad-container">
+    <div class="ad-label">PROMOTION</div>
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-5991476915949722"
+         data-ad-slot="4481533034"
+         data-ad-format="rectangle"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+<h3>📡 Live Feed</h3>
+<div id="community-reply-box" style="display:none;background:rgba(0,191,255,.1);border-left:3px solid #00bfff;padding:8px;margin-bottom:10px;">
+Replying to: <span id="community-reply-text"></span>
+<button onclick="cancelCommunityReply()" style="float:right;background:none;border:none;color:red;cursor:pointer;">X</button>
+</div>
+<div id="community-feed" class="community-feed"></div>
+</div>
+</div>
+
+<div id="earn-page" class="page">  
+<div class="card">  
+<h2>💰 Claiming Money Link</h2>  
+<p style="line-height:1.8;color:#cbd5e1;">  
+Join this platform and start earning real money for free.<br><br>  
+Click the button below to get started.  
+</p>  
+<a href="https://a1.wa710.cc/go/28258927" target="_blank" class="download-btn" style="background:linear-gradient(to right,#25D366,#00bfff);">🚀 Start Earning Now</a>  
+</div>  
+<!-- Earn page ad -->
+<div class="ad-container">
+    <div class="ad-label">PARTNER OFFER</div>
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-5991476915949722"
+         data-ad-slot="4481533034"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+</div>  
+
+<div id="rules-page" class="page">
+<div class="card">
+<h2>📜 Official Hub Regulations & Terms</h2>
+<p style="color: var(--muted)">Failure to comply with platform guidelines will result in an immediate and irreversible IP ban.</p>
+<ul class="legal-list">
+<li><strong>1. File Sharing & Config Integrity</strong> All payloads, files, and tunnel network data files shared must be thoroughly checked for malicious injection scripts. Modifying another developer's configuration files without appropriate credit is strictly illegal.</li>
+<li><strong>2. No Malicious Tool Distribution</strong> The upload or distribution of malware, ransomware, botnets, or link-shorteners redirecting users to hazardous, unverified scripts is explicitly prohibited on this platform.</li>
+<li><strong>3. Zero-Tolerance Spam Policy</strong> The global community board and comment fields must remain free of repetitive link spamming, advertising unverified channels, or flooding servers with artificial traffic.</li>
+<li><strong>4. Respect the Elite Hierarchy</strong> Squad configurations and instructions deployed within the RST layout must remain internal. Disclosing access patterns or passwords to outer channels is classified as breach of code.</li>
+<li><strong>5. No Account Scraping</strong> Automated web-scraping, denial of service attacks against this platform, or trying to harvest Firebase data links illegally will be intercepted and flagged directly to ISPs.</li>
+</ul>
+</div>
+</div>
+
+<div id="safety-page" class="page">
+<div class="card">
+<h2>🛡️ Cyber Security & Safety Manual</h2>
+<p style="color: var(--muted)">Protect your identity and hardware while deploying network configurations.</p>
+<ul class="legal-list">
+<li><strong>1. Secure Tunnel Execution</strong> Always inspect your client applications (such as TLS Tunnel, HTTP Custom, or custom RST tools) before initializing a configuration file. Keep your base software updated to avoid memory leak exploits.</li>
+<li><strong>2. Avoid Personal Information Exposure</strong> When posting onto the public community board, never expose your private phone number, network IP gateway addresses, hardware IMEI numbers, or specific location codes.</li>
+<li><strong>3. Link Redirection Protocols</strong> External download resources use link validation techniques. Always utilize ad-blockers or isolated sandbox environments if navigating unknown third-party shortener channels.</li>
+<li><strong>4. Account Credential Security</strong> Do not use your primary network keys or private security credentials for experimental proxy configuration scripts. Create distinct tester variables to prevent account termination from cellular carrier filters.</li>
+<li><strong>5. Reported Vulnerabilities</strong> If you discover an expired configuration producing a direct security hazard or a user violating safety practices, contact the platform administrator immediately via the provided serious inquiry channels.</li>
+</ul>
+</div>
+</div>
+
+<div id="squad-page" class="page">  
+<div class="card">  
+<h2>🔰 Squad of RST 🇦🇶</h2>  
+<p><strong>Password Protected Squad Chat & Configs</strong></p>  
+<div id="squad-login">  
+<input type="password" id="squad-password" placeholder="Enter Password" style="width:100%; padding:12px; margin:10px 0; background:#0b1320; border:1px solid #1f2b3d; color:white; border-radius:10px;">  
+<button class="action-btn" onclick="checkSquadPassword()" style="background:linear-gradient(to right,#00bfff,#0077ff); width:100%;">🔓 Join Squad</button>  
+</div>  
+<div id="squad-content" style="display:none;">  
+<h3>✅ Squad Members</h3>  
+<div id="dynamic-squad-members-list" style="background:#0f1724; padding:15px; border-radius:12px; margin-bottom:20px;"></div>  
+<h3 style="margin:20px 0 10px;">💬 Squad Live Chat</h3>  
+<div id="squad-reply-box" style="display:none; background:rgba(0,191,255,0.1); border-left:3px solid var(--blue); padding:8px; margin-bottom:8px; font-size:0.85rem;">
+    <span>Replying to: <span id="squad-reply-target-text" style="color:var(--muted);"></span></span>
+    <button onclick="cancelSquadReply()" style="background:none; border:none; color:var(--danger); cursor:pointer; float:right; font-weight:bold;">X</button>
+</div>
+<div id="chat-box" class="chat-box"></div>  
+<input type="text" id="chat-input" placeholder="Type message here..." style="width:78%; padding:12px; background:#0b1320; border:1px solid #1f2b3d; color:white; border-radius:10px;">  
+<button class="action-btn" onclick="sendChatMessage()" style="width:20%; background:linear-gradient(to right,#25D366,#00bfff);">Send</button>  
+<h3 style="margin-top:25px;">Post New Config (Squad Only)</h3>  
+<input type="text" id="new-config-name" placeholder="Config Name" style="width:100%;padding:12px;margin:8px 0;background:#0b1320;border:1px solid #1f2b3d;color:white;border-radius:10px;">  
+<textarea id="new-config-desc" placeholder="Description" style="width:100%;height:80px;padding:12px;margin:8px 0;background:#0b1320;border:1px solid #1f2b3d;color:white;border-radius:10px;"></textarea>  
+<input type="text" id="new-config-link" placeholder="Download Link" style="width:100%;padding:12px;margin:8px 0;background:#0b1320;border:1px solid #1f2b3d;color:white;border-radius:10px;">  
+<button class="action-btn" onclick="postSquadConfig()" style="background:linear-gradient(to right,#25D366,#00bfff); width:100%;">🚀 Post Config</button>  
+</div>  
+</div>  
+</div>  
+
+<div id="owner-panel-page" class="page">
+<div class="card">
+<h2>⚡ Exclusive Owner Controls</h2>
+<p style="color:var(--muted); margin-bottom:15px;">System identity gate validation required.</p>
+
+<div id="owner-login-box">
+    <input type="password" id="owner-system-key" placeholder="Enter System Password" style="width:100%; padding:12px; margin:10px 0; background:#0b1320; border:1px solid #1f2b3d; color:white; border-radius:10px;">  
+    <button class="action-btn" onclick="verifyOwnerIdentity()" style="background:linear-gradient(to right, var(--gold), #ff7700); width:100%;">🔓 Access Terminal</button>  
+</div>
+
+<div id="owner-terminal-content" style="display:none;">
+    <!-- STATS SECTION -->
+    <h3 style="color:var(--neon); margin-bottom:15px;">📊 Website Analytics</h3>
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-number" id="total-visitors-count">0</div>
+            <div class="stat-label">Total Visitors</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number" id="active-users-count">0</div>
+            <div class="stat-label">Active Now</div>
+        </div>
+    </div>
+
+    <h3 style="color:var(--gold); margin-bottom:10px;">📢 Broadcast Message to Home Screen</h3>
+    <textarea id="owner-broadcast-input" class="comment-input" placeholder="Type a message to show on the welcome page..." style="height:80px; resize:vertical;"></textarea>
+    <button class="action-btn" onclick="deployOwnerBroadcast()" style="background:var(--blue); width:100%; margin-bottom:25px;">📡 Deploy Broadcast</button>
+
+    <h3 style="color:var(--gold); margin-bottom:10px;">🔰 Manage Squad Members</h3>
+    <input type="text" id="new-squad-name" placeholder="Member Name" style="width:100%; padding:12px; margin-bottom:10px; background:#0b1320; border:1px solid #1f2b3d; color:white; border-radius:10px;">
+    <input type="text" id="new-squad-pass" placeholder="Member Password/Key" style="width:100%; padding:12px; margin-bottom:10px; background:#0b1320; border:1px solid #1f2b3d; color:white; border-radius:10px;">
+    <button class="action-btn" onclick="addSquadMember()" style="background:var(--green); width:48%;">+ Add Member</button>
+    <button class="action-btn" onclick="showRemoveMemberUI()" style="background:var(--danger); width:48%;">- Remove Member</button>
+    
+    <div id="remove-member-selector" style="display:none; margin-top:15px; padding:15px; background:#0b1320; border-radius:10px;">
+        <h4 style="color:var(--danger); margin-bottom:10px;">Select Member to Remove:</h4>
+        <div id="member-list-for-removal"></div>
+    </div>
+    
+    <div id="current-members-list" style="margin-top:15px;"></div>
+
+    <h3 style="color:var(--neon); margin-bottom:10px;">🚀 Upload Global Configuration File</h3>
+    <input type="text" id="owner-file-name" placeholder="Config File Title (e.g. Vodacom Uncapped)" style="width:100%; padding:12px; margin-bottom:10px; background:#0b1320; border:1px solid #1f2b3d; color:white; border-radius:10px;">
+    <input type="text" id="owner-file-type" placeholder="File Type Format (e.g. HC, TLS, BDNET, EHI)" style="width:100%; padding:12px; margin-bottom:10px; background:#0b1320; border:1px solid #1f2b3d; color:white; border-radius:10px;">
+    <textarea id="owner-file-desc" class="comment-input" placeholder="Configuration features description payload details..."></textarea>
+    <input type="text" id="owner-file-link" placeholder="Download Link URL (Mediafire, ouo.io, etc)" style="width:100%; padding:12px; margin-bottom:15px; background:#0b1320; border:1px solid #1f2b3d; color:white; border-radius:10px;">
+    <button class="action-btn" onclick="deployOwnerPublicConfig()" style="background:var(--green); width:100%;">📦 Push File Live</button>
+    
+    <h3 style="color:var(--danger); margin-top:25px; margin-bottom:10px;">⚠️ Nuclear Options</h3>
+    <button class="action-btn" onclick="deleteAllOwnerConfigs()" style="background:var(--danger); width:100%; border-color:var(--danger);">🗑️ DELETE ALL FILES</button>
+</div>
+</div>
+</div>
+
+<div id="about-page" class="page">  
+<div class="card">  
+<div class="owner-box">  
+<h2 style="color:#ffd700;">FOUR SEVEN [R•S•T]</h2>  
+<p style="margin:15px 0;color:#cbd5e1;font-size:1.1rem;">  
+Skilled developer and network specialist. I deploy powerful bots and help people create custom tunnel files for stable and fast connections.<br><br>  
+I created this website in <strong>May 2026</strong> to share premium resources with the community.  
+</p>  
+<p style="margin-top:20px;color:#00bfff;">  
+📞 Contact Me: <strong>+27602225117</strong><br>  
+💬 WhatsApp only for serious inquiries.  
+</p>  
+</div>  
+</div>  
+</div>  
+
+<div class="footer">  
+© 2026 FOUR SEVEN [R•S•T] — ALL RIGHTS RESERVED  
+</div>  
+</div>  
+
+<script>  
+// =============================================================
+// 1. FIREBASE APP & DATABASE INITIALIZATION
+// =============================================================
+const firebaseConfig = {
+    databaseURL: "https://four-seven-net-site-default-rtdb.firebaseio.com" 
+};
+firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
+
+const communityRef = database.ref('public_community_feed');
+const squadChatRef = database.ref('squad_secure_chat');
+const squadConfigRef = database.ref('squad_exclusive_configs');
+
+const ownerBroadcastRef = database.ref('owner_global_broadcast');
+const ownerPublicConfigsRef = database.ref('owner_public_shared_configs');
+
+const downloadsRef = database.ref('config_downloads');
+const likesRef = database.ref('config_likes');
+
+// NEW: Squad members reference
+const squadMembersRef = database.ref('squad_members');
+
+// NEW: Visitor tracking references
+const visitorStatsRef = database.ref('visitor_stats');
+const activeUsersRef = database.ref('active_users');
+
+let currentReplyTarget = null;
+let currentCommunityReply = null;
+let activeSquadUser = "";
+let currentVisitorId = null;
+
+// ==========================================
+// 2. VISITOR TRACKING SYSTEM
+// ==========================================
+function generateVisitorId() {
+    return 'visitor_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+}
+
+function trackVisitor() {
+    let visitorId = localStorage.getItem('visitor_id');
+    if (!visitorId) {
+        visitorId = generateVisitorId();
+        localStorage.setItem('visitor_id', visitorId);
+        
+        // Increment total visitors
+        visitorStatsRef.transaction(current => {
+            return (current || 0) + 1;
+        });
+    }
+    currentVisitorId = visitorId;
+    
+    // Track active user
+    const userSessionRef = activeUsersRef.child(visitorId);
+    userSessionRef.set({
+        lastSeen: Date.now(),
+        userAgent: navigator.userAgent.substring(0, 100)
+    });
+    
+    // Remove after 5 minutes of inactivity
+    userSessionRef.onDisconnect().remove();
+    
+    // Update total visitors display
+    visitorStatsRef.on('value', snapshot => {
+        const count = snapshot.val() || 0;
+        const totalElem = document.getElementById('total-visitors-count');
+        if(totalElem) totalElem.innerText = count;
+    });
+    
+    // Update active users count
+    function updateActiveCount() {
+        activeUsersRef.once('value', snapshot => {
+            const users = snapshot.val() || {};
+            let activeCount = 0;
+            const now = Date.now();
+            Object.keys(users).forEach(key => {
+                if(now - users[key].lastSeen < 300000) { // 5 minutes
+                    activeCount++;
+                } else {
+                    activeUsersRef.child(key).remove();
+                }
+            });
+            const activeElem = document.getElementById('active-users-count');
+            if(activeElem) activeElem.innerText = activeCount;
+        });
+    }
+    
+    updateActiveCount();
+    setInterval(updateActiveCount, 60000);
+    
+    // Refresh the user's session periodically
+    setInterval(() => {
+        activeUsersRef.child(visitorId).update({ lastSeen: Date.now() });
+    }, 60000);
+}
+
+// Start tracking
+trackVisitor();
+
+// ==========================================
+// 3. BACKGROUND PARTICLE SYSTEMS EFFECT
+// ==========================================
+const canvas = document.getElementById('particles');  
+const ctx = canvas.getContext('2d');  
+canvas.width = window.innerWidth;  
+canvas.height = window.innerHeight;  
+  
+let particlesArray = [];  
+class Particle {  
+    constructor(){  
+        this.x = Math.random() * canvas.width;  
+        this.y = Math.random() * canvas.height;  
+        this.size = Math.random() * 2 + 0.5;  
+        this.speedX = Math.random() * 0.6 - 0.3;  
+        this.speedY = Math.random() * 0.6 - 0.3;  
+    }  
+    update(){  
+        this.x += this.speedX;  
+        this.y += this.speedY;  
+        if(this.x < 0 || this.x > canvas.width) this.speedX *= -1;  
+        if(this.y < 0 || this.y > canvas.height) this.speedY *= -1;  
+    }  
+    draw(){  
+        ctx.fillStyle = '#00bfff';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+    }
+}
+
+function initParticles(){
+    particlesArray = [];
+    for(let i = 0; i < 65; i++){
+        particlesArray.push(new Particle());
+    }
+}
+
+function animateParticles(){
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for(let i = 0; i < particlesArray.length; i++){
+        particlesArray[i].update();
+        particlesArray[i].draw();
+    }
+    requestAnimationFrame(animateParticles);
+}
+initParticles();
+animateParticles();
+
+window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    initParticles();
+});
+
+// ==========================================
+// 4. AUTO-ERASE MECHANISM (5 DAYS)
+// ==========================================
+setInterval(() => {
+    const fiveDaysInMs = 5 * 24 * 60 * 60 * 1000;
+    const now = Date.now();
+    
+    communityRef.once('value', snapshot => {
+        snapshot.forEach(child => {
+            if (now - child.val().timestamp > fiveDaysInMs) {
+                child.ref.remove();
+            }
+        });
+    });
+}, 3600000);
+
+// ==========================================
+// 5. CORE SINGLE PAGE APPLICATION ROUTING
+// ==========================================
+function showPage(pageId) {
+    const pages = document.querySelectorAll('.page');
+    pages.forEach(page => page.classList.remove('active-page'));
+    
+    const targetPage = document.getElementById(pageId);
+    if(targetPage) {
+        targetPage.classList.add('active-page');
+    }
+    
+    if(window.innerWidth <= 768) {
+        document.getElementById('sidebar').classList.remove('show');
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function toggleMenu() {
+    document.getElementById('sidebar').classList.toggle('show');
+}
+
+// ==========================================
+// 6. CONFIG MANAGEMENT & SEARCH FILTERING
+// ==========================================
+function filterConfigs() {
+    const input = document.getElementById('searchInput').value.toLowerCase();
+    const boxes = document.querySelectorAll('.config-box');
+    
+    boxes.forEach(box => {
+        const attrSearch = box.getAttribute('data-search') || "";
+        const searchData = attrSearch.toLowerCase();
+        const headingText = box.querySelector('h3') ? box.querySelector('h3').innerText.toLowerCase() : "";
+        
+        if(searchData.includes(input) || headingText.includes(input)) {
+            box.style.display = "block";
+        } else {
+            box.style.display = "none";
+        }
+    });
+}
+
+function increaseDownload(configKey) {
+    downloadsRef.child(configKey).transaction(currentCount => {
+        return (currentCount || 0) + 1;
+    });
+}
+
+function likeConfig(configKey) {
+    likesRef.child(configKey).transaction(currentCount => {
+        return (currentCount || 0) + 1;
+    });
+}
+
+function deleteOwnerConfig(configKey) {
+    const pass = prompt("Enter password to delete this config:");
+    if (pass === "four seven" || pass === "Four Seven") {
+        ownerPublicConfigsRef.child(configKey).remove().then(() => {
+            alert("Config deleted successfully.");
+        });
+    } else {
+        alert("Unauthorized.");
+    }
+}
+
+function deleteAllOwnerConfigs() {
+    const pass = prompt("CRITICAL: Enter password to delete ALL public files:");
+    if (pass === "four seven" || pass === "Four Seven") {
+        if(confirm("Are you ABSOLUTELY sure? This cannot be undone.")) {
+            ownerPublicConfigsRef.remove().then(() => {
+                alert("ALL files deleted successfully.");
+            });
+        }
+    } else {
+        alert("Unauthorized.");
+    }
+}
+
+downloadsRef.on('value', snapshot => {
+    const data = snapshot.val() || {};
+    Object.keys(data).forEach(key => {
+        const counterEl = document.getElementById(`downloads-${key}`);
+        if(counterEl) counterEl.innerText = data[key];
+    });
+});
+
+likesRef.on('value', snapshot => {
+    const data = snapshot.val() || {};
+    Object.keys(data).forEach(key => {
+        const counterEl = document.getElementById(`likes-${key}`);
+        if(counterEl) counterEl.innerText = data[key];
+    });
+});
+
+function simulateDownload(element) {
+    console.log("Config payload deployment initialized redirect to:", element.href);
+}
+
+function addComment(configKey) {
+    const inputEl = document.getElementById(`input-${configKey}`);
+    const commentContainer = document.getElementById(`comments-${configKey}`);
+    if(!inputEl || !inputEl.value.trim()) return;
+    
+    const commDiv = document.createElement('div');
+    commDiv.className = 'comment';
+    commDiv.innerText = inputEl.value;
+    commentContainer.appendChild(commDiv);
+    inputEl.value = '';
+}
+
+// ==========================================
+// 7. DYNAMIC SQUAD MEMBERS MANAGEMENT
+// ==========================================
+function loadSquadMembers() {
+    squadMembersRef.on('value', snapshot => {
+        const members = snapshot.val() || {};
+        
+        // Update dynamic list in squad page
+        const squadListContainer = document.getElementById('dynamic-squad-members-list');
+        if(squadListContainer) {
+            squadListContainer.innerHTML = '<h4 style="color:var(--neon); margin-bottom:10px;">👥 Active Squad Members:</h4>';
+            Object.keys(members).forEach(key => {
+                squadListContainer.innerHTML += `<div class="squad-member-display">⚡ ${escapeHtml(members[key].name)}</div>`;
+            });
+            if(Object.keys(members).length === 0) {
+                squadListContainer.innerHTML += '<div class="squad-member-display" style="color:var(--muted);">No members yet. Add them via Owner Panel.</div>';
+            }
+        }
+        
+        // Update current members list in owner panel
+        const currentMembersDiv = document.getElementById('current-members-list');
+        if(currentMembersDiv) {
+            if(Object.keys(members).length > 0) {
+                currentMembersDiv.innerHTML = '<h4 style="color:var(--green); margin-top:15px;">📋 Current Squad Members:</h4><div class="member-list">';
+                Object.keys(members).forEach(key => {
+                    currentMembersDiv.innerHTML += `
+                        <div class="member-item">
+                            <span class="member-name">⚡ ${escapeHtml(members[key].name)}</span>
+                            <span style="color:var(--muted); font-size:0.8rem;">Key: ${escapeHtml(key)}</span>
+                        </div>
+                    `;
+                });
+                currentMembersDiv.innerHTML += '</div>';
+            } else {
+                currentMembersDiv.innerHTML = '<p style="color:var(--muted); margin-top:15px;">No squad members yet.</p>';
+            }
+        }
+        
+        // Update removal list
+        const removalListDiv = document.getElementById('member-list-for-removal');
+        if(removalListDiv) {
+            removalListDiv.innerHTML = '';
+            Object.keys(members).forEach(key => {
+                removalListDiv.innerHTML += `
+                    <div class="member-item">
+                        <span class="member-name">${escapeHtml(members[key].name)}</span>
+                        <button class="remove-member-btn" onclick="removeSpecificMember('${key}')">Remove</button>
+                    </div>
+                `;
+            });
+            if(Object.keys(members).length === 0) {
+                removalListDiv.innerHTML = '<p style="color:var(--muted);">No members to remove.</p>';
+            }
+        }
+        
+        // Update the global SQUAD_KEYS_MATRIX equivalent for authentication
+        window.activeSquadKeys = members;
+    });
+}
+
+function addSquadMember() {
+    const name = document.getElementById('new-squad-name').value.trim();
+    const pass = document.getElementById('new-squad-pass').value.trim();
+
+    if (!name || !pass) {
+        alert("Fill in all fields.");
+        return;
+    }
+
+    squadMembersRef.child(pass).set({
+        name: name,
+        key: pass,
+        timestamp: Date.now()
+    }).then(() => {
+        alert("Member added successfully!");
+        document.getElementById('new-squad-name').value = '';
+        document.getElementById('new-squad-pass').value = '';
+    }).catch(err => {
+        alert("Error: " + err.message);
+    });
+}
+
+function showRemoveMemberUI() {
+    const selector = document.getElementById('remove-member-selector');
+    if(selector.style.display === 'none') {
+        selector.style.display = 'block';
+        loadSquadMembers(); // Refresh list
+    } else {
+        selector.style.display = 'none';
+    }
+}
+
+function removeSpecificMember(passKey) {
+    if(confirm("Are you sure you want to remove this member?")) {
+        squadMembersRef.child(passKey).remove()
+            .then(() => {
+                alert("Member removed successfully.");
+                document.getElementById('remove-member-selector').style.display = 'none';
+            })
+            .catch(err => alert("Error: " + err.message));
+    }
+}
+
+function removeSquadMember() {
+    const pass = document.getElementById('new-squad-pass').value.trim();
+    if(!pass) {
+        alert("Enter a member key to remove.");
+        return;
+    }
+    
+    if(confirm("Remove member with key: " + pass + "?")) {
+        squadMembersRef.child(pass).remove()
+            .then(() => {
+                alert("Member removed successfully.");
+                document.getElementById('new-squad-pass').value = '';
+            })
+            .catch(err => alert("Error: " + err.message));
+    }
+}
+
+// ==========================================
+// 8. SQUAD AUTHENTICATION (UPDATED)
+// ==========================================
+function checkSquadPassword() {
+    const passwordInput = document.getElementById('squad-password').value.trim();
+    
+    squadMembersRef.child(passwordInput).once('value', snapshot => {
+        const member = snapshot.val();
+        if(member) {
+            activeSquadUser = member.name;
+            document.getElementById('squad-login').style.display = 'none';
+            document.getElementById('squad-content').style.display = 'block';
+            alert("ACCESS GRANTED: Welcome back " + activeSquadUser);
+            initializeSquadSynchronizations();
+        } else {
+            alert("ACCESS DENIED: Invalid squad key.");
+        }
+    });
+}
+
+function showSquadPage() {
+    showPage('squad-page');
+}
+
+function initializeSquadSynchronizations() {
+    squadChatRef.limitToLast(50).on('value', snapshot => {
+        const chatBox = document.getElementById('chat-box');
+        if(!chatBox) return;
+        chatBox.innerHTML = '';
+        
+        const messages = snapshot.val();
+        if(!messages) return;
+        
+        Object.keys(messages).forEach(key => {
+            const msg = messages[key];
+            const dateObj = new Date(msg.timestamp);
+            const timeString = dateObj.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            
+            let replyBlockHTML = '';
+            if (msg.replyTo) {
+                replyBlockHTML = `
+                    <div style="background: rgba(0,0,0,0.2); border-left: 2px solid var(--blue); padding: 4px 8px; margin-bottom: 6px; font-size: 0.8rem; color: var(--muted);">
+                        🔄 Replying to <strong>${escapeHtml(msg.replyTo.sender)}</strong>: "${escapeHtml(msg.replyTo.text)}"
+                    </div>
+                `;
+            }
+
+            const msgHtml = `
+                <div class="chat-message" style="max-width:90%;">
+                    ${replyBlockHTML}
+                    <strong style="color:var(--neon);">${escapeHtml(msg.sender)}:</strong> 
+                    <span>${escapeHtml(msg.text)}</span>
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:4px;">
+                        <span class="time">${timeString}</span>
+                        <button onclick="setSquadReply('${escapeHtml(msg.sender)}', '${escapeHtml(msg.text)}')" style="background:none; border:none; color:var(--blue); font-size:0.75rem; cursor:pointer; padding:2px 6px;">Reply</button>
+                    </div>
+                </div>
+            `;
+            chatBox.innerHTML += msgHtml;
+        });
+        chatBox.scrollTop = chatBox.scrollHeight;
+    });
+}
+
+function setSquadReply(sender, text) {
+    currentReplyTarget = { sender: sender, text: text };
+    document.getElementById('squad-reply-target-text').innerText = sender + ': "' + text + '"';
+    document.getElementById('squad-reply-box').style.display = 'block';
+    document.getElementById('chat-input').focus();
+}
+
+function cancelSquadReply() {
+    currentReplyTarget = null;
+    document.getElementById('squad-reply-box').style.display = 'none';
+}
+
+function sendChatMessage() {
+    const chatInput = document.getElementById('chat-input');
+    const msgText = chatInput.value.trim();
+    if(!msgText || !activeSquadUser) return;
+    
+    const payload = {
+        sender: activeSquadUser,
+        text: msgText,
+        timestamp: Date.now()
+    };
+
+    if (currentReplyTarget) {
+        payload.replyTo = currentReplyTarget;
+    }
+    
+    squadChatRef.push(payload).then(() => {
+        chatInput.value = '';
+        cancelSquadReply();
+    }).catch(err => {
+        alert("Squad Message Failed to Sync: " + err.message);
+    });
+}
+
+document.getElementById('chat-input')?.addEventListener('keypress', function(e) {
+    if(e.key === 'Enter') {
+        sendChatMessage();
+    }
+});
+
+function postSquadConfig() {
+    const name = document.getElementById('new-config-name').value.trim();
+    const desc = document.getElementById('new-config-desc').value.trim();
+    const link = document.getElementById('new-config-link').value.trim();
+    
+    if(!name || !link) {
+        alert("Configuration operational fields missing parameters.");
+        return;
+    }
+    
+    squadConfigRef.push({
+        configName: name,
+        configDesc: desc,
+        downloadLink: link,
+        timestamp: Date.now()
+    }).then(() => {
+        alert("Operational deployment successful: Config broadcasted to database layer.");
+        document.getElementById('new-config-name').value = '';
+        document.getElementById('new-config-desc').value = '';
+        document.getElementById('new-config-link').value = '';
+    });
+}
+
+squadConfigRef.on('value', snapshot => {
+    const container = document.getElementById('firebase-configs-container');
+    if(!container) return;
+    container.innerHTML = '';
+    
+    const configs = snapshot.val();
+    if(!configs) return;
+    
+    Object.keys(configs).reverse().forEach(key => {
+        const conf = configs[key];
+        const dateObj = new Date(conf.timestamp || Date.now());
+        const dateString = dateObj.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+        
+        const configHTML = `
+            <div class="config-box" data-search="${escapeHtml(conf.configName)}">
+                <h3>👑 ${escapeHtml(conf.configName)} [SQUAD EXP]</h3>
+                <p>${escapeHtml(conf.configDesc || 'Exclusive connection asset shared via database connection layers.')}</p>
+                <p style="color:#ffd700;font-weight:bold;">↗️ File Type: DYNAMIC</p>
+                <p style="color:#00bfff;">🇦🇶 Posted: ${dateString}</p>
+                <a class="download-btn" href="${escapeHtml(conf.downloadLink)}" target="_blank" onclick="increaseDownload('${key}'); simulateDownload(this)">⬇ Download File</a>
+                <div class="config-actions">  
+                    <button class="action-btn">⬇ Downloads: <span id="downloads-${key}">0</span></button>  
+                    <button class="action-btn" onclick="likeConfig('${key}')" style="color: var(--danger);">❤ Likes: <span id="likes-${key}">0</span></button>
+                </div>  
+                <input type="text" class="comment-input" id="input-${key}" placeholder="Write a comment...">  
+                <button class="comment-btn" onclick="addComment('${key}')">Post</button>  
+                <div id="comments-${key}"></div>  
+            </div>
+        `;
+        container.innerHTML += configHTML;
+    });
+    
+    downloadsRef.once('value', s => {
+        const d = s.val() || {};
+        Object.keys(d).forEach(k => { const el = document.getElementById(`downloads-${k}`); if(el) el.innerText = d[k]; });
+    });
+    likesRef.once('value', s => {
+        const l = s.val() || {};
+        Object.keys(l).forEach(k => { const el = document.getElementById(`likes-${k}`); if(el) el.innerText = l[k]; });
+    });
+});
+
+// ==========================================
+// 9. GLOBAL PUBLIC COMMUNITY BOARD STREAM
+// ==========================================
+function setCommunityReply(id,name,text){
+    currentCommunityReply={postId:id,sender:name,text:text};
+    document.getElementById('community-reply-box').style.display='block';
+    document.getElementById('community-reply-text').innerText=name + ': ' + text;
+}
+
+function cancelCommunityReply(){
+    currentCommunityReply=null;
+    document.getElementById('community-reply-box').style.display='none';
+}
+
+function submitCommunityPost() {
+    const nameInput = document.getElementById('com-name-input');
+    const msgInput = document.getElementById('com-msg-input');
+    
+    const name = nameInput.value.trim() || "Anonymous Rebel";
+    const message = msgInput.value.trim();
+    
+    if(!message) {
+        alert("Transmission payload content cannot be empty.");
+        return;
+    }
+    
+    const payload = {
+        username: name,
+        bodyText: message,
+        timestamp: Date.now()
+    };
+
+    if(currentCommunityReply){
+        payload.replyTo = currentCommunityReply;
+    }
+
+    communityRef.push(payload).then(() => {
+        msgInput.value = '';
+        cancelCommunityReply();
+    }).catch(err => {
+        alert("Database execution dropped: " + err.message);
+    });
+}
+
+communityRef.limitToLast(40).on('value', snapshot => {
+    const feedContainer = document.getElementById('community-feed');
+    if(!feedContainer) return;
+    feedContainer.innerHTML = '';
+    
+    const data = snapshot.val();
+    if(!data) {
+        feedContainer.innerHTML = `<p style="color:var(--muted); text-align:center;">No broadcast signals detected in this sector.</p>`;
+        return;
+    }
+    
+    Object.keys(data).reverse().forEach(key => {
+        const item = data[key];
+        const dateObj = new Date(item.timestamp);
+        const timeString = dateObj.toLocaleDateString() + ' ' + dateObj.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+        
+        let replyHTML='';
+        if(item.replyTo){
+            replyHTML=`<div style="background:#0b1320;padding:8px;border-left:3px solid #00bfff;margin-bottom:8px;font-size:.8rem;">
+            ↩ Reply to <b>${escapeHtml(item.replyTo.sender)}</b><br>${escapeHtml(item.replyTo.text)}</div>`;
+        }
+
+        const postHTML = `
+            <div class="post-card">
+                <div class="post-header">
+                    <span class="post-user">⚡ ${escapeHtml(item.username)}</span>
+                    <span class="post-time">${timeString}</span>
+                </div>
+                ${replyHTML}
+                <div class="post-body">${escapeHtml(item.bodyText)}</div>
+                <div style="margin-top:10px;">
+                    <button onclick="setCommunityReply('${key}','${escapeHtml(item.username)}','${escapeHtml(item.bodyText)}')" style="background:none;border:none;color:#00bfff;cursor:pointer;margin-right:10px;">↩ Reply</button>
+                    <button onclick="editCommunityPost('${key}')" style="background:none;border:none;color:var(--gold);cursor:pointer;margin-right:10px;">✏ Edit</button>
+                    <button onclick="deleteCommunityPost('${key}')" style="background:none;border:none;color:var(--danger);cursor:pointer;">🗑 Delete</button>
+                </div>
+            </div>
+        `;
+        feedContainer.innerHTML += postHTML;
+    });
+});
+
+function editCommunityPost(key) {
+    const newText = prompt("Enter new message:");
+    if(newText) communityRef.child(key).update({bodyText: newText});
+}
+
+function deleteCommunityPost(key) {
+    const pass = prompt("Owner authentication required for deletion:");
+    if(pass === "Four Seven" || pass === "four seven") {
+        communityRef.child(key).remove();
+    } else {
+        alert("Unauthorized.");
+    }
+}
+
+// ==========================================
+// 10. OWNER PANEL LOGIC
+// ==========================================
+function verifyOwnerIdentity() {
+    const systemPass = document.getElementById('owner-system-key').value;
+    if(systemPass === "Four Seven" || systemPass === "four seven") {
+        document.getElementById('owner-login-box').style.display = 'none';
+        document.getElementById('owner-terminal-content').style.display = 'block';
+        loadSquadMembers(); // Load members when owner panel opens
+    } else {
+        alert("CRITICAL ERROR: Unauthorized system access denied.");
+    }
+}
+
+function deployOwnerBroadcast() {
+    const msg = document.getElementById('owner-broadcast-input').value.trim();
+    ownerBroadcastRef.set({
+        messageText: msg,
+        timestamp: Date.now()
+    }).then(() => {
+        alert("Broadcast array successfully pushed to home screen banner cloud execution layers.");
+    });
+}
+
+function deployOwnerPublicConfig() {
+    const title = document.getElementById('owner-file-name').value.trim();
+    const type = document.getElementById('owner-file-type').value.trim();
+    const desc = document.getElementById('owner-file-desc').value.trim();
+    const URL = document.getElementById('owner-file-link').value.trim();
+
+    if(!title || !type || !URL) {
+        alert("Operation aborted: Missing required configuration metadata parameter arrays.");
+        return;
+    }
+
+    ownerPublicConfigsRef.push({
+        title: title,
+        type: type,
+        description: desc,
+        link: URL,
+        timestamp: Date.now()
+    }).then(() => {
+        alert("Live file injection completed. Synced directly to user downloads index module.");
+        document.getElementById('owner-file-name').value = '';
+        document.getElementById('owner-file-type').value = '';
+        document.getElementById('owner-file-desc').value = '';
+        document.getElementById('owner-file-link').value = '';
+    });
+}
+
+ownerBroadcastRef.on('value', snapshot => {
+    const banner = document.getElementById('owner-broadcast-banner');
+    const bText = document.getElementById('broadcast-text');
+    const data = snapshot.val();
+
+    if(data && data.messageText) {
+        banner.style.display = 'block';
+        bText.innerText = data.messageText;
+    } else {
+        banner.style.display = 'none';
+    }
+});
+
+ownerPublicConfigsRef.on('value', snapshot => {
+    const container = document.getElementById('owner-public-configs-container');
+    if(!container) return;
+    container.innerHTML = '';
+
+    const files = snapshot.val();
+    if(!files) return;
+
+    Object.keys(files).reverse().forEach(key => {
+        const file = files[key];
+        const dateObj = new Date(file.timestamp || Date.now());
+        const dateString = dateObj.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+
+        const boxHTML = `
+            <div class="config-box" data-search="${escapeHtml(file.title)} ${escapeHtml(file.type)}">
+                <h3 style="color:var(--neon);">☠️ ${escapeHtml(file.title)}</h3>
+                <p>${escapeHtml(file.description || 'Verified direct connection asset distributed by admin terminal protocols.')}</p>
+                <p style="color:#ffd700;font-weight:bold;">↗️ File Type: ${escapeHtml(file.type)}</p>
+                <p style="color:#00bfff;">🇦🇶 Posted: ${dateString} [BY OWNER]</p>
+                <a class="download-btn" href="${escapeHtml(file.link)}" target="_blank" onclick="increaseDownload('${key}'); simulateDownload(this)">⬇ Download File</a>
+                <div class="config-actions">  
+                    <button class="action-btn">⬇ Downloads: <span id="downloads-${key}">0</span></button>  
+                    <button class="action-btn" onclick="likeConfig('${key}')" style="color: var(--danger);">❤ Likes: <span id="likes-${key}">0</span></button>
+                    <button class="action-btn" onclick="deleteOwnerConfig('${key}')" style="color: var(--danger); border-color: var(--danger);">🗑 Delete</button>
+                </div>  
+                <input type="text" class="comment-input" id="input-${key}" placeholder="Write a comment...">  
+                <button class="comment-btn" onclick="addComment('${key}')">Post</button>  
+                <div id="comments-${key}"></div>  
+            </div>
+        `;
+        container.innerHTML += boxHTML;
+    });
+
+    downloadsRef.once('value', s => {
+        const d = s.val() || {};
+        Object.keys(d).forEach(k => { const el = document.getElementById(`downloads-${k}`); if(el) el.innerText = d[k]; });
+    });
+    likesRef.once('value', s => {
+        const l = s.val() || {};
+        Object.keys(l).forEach(k => { const el = document.getElementById(`likes-${k}`); if(el) el.innerText = l[k]; });
+    });
+});
+
+function escapeHtml(str) {
+    if(!str) return '';
+    return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+}
+
+// Load squad members on page load
+loadSquadMembers();
+
+// Re-initialize ads after dynamic content loads
+setTimeout(() => {
+    if(window.adsbygoogle) {
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    }
+}, 1500);
+</script>
+</body>
+</html>
