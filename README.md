@@ -2,27 +2,30 @@
   <img src="https://files.catbox.moe/5nrqsg.jpeg" alt="FOUR SEVEN NeT-SiTE Banner">
 </p>
 
-<h1 align="center">
-  <span style="background: linear-gradient(to right, #00bfff, #ffffff, #00bfff); -webkit-background-clip: text; color: transparent; animation: pulse 2s infinite;">
-    ⟦ 𝐅𝐎𝐔𝐑 ⨯ 𝐒𝐄𝐕𝐄𝐍 ⟧
-  </span>
-</h1>
+<div align="center">
+  <style>
+    .glow-text {
+      color: #00bfff;
+      font-size: 32px;
+      font-weight: bold;
+      text-shadow: 0 0 10px #00bfff, 0 0 20px #00bfff;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
+    }
+  </style>
 
-<p align="center">
-  <code>[ SYSTEM_STATUS : ACTIVE ]</code> ◪ <code>[ DEV_ID : FOUR_SEVEN ]</code>
-</p>
-
-<style>
-  @keyframes pulse {
-    0%, 100% { opacity: 0.6; text-shadow: 0 0 10px #00bfff; }
-    50% { opacity: 1; text-shadow: 0 0 25px #00bfff; }
-  }
-</style>
+  <h1 class="glow-text">⟦ 𝐅𝐎𝐔𝐑 ⨯ 𝐒𝐄𝐕𝐄𝐍 ⟧</h1>
+  
+  <p><code>[ SYSTEM_STATUS : ACTIVE ]</code> ◪ <code>[ DEV_ID : FOUR_SEVEN ]</code></p>
+</div>
 
 ---
 
 ## 🌐 INFRASTRUCTURE OVERVIEW
-The <b>⟦ 𝐅𝐎𝐔𝐑 ⨯ 𝐒𝐄𝐕𝐄𝐍 ⟧</b> ecosystem is a specialized high-performance framework engineered for secure tunneling and optimized data routing. As the lead developer of this hub, I specialize in advanced network manipulation, bot deployment, and digital restoration protocols. 
+The <b>⟦ 𝐅𝐎𝐔𝐑 ⨯ 𝐒𝐄𝐕𝐄𝐍 ⟧</b> ecosystem is a specialized high-performance framework engineered for secure tunneling and optimized data routing. As the lead developer, I specialize in advanced network manipulation, automated bot deployment, and digital restoration protocols. 
 
 ## ⚡ CORE SERVICES
 We offer premium technical support for users requiring expert intervention.
