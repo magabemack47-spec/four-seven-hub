@@ -623,21 +623,7 @@ LORD UCHINA🇦🇶
     <input type="text" id="owner-file-link" placeholder="Download Link URL (Mediafire, ouo.io, etc)" style="width:100%; padding:12px; margin-bottom:15px; background:#0b1320; border:1px solid #1f2b3d; color:white; border-radius:10px;">
     <button class="action-btn" onclick="deployOwnerPublicConfig()" style="background:var(--green); width:100%;">📦 Push File Live</button>
     
-    
-<h3 style="color:var(--neon); margin-top:25px;">📊 Site Statistics</h3>
-
-<div class="card">
-    <p>👥 Active Users Now:
-        <span id="active-users-display" style="color:var(--neon);">0</span>
-    </p>
-
-    <p>📅 Total Visits Today:
-        <span id="daily-visitors-display" style="color:var(--gold);">0</span>
-    </p>
-</div>
-
-
-<h3 style="color:var(--danger); margin-top:25px; margin-bottom:10px;">⚠️ Nuclear Options</h3>
+    <h3 style="color:var(--danger); margin-top:25px; margin-bottom:10px;">⚠️ Nuclear Options</h3>
     <button class="action-btn" onclick="deleteAllOwnerConfigs()" style="background:var(--danger); width:100%; border-color:var(--danger);">🗑️ DELETE ALL FILES</button>
 </div>
 </div>
@@ -683,45 +669,6 @@ const ownerPublicConfigsRef = database.ref('owner_public_shared_configs');
 
 const downloadsRef = database.ref('config_downloads');
 const likesRef = database.ref('config_likes');
-
-// ==========================================
-// VISITOR TRACKING SYSTEM
-// ==========================================
-const visitorsRef = database.ref('site_stats/active_visitors');
-const dailyVisitsRef = database.ref(
-    'site_stats/daily_visits/' +
-    new Date().toISOString().split('T')[0]
-);
-
-const presenceRef = database.ref('.info/connected');
-
-presenceRef.on('value', (snap) => {
-    if (snap.val() === true) {
-        const userRef = visitorsRef.push(true);
-        userRef.onDisconnect().remove();
-    }
-});
-
-visitorsRef.on('value', (snap) => {
-    const el = document.getElementById('active-users-display');
-    if (el) el.innerText = snap.numChildren();
-});
-
-const todayKey = 'visit_' + new Date().toISOString().split('T')[0];
-
-if (!localStorage.getItem(todayKey)) {
-    dailyVisitsRef.transaction((current) => {
-        return (current || 0) + 1;
-    });
-
-    localStorage.setItem(todayKey, 'counted');
-}
-
-dailyVisitsRef.on('value', (snap) => {
-    const el = document.getElementById('daily-visitors-display');
-    if (el) el.innerText = snap.val() || 0;
-});
-
 
 let currentReplyTarget = null;
 let currentCommunityReply = null;
@@ -821,49 +768,6 @@ function toggleMenu() {
 
 // ==========================================
 // 5. CONFIG MANAGEMENT & SEARCH FILTERING
-// ==========================================
-function filterConfigs() {
-    const input = document.getElementById('searchInput').value.toLowerCase();
-    const boxes = document.querySelectorAll('.config-box');
-    
-    boxes.forEach(box => {
-        const attrSearch = box.getAttribute('data-search') || "";
-        const searchData = attrSearch.toLowerCase();
-        const headingText = box.querySelector('h3') ? box.querySelector('h3').innerText.toLowerCase() : "";
-        
-        if(searchData.includes(input) || headingText.includes(input)) {
-            box.style.display = "block";
-        } else {
-            box.style.display = "none";
-        }
-    });
-}
-
-function increaseDownload(configKey) {
-    downloadsRef.child(configKey).transaction(currentCount => {
-        return (currentCount || 0) + 1;
-    });
-}
-
-function likeConfig(configKey) {
-    likesRef.child(configKey).transaction(currentCount => {
-        return (currentCount || 0) + 1;
-    });
-}
-
-function deleteOwnerConfig(configKey) {
-    const pass = prompt("Enter password to delete this config:");
-    if (pass === "four seven" || pass === "Four Seven") {
-        ownerPublicConfigsRef.child(configKey).remove().then(() => {
-            alert("Config deleted successfully.");
-        });
-    } else {
-        alert("Unauthorized.");
-    }
-}
-
-// ==========================================
-// NEW: NUCLEAR DELETE FUNCTION
 // ==========================================
 function filterConfigs() {
     const input = document.getElementById('searchInput').value.toLowerCase();
@@ -1258,16 +1162,38 @@ function deployOwnerBroadcast() {
     });
 }
 
+const squadMembersRef = database.ref('squad_members');
+
 function addSquadMember() {
     const name = document.getElementById('new-squad-name').value.trim();
     const pass = document.getElementById('new-squad-pass').value.trim();
-    if(name && pass) {
-        alert("Member " + name + " added with key " + pass + ". (Note: For this to work, you must update the SQUAD_KEYS_MATRIX in the script manually)");
+
+    if (!name || !pass) {
+        alert("Fill in all fields.");
+        return;
     }
+
+    squadMembersRef.child(pass).set({
+        name: name,
+        key: pass,
+        timestamp: Date.now()
+    }).then(() => {
+        alert("Member added successfully.");
+        document.getElementById('new-squad-name').value = '';
+        document.getElementById('new-squad-pass').value = '';
+    });
 }
+
 function removeSquadMember() {
     const pass = document.getElementById('new-squad-pass').value.trim();
-    if(pass) alert("Member with key " + pass + " removed.");
+
+    if (!pass) {
+        alert("Enter a key.");
+        return;
+    }
+
+    squadMembersRef.child(pass).remove()
+        .then(() => alert("Member removed successfully."));
 }
 
 function deployOwnerPublicConfig() {
