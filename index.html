@@ -388,6 +388,83 @@ margin-top:30px;
 color:#7f8ea3;  
 font-size:0.9rem;  
 }  
+
+/* STATS CARDS */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, #0b1320, #071120);
+    padding: 20px;
+    border-radius: 16px;
+    border: 1px solid var(--neon);
+    text-align: center;
+    transition: 0.3s;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 20px rgba(0,191,255,0.3);
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--neon);
+    text-shadow: 0 0 10px var(--neon);
+}
+
+.stat-label {
+    color: var(--muted);
+    margin-top: 5px;
+    font-size: 0.85rem;
+}
+
+.member-list {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-top: 15px;
+}
+
+.member-item {
+    background: #0b1320;
+    padding: 12px;
+    margin-bottom: 8px;
+    border-radius: 10px;
+    border-left: 3px solid var(--green);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.member-name {
+    color: var(--neon);
+    font-weight: bold;
+}
+
+.remove-member-btn {
+    background: var(--danger);
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.75rem;
+}
+
+.squad-member-display {
+    background: #0f1724;
+    padding: 8px 12px;
+    margin: 5px 0;
+    border-radius: 8px;
+    border-left: 3px solid var(--gold);
+    font-weight: bold;
+    color: var(--neon);
+}
   
 /* ANIMATIONS SCHEMA */  
 @keyframes glow{  
@@ -568,14 +645,7 @@ Click the button below to get started.
 </div>  
 <div id="squad-content" style="display:none;">  
 <h3>✅ Squad Members</h3>  
-<div class="config-box" style="background:#0f1724; line-height: 2; font-weight: bold;">  
-𖤍 FOUR SEVEN [R•S•T] 𖤍🇦🇶<br>  
-𝐳𝐄𝐭 𝐅𝐥𝐀𝐬𝐇 𝐫𝐒𝐭🇦🇶<br>  
-SIBUSISO N🇦🇶<br>  
-𝐈𝐭𝐬𝐬 𝐃𝐚 𝐈𝐧𝐭𝐢𝐦𝐢𝐃𝐚𝐭𝐨𝐫 𝐑𝐒𝐓❄<br>
-Cavinn_R.S.T🇦🇶<br>
-𝐓𝐨𝐱𝐢𝐢𝐜 ✦𝑅𝑆𝑇✦🇦🇶<br>
-</div>  
+<div id="dynamic-squad-members-list" style="background:#0f1724; padding:15px; border-radius:12px; margin-bottom:20px;"></div>  
 <h3 style="margin:20px 0 10px;">💬 Squad Live Chat</h3>  
 <div id="squad-reply-box" style="display:none; background:rgba(0,191,255,0.1); border-left:3px solid var(--blue); padding:8px; margin-bottom:8px; font-size:0.85rem;">
     <span>Replying to: <span id="squad-reply-target-text" style="color:var(--muted);"></span></span>
@@ -604,16 +674,35 @@ Cavinn_R.S.T🇦🇶<br>
 </div>
 
 <div id="owner-terminal-content" style="display:none;">
+    <!-- STATS SECTION -->
+    <h3 style="color:var(--neon); margin-bottom:15px;">📊 Website Analytics</h3>
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-number" id="total-visitors-count">0</div>
+            <div class="stat-label">Total Visitors</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number" id="active-users-count">0</div>
+            <div class="stat-label">Active Now</div>
+        </div>
+    </div>
+
     <h3 style="color:var(--gold); margin-bottom:10px;">📢 Broadcast Message to Home Screen</h3>
     <textarea id="owner-broadcast-input" class="comment-input" placeholder="Type a message to show on the welcome page..." style="height:80px; resize:vertical;"></textarea>
     <button class="action-btn" onclick="deployOwnerBroadcast()" style="background:var(--blue); width:100%; margin-bottom:25px;">📡 Deploy Broadcast</button>
 
     <h3 style="color:var(--gold); margin-bottom:10px;">🔰 Manage Squad Members</h3>
     <input type="text" id="new-squad-name" placeholder="Member Name" style="width:100%; padding:12px; margin-bottom:10px; background:#0b1320; border:1px solid #1f2b3d; color:white; border-radius:10px;">
-    <input type="text" id="new-squad-pass" placeholder="Squad Key" style="width:100%; padding:12px; margin-bottom:10px; background:#0b1320; border:1px solid #1f2b3d; color:white; border-radius:10px;">
-    <button class="action-btn" onclick="addSquadMember()" style="background:var(--green); width:48%;">+ Add</button>
-    <button class="action-btn" onclick="removeSquadMember()" style="background:var(--danger); width:48%;"> - Remove</button>
-    <br><br>
+    <input type="text" id="new-squad-pass" placeholder="Member Password/Key" style="width:100%; padding:12px; margin-bottom:10px; background:#0b1320; border:1px solid #1f2b3d; color:white; border-radius:10px;">
+    <button class="action-btn" onclick="addSquadMember()" style="background:var(--green); width:48%;">+ Add Member</button>
+    <button class="action-btn" onclick="showRemoveMemberUI()" style="background:var(--danger); width:48%;">- Remove Member</button>
+    
+    <div id="remove-member-selector" style="display:none; margin-top:15px; padding:15px; background:#0b1320; border-radius:10px;">
+        <h4 style="color:var(--danger); margin-bottom:10px;">Select Member to Remove:</h4>
+        <div id="member-list-for-removal"></div>
+    </div>
+    
+    <div id="current-members-list" style="margin-top:15px;"></div>
 
     <h3 style="color:var(--neon); margin-bottom:10px;">🚀 Upload Global Configuration File</h3>
     <input type="text" id="owner-file-name" placeholder="Config File Title (e.g. Vodacom Uncapped)" style="width:100%; padding:12px; margin-bottom:10px; background:#0b1320; border:1px solid #1f2b3d; color:white; border-radius:10px;">
@@ -669,11 +758,87 @@ const ownerPublicConfigsRef = database.ref('owner_public_shared_configs');
 const downloadsRef = database.ref('config_downloads');
 const likesRef = database.ref('config_likes');
 
+// NEW: Squad members reference
+const squadMembersRef = database.ref('squad_members');
+
+// NEW: Visitor tracking references
+const visitorStatsRef = database.ref('visitor_stats');
+const activeUsersRef = database.ref('active_users');
+
 let currentReplyTarget = null;
 let currentCommunityReply = null;
+let activeSquadUser = "";
+let currentVisitorId = null;
 
 // ==========================================
-// 2. BACKGROUND PARTICLE SYSTEMS EFFECT
+// 2. VISITOR TRACKING SYSTEM
+// ==========================================
+function generateVisitorId() {
+    return 'visitor_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+}
+
+function trackVisitor() {
+    let visitorId = localStorage.getItem('visitor_id');
+    if (!visitorId) {
+        visitorId = generateVisitorId();
+        localStorage.setItem('visitor_id', visitorId);
+        
+        // Increment total visitors
+        visitorStatsRef.transaction(current => {
+            return (current || 0) + 1;
+        });
+    }
+    currentVisitorId = visitorId;
+    
+    // Track active user
+    const userSessionRef = activeUsersRef.child(visitorId);
+    userSessionRef.set({
+        lastSeen: Date.now(),
+        userAgent: navigator.userAgent.substring(0, 100)
+    });
+    
+    // Remove after 5 minutes of inactivity
+    userSessionRef.onDisconnect().remove();
+    
+    // Update total visitors display
+    visitorStatsRef.on('value', snapshot => {
+        const count = snapshot.val() || 0;
+        const totalElem = document.getElementById('total-visitors-count');
+        if(totalElem) totalElem.innerText = count;
+    });
+    
+    // Update active users count
+    function updateActiveCount() {
+        activeUsersRef.once('value', snapshot => {
+            const users = snapshot.val() || {};
+            let activeCount = 0;
+            const now = Date.now();
+            Object.keys(users).forEach(key => {
+                if(now - users[key].lastSeen < 300000) { // 5 minutes
+                    activeCount++;
+                } else {
+                    activeUsersRef.child(key).remove();
+                }
+            });
+            const activeElem = document.getElementById('active-users-count');
+            if(activeElem) activeElem.innerText = activeCount;
+        });
+    }
+    
+    updateActiveCount();
+    setInterval(updateActiveCount, 60000);
+    
+    // Refresh the user's session periodically
+    setInterval(() => {
+        activeUsersRef.child(visitorId).update({ lastSeen: Date.now() });
+    }, 60000);
+}
+
+// Start tracking
+trackVisitor();
+
+// ==========================================
+// 3. BACKGROUND PARTICLE SYSTEMS EFFECT
 // ==========================================
 const canvas = document.getElementById('particles');  
 const ctx = canvas.getContext('2d');  
@@ -728,7 +893,7 @@ window.addEventListener('resize', () => {
 });
 
 // ==========================================
-// 3. AUTO-ERASE MECHANISM (5 DAYS)
+// 4. AUTO-ERASE MECHANISM (5 DAYS)
 // ==========================================
 setInterval(() => {
     const fiveDaysInMs = 5 * 24 * 60 * 60 * 1000;
@@ -741,10 +906,10 @@ setInterval(() => {
             }
         });
     });
-}, 3600000); // Check hourly
+}, 3600000);
 
 // ==========================================
-// 4. CORE SINGLE PAGE APPLICATION ROUTING
+// 5. CORE SINGLE PAGE APPLICATION ROUTING
 // ==========================================
 function showPage(pageId) {
     const pages = document.querySelectorAll('.page');
@@ -766,7 +931,7 @@ function toggleMenu() {
 }
 
 // ==========================================
-// 5. CONFIG MANAGEMENT & SEARCH FILTERING
+// 6. CONFIG MANAGEMENT & SEARCH FILTERING
 // ==========================================
 function filterConfigs() {
     const input = document.getElementById('searchInput').value.toLowerCase();
@@ -808,9 +973,6 @@ function deleteOwnerConfig(configKey) {
     }
 }
 
-// ==========================================
-// NEW: NUCLEAR DELETE FUNCTION
-// ==========================================
 function deleteAllOwnerConfigs() {
     const pass = prompt("CRITICAL: Enter password to delete ALL public files:");
     if (pass === "four seven" || pass === "Four Seven") {
@@ -857,138 +1019,147 @@ function addComment(configKey) {
 }
 
 // ==========================================
-// 6. GLOBAL PUBLIC COMMUNITY BOARD STREAM
+// 7. DYNAMIC SQUAD MEMBERS MANAGEMENT
 // ==========================================
-function setCommunityReply(id,name,text){
-currentCommunityReply={postId:id,sender:name,text:text};
-document.getElementById('community-reply-box').style.display='block';
-document.getElementById('community-reply-text').innerText=name + ': ' + text;
-}
-
-function cancelCommunityReply(){
-currentCommunityReply=null;
-document.getElementById('community-reply-box').style.display='none';
-}
-
-function submitCommunityPost() {
-    const nameInput = document.getElementById('com-name-input');
-    const msgInput = document.getElementById('com-msg-input');
-    
-    const name = nameInput.value.trim() || "Anonymous Rebel";
-    const message = msgInput.value.trim();
-    
-    if(!message) {
-        alert("Transmission payload content cannot be empty.");
-        return;
-    }
-    
-    const payload = {
-        username: name,
-        bodyText: message,
-        timestamp: Date.now()
-    };
-
-    if(currentCommunityReply){
-        payload.replyTo = currentCommunityReply;
-    }
-
-    communityRef.push(payload).then(() => {
-        msgInput.value = '';
-        cancelCommunityReply();
-    }).catch(err => {
-        alert("Database execution dropped: " + err.message);
-    });
-}
-
-
-communityRef.limitToLast(40).on('value', snapshot => {
-    const feedContainer = document.getElementById('community-feed');
-    if(!feedContainer) return;
-    feedContainer.innerHTML = '';
-    
-    const data = snapshot.val();
-    if(!data) {
-        feedContainer.innerHTML = `<p style="color:var(--muted); text-align:center;">No broadcast signals detected in this sector.</p>`;
-        return;
-    }
-    
-    Object.keys(data).reverse().forEach(key => {
-        const item = data[key];
-        const dateObj = new Date(item.timestamp);
-        const timeString = dateObj.toLocaleDateString() + ' ' + dateObj.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+function loadSquadMembers() {
+    squadMembersRef.on('value', snapshot => {
+        const members = snapshot.val() || {};
         
-        let replyHTML='';
-        if(item.replyTo){
-            replyHTML=`<div style="background:#0b1320;padding:8px;border-left:3px solid #00bfff;margin-bottom:8px;font-size:.8rem;">
-            ↩ Reply to <b>${escapeHtml(item.replyTo.sender)}</b><br>${escapeHtml(item.replyTo.text)}</div>`;
+        // Update dynamic list in squad page
+        const squadListContainer = document.getElementById('dynamic-squad-members-list');
+        if(squadListContainer) {
+            squadListContainer.innerHTML = '<h4 style="color:var(--neon); margin-bottom:10px;">👥 Active Squad Members:</h4>';
+            Object.keys(members).forEach(key => {
+                squadListContainer.innerHTML += `<div class="squad-member-display">⚡ ${escapeHtml(members[key].name)}</div>`;
+            });
+            if(Object.keys(members).length === 0) {
+                squadListContainer.innerHTML += '<div class="squad-member-display" style="color:var(--muted);">No members yet. Add them via Owner Panel.</div>';
+            }
         }
-
-        const postHTML = `
-            <div class="post-card">
-                <div class="post-header">
-                    <span class="post-user">⚡ ${escapeHtml(item.username)}</span>
-                    <span class="post-time">${timeString}</span>
-                </div>
-                ${replyHTML}
-                <div class="post-body">${escapeHtml(item.bodyText)}</div>
-                <div style="margin-top:10px;">
-                    <button onclick="setCommunityReply('${key}','${escapeHtml(item.username)}','${escapeHtml(item.bodyText)}')" style="background:none;border:none;color:#00bfff;cursor:pointer;margin-right:10px;">↩ Reply</button>
-                    <button onclick="editCommunityPost('${key}')" style="background:none;border:none;color:var(--gold);cursor:pointer;margin-right:10px;">✏ Edit</button>
-                    <button onclick="deleteCommunityPost('${key}')" style="background:none;border:none;color:var(--danger);cursor:pointer;">🗑 Delete</button>
-                </div>
-            </div>
-        `;
-        feedContainer.innerHTML += postHTML;
+        
+        // Update current members list in owner panel
+        const currentMembersDiv = document.getElementById('current-members-list');
+        if(currentMembersDiv) {
+            if(Object.keys(members).length > 0) {
+                currentMembersDiv.innerHTML = '<h4 style="color:var(--green); margin-top:15px;">📋 Current Squad Members:</h4><div class="member-list">';
+                Object.keys(members).forEach(key => {
+                    currentMembersDiv.innerHTML += `
+                        <div class="member-item">
+                            <span class="member-name">⚡ ${escapeHtml(members[key].name)}</span>
+                            <span style="color:var(--muted); font-size:0.8rem;">Key: ${escapeHtml(key)}</span>
+                        </div>
+                    `;
+                });
+                currentMembersDiv.innerHTML += '</div>';
+            } else {
+                currentMembersDiv.innerHTML = '<p style="color:var(--muted); margin-top:15px;">No squad members yet.</p>';
+            }
+        }
+        
+        // Update removal list
+        const removalListDiv = document.getElementById('member-list-for-removal');
+        if(removalListDiv) {
+            removalListDiv.innerHTML = '';
+            Object.keys(members).forEach(key => {
+                removalListDiv.innerHTML += `
+                    <div class="member-item">
+                        <span class="member-name">${escapeHtml(members[key].name)}</span>
+                        <button class="remove-member-btn" onclick="removeSpecificMember('${key}')">Remove</button>
+                    </div>
+                `;
+            });
+            if(Object.keys(members).length === 0) {
+                removalListDiv.innerHTML = '<p style="color:var(--muted);">No members to remove.</p>';
+            }
+        }
+        
+        // Update the global SQUAD_KEYS_MATRIX equivalent for authentication
+        window.activeSquadKeys = members;
     });
-});
-
-function editCommunityPost(key) {
-    const newText = prompt("Enter new message:");
-    if(newText) communityRef.child(key).update({bodyText: newText});
 }
 
-function deleteCommunityPost(key) {
-    const pass = prompt("Owner authentication required for deletion:");
-    if(pass === "Four Seven" || pass === "four seven") {
-        communityRef.child(key).remove();
+function addSquadMember() {
+    const name = document.getElementById('new-squad-name').value.trim();
+    const pass = document.getElementById('new-squad-pass').value.trim();
+
+    if (!name || !pass) {
+        alert("Fill in all fields.");
+        return;
+    }
+
+    squadMembersRef.child(pass).set({
+        name: name,
+        key: pass,
+        timestamp: Date.now()
+    }).then(() => {
+        alert("Member added successfully!");
+        document.getElementById('new-squad-name').value = '';
+        document.getElementById('new-squad-pass').value = '';
+    }).catch(err => {
+        alert("Error: " + err.message);
+    });
+}
+
+function showRemoveMemberUI() {
+    const selector = document.getElementById('remove-member-selector');
+    if(selector.style.display === 'none') {
+        selector.style.display = 'block';
+        loadSquadMembers(); // Refresh list
     } else {
-        alert("Unauthorized.");
+        selector.style.display = 'none';
     }
 }
 
-
-// ==========================================
-// 7. PASSWORD SECURED ELITE SQUAD SUITE
-// ==========================================
-const SQUAD_KEYS_MATRIX = {
-    "RST47": "FOUR SEVEN [R•S•T] 𖤍🇦🇶",
-    "ZET47": "𝐳𝐄𝐭 𝐅𝐥𝐀𝐬𝐇 𝐫𝐒𝐭🇦🇶",
-    "SIB47": "SIBUSISO N🇦🇶",
-    "INT47": "𝐈𝐭𝐬𝐬 𝐃𝐚 𝐈𝐧𝐭𝐢𝐦𝐢𝐃𝐚𝐭𝐨𝐫 𝐑𝐒𝐓❄",
-    "CRT47": "Cavinn_R.S.T🇦🇶",
-    "TCR47": "𝐓𝐨𝐱𝐢𝐢𝐜 ✦𝑅𝑆𝑇✦🇦🇶"
-};
-
-let activeSquadUser = ""; 
-
-function showSquadPage() {
-    showPage('squad-page');
+function removeSpecificMember(passKey) {
+    if(confirm("Are you sure you want to remove this member?")) {
+        squadMembersRef.child(passKey).remove()
+            .then(() => {
+                alert("Member removed successfully.");
+                document.getElementById('remove-member-selector').style.display = 'none';
+            })
+            .catch(err => alert("Error: " + err.message));
+    }
 }
 
+function removeSquadMember() {
+    const pass = document.getElementById('new-squad-pass').value.trim();
+    if(!pass) {
+        alert("Enter a member key to remove.");
+        return;
+    }
+    
+    if(confirm("Remove member with key: " + pass + "?")) {
+        squadMembersRef.child(pass).remove()
+            .then(() => {
+                alert("Member removed successfully.");
+                document.getElementById('new-squad-pass').value = '';
+            })
+            .catch(err => alert("Error: " + err.message));
+    }
+}
+
+// ==========================================
+// 8. SQUAD AUTHENTICATION (UPDATED)
+// ==========================================
 function checkSquadPassword() {
     const passwordInput = document.getElementById('squad-password').value.trim();
     
-    if (SQUAD_KEYS_MATRIX.hasOwnProperty(passwordInput)) {
-        activeSquadUser = SQUAD_KEYS_MATRIX[passwordInput]; 
-        
-        document.getElementById('squad-login').style.display = 'none';
-        document.getElementById('squad-content').style.display = 'block';
-        
-        alert("ACCESS GRANTED: Welcome back " + activeSquadUser);
-        initializeSquadSynchronizations();
-    } else {
-        alert("ACCESS DENIED: Cryptographic squad key signature mismatch.");
-    }
+    squadMembersRef.child(passwordInput).once('value', snapshot => {
+        const member = snapshot.val();
+        if(member) {
+            activeSquadUser = member.name;
+            document.getElementById('squad-login').style.display = 'none';
+            document.getElementById('squad-content').style.display = 'block';
+            alert("ACCESS GRANTED: Welcome back " + activeSquadUser);
+            initializeSquadSynchronizations();
+        } else {
+            alert("ACCESS DENIED: Invalid squad key.");
+        }
+    });
+}
+
+function showSquadPage() {
+    showPage('squad-page');
 }
 
 function initializeSquadSynchronizations() {
@@ -1060,13 +1231,13 @@ function sendChatMessage() {
     
     squadChatRef.push(payload).then(() => {
         chatInput.value = '';
-        cancelCommunityReply();
+        cancelSquadReply();
     }).catch(err => {
         alert("Squad Message Failed to Sync: " + err.message);
     });
 }
 
-document.getElementById('chat-input').addEventListener('keypress', function(e) {
+document.getElementById('chat-input')?.addEventListener('keypress', function(e) {
     if(e.key === 'Enter') {
         sendChatMessage();
     }
@@ -1137,14 +1308,114 @@ squadConfigRef.on('value', snapshot => {
     });
 });
 
-// =============================================================
-// 8. OWNER PANEL LOGIC
-// =============================================================
+// ==========================================
+// 9. GLOBAL PUBLIC COMMUNITY BOARD STREAM
+// ==========================================
+function setCommunityReply(id,name,text){
+    currentCommunityReply={postId:id,sender:name,text:text};
+    document.getElementById('community-reply-box').style.display='block';
+    document.getElementById('community-reply-text').innerText=name + ': ' + text;
+}
+
+function cancelCommunityReply(){
+    currentCommunityReply=null;
+    document.getElementById('community-reply-box').style.display='none';
+}
+
+function submitCommunityPost() {
+    const nameInput = document.getElementById('com-name-input');
+    const msgInput = document.getElementById('com-msg-input');
+    
+    const name = nameInput.value.trim() || "Anonymous Rebel";
+    const message = msgInput.value.trim();
+    
+    if(!message) {
+        alert("Transmission payload content cannot be empty.");
+        return;
+    }
+    
+    const payload = {
+        username: name,
+        bodyText: message,
+        timestamp: Date.now()
+    };
+
+    if(currentCommunityReply){
+        payload.replyTo = currentCommunityReply;
+    }
+
+    communityRef.push(payload).then(() => {
+        msgInput.value = '';
+        cancelCommunityReply();
+    }).catch(err => {
+        alert("Database execution dropped: " + err.message);
+    });
+}
+
+communityRef.limitToLast(40).on('value', snapshot => {
+    const feedContainer = document.getElementById('community-feed');
+    if(!feedContainer) return;
+    feedContainer.innerHTML = '';
+    
+    const data = snapshot.val();
+    if(!data) {
+        feedContainer.innerHTML = `<p style="color:var(--muted); text-align:center;">No broadcast signals detected in this sector.</p>`;
+        return;
+    }
+    
+    Object.keys(data).reverse().forEach(key => {
+        const item = data[key];
+        const dateObj = new Date(item.timestamp);
+        const timeString = dateObj.toLocaleDateString() + ' ' + dateObj.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+        
+        let replyHTML='';
+        if(item.replyTo){
+            replyHTML=`<div style="background:#0b1320;padding:8px;border-left:3px solid #00bfff;margin-bottom:8px;font-size:.8rem;">
+            ↩ Reply to <b>${escapeHtml(item.replyTo.sender)}</b><br>${escapeHtml(item.replyTo.text)}</div>`;
+        }
+
+        const postHTML = `
+            <div class="post-card">
+                <div class="post-header">
+                    <span class="post-user">⚡ ${escapeHtml(item.username)}</span>
+                    <span class="post-time">${timeString}</span>
+                </div>
+                ${replyHTML}
+                <div class="post-body">${escapeHtml(item.bodyText)}</div>
+                <div style="margin-top:10px;">
+                    <button onclick="setCommunityReply('${key}','${escapeHtml(item.username)}','${escapeHtml(item.bodyText)}')" style="background:none;border:none;color:#00bfff;cursor:pointer;margin-right:10px;">↩ Reply</button>
+                    <button onclick="editCommunityPost('${key}')" style="background:none;border:none;color:var(--gold);cursor:pointer;margin-right:10px;">✏ Edit</button>
+                    <button onclick="deleteCommunityPost('${key}')" style="background:none;border:none;color:var(--danger);cursor:pointer;">🗑 Delete</button>
+                </div>
+            </div>
+        `;
+        feedContainer.innerHTML += postHTML;
+    });
+});
+
+function editCommunityPost(key) {
+    const newText = prompt("Enter new message:");
+    if(newText) communityRef.child(key).update({bodyText: newText});
+}
+
+function deleteCommunityPost(key) {
+    const pass = prompt("Owner authentication required for deletion:");
+    if(pass === "Four Seven" || pass === "four seven") {
+        communityRef.child(key).remove();
+    } else {
+        alert("Unauthorized.");
+    }
+}
+
+// ==========================================
+// 10. OWNER PANEL LOGIC
+// ==========================================
 function verifyOwnerIdentity() {
     const systemPass = document.getElementById('owner-system-key').value;
     if(systemPass === "Four Seven" || systemPass === "four seven") {
         document.getElementById('owner-login-box').style.display = 'none';
         document.getElementById('owner-terminal-content').style.display = 'block';
+        loadSquadMembers(); // Load members when owner panel opens
     } else {
         alert("CRITICAL ERROR: Unauthorized system access denied.");
     }
@@ -1158,40 +1429,6 @@ function deployOwnerBroadcast() {
     }).then(() => {
         alert("Broadcast array successfully pushed to home screen banner cloud execution layers.");
     });
-}
-
-const squadMembersRef = database.ref('squad_members');
-
-function addSquadMember() {
-    const name = document.getElementById('new-squad-name').value.trim();
-    const pass = document.getElementById('new-squad-pass').value.trim();
-
-    if (!name || !pass) {
-        alert("Fill in all fields.");
-        return;
-    }
-
-    squadMembersRef.child(pass).set({
-        name: name,
-        key: pass,
-        timestamp: Date.now()
-    }).then(() => {
-        alert("Member added successfully.");
-        document.getElementById('new-squad-name').value = '';
-        document.getElementById('new-squad-pass').value = '';
-    });
-}
-
-function removeSquadMember() {
-    const pass = document.getElementById('new-squad-pass').value.trim();
-
-    if (!pass) {
-        alert("Enter a key.");
-        return;
-    }
-
-    squadMembersRef.child(pass).remove()
-        .then(() => alert("Member removed successfully."));
 }
 
 function deployOwnerPublicConfig() {
@@ -1280,6 +1517,9 @@ function escapeHtml(str) {
     if(!str) return '';
     return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
 }
+
+// Load squad members on page load
+loadSquadMembers();
 </script>
 </body>
 </html>
