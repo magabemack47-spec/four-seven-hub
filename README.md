@@ -11,14 +11,6 @@
 <p align="center">
   <code>[ SYSTEM_STATUS : ACTIVE ]</code> ◪ <code>[ DEV_ID : FOUR_SEVEN ]</code>
 
-  /* Mobile responsiveness */
-  @media (max-width: 768px) {
-    .glow-text {
-      font-size: 2.4rem;
-    }
-  }
-</style>
-
 <hr />
 
 ## 🌐 INFRASTRUCTURE OVERVIEW
