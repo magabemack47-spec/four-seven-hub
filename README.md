@@ -10,19 +10,6 @@
 
 <p align="center">
   <code>[ SYSTEM_STATUS : ACTIVE ]</code> ◪ <code>[ DEV_ID : FOUR_SEVEN ]</code>
-</p>
-
-<style>
-  @keyframes pulse {
-    0%, 100% {
-      opacity: 0.6;
-      text-shadow: 0 0 10px #00bfff;
-    }
-    50% {
-      opacity: 1;
-      text-shadow: 0 0 25px #00bfff;
-    }
-  }
 
   /* Mobile responsiveness */
   @media (max-width: 768px) {
