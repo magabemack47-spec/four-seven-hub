@@ -572,7 +572,7 @@ Click the button below to get started.
 𖤍 FOUR SEVEN [R•S•T] 𖤍🇦🇶<br>  
 𝐳𝐄𝐭 𝐅𝐥𝐀𝐬𝐇 𝐫𝐒𝐭🇦🇶<br>  
 SIBUSISO N🇦🇶<br>  
-𝐈𝐭𝐬𝐬 𝐃𝐚 𝐈𝐧𝐭𝐢𝐦𝐢𝐃𝐚𝐭𝐨𝐫 𝐑𝐒𝐓🇦🇶<br>
+𝐈𝐭𝐬𝐬 𝐃𝐚 𝐈𝐧𝐭𝐢𝐦𝐢𝐃𝐚𝐭𝐨𝐫 𝐑𝐒𝐓❄<br>
 Cavinn_R.S.T🇦🇶<br>
 𝐓𝐨𝐱𝐢𝐢𝐜 ✦𝑅𝑆𝑇✦🇦🇶<br>
 LORD UCHINA🇦🇶
@@ -609,12 +609,36 @@ LORD UCHINA🇦🇶
     <textarea id="owner-broadcast-input" class="comment-input" placeholder="Type a message to show on the welcome page..." style="height:80px; resize:vertical;"></textarea>
     <button class="action-btn" onclick="deployOwnerBroadcast()" style="background:var(--blue); width:100%; margin-bottom:25px;">📡 Deploy Broadcast</button>
 
+    <h3 style="color:var(--gold); margin-bottom:10px;">🔰 Manage Squad Members</h3>
+    <input type="text" id="new-squad-name" placeholder="Member Name" style="width:100%; padding:12px; margin-bottom:10px; background:#0b1320; border:1px solid #1f2b3d; color:white; border-radius:10px;">
+    <input type="text" id="new-squad-pass" placeholder="Squad Key" style="width:100%; padding:12px; margin-bottom:10px; background:#0b1320; border:1px solid #1f2b3d; color:white; border-radius:10px;">
+    <button class="action-btn" onclick="addSquadMember()" style="background:var(--green); width:48%;">+ Add</button>
+    <button class="action-btn" onclick="removeSquadMember()" style="background:var(--danger); width:48%;"> - Remove</button>
+    <br><br>
+
     <h3 style="color:var(--neon); margin-bottom:10px;">🚀 Upload Global Configuration File</h3>
     <input type="text" id="owner-file-name" placeholder="Config File Title (e.g. Vodacom Uncapped)" style="width:100%; padding:12px; margin-bottom:10px; background:#0b1320; border:1px solid #1f2b3d; color:white; border-radius:10px;">
     <input type="text" id="owner-file-type" placeholder="File Type Format (e.g. HC, TLS, BDNET, EHI)" style="width:100%; padding:12px; margin-bottom:10px; background:#0b1320; border:1px solid #1f2b3d; color:white; border-radius:10px;">
     <textarea id="owner-file-desc" class="comment-input" placeholder="Configuration features description payload details..."></textarea>
     <input type="text" id="owner-file-link" placeholder="Download Link URL (Mediafire, ouo.io, etc)" style="width:100%; padding:12px; margin-bottom:15px; background:#0b1320; border:1px solid #1f2b3d; color:white; border-radius:10px;">
     <button class="action-btn" onclick="deployOwnerPublicConfig()" style="background:var(--green); width:100%;">📦 Push File Live</button>
+    
+    
+<h3 style="color:var(--neon); margin-top:25px;">📊 Site Statistics</h3>
+
+<div class="card">
+    <p>👥 Active Users Now:
+        <span id="active-users-display" style="color:var(--neon);">0</span>
+    </p>
+
+    <p>📅 Total Visits Today:
+        <span id="daily-visitors-display" style="color:var(--gold);">0</span>
+    </p>
+</div>
+
+
+<h3 style="color:var(--danger); margin-top:25px; margin-bottom:10px;">⚠️ Nuclear Options</h3>
+    <button class="action-btn" onclick="deleteAllOwnerConfigs()" style="background:var(--danger); width:100%; border-color:var(--danger);">🗑️ DELETE ALL FILES</button>
 </div>
 </div>
 </div>
@@ -659,6 +683,45 @@ const ownerPublicConfigsRef = database.ref('owner_public_shared_configs');
 
 const downloadsRef = database.ref('config_downloads');
 const likesRef = database.ref('config_likes');
+
+// ==========================================
+// VISITOR TRACKING SYSTEM
+// ==========================================
+const visitorsRef = database.ref('site_stats/active_visitors');
+const dailyVisitsRef = database.ref(
+    'site_stats/daily_visits/' +
+    new Date().toISOString().split('T')[0]
+);
+
+const presenceRef = database.ref('.info/connected');
+
+presenceRef.on('value', (snap) => {
+    if (snap.val() === true) {
+        const userRef = visitorsRef.push(true);
+        userRef.onDisconnect().remove();
+    }
+});
+
+visitorsRef.on('value', (snap) => {
+    const el = document.getElementById('active-users-display');
+    if (el) el.innerText = snap.numChildren();
+});
+
+const todayKey = 'visit_' + new Date().toISOString().split('T')[0];
+
+if (!localStorage.getItem(todayKey)) {
+    dailyVisitsRef.transaction((current) => {
+        return (current || 0) + 1;
+    });
+
+    localStorage.setItem(todayKey, 'counted');
+}
+
+dailyVisitsRef.on('value', (snap) => {
+    const el = document.getElementById('daily-visitors-display');
+    if (el) el.innerText = snap.val() || 0;
+});
+
 
 let currentReplyTarget = null;
 let currentCommunityReply = null;
@@ -788,6 +851,76 @@ function likeConfig(configKey) {
     });
 }
 
+function deleteOwnerConfig(configKey) {
+    const pass = prompt("Enter password to delete this config:");
+    if (pass === "four seven" || pass === "Four Seven") {
+        ownerPublicConfigsRef.child(configKey).remove().then(() => {
+            alert("Config deleted successfully.");
+        });
+    } else {
+        alert("Unauthorized.");
+    }
+}
+
+// ==========================================
+// NEW: NUCLEAR DELETE FUNCTION
+// ==========================================
+function filterConfigs() {
+    const input = document.getElementById('searchInput').value.toLowerCase();
+    const boxes = document.querySelectorAll('.config-box');
+    
+    boxes.forEach(box => {
+        const attrSearch = box.getAttribute('data-search') || "";
+        const searchData = attrSearch.toLowerCase();
+        const headingText = box.querySelector('h3') ? box.querySelector('h3').innerText.toLowerCase() : "";
+        
+        if(searchData.includes(input) || headingText.includes(input)) {
+            box.style.display = "block";
+        } else {
+            box.style.display = "none";
+        }
+    });
+}
+
+function increaseDownload(configKey) {
+    downloadsRef.child(configKey).transaction(currentCount => {
+        return (currentCount || 0) + 1;
+    });
+}
+
+function likeConfig(configKey) {
+    likesRef.child(configKey).transaction(currentCount => {
+        return (currentCount || 0) + 1;
+    });
+}
+
+function deleteOwnerConfig(configKey) {
+    const pass = prompt("Enter password to delete this config:");
+    if (pass === "four seven" || pass === "Four Seven") {
+        ownerPublicConfigsRef.child(configKey).remove().then(() => {
+            alert("Config deleted successfully.");
+        });
+    } else {
+        alert("Unauthorized.");
+    }
+}
+
+// ==========================================
+// NEW: NUCLEAR DELETE FUNCTION
+// ==========================================
+function deleteAllOwnerConfigs() {
+    const pass = prompt("CRITICAL: Enter password to delete ALL public files:");
+    if (pass === "four seven" || pass === "Four Seven") {
+        if(confirm("Are you ABSOLUTELY sure? This cannot be undone.")) {
+            ownerPublicConfigsRef.remove().then(() => {
+                alert("ALL files deleted successfully.");
+            });
+        }
+    } else {
+        alert("Unauthorized.");
+    }
+}
+
 downloadsRef.on('value', snapshot => {
     const data = snapshot.val() || {};
     Object.keys(data).forEach(key => {
@@ -864,6 +997,7 @@ function submitCommunityPost() {
     });
 }
 
+
 communityRef.limitToLast(40).on('value', snapshot => {
     const feedContainer = document.getElementById('community-feed');
     if(!feedContainer) return;
@@ -894,14 +1028,31 @@ communityRef.limitToLast(40).on('value', snapshot => {
                 </div>
                 ${replyHTML}
                 <div class="post-body">${escapeHtml(item.bodyText)}</div>
-                <button onclick="setCommunityReply('${key}','${escapeHtml(item.username)}','${escapeHtml(item.bodyText)}')" style="margin-top:10px;background:none;border:none;color:#00bfff;cursor:pointer;">
-                ↩ Reply
-                </button>
+                <div style="margin-top:10px;">
+                    <button onclick="setCommunityReply('${key}','${escapeHtml(item.username)}','${escapeHtml(item.bodyText)}')" style="background:none;border:none;color:#00bfff;cursor:pointer;margin-right:10px;">↩ Reply</button>
+                    <button onclick="editCommunityPost('${key}')" style="background:none;border:none;color:var(--gold);cursor:pointer;margin-right:10px;">✏ Edit</button>
+                    <button onclick="deleteCommunityPost('${key}')" style="background:none;border:none;color:var(--danger);cursor:pointer;">🗑 Delete</button>
+                </div>
             </div>
         `;
         feedContainer.innerHTML += postHTML;
     });
 });
+
+function editCommunityPost(key) {
+    const newText = prompt("Enter new message:");
+    if(newText) communityRef.child(key).update({bodyText: newText});
+}
+
+function deleteCommunityPost(key) {
+    const pass = prompt("Owner authentication required for deletion:");
+    if(pass === "Four Seven" || pass === "four seven") {
+        communityRef.child(key).remove();
+    } else {
+        alert("Unauthorized.");
+    }
+}
+
 
 // ==========================================
 // 7. PASSWORD SECURED ELITE SQUAD SUITE
@@ -910,7 +1061,7 @@ const SQUAD_KEYS_MATRIX = {
     "RST47": "FOUR SEVEN [R•S•T] 𖤍🇦🇶",
     "ZET47": "𝐳𝐄𝐭 𝐅𝐥𝐀𝐬𝐇 𝐫𝐒𝐭🇦🇶",
     "SIB47": "SIBUSISO N🇦🇶",
-    "INT47": "𝐈𝐭𝐬𝐬 𝐃𝐚 𝐈𝐧𝐭𝐢𝐦𝐢𝐃𝐚𝐭𝐨𝐫 𝐑𝐒𝐓🇦🇶",
+    "INT47": "𝐈𝐭𝐬𝐬 𝐃𝐚 𝐈𝐧𝐭𝐢𝐦𝐢𝐃𝐚𝐭𝐨𝐫 𝐑𝐒𝐓❄",
     "CRT47": "Cavinn_R.S.T🇦🇶",
     "TCR47": "𝐓𝐨𝐱𝐢𝐢𝐜 ✦𝑅𝑆𝑇✦🇦🇶",
     "LUA47": "LORD UCHINA🇦🇶"
@@ -1007,7 +1158,7 @@ function sendChatMessage() {
     
     squadChatRef.push(payload).then(() => {
         chatInput.value = '';
-        cancelSquadReply();
+        cancelCommunityReply();
     }).catch(err => {
         alert("Squad Message Failed to Sync: " + err.message);
     });
@@ -1107,6 +1258,18 @@ function deployOwnerBroadcast() {
     });
 }
 
+function addSquadMember() {
+    const name = document.getElementById('new-squad-name').value.trim();
+    const pass = document.getElementById('new-squad-pass').value.trim();
+    if(name && pass) {
+        alert("Member " + name + " added with key " + pass + ". (Note: For this to work, you must update the SQUAD_KEYS_MATRIX in the script manually)");
+    }
+}
+function removeSquadMember() {
+    const pass = document.getElementById('new-squad-pass').value.trim();
+    if(pass) alert("Member with key " + pass + " removed.");
+}
+
 function deployOwnerPublicConfig() {
     const title = document.getElementById('owner-file-name').value.trim();
     const type = document.getElementById('owner-file-type').value.trim();
@@ -1169,6 +1332,7 @@ ownerPublicConfigsRef.on('value', snapshot => {
                 <div class="config-actions">  
                     <button class="action-btn">⬇ Downloads: <span id="downloads-${key}">0</span></button>  
                     <button class="action-btn" onclick="likeConfig('${key}')" style="color: var(--danger);">❤ Likes: <span id="likes-${key}">0</span></button>
+                    <button class="action-btn" onclick="deleteOwnerConfig('${key}')" style="color: var(--danger); border-color: var(--danger);">🗑 Delete</button>
                 </div>  
                 <input type="text" class="comment-input" id="input-${key}" placeholder="Write a comment...">  
                 <button class="comment-btn" onclick="addComment('${key}')">Post</button>  
