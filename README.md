@@ -24,19 +24,6 @@
     }
   }
 
-  .glow-text {
-    background: linear-gradient(to right, #00bfff, #ffffff, #00bfff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    color: transparent;
-    animation: pulse 2s infinite;
-    font-weight: bold;
-    font-size: 3.2rem;
-    display: inline-block;
-    padding: 10px 0;
-  }
-
   /* Mobile responsiveness */
   @media (max-width: 768px) {
     .glow-text {
