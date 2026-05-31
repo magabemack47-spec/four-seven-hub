@@ -7,6 +7,8 @@
 <meta name="google-site-verification" content="mlEENghD14RCPRQ1yvIE0GZ6O-hpFYtmOVga8DB1hek" />  
 <!-- Google AdSense -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5991476915949722" crossorigin="anonymous"></script>
+<!-- AMP Auto Ads -->
+<script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>  
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>  
 <style>  
@@ -23,14 +25,14 @@
 --neon:#00f0ff;  
 --danger:#ff3b30;
 }  
-  
+
 *{  
 margin:0;  
 padding:0;  
 box-sizing:border-box;  
 font-family:monospace;  
 }  
-  
+
 body{  
 background:linear-gradient(to bottom,#030712,#071120);  
 color:white;  
@@ -38,7 +40,7 @@ display:flex;
 overflow-x:hidden;  
 position:relative;  
 }  
-  
+
 /* PARTICLE BACKGROUND */  
 #particles {  
     position: fixed;  
@@ -48,7 +50,7 @@ position:relative;
     z-index: 1;  
     opacity: 0.12;  
 }  
-  
+
 /* TOP CORNER BRANDING */  
 .top-corner{  
 position:fixed;  
@@ -63,7 +65,7 @@ line-height:1.2;
 text-shadow:0 0 10px #00bfff;  
 animation:glow 2s infinite alternate;  
 }  
-  
+
 /* SIDEBAR NAVIGATION */  
 .sidebar{  
 width:280px;  
@@ -76,7 +78,7 @@ overflow-y:auto;
 z-index:1000;  
 backdrop-filter:blur(10px);  
 }  
-  
+
 .brand{  
 text-align:center;  
 font-size:1.3rem;  
@@ -85,13 +87,13 @@ margin-bottom:25px;
 color:white;  text-shadow:0 0 20px #00bfff;  
 animation:glow 2s infinite alternate;  
 }  
-  
+
 .menu-title{  
 font-size:0.8rem;  
 color:#9aa4b2;  
 margin:15px 0 10px;  text-transform:uppercase;  
 }  
-  
+
 .menu-btn{  
 display:block;  
 width:100%;  
@@ -106,13 +108,13 @@ transition:0.3s;
 font-weight:700;  
 cursor:pointer;  
 }  
-  
+
 .menu-btn:hover{  
 background:rgba(0,191,255,0.15);  
 transform:translateX(5px);  
 box-shadow:0 0 20px rgba(0,191,255,0.4);  
 }  
-  
+
 /* MAIN CONTENT INTERFACE */  
 .main{  
 margin-left:280px;  
@@ -121,7 +123,7 @@ width:100%;
 position:relative;  
 z-index:2;  
 }  
-  
+
 /* HERO HEADER */  
 .header{  
 background:linear-gradient(135deg,#081120,#0d2038);  
@@ -132,14 +134,14 @@ text-align:center;
 margin-bottom:25px;  
 box-shadow:0 0 30px rgba(0,191,255,0.15);  
 }  
-  
+
 .skull-logo{  
 font-size:4rem;  
 margin-bottom:10px;  
 animation:float 3s infinite ease-in-out;  
 filter:drop-shadow(0 0 20px #00bfff);  
 }  
-  
+
 .main-title{  
 font-size:2rem;  
 font-weight:900;  
@@ -150,27 +152,27 @@ text-shadow:
 0 0 40px #00bfff;  
 animation:glow 2s infinite alternate;  
 }  
-  
+
 .header p{  
 margin-top:10px;  
 color:#c0d9ff;  
 }  
-  
+
 /* DYNAMIC PAGES */  
 .page{  
 display:none;  
 animation:fade 0.4s ease;  
 }  
-  
+
 .active-page{  
 display:block;  
 }  
-  
+
 @keyframes fade{  
 from{opacity:0;transform:translateY(10px);}  
 to{opacity:1;transform:translateY(0);}  
 }  
-  
+
 /* INTERFACE CARDS */  
 .card{  
 background:rgba(16,24,38,0.96);  
@@ -178,7 +180,7 @@ padding:22px;
 border-radius:18px;  
 border:1px solid #1f2b3d;  margin-bottom:20px;  
 }  
-  
+
 /* CONFIG MODULE MODULES */  
 .config-box{  
 background:#0b1320;  
@@ -190,23 +192,23 @@ transition:0.3s;
 position:relative;  
 overflow:hidden;  
 }  
-  
+
 .config-box:hover{  
 transform:translateY(-5px);  
 box-shadow:0 0 25px rgba(0,191,255,0.3);  
 border-color:var(--neon);  
 }  
-  
+
 .config-box h3{  
 margin-bottom:10px;  
 }  
-  
+
 .config-box p{  
 color:#9aa4b2;  
 margin-bottom:15px;  
 line-height:1.6;  
 }  
-  
+
 /* INTERACTION BUTTONS */  
 .download-btn{  
 display:inline-block;  
@@ -217,12 +219,12 @@ color:white;
 font-weight:800;  
 transition:0.3s;  
 }  
-  
+
 .download-btn:hover{  
 transform:scale(1.05);  
 box-shadow:0 0 20px rgba(0,191,255,0.5);  
 }  
-  
+
 /* MODULE TEXT INPUTS & FILTERS */  
 .search-bar {  
     width: 100%;  
@@ -234,7 +236,7 @@ box-shadow:0 0 20px rgba(0,191,255,0.5);
     margin-bottom: 20px;  
     font-size: 1rem;  
 }  
-  
+
 /* UTILITY SUB-ACTIONS */  
 .config-actions{  
 display:flex;  
@@ -243,7 +245,7 @@ margin-top:15px;
 margin-bottom:15px;  
 flex-wrap:wrap;  
 }  
-  
+
 .action-btn{  
 padding:10px 14px;  
 border:none;  
@@ -254,7 +256,7 @@ font-weight:700;
 cursor:pointer;  
 border:1px solid #1f2b3d;  
 }  
-  
+
 /* LOCAL COMMENTS LAYER */  
 .comment-input{  
 width:100%;  
@@ -266,7 +268,7 @@ color:white;
 outline:none;  
 margin-bottom:10px;  
 }  
-  
+
 .comment-btn{  
 padding:10px 16px;  
 border:none;  
@@ -276,7 +278,7 @@ color:white;
 font-weight:800;  
 cursor:pointer;  
 }  
-  
+
 .comment{  
 background:#0f1724;  
 padding:10px;  
@@ -284,7 +286,7 @@ border-radius:10px;
 margin-top:10px;  
 border:1px solid #1d2b3f;  
 }  
-  
+
 /* CHAT LAYER AND LIVE MODULE CONTAINER */  
 .chat-box {  
     height: 320px;  
@@ -295,7 +297,7 @@ border:1px solid #1d2b3f;
     padding: 12px;  
     margin-bottom: 12px;  
 }  
-  
+
 .chat-message {  
     margin-bottom: 10px;  
     padding: 8px 12px;  
@@ -303,7 +305,7 @@ border:1px solid #1d2b3f;
     background: #1a2538;  
     max-width: 85%;  
 }  
-  
+
 .chat-message .time {  
     font-size: 0.7rem;  
     color: #9aa4b2;  
@@ -351,13 +353,13 @@ border:1px solid #1d2b3f;
     line-height: 1.5;
     word-break: break-word;
 }  
-  
+
 /* LEGAL AND STRUCTURAL TEXT FORMATTING */  
 .legal-list {  
     list-style: none;  
     margin-top: 15px;  
 }  
-  
+
 .legal-list li {  
     background: #0b1320;  
     border: 1px solid #1f2b3d;  
@@ -366,14 +368,14 @@ border:1px solid #1d2b3f;
     margin-bottom: 15px;  
     line-height: 1.6;  
 }  
-  
+
 .legal-list strong {  
     color: var(--blue);  
     display: block;  
     font-size: 1.1rem;  
     margin-bottom: 5px;  
 }  
-  
+
 /* PROFILE COMPONENT BOX */  
 .owner-box{  
 text-align:center;  
@@ -382,7 +384,7 @@ background:#0b1320;
 border-radius:16px;  
 border:1px solid #1d2b3f;  
 }  
-  
+
 /* SYSTEM REAR LAYER FOOTER */  
 .footer{  
 text-align:center;  
@@ -467,19 +469,41 @@ font-size:0.9rem;
     font-weight: bold;
     color: var(--neon);
 }
+
+/* ADS STYLES - added without removing anything */
+.ad-container {
+    background: rgba(0,0,0,0.2);
+    border-radius: 12px;
+    padding: 10px;
+    margin: 15px 0;
+    text-align: center;
+    border: 1px dashed rgba(0,191,255,0.3);
+}
+.ad-label {
+    font-size: 0.65rem;
+    color: var(--muted);
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+}
+.sidebar-ad {
+    margin: 15px 0;
+    padding: 10px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 10px;
+}
   
 /* ANIMATIONS SCHEMA */  
 @keyframes glow{  
 from{text-shadow:0 0 10px #00bfff;}  
 to{text-shadow:0 0 20px #00bfff,0 0 40px #0077ff,0 0 60px #00bfff;}  
 }  
-  
+
 @keyframes float{  
 0%{transform:translateY(0);}  
 50%{transform:translateY(-8px);}  
 100%{transform:translateY(0);}  
 }  
-  
+
 /* MOBILE COMPATIBILITY OVERLAYS */  
 .mobile-btn{  
 display:none;  
@@ -494,7 +518,7 @@ padding:12px 15px;
 border-radius:10px;  
 cursor:pointer;  
 }  
-  
+
 @media(max-width:768px){  
 .sidebar{  
 transform:translateX(-100%);  
@@ -517,6 +541,11 @@ font-size:1.6rem;
 </style>  
 </head>  
 <body>  
+<!-- AMP Auto Ads -->
+<amp-auto-ads type="adsense"
+        data-ad-client="ca-pub-5991476915949722">
+</amp-auto-ads>
+
 <canvas id="particles"></canvas>
 
 <div class="top-corner">  
@@ -528,6 +557,19 @@ FOUR SEVEN <br>
 
 <div class="sidebar" id="sidebar">  
 <div class="brand">☠️ FOUR SEVEN [R•S•T]</div>  
+
+<!-- Sidebar Ad Unit -->
+<div class="sidebar-ad">
+    <div class="ad-label">ADVERTISEMENT</div>
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-5991476915949722"
+         data-ad-slot="4481533034"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
 <div class="menu-title">MAIN MENU</div>  
 <a class="menu-btn" onclick="showPage('home-page')">🏠 Home</a>
 <a class="menu-btn" onclick="showPage('configs-page')">📥 Config Files</a>
@@ -541,6 +583,18 @@ FOUR SEVEN <br>
 <div class="menu-title">ELITE SECTION</div>  
 <a class="menu-btn" onclick="showSquadPage()">🔰 Squad of RST 🇦🇶</a>  
 <a class="menu-btn" onclick="showPage('owner-panel-page')" style="border-color: var(--gold); color: var(--gold);">⚡ Owner Panel</a>
+
+<!-- Second Sidebar Ad -->
+<div class="sidebar-ad" style="margin-top:15px;">
+    <div class="ad-label">SPONSOR</div>
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-5991476915949722"
+         data-ad-slot="4481533034"
+         data-ad-format="rectangle"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
 </div>  
 
 <div class="main">  
@@ -550,15 +604,17 @@ FOUR SEVEN <br>
 <p>[ SYSTEM STATUS : ONLINE ]</p>  
 </div>  
 
-<!-- 📢 ADSENSE BANNER 1 - TOP -->
-<ins class="adsbygoogle"
-     style="display:block; margin-bottom:20px; border-radius:12px; overflow:hidden;"
-     data-ad-format="autorelaxed"
-     data-ad-client="ca-pub-5991476915949722"
-     data-ad-slot="4481533034"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+<!-- Header Banner Ad -->
+<div class="ad-container">
+    <div class="ad-label">ADVERTISEMENT</div>
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-5991476915949722"
+         data-ad-slot="4481533034"
+         data-ad-format="horizontal"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
 
 <div id="home-page" class="page active-page">  
 <div class="card">  
@@ -574,6 +630,17 @@ Download premium configs, join the community,
 and enjoy fast secure access.  
 </p>  
 </div>  
+<!-- In-content Ad -->
+<div class="ad-container">
+    <div class="ad-label">RECOMMENDED</div>
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-5991476915949722"
+         data-ad-slot="4481533034"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
 </div>  
 
 <div id="configs-page" class="page">  
@@ -585,17 +652,18 @@ and enjoy fast secure access.
 
 <div id="owner-public-configs-container"></div>
 </div>
+<!-- In-content Ad -->
+<div class="ad-container">
+    <div class="ad-label">SPONSORED</div>
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-5991476915949722"
+         data-ad-slot="4481533034"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 </div>
-
-<!-- 📢 ADSENSE BANNER 2 - MIDDLE -->
-<ins class="adsbygoogle"
-     style="display:block; margin:20px 0; border-radius:12px; overflow:hidden;"
-     data-ad-format="autorelaxed"
-     data-ad-client="ca-pub-5991476915949722"
-     data-ad-slot="4481533034"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+</div>
 
 <div id="community-page" class="page">
 <div class="card">
@@ -607,6 +675,18 @@ and enjoy fast secure access.
 <input type="text" id="com-name-input" class="comment-input" placeholder="Your Name / Alias" style="margin-bottom:10px;">
 <textarea id="com-msg-input" class="comment-input" placeholder="Type your message here..." style="height:100px; resize:vertical; margin-bottom:10px;"></textarea>
 <button class="comment-btn" onclick="submitCommunityPost()" style="width:100%;">🚀 Broadcast Message</button>
+</div>
+
+<!-- Native Ad -->
+<div class="ad-container">
+    <div class="ad-label">PROMOTION</div>
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-5991476915949722"
+         data-ad-slot="4481533034"
+         data-ad-format="rectangle"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 </div>
 
 <h3>📡 Live Feed</h3>
@@ -627,17 +707,18 @@ Click the button below to get started.
 </p>  
 <a href="https://a1.wa710.cc/go/28258927" target="_blank" class="download-btn" style="background:linear-gradient(to right,#25D366,#00bfff);">🚀 Start Earning Now</a>  
 </div>  
+<!-- Earn page ad -->
+<div class="ad-container">
+    <div class="ad-label">PARTNER OFFER</div>
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-5991476915949722"
+         data-ad-slot="4481533034"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
 </div>  
-
-<!-- 📢 ADSENSE BANNER 3 - BOTTOM -->
-<ins class="adsbygoogle"
-     style="display:block; margin:20px 0; border-radius:12px; overflow:hidden;"
-     data-ad-format="autorelaxed"
-     data-ad-client="ca-pub-5991476915949722"
-     data-ad-slot="4481533034"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
 
 <div id="rules-page" class="page">
 <div class="card">
@@ -1552,6 +1633,13 @@ function escapeHtml(str) {
 
 // Load squad members on page load
 loadSquadMembers();
+
+// Re-initialize ads after dynamic content loads
+setTimeout(() => {
+    if(window.adsbygoogle) {
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    }
+}, 1500);
 </script>
 </body>
 </html>
