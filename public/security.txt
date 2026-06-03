@@ -1,0 +1,11 @@
+# Security contact for FOUR SEVEN RST
+
+Contact: mailto:+27602225117
+Contact: https://four-seven-hub-net.vercel.app/#contact
+Encryption: https://four-seven-hub-net.vercel.app/pgp-key.txt
+Preferred-Languages: en
+Canonical: https://four-seven-hub-net.vercel.app/.well-known/security.txt
+Policy: https://four-seven-hub-net.vercel.app/rules-page
+
+# Report vulnerabilities to +27602225117 (WhatsApp only)
+# Last updated: 2026-06-03
