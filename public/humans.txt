@@ -1,0 +1,16 @@
+/* TEAM */
+Developer: FOUR SEVEN
+Contact: +27602225117
+Website: https://four-seven-hub-net.vercel.app
+Location: South Africa
+
+/* THANKS */
+Special thanks to the RST Squad members and all config users.
+
+/* SITE */
+Standards: HTML5, CSS3, JavaScript
+Framework: Firebase, Vercel
+Last update: 2026-06-03
+
+/* GOAL */
+Providing premium config files and network optimization tools.
