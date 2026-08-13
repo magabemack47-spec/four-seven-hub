@@ -11,58 +11,24 @@
     *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',system-ui,sans-serif}
     body{background:#0a0a0f;color:#e0e0e0;min-height:100vh;overflow-x:hidden}
     
-    /* ===== STATIC BACKGROUND IMAGE ===== */
+    /* ===== STATIC BACKGROUND ===== */
     .bg-image{
-      position:fixed;
-      inset:0;
-      z-index:0;
-      background: 
-        radial-gradient(ellipse at 20% 50%, rgba(124,106,255,0.15) 0%, transparent 60%),
-        radial-gradient(ellipse at 80% 50%, rgba(0,212,255,0.12) 0%, transparent 60%),
-        radial-gradient(ellipse at 50% 50%, rgba(124,106,255,0.05) 0%, transparent 70%),
-        linear-gradient(180deg, #050510 0%, #0a0a1a 50%, #050510 100%);
-      background-attachment:fixed;
-      background-size:cover;
+      position:fixed;inset:0;z-index:0;
+      background:radial-gradient(ellipse at 20% 50%,rgba(124,106,255,0.15) 0%,transparent 60%),
+               radial-gradient(ellipse at 80% 50%,rgba(0,212,255,0.12) 0%,transparent 60%),
+               radial-gradient(ellipse at 50% 50%,rgba(124,106,255,0.05) 0%,transparent 70%),
+               linear-gradient(180deg,#050510 0%,#0a0a1a 50%,#050510 100%);
+      background-attachment:fixed;background-size:cover;
     }
-    
-    .static-ring{
-      position:absolute;
-      border-radius:50%;
-      border:1px solid rgba(124,106,255,0.04);
-      left:50%;top:50%;
-      transform:translate(-50%,-50%);
-    }
+    .static-ring{position:absolute;border-radius:50%;border:1px solid rgba(124,106,255,0.04);left:50%;top:50%;transform:translate(-50%,-50%)}
     .static-ring:nth-child(1){width:90vw;height:90vw;border-color:rgba(124,106,255,0.03)}
     .static-ring:nth-child(2){width:70vw;height:70vw;border-color:rgba(0,212,255,0.02)}
     .static-ring:nth-child(3){width:50vw;height:50vw;border-color:rgba(124,106,255,0.03)}
     .static-ring:nth-child(4){width:30vw;height:30vw;border-color:rgba(0,212,255,0.02)}
     .static-ring:nth-child(5){width:10vw;height:10vw;border-color:rgba(124,106,255,0.04)}
-    
-    .static-lines{
-      position:absolute;
-      inset:0;
-      background:repeating-linear-gradient(0deg, 
-        transparent 0px, 
-        rgba(124,106,255,0.015) 1px, 
-        transparent 2px);
-      opacity:0.5;
-    }
-    .static-lines::after{
-      content:'';
-      position:absolute;
-      inset:0;
-      background:repeating-linear-gradient(90deg, 
-        transparent 0px, 
-        rgba(0,212,255,0.015) 1px, 
-        transparent 2px);
-    }
-    
-    .static-orb{
-      position:absolute;
-      border-radius:50%;
-      filter:blur(80px);
-      opacity:0.2;
-    }
+    .static-lines{position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0px,rgba(124,106,255,0.015) 1px,transparent 2px);opacity:0.5}
+    .static-lines::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0px,rgba(0,212,255,0.015) 1px,transparent 2px)}
+    .static-orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:0.2}
     .static-orb-1{width:500px;height:500px;background:rgba(124,106,255,0.1);top:-15%;left:-10%}
     .static-orb-2{width:400px;height:400px;background:rgba(0,212,255,0.08);bottom:-10%;right:-10%}
     .static-orb-3{width:250px;height:250px;background:rgba(124,106,255,0.06);top:50%;left:50%;transform:translate(-50%,-50%)}
@@ -71,215 +37,58 @@
     .top-banner{
       background:linear-gradient(135deg,rgba(124,106,255,0.15),rgba(0,212,255,0.15));
       border-bottom:1px solid rgba(124,106,255,0.2);
-      padding:8px 20px;
-      text-align:center;
-      position:fixed;
-      top:0;
-      left:0;
-      right:0;
-      z-index:101;
-      backdrop-filter:blur(10px);
+      padding:8px 20px;text-align:center;position:fixed;top:0;left:0;right:0;z-index:101;backdrop-filter:blur(10px);
     }
-    .top-banner .brand-text{
-      font-size:1.1rem;
-      font-weight:800;
-      letter-spacing:3px;
-      background:linear-gradient(135deg,#7c6aff,#00d4ff,#7c6aff);
-      background-size:200% 200%;
-      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-      animation:gradientShift 3s ease-in-out infinite;
-    }
-    .top-banner .sub-text{
-      font-size:0.75rem;
-      color:rgba(255,255,255,0.35);
-      letter-spacing:4px;
-      margin-top:1px;
-      font-weight:300;
-    }
-    @keyframes gradientShift{
-      0%{background-position:0% 50%}
-      50%{background-position:100% 50%}
-      100%{background-position:0% 50%}
-    }
+    .top-banner .brand-text{font-size:1.1rem;font-weight:800;letter-spacing:3px;background:linear-gradient(135deg,#7c6aff,#00d4ff,#7c6aff);background-size:200% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gradientShift 3s ease-in-out infinite}
+    .top-banner .sub-text{font-size:0.75rem;color:rgba(255,255,255,0.35);letter-spacing:4px;margin-top:1px;font-weight:300}
+    @keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
     
-    /* ===== LEFT SIDEBAR MENU ===== */
+    /* ===== LEFT SIDEBAR ===== */
     .sidebar{
-      position:fixed;
-      left:0;
-      top:56px;
-      bottom:0;
-      width:200px;
-      z-index:100;
-      background:rgba(10,10,15,0.85);
-      backdrop-filter:blur(20px);
-      border-right:1px solid rgba(255,255,255,0.05);
-      padding:20px 12px;
-      overflow-y:auto;
-      display:flex;
-      flex-direction:column;
-      gap:4px;
+      position:fixed;left:0;top:56px;bottom:0;width:200px;z-index:100;
+      background:rgba(10,10,15,0.85);backdrop-filter:blur(20px);
+      border-right:1px solid rgba(255,255,255,0.05);padding:20px 12px;overflow-y:auto;
+      display:flex;flex-direction:column;gap:4px;
     }
-    .sidebar .brand{
-      font-size:1rem;
-      font-weight:800;
-      background:linear-gradient(135deg,#7c6aff,#00d4ff);
-      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-      padding:8px 12px;
-      margin-bottom:12px;
-      text-align:center;
-      letter-spacing:-0.5px;
-    }
-    .sidebar .brand span{
-      font-weight:300;
-      background:none;
-      -webkit-text-fill-color:#666;
-    }
-    .side-link{
-      color:#aaa;
-      text-decoration:none;
-      padding:10px 14px;
-      border-radius:10px;
-      font-size:0.85rem;
-      font-weight:500;
-      transition:0.3s;
-      cursor:pointer;
-      border:none;
-      background:transparent;
-      width:100%;
-      text-align:left;
-      display:flex;
-      align-items:center;
-      gap:10px;
-    }
-    .side-link:hover{
-      color:#fff;
-      background:rgba(255,255,255,0.06);
-    }
-    .side-link.active{
-      background:linear-gradient(135deg,rgba(124,106,255,0.15),rgba(0,212,255,0.15));
-      color:#fff;
-    }
-    .side-link.github-link{
-      color:#7c6aff;
-      border:1px solid rgba(124,106,255,0.15);
-      margin-top:8px;
-    }
-    .side-link.github-link:hover{
-      background:rgba(124,106,255,0.1);
-      border-color:#7c6aff;
-    }
+    .sidebar .brand{font-size:1rem;font-weight:800;background:linear-gradient(135deg,#7c6aff,#00d4ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;padding:8px 12px;margin-bottom:12px;text-align:center}
+    .sidebar .brand span{font-weight:300;background:none;-webkit-text-fill-color:#666}
+    .side-link{color:#aaa;text-decoration:none;padding:10px 14px;border-radius:10px;font-size:0.85rem;font-weight:500;transition:0.3s;cursor:pointer;border:none;background:transparent;width:100%;text-align:left;display:flex;align-items:center;gap:10px}
+    .side-link:hover{color:#fff;background:rgba(255,255,255,0.06)}
+    .side-link.active{background:linear-gradient(135deg,rgba(124,106,255,0.15),rgba(0,212,255,0.15));color:#fff}
+    .side-link.github-link{color:#7c6aff;border:1px solid rgba(124,106,255,0.15);margin-top:8px}
+    .side-link.github-link:hover{background:rgba(124,106,255,0.1);border-color:#7c6aff}
     .side-link .icon{font-size:1.1rem;width:24px;text-align:center}
     
-    /* ===== MOBILE MENU TOGGLE ===== */
-    .menu-toggle{
-      display:none;
-      position:fixed;
-      left:12px;
-      top:62px;
-      z-index:102;
-      background:rgba(10,10,15,0.9);
-      border:1px solid rgba(255,255,255,0.08);
-      color:#fff;
-      padding:8px 12px;
-      border-radius:8px;
-      cursor:pointer;
-      font-size:1.2rem;
-    }
+    .menu-toggle{display:none;position:fixed;left:12px;top:62px;z-index:102;background:rgba(10,10,15,0.9);border:1px solid rgba(255,255,255,0.08);color:#fff;padding:8px 12px;border-radius:8px;cursor:pointer;font-size:1.2rem}
     @media(max-width:768px){
       .menu-toggle{display:block}
-      .sidebar{
-        transform:translateX(-100%);
-        transition:0.3s ease;
-        width:240px;
-        top:50px;
-      }
+      .sidebar{transform:translateX(-100%);transition:0.3s ease;width:240px;top:50px}
       .sidebar.open{transform:translateX(0)}
       .top-banner{padding:6px 12px}
       .top-banner .brand-text{font-size:0.85rem}
       .top-banner .sub-text{font-size:0.6rem}
     }
     
-    /* ===== MAIN LAYOUT ===== */
-    .main{
-      margin-left:200px;
-      padding:80px 30px 40px;
-      max-width:1200px;
-      position:relative;
-      z-index:1;
-    }
-    @media(max-width:768px){
-      .main{margin-left:0;padding:80px 16px 40px}
-    }
+    /* ===== MAIN ===== */
+    .main{margin-left:200px;padding:80px 30px 40px;max-width:1200px;position:relative;z-index:1}
+    @media(max-width:768px){.main{margin-left:0;padding:80px 16px 40px}}
     
-    /* ===== HERO ===== */
-    .hero{
-      text-align:center;padding:50px 20px 45px;
-      background:rgba(10,10,20,0.5);backdrop-filter:blur(10px);
-      border-radius:24px;border:1px solid rgba(255,255,255,0.06);margin-bottom:30px;
-      position:relative;overflow:hidden;
-    }
-    .hero::before{
-      content:'';
-      position:absolute;inset:0;
-      background:radial-gradient(ellipse at center, rgba(124,106,255,0.05) 0%, transparent 70%);
-    }
-    .hero-icon{
-      font-size:4.5rem;
-      margin-bottom:8px;
-      display:block;
-      position:relative;
-      animation:glowPulse 2s ease-in-out infinite alternate;
-    }
-    @keyframes glowPulse{
-      0%{filter:drop-shadow(0 0 10px rgba(124,106,255,0.3)) drop-shadow(0 0 20px rgba(0,212,255,0.2))}
-      100%{filter:drop-shadow(0 0 30px rgba(124,106,255,0.6)) drop-shadow(0 0 60px rgba(0,212,255,0.4)) drop-shadow(0 0 90px rgba(124,106,255,0.2))}
-    }
-    .hero h1{
-      font-size:2.6rem;font-weight:800;
-      background:linear-gradient(135deg,#7c6aff,#00d4ff);
-      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-      position:relative
-    }
+    .hero{text-align:center;padding:50px 20px 45px;background:rgba(10,10,20,0.5);backdrop-filter:blur(10px);border-radius:24px;border:1px solid rgba(255,255,255,0.06);margin-bottom:30px;position:relative;overflow:hidden}
+    .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(124,106,255,0.05) 0%,transparent 70%)}
+    .hero-icon{font-size:4.5rem;margin-bottom:8px;display:block;position:relative;animation:glowPulse 2s ease-in-out infinite alternate}
+    @keyframes glowPulse{0%{filter:drop-shadow(0 0 10px rgba(124,106,255,0.3)) drop-shadow(0 0 20px rgba(0,212,255,0.2))}100%{filter:drop-shadow(0 0 30px rgba(124,106,255,0.6)) drop-shadow(0 0 60px rgba(0,212,255,0.4)) drop-shadow(0 0 90px rgba(124,106,255,0.2))}}
+    .hero h1{font-size:2.6rem;font-weight:800;background:linear-gradient(135deg,#7c6aff,#00d4ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;position:relative}
     .hero p{color:#999;margin-top:8px;font-size:1.05rem;position:relative}
     
-    /* ===== PAGES ===== */
     .page{display:none;animation:fadeIn .4s ease}
     .page.active{display:block}
     @keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
     
-    /* ===== CARDS ===== */
-    .card{
-      background:rgba(10,10,20,0.5);backdrop-filter:blur(10px);
-      border:1px solid rgba(255,255,255,0.06);border-radius:20px;
-      padding:28px;margin-bottom:24px;transition:.3s
-    }
+    .card{background:rgba(10,10,20,0.5);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.06);border-radius:20px;padding:28px;margin-bottom:24px;transition:.3s}
     .card:hover{border-color:rgba(124,106,255,.2)}
     .card h2{font-size:1.6rem;margin-bottom:16px;color:#fff}
     
-    /* ===== CONFIG CARDS ===== */
-    .config-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
-    .config-card{
-      background:rgba(15,15,25,.8);border:1px solid rgba(255,255,255,.06);
-      border-radius:16px;padding:20px;transition:.3s;position:relative;overflow:hidden
-    }
-    .config-card::before{
-      content:'';position:absolute;top:0;left:0;right:0;height:3px;
-      background:linear-gradient(90deg,#7c6aff,#00d4ff);opacity:0;transition:.3s
-    }
-    .config-card:hover{transform:translateY(-4px);border-color:rgba(124,106,255,.3)}
-    .config-card:hover::before{opacity:1}
-    .config-card h3{color:#fff;font-size:1.1rem;margin-bottom:6px}
-    .config-card .tag{
-      display:inline-block;padding:2px 12px;border-radius:20px;font-size:.7rem;
-      background:rgba(124,106,255,.2);color:#7c6aff;margin:6px 0 10px
-    }
-    .config-card .desc{color:#999;font-size:.9rem;margin-bottom:12px;line-height:1.5}
-    .config-card .meta{display:flex;gap:12px;font-size:.8rem;color:#666}
-    
-    .btn{
-      display:inline-block;padding:8px 20px;border-radius:10px;border:none;
-      font-weight:600;font-size:.85rem;cursor:pointer;transition:.3s;text-decoration:none
-    }
+    .btn{display:inline-block;padding:8px 20px;border-radius:10px;border:none;font-weight:600;font-size:.85rem;cursor:pointer;transition:.3s;text-decoration:none}
     .btn-primary{background:linear-gradient(135deg,#7c6aff,#00d4ff);color:#fff}
     .btn-primary:hover{transform:scale(1.04);box-shadow:0 8px 30px rgba(124,106,255,.3)}
     .btn-sm{padding:6px 14px;font-size:.75rem}
@@ -287,96 +96,55 @@
     .btn-outline:hover{background:rgba(255,255,255,.05)}
     .btn-danger{background:rgba(255,50,50,.15);color:#ff6b6b;border:1px solid rgba(255,50,50,.2)}
     .btn-danger:hover{background:rgba(255,50,50,.25)}
-    .btn-whatsapp{background:rgba(37,211,102,.15);color:#25D366;border:1px solid rgba(37,211,102,.2)}
-    .btn-whatsapp:hover{background:rgba(37,211,102,.25)}
     .btn-success{background:rgba(50,255,50,.1);color:#4caf50;border:1px solid rgba(50,255,50,.15)}
     .btn-success:hover{background:rgba(50,255,50,.2)}
+    .btn-warning{background:rgba(255,200,50,.1);color:#ffc107;border:1px solid rgba(255,200,50,.15)}
+    .btn-warning:hover{background:rgba(255,200,50,.2)}
     
-    /* ===== SEARCH ===== */
+    .config-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+    .config-card{background:rgba(15,15,25,.8);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:20px;transition:.3s;position:relative;overflow:hidden}
+    .config-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#7c6aff,#00d4ff);opacity:0;transition:.3s}
+    .config-card:hover{transform:translateY(-4px);border-color:rgba(124,106,255,.3)}
+    .config-card:hover::before{opacity:1}
+    .config-card .featured-badge{position:absolute;top:10px;right:10px;background:linear-gradient(135deg,#ffd700,#ff6b00);color:#000;padding:2px 10px;border-radius:20px;font-size:.6rem;font-weight:700}
+    .config-card h3{color:#fff;font-size:1.1rem;margin-bottom:6px}
+    .config-card .tag{display:inline-block;padding:2px 12px;border-radius:20px;font-size:.7rem;background:rgba(124,106,255,.2);color:#7c6aff;margin:6px 0 10px}
+    .config-card .desc{color:#999;font-size:.9rem;margin-bottom:12px;line-height:1.5}
+    .config-card .meta{display:flex;gap:12px;font-size:.8rem;color:#666}
+    
     .search-wrap{position:relative;margin-bottom:20px}
-    .search-wrap input{
-      width:100%;padding:14px 20px;background:rgba(15,15,25,.8);border:1px solid rgba(255,255,255,.06);
-      border-radius:14px;color:#fff;font-size:1rem;outline:none;transition:.3s
-    }
+    .search-wrap input{width:100%;padding:14px 20px;background:rgba(15,15,25,.8);border:1px solid rgba(255,255,255,.06);border-radius:14px;color:#fff;font-size:1rem;outline:none;transition:.3s}
     .search-wrap input:focus{border-color:#7c6aff;box-shadow:0 0 30px rgba(124,106,255,.1)}
     .search-wrap input::placeholder{color:#555}
     
-    /* ===== COMMUNITY ===== */
-    .post{
-      background:rgba(15,15,25,.6);border-radius:14px;padding:16px;margin-bottom:12px;
-      border-left:3px solid #7c6aff;transition:.3s
-    }
-    .post:hover{background:rgba(20,20,35,.6)}
-    .post .head{display:flex;justify-content:space-between;font-size:.85rem;color:#888;margin-bottom:6px}
-    .post .head .name{color:#7c6aff;font-weight:600}
-    .post .body{color:#ddd;line-height:1.6;word-break:break-word}
-    .post .actions{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
-    .post .actions button{background:none;border:none;color:#666;cursor:pointer;padding:4px 8px;border-radius:6px;transition:.3s;font-size:.8rem}
-    .post .actions button:hover{background:rgba(255,255,255,.05);color:#fff}
-    .post .actions .edit-btn{color:#7c6aff}
-    .post .actions .edit-btn:hover{color:#9b8aff}
-    .post .actions .del-btn{color:#ff6b6b}
-    .post .actions .del-btn:hover{color:#ff8a8a}
-    .post .post-time{color:#555;font-size:.75rem}
-    
-    /* ===== STATS ===== */
     .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:24px}
-    .stat{
-      background:rgba(15,15,25,.6);border-radius:14px;padding:16px;text-align:center;border:1px solid rgba(255,255,255,.06)
-    }
+    .stat{background:rgba(15,15,25,.6);border-radius:14px;padding:16px;text-align:center;border:1px solid rgba(255,255,255,.06)}
     .stat .num{font-size:2rem;font-weight:700;background:linear-gradient(135deg,#7c6aff,#00d4ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
     .stat .label{color:#666;font-size:.8rem;margin-top:4px}
     
-    /* ===== PANEL ===== */
     .panel-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
     @media(max-width:768px){.panel-grid{grid-template-columns:1fr}}
-    
     .panel-box{background:rgba(15,15,25,.6);border-radius:14px;padding:18px;border:1px solid rgba(255,255,255,.06)}
     .panel-box h4{color:#fff;margin-bottom:12px;font-size:.95rem}
-    .panel-box input,.panel-box textarea{
-      width:100%;padding:10px 14px;background:rgba(10,10,18,.8);border:1px solid rgba(255,255,255,.06);
-      border-radius:10px;color:#fff;margin-bottom:8px;outline:none;font-size:.9rem
-    }
-    .panel-box input:focus,.panel-box textarea:focus{border-color:#7c6aff}
+    .panel-box input,.panel-box textarea,.panel-box select{width:100%;padding:10px 14px;background:rgba(10,10,18,.8);border:1px solid rgba(255,255,255,.06);border-radius:10px;color:#fff;margin-bottom:8px;outline:none;font-size:.9rem}
+    .panel-box input:focus,.panel-box textarea:focus,.panel-box select:focus{border-color:#7c6aff}
     .panel-box textarea{resize:vertical;min-height:60px}
+    .panel-box select option{background:#0a0a0f}
     
-    /* ===== BROADCAST BANNER ===== */
-    .banner{
-      background:linear-gradient(135deg,rgba(124,106,255,.1),rgba(0,212,255,.1));
-      border:1px solid rgba(124,106,255,.2);border-radius:12px;padding:14px 20px;
-      margin-bottom:16px;display:none
-    }
+    .banner{background:linear-gradient(135deg,rgba(124,106,255,.1),rgba(0,212,255,.1));border:1px solid rgba(124,106,255,.2);border-radius:12px;padding:14px 20px;margin-bottom:16px;display:none}
     .banner.show{display:block}
     .banner .label{color:#7c6aff;font-weight:600;font-size:.8rem;text-transform:uppercase;letter-spacing:1px}
     .banner .msg{color:#ddd;margin-top:4px}
     
-    /* ===== RULES ===== */
     .rules-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
     @media(max-width:768px){.rules-grid{grid-template-columns:1fr}}
-    .rule-item{
-      background:rgba(15,15,25,.6);border-radius:12px;padding:16px;border:1px solid rgba(255,255,255,.06)
-    }
+    .rule-item{background:rgba(15,15,25,.6);border-radius:12px;padding:16px;border:1px solid rgba(255,255,255,.06)}
     .rule-item .num{color:#7c6aff;font-weight:700;font-size:1.2rem}
     .rule-item h4{color:#fff;margin:4px 0 8px}
     .rule-item p{color:#999;font-size:.9rem;line-height:1.6}
     
-    /* ===== REPORT ===== */
-    .report-box{background:rgba(255,50,50,.05);border:1px solid rgba(255,50,50,.15);border-radius:12px;padding:16px}
-    .report-box textarea{width:100%;padding:10px 14px;background:rgba(10,10,18,.8);border:1px solid rgba(255,50,50,.15);border-radius:10px;color:#fff;outline:none;resize:vertical;min-height:80px}
-    .report-box textarea:focus{border-color:#ff6b6b}
-    .report-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:12px 0}
-    .report-stat{background:rgba(15,15,25,.6);border-radius:10px;padding:12px;text-align:center}
-    .report-stat .num{font-size:1.5rem;font-weight:700;color:#7c6aff}
-    .report-stat .label{color:#666;font-size:.7rem}
-    .wa-numbers{background:rgba(37,211,102,.05);border-radius:10px;padding:10px;margin:10px 0;border:1px solid rgba(37,211,102,.1)}
-    .wa-numbers .num{color:#25D366;font-weight:600;font-size:.85rem}
-    
-    /* Report List */
     .report-list{max-height:400px;overflow-y:auto;margin-top:12px}
-    .report-item{
-      background:rgba(15,15,25,.6);border-radius:10px;padding:12px;margin-bottom:8px;
-      border-left:3px solid #ff6b6b;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px
-    }
+    .report-item{background:rgba(15,15,25,.6);border-radius:10px;padding:12px;margin-bottom:8px;border-left:3px solid #ff6b6b;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
     .report-item.resolved{border-left-color:#4caf50;opacity:0.7}
     .report-item .info{flex:1}
     .report-item .info .type{color:#7c6aff;font-weight:600;font-size:.85rem}
@@ -389,29 +157,71 @@
     .report-item .actions .delete-btn{background:rgba(255,50,50,.15);color:#ff6b6b}
     .report-item .actions .delete-btn:hover{background:rgba(255,50,50,.25)}
     
-    /* ===== FOOTER ===== */
-    .footer{text-align:center;padding:30px 0 10px;color:#444;font-size:.8rem;border-top:1px solid rgba(255,255,255,.04);margin-top:30px}
+    .post{background:rgba(15,15,25,.6);border-radius:14px;padding:16px;margin-bottom:12px;border-left:3px solid #7c6aff;transition:.3s}
+    .post:hover{background:rgba(20,20,35,.6)}
+    .post .head{display:flex;justify-content:space-between;font-size:.85rem;color:#888;margin-bottom:6px}
+    .post .head .name{color:#7c6aff;font-weight:600}
+    .post .body{color:#ddd;line-height:1.6;word-break:break-word}
+    .post .actions{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
+    .post .actions button{background:none;border:none;color:#666;cursor:pointer;padding:4px 8px;border-radius:6px;transition:.3s;font-size:.8rem}
+    .post .actions button:hover{background:rgba(255,255,255,.05);color:#fff}
+    .post .actions .edit-btn{color:#7c6aff}
+    .post .actions .edit-btn:hover{color:#9b8aff}
+    .post .actions .del-btn{color:#ff6b6b}
+    .post .actions .del-btn:hover{color:#ff8a8a}
+    .post .post-time{color:#555;font-size:.75rem}
+    .post.pending{border-left-color:#ffc107;opacity:0.7}
+    .post .approve-badge{background:rgba(255,200,50,.15);color:#ffc107;padding:2px 10px;border-radius:12px;font-size:.7rem}
     
-    /* ===== SCROLLBAR ===== */
+    .password-overlay{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.8);backdrop-filter:blur(10px);display:none;justify-content:center;align-items:center}
+    .password-overlay.show{display:flex}
+    .password-box{background:rgba(20,20,35,0.95);border:1px solid rgba(124,106,255,0.3);border-radius:20px;padding:30px;max-width:400px;width:90%;text-align:center}
+    .password-box h3{color:#fff;margin-bottom:8px}
+    .password-box p{color:#999;font-size:.9rem;margin-bottom:16px}
+    .password-box input{width:100%;padding:12px 16px;background:rgba(10,10,18,.8);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;font-size:1rem;outline:none;margin-bottom:12px}
+    .password-box input:focus{border-color:#7c6aff}
+    .password-box .btn-group{display:flex;gap:10px}
+    .password-box .btn-group button{flex:1;padding:10px;border-radius:10px;border:none;font-weight:600;cursor:pointer}
+    .password-box .btn-group .confirm-btn{background:linear-gradient(135deg,#7c6aff,#00d4ff);color:#fff}
+    .password-box .btn-group .cancel-btn{background:rgba(255,255,255,.05);color:#aaa}
+    
+    .footer{text-align:center;padding:30px 0 10px;color:#444;font-size:.8rem;border-top:1px solid rgba(255,255,255,.04);margin-top:30px}
     ::-webkit-scrollbar{width:6px}
     ::-webkit-scrollbar-track{background:transparent}
     ::-webkit-scrollbar-thumb{background:rgba(124,106,255,.3);border-radius:10px}
     ::-webkit-scrollbar-thumb:hover{background:rgba(124,106,255,.5)}
     
-    /* ===== TOAST ===== */
-    .toast{
-     position:fixed;bottom:30px;right:30px;z-index:999;
-      background:rgba(10,10,15,.95);backdrop-filter:blur(10px);
-      border:1px solid rgba(37,211,102,.3);
-      border-radius:14px;padding:16px 24px;
-      color:#fff;font-size:.9rem;
-      transform:translateY(100px);opacity:0;
-      transition:.4s ease;max-width:400px
-    }
+    .toast{position:fixed;bottom:30px;right:30px;z-index:999;background:rgba(10,10,15,.95);backdrop-filter:blur(10px);border:1px solid rgba(37,211,102,.3);border-radius:14px;padding:16px 24px;color:#fff;font-size:.9rem;transform:translateY(100px);opacity:0;transition:.4s ease;max-width:400px}
     .toast.show{transform:translateY(0);opacity:1}
     .toast .icon{font-size:1.5rem;margin-right:10px}
     .toast .title{font-weight:700;color:#25D366}
     .toast .msg{color:#999;font-size:.8rem;margin-top:4px}
+    
+    .bulk-actions{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0;padding:12px;background:rgba(10,10,18,.6);border-radius:10px;align-items:center}
+    .bulk-actions .bulk-label{color:#999;font-size:.8rem;margin-right:8px}
+    .bulk-actions select{padding:6px 12px;background:rgba(10,10,18,.8);border:1px solid rgba(255,255,255,.06);border-radius:8px;color:#fff;outline:none}
+    .bulk-actions select:focus{border-color:#7c6aff}
+    .bulk-actions .btn{font-size:.75rem;padding:6px 14px}
+    
+    .contact-list{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    @media(max-width:768px){.contact-list{grid-template-columns:1fr}}
+    .contact-item{background:rgba(10,10,18,.6);padding:10px 14px;border-radius:8px;display:flex;justify-content:space-between;align-items:center;border:1px solid rgba(255,255,255,.05)}
+    .contact-item .num{color:#25D366;font-weight:600;font-size:.9rem}
+    .contact-item .remove-btn{background:rgba(255,50,50,.15);color:#ff6b6b;border:none;padding:4px 12px;border-radius:6px;cursor:pointer;font-size:.7rem}
+    .contact-item .remove-btn:hover{background:rgba(255,50,50,.25)}
+    
+    .log-item{background:rgba(10,10,18,.4);padding:8px 12px;border-radius:6px;margin-bottom:4px;font-size:.8rem;color:#999;border-left:2px solid #7c6aff}
+    .log-item .log-time{color:#555;font-size:.7rem}
+    .log-item .log-user{color:#7c6aff;font-weight:600}
+    .log-item .log-action{color:#ddd}
+    
+    .leaderboard-item{display:flex;justify-content:space-between;padding:8px 12px;background:rgba(10,10,18,.4);border-radius:6px;margin-bottom:4px}
+    .leaderboard-item .rank{color:#7c6aff;font-weight:700;width:30px}
+    .leaderboard-item .name{color:#fff;flex:1}
+    .leaderboard-item .count{color:#ffd700;font-weight:600}
+    .leaderboard-item.top1{background:rgba(255,215,0,.1);border:1px solid rgba(255,215,0,.2)}
+    .leaderboard-item.top2{background:rgba(192,192,192,.1);border:1px solid rgba(192,192,192,.2)}
+    .leaderboard-item.top3{background:rgba(205,127,50,.1);border:1px solid rgba(205,127,50,.2)}
   </style>
 </head>
 <body>
@@ -441,31 +251,30 @@
 <!-- ===== LEFT SIDEBAR ===== -->
 <div class="sidebar" id="sidebar">
   <div class="brand">TRELUX <span>NeT-SiTe</span></div>
-  
-  <button class="side-link active" onclick="showPage('home')">
-    <span class="icon">🏠</span> Home
-  </button>
-  <button class="side-link" onclick="showPage('configs')">
-    <span class="icon">📥</span> Configs
-  </button>
-  <button class="side-link" onclick="showPage('community')">
-    <span class="icon">💬</span> Community
-  </button>
-  <button class="side-link" onclick="showPage('rules')">
-    <span class="icon">📜</span> Rules
-  </button>
-  <button class="side-link" onclick="showPage('report')">
-    <span class="icon">🚨</span> Report
-  </button>
-  <a href="https://github.com/magabemack47-spec/four-seven-hub" target="_blank" class="side-link github-link">
-    <span class="icon">🐙</span> GitHub
-  </a>
-  <button class="side-link" onclick="showPage('panel')" style="color:#7c6aff;border-top:1px solid rgba(255,255,255,0.05);margin-top:8px;padding-top:12px">
-    <span class="icon">⚡</span> Panel
-  </button>
+  <button class="side-link active" onclick="showPage('home')"><span class="icon">🏠</span> Home</button>
+  <button class="side-link" onclick="showPage('configs')"><span class="icon">📥</span> Configs</button>
+  <button class="side-link" onclick="showPage('community')"><span class="icon">💬</span> Community</button>
+  <button class="side-link" onclick="showPage('rules')"><span class="icon">📜</span> Rules</button>
+  <button class="side-link" onclick="showPage('report')"><span class="icon">🚨</span> Report</button>
+  <a href="https://github.com/magabemack47-spec/four-seven-hub" target="_blank" class="side-link github-link"><span class="icon">🐙</span> GitHub</a>
+  <button class="side-link" onclick="showPage('panel')" style="color:#7c6aff;border-top:1px solid rgba(255,255,255,0.05);margin-top:8px;padding-top:12px"><span class="icon">⚡</span> Panel</button>
 </div>
 
-<!-- TOAST NOTIFICATION -->
+<!-- ===== PASSWORD OVERLAY ===== -->
+<div class="password-overlay" id="passwordOverlay">
+  <div class="password-box">
+    <h3>🔐 Authentication Required</h3>
+    <p>Enter the admin password to perform this action</p>
+    <input type="password" id="passwordInput" placeholder="Enter password..." onkeydown="if(event.key==='Enter')confirmPassword()">
+    <div class="btn-group">
+      <button class="confirm-btn" onclick="confirmPassword()">Confirm</button>
+      <button class="cancel-btn" onclick="cancelPassword()">Cancel</button>
+    </div>
+    <p id="passwordError" style="color:#ff6b6b;font-size:.8rem;margin-top:8px;display:none">❌ Incorrect password</p>
+  </div>
+</div>
+
+<!-- TOAST -->
 <div class="toast" id="toast">
   <div style="display:flex;align-items:center">
     <span class="icon">✅</span>
@@ -481,25 +290,9 @@
 
   <!-- ===== HOME ===== -->
   <div id="home" class="page active">
-    <div class="hero">
-      <span class="hero-icon">🌐</span>
-      <h1>TRELUX NeT-SiTe</h1>
-      <p>Premium configs · Secure community · Fast connections</p>
-    </div>
-    
-    <div class="banner" id="broadcastBanner">
-      <div class="label">📢 Broadcast</div>
-      <div class="msg" id="broadcastMsg"></div>
-    </div>
-
-    <div class="card">
-      <h2>🚀 Welcome</h2>
-      <p style="color:#999;line-height:1.8;font-size:1.05rem">
-        TRELUX is your premium hub for network configurations and community sharing. 
-        All configs are verified and optimized for performance.
-      </p>
-    </div>
-
+    <div class="hero"><span class="hero-icon">🌐</span><h1>TRELUX NeT-SiTe</h1><p>Premium configs · Secure community · Fast connections</p></div>
+    <div class="banner" id="broadcastBanner"><div class="label">📢 Broadcast</div><div class="msg" id="broadcastMsg"></div></div>
+    <div class="card"><h2>🚀 Welcome</h2><p style="color:#999;line-height:1.8;font-size:1.05rem">TRELUX is your premium hub for network configurations and community sharing. All configs are verified and optimized for performance.</p></div>
     <div class="stats">
       <div class="stat"><div class="num" id="totalVisitors">0</div><div class="label">Total Visitors</div></div>
       <div class="stat"><div class="num" id="activeUsers">0</div><div class="label">Active Now</div></div>
@@ -511,9 +304,7 @@
   <div id="configs" class="page">
     <div class="card">
       <h2>📥 Config Library</h2>
-      <div class="search-wrap">
-        <input id="searchInput" placeholder="🔍 Search configs by name or type..." oninput="filterConfigs()">
-      </div>
+      <div class="search-wrap"><input id="searchInput" placeholder="🔍 Search configs by name or type..." oninput="filterConfigs()"></div>
       <div class="config-grid" id="configGrid"></div>
     </div>
   </div>
@@ -536,36 +327,12 @@
     <div class="card">
       <h2>📜 Website Rules</h2>
       <div class="rules-grid">
-        <div class="rule-item">
-          <div class="num">01</div>
-          <h4>No Malicious Files</h4>
-          <p>All configs must be safe and free from malware. Any harmful files will be removed immediately.</p>
-        </div>
-        <div class="rule-item">
-          <div class="num">02</div>
-          <h4>Respect Others</h4>
-          <p>Be respectful in the community. No harassment, hate speech, or toxic behavior.</p>
-        </div>
-        <div class="rule-item">
-          <div class="num">03</div>
-          <h4>No Spam</h4>
-          <p>Don't spam the community board with repetitive messages or advertisements.</p>
-        </div>
-        <div class="rule-item">
-          <div class="num">04</div>
-          <h4>Share Original Content</h4>
-          <p>Only share configs you've created or have permission to share. Credit original creators.</p>
-        </div>
-        <div class="rule-item">
-          <div class="num">05</div>
-          <h4>Report Issues</h4>
-          <p>Use the Report page to flag any problematic content or users.</p>
-        </div>
-        <div class="rule-item">
-          <div class="num">06</div>
-          <h4>Stay Safe</h4>
-          <p>Never share personal information. Use unique passwords and stay secure.</p>
-        </div>
+        <div class="rule-item"><div class="num">01</div><h4>No Malicious Files</h4><p>All configs must be safe and free from malware. Any harmful files will be removed immediately.</p></div>
+        <div class="rule-item"><div class="num">02</div><h4>Respect Others</h4><p>Be respectful in the community. No harassment, hate speech, or toxic behavior.</p></div>
+        <div class="rule-item"><div class="num">03</div><h4>No Spam</h4><p>Don't spam the community board with repetitive messages or advertisements.</p></div>
+        <div class="rule-item"><div class="num">04</div><h4>Share Original Content</h4><p>Only share configs you've created or have permission to share. Credit original creators.</p></div>
+        <div class="rule-item"><div class="num">05</div><h4>Report Issues</h4><p>Use the Report page to flag any problematic content or users.</p></div>
+        <div class="rule-item"><div class="num">06</div><h4>Stay Safe</h4><p>Never share personal information. Use unique passwords and stay secure.</p></div>
       </div>
     </div>
   </div>
@@ -574,36 +341,21 @@
   <div id="report" class="page">
     <div class="card">
       <h2>🚨 Report Center</h2>
-      <p style="color:#999;margin-bottom:16px">
-        Report any problematic configs, users, or content. 
-        <strong style="color:#25D366">Reports are sent directly to WhatsApp</strong> for immediate action.
-      </p>
-      
-      <div class="wa-numbers">
+      <p style="color:#999;margin-bottom:16px">Report any problematic configs, users, or content. <strong style="color:#25D366">Reports are sent directly to WhatsApp</strong> for immediate action.</p>
+      <div class="wa-numbers" style="background:rgba(37,211,102,.05);border-radius:10px;padding:10px;margin:10px 0;border:1px solid rgba(37,211,102,.1)">
         <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px">
-          <span>📱 <span class="num">+27 76 689 0045</span></span>
-          <span>📱 <span class="num">+27 62 268 6991</span></span>
-          <span>📱 <span class="num">+27 60 222 5117</span></span>
+          <span>📱 <span class="num" style="color:#25D366;font-weight:600;font-size:.85rem">+27 76 689 0045</span></span>
+          <span>📱 <span class="num" style="color:#25D366;font-weight:600;font-size:.85rem">+27 62 268 6991</span></span>
+          <span>📱 <span class="num" style="color:#25D366;font-weight:600;font-size:.85rem">+27 60 222 5117</span></span>
         </div>
         <p style="color:#555;font-size:.7rem;text-align:center;margin-top:6px">Reports sent to all 3 numbers</p>
       </div>
-      
-      <div class="report-stats">
-        <div class="report-stat">
-          <div class="num" id="totalReports">0</div>
-          <div class="label">Total Reports</div>
-        </div>
-        <div class="report-stat">
-          <div class="num" id="pendingReports">0</div>
-          <div class="label">Pending</div>
-        </div>
-        <div class="report-stat">
-          <div class="num" id="resolvedReports">0</div>
-          <div class="label">Resolved</div>
-        </div>
+      <div class="report-stats" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:12px 0">
+        <div class="report-stat" style="background:rgba(15,15,25,.6);border-radius:10px;padding:12px;text-align:center"><div class="num" style="font-size:1.5rem;font-weight:700;color:#7c6aff" id="totalReports">0</div><div class="label" style="color:#666;font-size:.7rem">Total Reports</div></div>
+        <div class="report-stat" style="background:rgba(15,15,25,.6);border-radius:10px;padding:12px;text-align:center"><div class="num" style="font-size:1.5rem;font-weight:700;color:#7c6aff" id="pendingReports">0</div><div class="label" style="color:#666;font-size:.7rem">Pending</div></div>
+        <div class="report-stat" style="background:rgba(15,15,25,.6);border-radius:10px;padding:12px;text-align:center"><div class="num" style="font-size:1.5rem;font-weight:700;color:#7c6aff" id="resolvedReports">0</div><div class="label" style="color:#666;font-size:.7rem">Resolved</div></div>
       </div>
-      
-      <div class="report-box">
+      <div class="report-box" style="background:rgba(255,50,50,.05);border:1px solid rgba(255,50,50,.15);border-radius:12px;padding:16px">
         <input id="reportName" placeholder="Your name (optional)" style="width:100%;padding:10px 14px;background:rgba(10,10,18,.8);border:1px solid rgba(255,50,50,.15);border-radius:10px;color:#fff;outline:none;margin-bottom:8px">
         <input id="reportPhone" placeholder="Your phone number (optional - for follow-up)" style="width:100%;padding:10px 14px;background:rgba(10,10,18,.8);border:1px solid rgba(255,50,50,.15);border-radius:10px;color:#fff;outline:none;margin-bottom:8px">
         <select id="reportType" style="width:100%;padding:10px 14px;background:rgba(10,10,18,.8);border:1px solid rgba(255,50,50,.15);border-radius:10px;color:#fff;outline:none;margin-bottom:8px">
@@ -614,15 +366,9 @@
           <option value="other">❓ Other</option>
         </select>
         <textarea id="reportMsg" placeholder="Describe the issue in detail..." style="width:100%;padding:10px 14px;background:rgba(10,10,18,.8);border:1px solid rgba(255,50,50,.15);border-radius:10px;color:#fff;outline:none;resize:vertical;min-height:80px"></textarea>
-        <button class="btn btn-whatsapp" onclick="submitReport()" style="margin-top:8px;width:100%;font-size:1rem;padding:14px">
-          💬 Send Report via WhatsApp
-        </button>
-        <p style="color:#555;font-size:.7rem;text-align:center;margin-top:8px">
-          Reports sent to all 3 WhatsApp numbers
-        </p>
+        <button class="btn btn-whatsapp" onclick="submitReport()" style="margin-top:8px;width:100%;font-size:1rem;padding:14px;background:rgba(37,211,102,.15);color:#25D366;border:1px solid rgba(37,211,102,.2);border-radius:10px;border:none;font-weight:600;cursor:pointer;transition:.3s">💬 Send Report via WhatsApp</button>
+        <p style="color:#555;font-size:.7rem;text-align:center;margin-top:8px">Reports sent to all 3 WhatsApp numbers</p>
       </div>
-
-      <!-- Report History List -->
       <h3 style="color:#fff;margin-top:24px;margin-bottom:12px">📋 Report History</h3>
       <div class="report-list" id="reportList"></div>
     </div>
@@ -642,6 +388,151 @@
       </div>
 
       <div id="panelContent" style="display:none;margin-top:16px">
+        <!-- FEATURE 1: Most Downloaded/Liked Configs -->
+        <div class="panel-box" style="margin-bottom:16px">
+          <h4>🏆 Most Popular Configs</h4>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+            <div>
+              <p style="color:#999;font-size:.8rem;margin-bottom:8px">⬇ Most Downloaded</p>
+              <div id="mostDownloaded"></div>
+            </div>
+            <div>
+              <p style="color:#999;font-size:.8rem;margin-bottom:8px">❤️ Most Liked</p>
+              <div id="mostLiked"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FEATURE 2: User Activity Log -->
+        <div class="panel-box" style="margin-bottom:16px">
+          <h4>📋 User Activity Log</h4>
+          <div id="activityLog" style="max-height:200px;overflow-y:auto"></div>
+          <button class="btn btn-sm btn-outline" onclick="clearActivityLog()" style="margin-top:8px">🗑 Clear Log</button>
+        </div>
+
+        <!-- FEATURE 3: Pin/Feature Configs -->
+        <div class="panel-box" style="margin-bottom:16px">
+          <h4>📌 Manage Featured Configs</h4>
+          <p style="color:#999;font-size:.8rem;margin-bottom:8px">Select a config to feature (shows gold badge)</p>
+          <select id="featuredSelect" style="width:100%;padding:10px;background:rgba(10,10,18,.8);border:1px solid rgba(255,255,255,.06);border-radius:10px;color:#fff;outline:none;margin-bottom:8px"></select>
+          <button class="btn btn-sm btn-warning" onclick="setFeaturedConfig()">⭐ Set as Featured</button>
+          <button class="btn btn-sm btn-outline" onclick="removeFeaturedConfig()" style="margin-left:8px">Remove Featured</button>
+        </div>
+
+        <!-- FEATURE 4: Approve Posts -->
+        <div class="panel-box" style="margin-bottom:16px">
+          <h4>✅ Pending Posts Approval</h4>
+          <div id="pendingPosts" style="max-height:200px;overflow-y:auto"></div>
+        </div>
+
+        <!-- FEATURE 5: Bulk Actions -->
+        <div class="panel-box" style="margin-bottom:16px">
+          <h4>📦 Bulk Actions</h4>
+          <div class="bulk-actions">
+            <span class="bulk-label">Action:</span>
+            <select id="bulkAction">
+              <option value="delete_configs">🗑 Delete All Configs</option>
+              <option value="delete_reports">🗑 Delete All Reports</option>
+              <option value="delete_posts">🗑 Delete All Posts</option>
+              <option value="resolve_reports">✅ Resolve All Reports</option>
+              <option value="export_configs">📤 Export Configs (JSON)</option>
+              <option value="export_reports">📤 Export Reports (JSON)</option>
+            </select>
+            <button class="btn btn-sm btn-danger" onclick="executeBulkAction()">Execute</button>
+          </div>
+        </div>
+
+        <!-- FEATURE 6: Change Passwords -->
+        <div class="panel-box" style="margin-bottom:16px">
+          <h4>🔑 Change Passwords</h4>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div>
+              <p style="color:#999;font-size:.8rem">Panel Password</p>
+              <div style="display:flex;gap:8px">
+                <input type="password" id="newPanelPass" placeholder="New panel password" style="flex:1;padding:8px 12px;background:rgba(10,10,18,.8);border:1px solid rgba(255,255,255,.06);border-radius:8px;color:#fff;outline:none">
+                <button class="btn btn-sm btn-primary" onclick="changePassword('panel')">Update</button>
+              </div>
+            </div>
+            <div>
+              <p style="color:#999;font-size:.8rem">Report Password</p>
+              <div style="display:flex;gap:8px">
+                <input type="password" id="newReportPass" placeholder="New report password" style="flex:1;padding:8px 12px;background:rgba(10,10,18,.8);border:1px solid rgba(255,255,255,.06);border-radius:8px;color:#fff;outline:none">
+                <button class="btn btn-sm btn-primary" onclick="changePassword('report')">Update</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FEATURE 7: Export/Backup Data -->
+        <div class="panel-box" style="margin-bottom:16px">
+          <h4>💾 Export/Backup Data</h4>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn btn-sm btn-outline" onclick="exportData('configs')">📤 Export Configs</button>
+            <button class="btn btn-sm btn-outline" onclick="exportData('reports')">📤 Export Reports</button>
+            <button class="btn btn-sm btn-outline" onclick="exportData('community')">📤 Export Posts</button>
+            <button class="btn btn-sm btn-primary" onclick="exportData('all')">📦 Export All</button>
+            <button class="btn btn-sm btn-warning" onclick="importData()">📥 Import Data</button>
+          </div>
+          <input type="file" id="importFile" accept=".json" style="display:none" onchange="handleImport(event)">
+        </div>
+
+        <!-- FEATURE 8: System Settings -->
+        <div class="panel-box" style="margin-bottom:16px">
+          <h4>⚙️ System Settings</h4>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div>
+              <p style="color:#999;font-size:.8rem">Site Name</p>
+              <div style="display:flex;gap:8px">
+                <input type="text" id="siteNameInput" placeholder="TRELUX NeT-SiTe" style="flex:1;padding:8px 12px;background:rgba(10,10,18,.8);border:1px solid rgba(255,255,255,.06);border-radius:8px;color:#fff;outline:none">
+                <button class="btn btn-sm btn-primary" onclick="updateSiteName()">Save</button>
+              </div>
+            </div>
+            <div>
+              <p style="color:#999;font-size:.8rem">Auto-approve Posts</p>
+              <div style="display:flex;gap:8px;align-items:center;padding-top:4px">
+                <label style="color:#fff;font-size:.85rem">
+                  <input type="checkbox" id="autoApprove" onchange="toggleAutoApprove()"> Enable
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FEATURE 9: Ad Management -->
+        <div class="panel-box" style="margin-bottom:16px">
+          <h4>📢 Ad Management</h4>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div>
+              <p style="color:#999;font-size:.8rem">Ad Code (HTML)</p>
+              <textarea id="adCode" placeholder="Paste your ad code here..." style="width:100%;padding:8px;background:rgba(10,10,18,.8);border:1px solid rgba(255,255,255,.06);border-radius:8px;color:#fff;outline:none;resize:vertical;min-height:60px"></textarea>
+              <button class="btn btn-sm btn-primary" onclick="saveAdCode()" style="margin-top:4px">💾 Save Ad</button>
+            </div>
+            <div>
+              <p style="color:#999;font-size:.8rem">Ad Position</p>
+              <select id="adPosition" style="width:100%;padding:8px;background:rgba(10,10,18,.8);border:1px solid rgba(255,255,255,.06);border-radius:8px;color:#fff;outline:none">
+                <option value="top">Top of Page</option>
+                <option value="bottom">Bottom of Page</option>
+                <option value="sidebar">Sidebar</option>
+                <option value="between">Between Content</option>
+              </select>
+              <button class="btn btn-sm btn-outline" onclick="previewAd()" style="margin-top:4px">👁 Preview Ad</button>
+            </div>
+          </div>
+          <div id="adPreview" style="margin-top:12px;padding:12px;background:rgba(10,10,18,.4);border-radius:8px;border:1px dashed rgba(255,255,255,.1);display:none"></div>
+        </div>
+
+        <!-- FEATURE 10: Contact Management -->
+        <div class="panel-box" style="margin-bottom:16px">
+          <h4>📱 WhatsApp Contact Management</h4>
+          <p style="color:#999;font-size:.8rem;margin-bottom:8px">Manage numbers that receive reports</p>
+          <div style="display:flex;gap:8px;margin-bottom:12px">
+            <input type="text" id="newContact" placeholder="+27 76 689 0045" style="flex:1;padding:8px 12px;background:rgba(10,10,18,.8);border:1px solid rgba(255,255,255,.06);border-radius:8px;color:#fff;outline:none">
+            <button class="btn btn-sm btn-success" onclick="addContact()">➕ Add</button>
+          </div>
+          <div class="contact-list" id="contactList"></div>
+        </div>
+
+        <!-- Original Panel Features -->
         <div class="panel-grid">
           <div class="panel-box">
             <h4>📢 Broadcast Message</h4>
@@ -655,10 +546,12 @@
             <input id="confLink" placeholder="Download URL">
             <button class="btn btn-primary btn-sm" onclick="uploadConfig()" style="width:100%">🚀 Publish</button>
           </div>
-          <div class="panel-box" style="border-color:rgba(255,50,50,.2)">
+          <div class="panel-box" style="border-color:rgba(255,50,50,.2);grid-column:span 2">
             <h4 style="color:#ff6b6b">⚠️ Danger Zone</h4>
-            <button class="btn btn-danger btn-sm" onclick="deleteAllConfigs()" style="width:100%">🗑 Delete All Configs</button>
-            <button class="btn btn-danger btn-sm" onclick="clearAllData()" style="width:100%;margin-top:6px">💀 Wipe All Data</button>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <button class="btn btn-danger btn-sm" onclick="deleteAllConfigs()">🗑 Delete All Configs</button>
+              <button class="btn btn-danger btn-sm" onclick="clearAllData()">💀 Wipe All Data</button>
+            </div>
           </div>
         </div>
       </div>
@@ -683,11 +576,23 @@ const refs = {
   likes: db.ref('likes'),
   visitors: db.ref('visitors'),
   active: db.ref('active'),
-  reports: db.ref('reports')
+  reports: db.ref('reports'),
+  featured: db.ref('featured_config'),
+  settings: db.ref('settings'),
+  activity: db.ref('activity_log'),
+  pendingPosts: db.ref('pending_posts'),
+  adCode: db.ref('ad_code'),
+  adPosition: db.ref('ad_position'),
+  contacts: db.ref('whatsapp_contacts'),
+  passwords: db.ref('passwords')
 };
 
 let isPanelOpen = false;
+let pendingAction = null;
+let pendingActionId = null;
+let customPasswords = { panel: 'Legends', report: 'Four Seven' };
 
+// ===== HELPERS =====
 function esc(s) { if(!s)return ''; return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;') }
 
 function showToast(title, msg, icon='✅') {
@@ -699,9 +604,7 @@ function showToast(title, msg, icon='✅') {
   setTimeout(() => toast.classList.remove('show'), 5000);
 }
 
-function toggleSidebar() {
-  document.getElementById('sidebar').classList.toggle('open');
-}
+function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
 
 function showPage(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -711,14 +614,37 @@ function showPage(id) {
   document.querySelectorAll('.side-link').forEach(l => {
     const text = l.textContent.trim();
     const map = {'Home':'home','Configs':'configs','Community':'community','Rules':'rules','Report':'report','Panel':'panel'};
-    Object.keys(map).forEach(key => {
-      if(text.includes(key) && map[key] === id) l.classList.add('active');
-    });
+    Object.keys(map).forEach(key => { if(text.includes(key) && map[key] === id) l.classList.add('active'); });
   });
-  if(window.innerWidth <= 768) {
-    document.getElementById('sidebar').classList.remove('open');
-  }
+  if(window.innerWidth <= 768) document.getElementById('sidebar').classList.remove('open');
   window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ===== PASSWORD OVERLAY =====
+function showPasswordPrompt(action, id) {
+  pendingAction = action; pendingActionId = id;
+  $('passwordInput').value = ''; $('passwordError').style.display = 'none';
+  $('passwordOverlay').classList.add('show');
+  setTimeout(() => $('passwordInput').focus(), 100);
+}
+
+function confirmPassword() {
+  const pass = $('passwordInput').value.trim();
+  if(pass === customPasswords.report) {
+    $('passwordOverlay').classList.remove('show');
+    if(pendingAction === 'resolve') resolveReport(pendingActionId);
+    else if(pendingAction === 'delete') deleteReport(pendingActionId);
+    pendingAction = null; pendingActionId = null;
+  } else {
+    $('passwordError').style.display = 'block';
+    $('passwordInput').value = ''; $('passwordInput').focus();
+  }
+}
+
+function cancelPassword() {
+  $('passwordOverlay').classList.remove('show');
+  $('passwordError').style.display = 'none';
+  pendingAction = null; pendingActionId = null;
 }
 
 // ===== VISITOR TRACKING =====
@@ -735,10 +661,7 @@ function trackVisitor() {
   setInterval(() => {
     refs.active.once('value', s => {
       let now=Date.now(), count=0, data=s.val()||{};
-      Object.keys(data).forEach(k => {
-        if(now-data[k].lastSeen < 300000) count++;
-        else refs.active.child(k).remove();
-      });
+      Object.keys(data).forEach(k => { if(now-data[k].lastSeen < 300000) count++; else refs.active.child(k).remove(); });
       let el=$('activeUsers'); if(el) el.textContent=count;
     });
   }, 30000);
@@ -749,32 +672,38 @@ trackVisitor();
 // ===== CONFIGS =====
 function renderConfigs() {
   refs.publicConfigs.on('value', s => {
-    const grid = $('configGrid');
-    if(!grid) return;
+    const grid = $('configGrid'); if(!grid) return;
     grid.innerHTML = '';
     const data = s.val() || {};
     let count = 0;
-    Object.keys(data).reverse().forEach(k => {
-      count++;
-      const c = data[k];
-      grid.innerHTML += `
-        <div class="config-card" data-search="${esc(c.title)} ${esc(c.type)}">
-          <h3>${esc(c.title)}</h3>
-          <span class="tag">${esc(c.type)}</span>
-          <div class="desc">${esc(c.desc||'Premium network configuration')}</div>
-          <div class="meta">
-            <span>⬇ <span id="dl_${k}">0</span></span>
-            <span id="like_${k}" style="cursor:pointer" onclick="toggleLike('${k}')">❤️ <span id="lk_${k}">0</span></span>
+    refs.featured.once('value', fs => {
+      const featuredKey = fs.val();
+      Object.keys(data).reverse().forEach(k => {
+        count++;
+        const c = data[k];
+        const isFeatured = (k === featuredKey);
+        grid.innerHTML += `
+          <div class="config-card" data-search="${esc(c.title)} ${esc(c.type)}">
+            ${isFeatured ? '<div class="featured-badge">⭐ FEATURED</div>' : ''}
+            <h3>${esc(c.title)}</h3>
+            <span class="tag">${esc(c.type)}</span>
+            <div class="desc">${esc(c.desc||'Premium network configuration')}</div>
+            <div class="meta">
+              <span>⬇ <span id="dl_${k}">0</span></span>
+              <span id="like_${k}" style="cursor:pointer" onclick="toggleLike('${k}')">❤️ <span id="lk_${k}">0</span></span>
+            </div>
+            <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap">
+              <a href="${esc(c.link)}" target="_blank" class="btn btn-primary btn-sm" onclick="incDownload('${k}')">⬇ Download</a>
+              ${isFeatured ? '<span style="color:#ffd700;font-size:.7rem;display:flex;align-items:center">⭐ Featured</span>' : ''}
+            </div>
           </div>
-          <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap">
-            <a href="${esc(c.link)}" target="_blank" class="btn btn-primary btn-sm" onclick="incDownload('${k}')">⬇ Download</a>
-          </div>
-        </div>
-      `;
+        `;
+      });
+      let el = $('configCount'); if(el) el.textContent = count;
+      refs.downloads.once('value', s => { let d=s.val()||{}; Object.keys(d).forEach(k=>{ let el=$('dl_'+k); if(el)el.textContent=d[k] }) });
+      refs.likes.once('value', s => { let l=s.val()||{}; Object.keys(l).forEach(k=>{ let el=$('lk_'+k); if(el)el.textContent=l[k] }) });
+      updateFeaturedSelect(data);
     });
-    let el = $('configCount'); if(el) el.textContent = count;
-    refs.downloads.once('value', s => { let d=s.val()||{}; Object.keys(d).forEach(k=>{ let el=$('dl_'+k); if(el)el.textContent=d[k] }) });
-    refs.likes.once('value', s => { let l=s.val()||{}; Object.keys(l).forEach(k=>{ let el=$('lk_'+k); if(el)el.textContent=l[k] }) });
   });
 }
 renderConfigs();
@@ -787,7 +716,7 @@ function filterConfigs() {
   });
 }
 
-function incDownload(k) { refs.downloads.child(k).transaction(v => (v||0)+1) }
+function incDownload(k) { refs.downloads.child(k).transaction(v => (v||0)+1); logActivity('Download', 'Config: '+k); }
 
 function toggleLike(k) {
   const likeRef = refs.likes.child(k);
@@ -799,26 +728,23 @@ function toggleLike(k) {
       likeRef.update({ count: (data.count || 0) - 1, [`likedBy/${userId}`]: null });
     } else {
       likeRef.update({ count: (data.count || 0) + 1, [`likedBy/${userId}`]: true });
+      logActivity('Like', 'Config: '+k);
     }
   });
 }
-
-refs.likes.on('value', s => {
-  const data = s.val() || {};
-  Object.keys(data).forEach(k => {
-    const el = $('lk_'+k);
-    if(el) el.textContent = data[k].count || 0;
-  });
-});
+refs.likes.on('value', s => { const data=s.val()||{}; Object.keys(data).forEach(k=>{ const el=$('lk_'+k); if(el)el.textContent=data[k].count||0; }); });
 
 // ===== COMMUNITY =====
 function postCommunity() {
   const name = $('comName').value.trim() || 'Anonymous';
   const msg = $('comMsg').value.trim();
   if(!msg) { showToast('Error', 'Please type a message', '❌'); return; }
-  refs.community.push({name, msg, time:Date.now()});
+  const autoApprove = localStorage.getItem('autoApprove') === 'true';
+  const ref = autoApprove ? refs.community : refs.pendingPosts;
+  ref.push({name, msg, time:Date.now(), approved: autoApprove});
   $('comMsg').value = '';
-  showToast('Posted!', 'Your message is live', '📤');
+  logActivity('Post', name+': '+msg.substring(0,30));
+  showToast('Posted!', autoApprove ? 'Your message is live' : 'Pending approval', '📤');
 }
 
 function editCommunityPost(id, currentMsg) {
@@ -833,6 +759,24 @@ function deleteCommunityPost(id) {
   if(confirm('Delete this post?')) {
     refs.community.child(id).remove();
     showToast('Deleted', 'Post removed successfully', '🗑️');
+  }
+}
+
+function approvePendingPost(id) {
+  refs.pendingPosts.child(id).once('value', s => {
+    const data = s.val();
+    if(data) {
+      refs.community.push({name: data.name, msg: data.msg, time: data.time, approved: true});
+      refs.pendingPosts.child(id).remove();
+      showToast('Approved!', 'Post is now live', '✅');
+    }
+  });
+}
+
+function rejectPendingPost(id) {
+  if(confirm('Reject this post?')) {
+    refs.pendingPosts.child(id).remove();
+    showToast('Rejected', 'Post removed from pending', '❌');
   }
 }
 
@@ -851,14 +795,37 @@ refs.community.limitToLast(30).on('value', s => {
     const edited = p.edited ? ' (edited)' : '';
     feed.innerHTML += `
       <div class="post" id="post_${k}">
-        <div class="head">
-          <span class="name">${esc(p.name)}</span>
-          <span class="post-time">${t}${edited}</span>
-        </div>
+        <div class="head"><span class="name">${esc(p.name)}</span><span class="post-time">${t}${edited}</span></div>
         <div class="body" id="postBody_${k}">${esc(p.msg)}</div>
         <div class="actions">
           <button class="edit-btn" onclick="editCommunityPost('${k}','${esc(p.msg)}')">✏️ Edit</button>
           <button class="del-btn" onclick="deleteCommunityPost('${k}')">🗑️ Delete</button>
+        </div>
+      </div>
+    `;
+  });
+});
+
+// Pending posts
+refs.pendingPosts.on('value', s => {
+  const container = $('pendingPosts');
+  if(!container) return;
+  container.innerHTML = '';
+  const data = s.val() || {};
+  if(!Object.keys(data).length) {
+    container.innerHTML = '<p style="color:#555;font-size:.85rem">No pending posts</p>';
+    return;
+  }
+  Object.keys(data).reverse().forEach(k => {
+    const p = data[k];
+    const t = new Date(p.time).toLocaleString();
+    container.innerHTML += `
+      <div class="post pending">
+        <div class="head"><span class="name">${esc(p.name)}</span><span class="post-time">${t} <span class="approve-badge">⏳ Pending</span></span></div>
+        <div class="body">${esc(p.msg)}</div>
+        <div class="actions">
+          <button class="edit-btn" onclick="approvePendingPost('${k}')">✅ Approve</button>
+          <button class="del-btn" onclick="rejectPendingPost('${k}')">❌ Reject</button>
         </div>
       </div>
     `;
@@ -872,99 +839,45 @@ function submitReport() {
   const type = $('reportType').value;
   const msg = $('reportMsg').value.trim();
   if(!msg) { showToast('Error', 'Please describe the issue', '❌'); return; }
-  const typeLabels = {
-    'malicious': '🚫 Malicious Config',
-    'spam': '📢 Spam',
-    'harassment': '😡 Harassment',
-    'broken': '🔗 Broken Link',
-    'other': '❓ Other'
-  };
-  const reportData = { 
-    name, 
-    phone, 
-    type, 
-    typeLabel: typeLabels[type], 
-    message: msg, 
-    time: Date.now(), 
-    status: 'pending',
-    read: false
-  };
-  refs.reports.push(reportData).then((newRef) => {
+  const typeLabels = {'malicious':'🚫 Malicious Config','spam':'📢 Spam','harassment':'😡 Harassment','broken':'🔗 Broken Link','other':'❓ Other'};
+  const reportData = { name, phone, type, typeLabel: typeLabels[type], message: msg, time: Date.now(), status: 'pending', read: false };
+  refs.reports.push(reportData).then(() => {
     sendWhatsAppReport(reportData);
-    $('reportMsg').value = '';
-    $('reportName').value = '';
-    $('reportPhone').value = '';
+    $('reportMsg').value = ''; $('reportName').value = ''; $('reportPhone').value = '';
+    logActivity('Report', name+': '+msg.substring(0,30));
     showToast('Report Sent!', 'Sent to all 3 WhatsApp numbers', '✅');
   }).catch(err => { showToast('Error', 'Failed to submit report', '❌'); console.error(err); });
 }
 
 function sendWhatsAppReport(data) {
-  // CORRECTED: WhatsApp numbers with country code 27, no spaces
-  const numbers = [
-    '27766890045',
-    '27622686991',
-    '27602225117'
-  ];
+  const numbers = ['27766890045','27622686991','27602225117'];
   const timestamp = new Date(data.time).toLocaleString();
-  const message = `🚨 *NEW REPORT FROM TRELUX SITE* 🚨
-  
-📋 *Report Type:* ${data.typeLabel}
-👤 *From:* ${data.name}
-📱 *Phone:* ${data.phone}
-📝 *Message:* ${data.message}
-🕐 *Time:* ${timestamp}
-  
-⚠️ *Action Required:* Please review this report.`;
+  const message = `🚨 *NEW REPORT FROM TRELUX SITE* 🚨\n\n📋 *Report Type:* ${data.typeLabel}\n👤 *From:* ${data.name}\n📱 *Phone:* ${data.phone}\n📝 *Message:* ${data.message}\n🕐 *Time:* ${timestamp}\n\n⚠️ *Action Required:* Please review this report.`;
   const encodedMsg = encodeURIComponent(message);
   numbers.forEach((num, index) => {
     const waUrl = `https://wa.me/${num}?text=${encodedMsg}`;
-    if(index === 0) { window.open(waUrl, '_blank'); }
-    else { setTimeout(() => { window.open(waUrl, '_blank'); }, 500 * (index + 1)); }
+    if(index === 0) window.open(waUrl, '_blank');
+    else setTimeout(() => window.open(waUrl, '_blank'), 800 * index);
   });
 }
 
-// Resolve report (mark as resolved)
-function resolveReport(id) {
-  if(confirm('Mark this report as resolved?')) {
-    refs.reports.child(id).update({ status: 'resolved' });
-    showToast('Resolved!', 'Report marked as resolved', '✅');
-  }
-}
+function resolveReportWithPassword(id) { showPasswordPrompt('resolve', id); }
+function resolveReport(id) { refs.reports.child(id).update({ status: 'resolved' }); showToast('Resolved!', 'Report marked as resolved', '✅'); logActivity('Resolve', 'Report: '+id); }
 
-// Delete report
-function deleteReport(id) {
-  if(confirm('Delete this report?')) {
-    refs.reports.child(id).remove();
-    showToast('Deleted', 'Report removed', '🗑️');
-  }
-}
+function deleteReportWithPassword(id) { showPasswordPrompt('delete', id); }
+function deleteReport(id) { refs.reports.child(id).remove(); showToast('Deleted', 'Report removed', '🗑️'); logActivity('Delete', 'Report: '+id); }
 
-// Report stats and list
 refs.reports.on('value', s => {
   const data = s.val() || {};
   const total = Object.keys(data).length;
   let pending = 0, resolved = 0;
-  
-  Object.keys(data).forEach(k => {
-    if(data[k].status === 'pending') pending++;
-    if(data[k].status === 'resolved') resolved++;
-  });
-  
-  const totalEl = $('totalReports');
-  const pendingEl = $('pendingReports');
-  const resolvedEl = $('resolvedReports');
-  if(totalEl) totalEl.textContent = total;
-  if(pendingEl) pendingEl.textContent = pending;
-  if(resolvedEl) resolvedEl.textContent = resolved;
-  
-  // Render report list
+  Object.keys(data).forEach(k => { if(data[k].status === 'pending') pending++; if(data[k].status === 'resolved') resolved++; });
+  const totalEl = $('totalReports'); const pendingEl = $('pendingReports'); const resolvedEl = $('resolvedReports');
+  if(totalEl) totalEl.textContent = total; if(pendingEl) pendingEl.textContent = pending; if(resolvedEl) resolvedEl.textContent = resolved;
   const list = $('reportList');
   if(!list) return;
   list.innerHTML = '';
-  if(total === 0) {
-    list.innerHTML = '<p style="color:#555;text-align:center;padding:20px">No reports yet</p>';
-    return;
-  }
+  if(total === 0) { list.innerHTML = '<p style="color:#555;text-align:center;padding:20px">No reports yet</p>'; return; }
   Object.keys(data).reverse().forEach(k => {
     const r = data[k];
     const time = new Date(r.time).toLocaleString();
@@ -977,8 +890,8 @@ refs.reports.on('value', s => {
           <div class="from">👤 ${esc(r.name)} · 📱 ${esc(r.phone)} · ${time} ${isResolved ? '✅ Resolved' : '⏳ Pending'}</div>
         </div>
         <div class="actions">
-          ${!isResolved ? `<button class="resolve-btn" onclick="resolveReport('${k}')">✅ Resolve</button>` : ''}
-          <button class="delete-btn" onclick="deleteReport('${k}')">🗑️ Delete</button>
+          ${!isResolved ? `<button class="resolve-btn" onclick="resolveReportWithPassword('${k}')">✅ Resolve</button>` : ''}
+          <button class="delete-btn" onclick="deleteReportWithPassword('${k}')">🗑️ Delete</button>
         </div>
       </div>
     `;
@@ -988,21 +901,331 @@ refs.reports.on('value', s => {
 // ===== PANEL =====
 function verifyPanel() {
   const pass = $('panelPass').value.trim();
-  if(pass === 'Legends') {
+  if(pass === customPasswords.panel) {
     $('panelLogin').style.display = 'none';
     $('panelContent').style.display = 'block';
     isPanelOpen = true;
+    loadPanelData();
     showToast('Access Granted', 'Welcome to the Owner Panel', '🔓');
   } else {
     showToast('Access Denied', 'Invalid password', '❌');
   }
 }
 
+function loadPanelData() {
+  loadPopularConfigs();
+  loadActivityLog();
+  loadContacts();
+  loadSettings();
+  loadAdData();
+  updateFeaturedSelect();
+}
+
+// FEATURE 1: Most Downloaded/Liked
+function loadPopularConfigs() {
+  refs.downloads.once('value', ds => {
+    const d = ds.val() || {};
+    const sorted = Object.entries(d).sort((a,b) => b[1] - a[1]).slice(0,5);
+    const container = $('mostDownloaded');
+    if(container) {
+      container.innerHTML = sorted.length ? sorted.map(([k,v],i) => 
+        `<div class="leaderboard-item ${i===0?'top1':i===1?'top2':i===2?'top3':''}">
+          <span class="rank">#${i+1}</span>
+          <span class="name">${esc(k)}</span>
+          <span class="count">⬇ ${v}</span>
+        </div>`
+      ).join('') : '<p style="color:#555;font-size:.85rem">No downloads yet</p>';
+    }
+  });
+  refs.likes.once('value', ls => {
+    const l = ls.val() || {};
+    const sorted = Object.entries(l).sort((a,b) => (b[1].count||0) - (a[1].count||0)).slice(0,5);
+    const container = $('mostLiked');
+    if(container) {
+      container.innerHTML = sorted.length ? sorted.map(([k,v],i) => 
+        `<div class="leaderboard-item ${i===0?'top1':i===1?'top2':i===2?'top3':''}">
+          <span class="rank">#${i+1}</span>
+          <span class="name">${esc(k)}</span>
+          <span class="count">❤️ ${v.count||0}</span>
+        </div>`
+      ).join('') : '<p style="color:#555;font-size:.85rem">No likes yet</p>';
+    }
+  });
+}
+
+// FEATURE 2: Activity Log
+function logActivity(action, detail) {
+  const entry = { action, detail, time: Date.now(), user: localStorage.getItem('trelux_vid') || 'Anonymous' };
+  refs.activity.push(entry).then(() => { if(refs.activity.length > 100) refs.activity.limitToFirst(50).remove(); });
+}
+
+function loadActivityLog() {
+  refs.activity.limitToLast(20).on('value', s => {
+    const container = $('activityLog');
+    if(!container) return;
+    container.innerHTML = '';
+    const data = s.val() || {};
+    Object.keys(data).reverse().forEach(k => {
+      const entry = data[k];
+      const time = new Date(entry.time).toLocaleString();
+      container.innerHTML += `
+        <div class="log-item">
+          <span class="log-time">${time}</span>
+          <span class="log-user">${esc(entry.user)}</span>
+          <span class="log-action">${esc(entry.action)}: ${esc(entry.detail)}</span>
+        </div>
+      `;
+    });
+    if(!Object.keys(data).length) container.innerHTML = '<p style="color:#555;font-size:.85rem">No activity yet</p>';
+  });
+}
+
+function clearActivityLog() {
+  if(confirm('Clear all activity logs?')) {
+    refs.activity.remove();
+    showToast('Cleared', 'Activity log cleared', '🗑️');
+  }
+}
+
+// FEATURE 3: Pin/Feature Configs
+function updateFeaturedSelect(data) {
+  const select = $('featuredSelect');
+  if(!select) return;
+  if(!data) {
+    refs.publicConfigs.once('value', s => { updateFeaturedSelect(s.val()); });
+    return;
+  }
+  select.innerHTML = '<option value="">Select a config...</option>';
+  Object.keys(data).forEach(k => {
+    select.innerHTML += `<option value="${k}">${esc(data[k].title)}</option>`;
+  });
+}
+
+function setFeaturedConfig() {
+  const key = $('featuredSelect').value;
+  if(!key) { showToast('Error', 'Select a config first', '❌'); return; }
+  refs.featured.set(key);
+  showToast('Featured!', 'Config is now featured with gold badge', '⭐');
+  logActivity('Feature', 'Config: '+key);
+}
+
+function removeFeaturedConfig() {
+  if(confirm('Remove featured config?')) {
+    refs.featured.remove();
+    showToast('Removed', 'Featured config removed', '⭐');
+  }
+}
+
+// FEATURE 5: Bulk Actions
+function executeBulkAction() {
+  const action = $('bulkAction').value;
+  if(!confirm(`Execute: ${action}? This cannot be undone!`)) return;
+  
+  const actions = {
+    'delete_configs': () => { refs.publicConfigs.remove(); showToast('Done', 'All configs deleted', '🗑'); },
+    'delete_reports': () => { refs.reports.remove(); showToast('Done', 'All reports deleted', '🗑'); },
+    'delete_posts': () => { refs.community.remove(); showToast('Done', 'All posts deleted', '🗑'); },
+    'resolve_reports': () => { refs.reports.update({ status: 'resolved' }); showToast('Done', 'All reports resolved', '✅'); },
+    'export_configs': () => { refs.publicConfigs.once('value', s => downloadJSON(s.val(), 'configs_export')); },
+    'export_reports': () => { refs.reports.once('value', s => downloadJSON(s.val(), 'reports_export')); }
+  };
+  
+  if(actions[action]) {
+    actions[action]();
+    logActivity('Bulk Action', action);
+  }
+}
+
+function downloadJSON(data, filename) {
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename+'_'+new Date().toISOString().slice(0,10)+'.json';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast('Exported', 'File downloaded', '📤');
+}
+
+// FEATURE 6: Change Passwords
+function changePassword(type) {
+  const input = type === 'panel' ? $('newPanelPass') : $('newReportPass');
+  const newPass = input.value.trim();
+  if(!newPass || newPass.length < 4) { showToast('Error', 'Password must be at least 4 characters', '❌'); return; }
+  customPasswords[type] = newPass;
+  refs.passwords.child(type).set(newPass);
+  input.value = '';
+  showToast('Updated!', `${type} password changed`, '🔑');
+  logActivity('Password Change', type);
+}
+
+// FEATURE 7: Export/Backup
+function exportData(type) {
+  const refs_map = { configs: refs.publicConfigs, reports: refs.reports, community: refs.community };
+  if(type === 'all') {
+    Promise.all([refs.publicConfigs.once('value'), refs.reports.once('value'), refs.community.once('value')])
+      .then(([configs, reports, community]) => {
+        const data = { configs: configs.val(), reports: reports.val(), community: community.val(), exported: new Date().toISOString() };
+        downloadJSON(data, 'trelux_full_backup');
+      });
+    return;
+  }
+  if(refs_map[type]) {
+    refs_map[type].once('value', s => downloadJSON(s.val(), type+'_export'));
+  }
+}
+
+function importData() {
+  document.getElementById('importFile').click();
+}
+
+function handleImport(event) {
+  const file = event.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const data = JSON.parse(e.target.result);
+      if(data.configs) refs.publicConfigs.set(data.configs);
+      if(data.reports) refs.reports.set(data.reports);
+      if(data.community) refs.community.set(data.community);
+      showToast('Imported!', 'Data restored successfully', '📥');
+      logActivity('Import', 'Data restored');
+    } catch(err) { showToast('Error', 'Invalid JSON file', '❌'); }
+  };
+  reader.readAsText(file);
+  event.target.value = '';
+}
+
+// FEATURE 8: System Settings
+function loadSettings() {
+  refs.settings.child('siteName').on('value', s => {
+    const val = s.val() || 'TRELUX NeT-SiTe';
+    document.querySelector('.brand').textContent = val;
+    const input = $('siteNameInput');
+    if(input) input.value = val;
+  });
+  refs.settings.child('autoApprove').on('value', s => {
+    const val = s.val() || false;
+    localStorage.setItem('autoApprove', val);
+    const cb = $('autoApprove');
+    if(cb) cb.checked = val;
+  });
+}
+
+function updateSiteName() {
+  const name = $('siteNameInput').value.trim();
+  if(!name) { showToast('Error', 'Enter a site name', '❌'); return; }
+  refs.settings.child('siteName').set(name);
+  showToast('Updated!', 'Site name changed', '⚙️');
+  logActivity('Settings', 'Site name changed to: '+name);
+}
+
+function toggleAutoApprove() {
+  const val = $('autoApprove').checked;
+  refs.settings.child('autoApprove').set(val);
+  localStorage.setItem('autoApprove', val);
+  showToast('Updated!', `Auto-approve ${val ? 'enabled' : 'disabled'}`, '⚙️');
+}
+
+// FEATURE 9: Ad Management
+function loadAdData() {
+  refs.adCode.on('value', s => {
+    const code = s.val() || '';
+    const el = $('adCode');
+    if(el) el.value = code;
+  });
+  refs.adPosition.on('value', s => {
+    const pos = s.val() || 'bottom';
+    const el = $('adPosition');
+    if(el) el.value = pos;
+  });
+}
+
+function saveAdCode() {
+  const code = $('adCode').value.trim();
+  const pos = $('adPosition').value;
+  refs.adCode.set(code);
+  refs.adPosition.set(pos);
+  showToast('Saved!', 'Ad code saved', '📢');
+  logActivity('Ad', 'Ad code updated');
+}
+
+function previewAd() {
+  const code = $('adCode').value.trim();
+  const preview = $('adPreview');
+  if(!code) { showToast('Error', 'No ad code to preview', '❌'); return; }
+  preview.innerHTML = code;
+  preview.style.display = 'block';
+  showToast('Preview', 'Ad displayed below', '👁');
+}
+
+// FEATURE 10: Contact Management
+function loadContacts() {
+  refs.contacts.on('value', s => {
+    const container = $('contactList');
+    if(!container) return;
+    const data = s.val() || ['27766890045', '27622686991', '27602225117'];
+    if(typeof data === 'object' && !Array.isArray(data)) {
+      // Convert object to array
+      const arr = [];
+      Object.keys(data).forEach(k => arr.push(data[k]));
+      container.innerHTML = arr.map(num => `
+        <div class="contact-item">
+          <span class="num">+${num}</span>
+          <button class="remove-btn" onclick="removeContact('${num}')">✕</button>
+        </div>
+      `).join('');
+    } else {
+      const nums = Array.isArray(data) ? data : [data];
+      container.innerHTML = nums.map(num => `
+        <div class="contact-item">
+          <span class="num">+${num}</span>
+          <button class="remove-btn" onclick="removeContact('${num}')">✕</button>
+        </div>
+      `).join('');
+    }
+    if(!container.innerHTML) container.innerHTML = '<p style="color:#555;font-size:.85rem">No contacts added</p>';
+  });
+}
+
+function addContact() {
+  const input = $('newContact');
+  let num = input.value.trim().replace(/\D/g, '');
+  if(!num) { showToast('Error', 'Enter a phone number', '❌'); return; }
+  if(!num.startsWith('27')) num = '27'+num;
+  if(num.length < 10) { showToast('Error', 'Invalid number format', '❌'); return; }
+  refs.contacts.transaction(current => {
+    if(!current) return [num];
+    if(Array.isArray(current)) {
+      if(!current.includes(num)) current.push(num);
+      return current;
+    }
+    return [num];
+  });
+  input.value = '';
+  showToast('Added!', 'Contact added to WhatsApp list', '📱');
+  logActivity('Contact', 'Added: '+num);
+}
+
+function removeContact(num) {
+  if(confirm(`Remove +${num}?`)) {
+    refs.contacts.transaction(current => {
+      if(Array.isArray(current)) {
+        return current.filter(n => n !== num);
+      }
+      return current;
+    });
+    showToast('Removed', 'Contact removed', '📱');
+  }
+}
+
+// ===== BROADCAST =====
 function setBroadcast() {
   const msg = $('broadcastInput').value.trim();
   if(!msg) return showToast('Error', 'Type a message', '❌');
   refs.broadcast.set({msg, time:Date.now()});
   $('broadcastInput').value = '';
+  logActivity('Broadcast', msg.substring(0,30));
   showToast('Broadcast Deployed', 'Message sent to home page', '📡');
 }
 
@@ -1010,29 +1233,28 @@ refs.broadcast.on('value', s => {
   const data = s.val();
   const banner = $('broadcastBanner');
   const msg = $('broadcastMsg');
-  if(data && data.msg) {
-    banner.classList.add('show');
-    msg.textContent = data.msg;
-  } else {
-    banner.classList.remove('show');
-  }
+  if(data && data.msg) { banner.classList.add('show'); msg.textContent = data.msg; }
+  else { banner.classList.remove('show'); }
 });
 
+// ===== UPLOAD CONFIG =====
 function uploadConfig() {
   const title = $('confTitle').value.trim();
   const type = $('confType').value.trim();
   const link = $('confLink').value.trim();
   if(!title || !type || !link) return showToast('Error', 'Fill all fields', '❌');
   refs.publicConfigs.push({title, type, link, time:Date.now()});
-  $('confTitle').value = '';
-  $('confType').value = '';
-  $('confLink').value = '';
+  $('confTitle').value = ''; $('confType').value = ''; $('confLink').value = '';
+  logActivity('Upload', 'Config: '+title);
   showToast('Config Published', 'File is now available to users', '📦');
 }
 
+// ===== DANGER ZONE =====
 function deleteAllConfigs() {
   if(confirm('Delete ALL public configs?')) {
-    refs.publicConfigs.remove().then(() => showToast('Deleted', 'All configs removed', '🗑'));
+    refs.publicConfigs.remove();
+    logActivity('Delete', 'All configs');
+    showToast('Deleted', 'All configs removed', '🗑');
   }
 }
 
@@ -1044,10 +1266,21 @@ function clearAllData() {
     refs.downloads.remove();
     refs.likes.remove();
     refs.reports.remove();
+    refs.activity.remove();
+    refs.pendingPosts.remove();
+    logActivity('Wipe', 'All data wiped');
     showToast('Data Wiped', 'All data has been cleared', '💀');
   }
 }
 
+// ===== LOAD PASSWORDS =====
+refs.passwords.on('value', s => {
+  const data = s.val() || {};
+  if(data.panel) customPasswords.panel = data.panel;
+  if(data.report) customPasswords.report = data.report;
+});
+
+// ===== INIT =====
 document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('click', (e) => {
     const sidebar = document.getElementById('sidebar');
@@ -1056,6 +1289,13 @@ document.addEventListener('DOMContentLoaded', () => {
       sidebar.classList.remove('open');
     }
   });
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape' && $('passwordOverlay').classList.contains('show')) {
+      cancelPassword();
+    }
+  });
+  // Load initial panel data
+  setTimeout(loadPanelData, 500);
 });
 </script>
 </body>
