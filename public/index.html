@@ -1,1646 +1,1062 @@
-<!DOCTYPE html>  
-<html lang="en">  
-<head>  
-<meta charset="UTF-8"/>  
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>  
-<title>☠️ 𝐅𝐎𝐔𝐑 𝐒𝐄𝐕𝐄𝐍 NeT-SiTE ☠️</title>  
-<meta name="google-site-verification" content="mlEENghD14RCPRQ1yvIE0GZ6O-hpFYtmOVga8DB1hek" />  
-<meta name="google-adsense-account" content="ca-pub-5991476915949722">
-<!-- Google AdSense -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5991476915949722" crossorigin="anonymous"></script>
-<!-- AMP Auto Ads -->
-<script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>  
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>  
-<style>  
-:root{  
---bg:#050b14;  
---card:#101826;  
---blue:#00bfff;  
---blue2:#0077ff;  
---text:#ffffff;  
---muted:#9aa4b2;  
---border:#1f2b3d;  
---green:#25D366;  
---gold:#ffd700;  
---neon:#00f0ff;  
---danger:#ff3b30;
-}  
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TRELUX NeT-SiTe</title>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+  <style>
+    /* ===== RESET & BASE ===== */
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',system-ui,sans-serif}
+    body{background:#0a0a0f;color:#e0e0e0;min-height:100vh;overflow-x:hidden}
+    
+    /* ===== STATIC BACKGROUND IMAGE ===== */
+    .bg-image{
+      position:fixed;
+      inset:0;
+      z-index:0;
+      background: 
+        radial-gradient(ellipse at 20% 50%, rgba(124,106,255,0.15) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 50%, rgba(0,212,255,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse at 50% 50%, rgba(124,106,255,0.05) 0%, transparent 70%),
+        linear-gradient(180deg, #050510 0%, #0a0a1a 50%, #050510 100%);
+      background-attachment:fixed;
+      background-size:cover;
+    }
+    
+    .static-ring{
+      position:absolute;
+      border-radius:50%;
+      border:1px solid rgba(124,106,255,0.04);
+      left:50%;top:50%;
+      transform:translate(-50%,-50%);
+    }
+    .static-ring:nth-child(1){width:90vw;height:90vw;border-color:rgba(124,106,255,0.03)}
+    .static-ring:nth-child(2){width:70vw;height:70vw;border-color:rgba(0,212,255,0.02)}
+    .static-ring:nth-child(3){width:50vw;height:50vw;border-color:rgba(124,106,255,0.03)}
+    .static-ring:nth-child(4){width:30vw;height:30vw;border-color:rgba(0,212,255,0.02)}
+    .static-ring:nth-child(5){width:10vw;height:10vw;border-color:rgba(124,106,255,0.04)}
+    
+    .static-lines{
+      position:absolute;
+      inset:0;
+      background:repeating-linear-gradient(0deg, 
+        transparent 0px, 
+        rgba(124,106,255,0.015) 1px, 
+        transparent 2px);
+      opacity:0.5;
+    }
+    .static-lines::after{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:repeating-linear-gradient(90deg, 
+        transparent 0px, 
+        rgba(0,212,255,0.015) 1px, 
+        transparent 2px);
+    }
+    
+    .static-orb{
+      position:absolute;
+      border-radius:50%;
+      filter:blur(80px);
+      opacity:0.2;
+    }
+    .static-orb-1{width:500px;height:500px;background:rgba(124,106,255,0.1);top:-15%;left:-10%}
+    .static-orb-2{width:400px;height:400px;background:rgba(0,212,255,0.08);bottom:-10%;right:-10%}
+    .static-orb-3{width:250px;height:250px;background:rgba(124,106,255,0.06);top:50%;left:50%;transform:translate(-50%,-50%)}
+    
+    /* ===== TOP BANNER ===== */
+    .top-banner{
+      background:linear-gradient(135deg,rgba(124,106,255,0.15),rgba(0,212,255,0.15));
+      border-bottom:1px solid rgba(124,106,255,0.2);
+      padding:8px 20px;
+      text-align:center;
+      position:fixed;
+      top:0;
+      left:0;
+      right:0;
+      z-index:101;
+      backdrop-filter:blur(10px);
+    }
+    .top-banner .brand-text{
+      font-size:1.1rem;
+      font-weight:800;
+      letter-spacing:3px;
+      background:linear-gradient(135deg,#7c6aff,#00d4ff,#7c6aff);
+      background-size:200% 200%;
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+      animation:gradientShift 3s ease-in-out infinite;
+    }
+    .top-banner .sub-text{
+      font-size:0.75rem;
+      color:rgba(255,255,255,0.35);
+      letter-spacing:4px;
+      margin-top:1px;
+      font-weight:300;
+    }
+    @keyframes gradientShift{
+      0%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
+    }
+    
+    /* ===== LEFT SIDEBAR MENU ===== */
+    .sidebar{
+      position:fixed;
+      left:0;
+      top:56px;
+      bottom:0;
+      width:200px;
+      z-index:100;
+      background:rgba(10,10,15,0.85);
+      backdrop-filter:blur(20px);
+      border-right:1px solid rgba(255,255,255,0.05);
+      padding:20px 12px;
+      overflow-y:auto;
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+    }
+    .sidebar .brand{
+      font-size:1rem;
+      font-weight:800;
+      background:linear-gradient(135deg,#7c6aff,#00d4ff);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+      padding:8px 12px;
+      margin-bottom:12px;
+      text-align:center;
+      letter-spacing:-0.5px;
+    }
+    .sidebar .brand span{
+      font-weight:300;
+      background:none;
+      -webkit-text-fill-color:#666;
+    }
+    .side-link{
+      color:#aaa;
+      text-decoration:none;
+      padding:10px 14px;
+      border-radius:10px;
+      font-size:0.85rem;
+      font-weight:500;
+      transition:0.3s;
+      cursor:pointer;
+      border:none;
+      background:transparent;
+      width:100%;
+      text-align:left;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .side-link:hover{
+      color:#fff;
+      background:rgba(255,255,255,0.06);
+    }
+    .side-link.active{
+      background:linear-gradient(135deg,rgba(124,106,255,0.15),rgba(0,212,255,0.15));
+      color:#fff;
+    }
+    .side-link.github-link{
+      color:#7c6aff;
+      border:1px solid rgba(124,106,255,0.15);
+      margin-top:8px;
+    }
+    .side-link.github-link:hover{
+      background:rgba(124,106,255,0.1);
+      border-color:#7c6aff;
+    }
+    .side-link .icon{font-size:1.1rem;width:24px;text-align:center}
+    
+    /* ===== MOBILE MENU TOGGLE ===== */
+    .menu-toggle{
+      display:none;
+      position:fixed;
+      left:12px;
+      top:62px;
+      z-index:102;
+      background:rgba(10,10,15,0.9);
+      border:1px solid rgba(255,255,255,0.08);
+      color:#fff;
+      padding:8px 12px;
+      border-radius:8px;
+      cursor:pointer;
+      font-size:1.2rem;
+    }
+    @media(max-width:768px){
+      .menu-toggle{display:block}
+      .sidebar{
+        transform:translateX(-100%);
+        transition:0.3s ease;
+        width:240px;
+        top:50px;
+      }
+      .sidebar.open{transform:translateX(0)}
+      .top-banner{padding:6px 12px}
+      .top-banner .brand-text{font-size:0.85rem}
+      .top-banner .sub-text{font-size:0.6rem}
+    }
+    
+    /* ===== MAIN LAYOUT ===== */
+    .main{
+      margin-left:200px;
+      padding:80px 30px 40px;
+      max-width:1200px;
+      position:relative;
+      z-index:1;
+    }
+    @media(max-width:768px){
+      .main{margin-left:0;padding:80px 16px 40px}
+    }
+    
+    /* ===== HERO ===== */
+    .hero{
+      text-align:center;padding:50px 20px 45px;
+      background:rgba(10,10,20,0.5);backdrop-filter:blur(10px);
+      border-radius:24px;border:1px solid rgba(255,255,255,0.06);margin-bottom:30px;
+      position:relative;overflow:hidden;
+    }
+    .hero::before{
+      content:'';
+      position:absolute;inset:0;
+      background:radial-gradient(ellipse at center, rgba(124,106,255,0.05) 0%, transparent 70%);
+    }
+    .hero-icon{
+      font-size:4.5rem;
+      margin-bottom:8px;
+      display:block;
+      position:relative;
+      animation:glowPulse 2s ease-in-out infinite alternate;
+    }
+    @keyframes glowPulse{
+      0%{filter:drop-shadow(0 0 10px rgba(124,106,255,0.3)) drop-shadow(0 0 20px rgba(0,212,255,0.2))}
+      100%{filter:drop-shadow(0 0 30px rgba(124,106,255,0.6)) drop-shadow(0 0 60px rgba(0,212,255,0.4)) drop-shadow(0 0 90px rgba(124,106,255,0.2))}
+    }
+    .hero h1{
+      font-size:2.6rem;font-weight:800;
+      background:linear-gradient(135deg,#7c6aff,#00d4ff);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+      position:relative
+    }
+    .hero p{color:#999;margin-top:8px;font-size:1.05rem;position:relative}
+    
+    /* ===== PAGES ===== */
+    .page{display:none;animation:fadeIn .4s ease}
+    .page.active{display:block}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    
+    /* ===== CARDS ===== */
+    .card{
+      background:rgba(10,10,20,0.5);backdrop-filter:blur(10px);
+      border:1px solid rgba(255,255,255,0.06);border-radius:20px;
+      padding:28px;margin-bottom:24px;transition:.3s
+    }
+    .card:hover{border-color:rgba(124,106,255,.2)}
+    .card h2{font-size:1.6rem;margin-bottom:16px;color:#fff}
+    
+    /* ===== CONFIG CARDS ===== */
+    .config-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+    .config-card{
+      background:rgba(15,15,25,.8);border:1px solid rgba(255,255,255,.06);
+      border-radius:16px;padding:20px;transition:.3s;position:relative;overflow:hidden
+    }
+    .config-card::before{
+      content:'';position:absolute;top:0;left:0;right:0;height:3px;
+      background:linear-gradient(90deg,#7c6aff,#00d4ff);opacity:0;transition:.3s
+    }
+    .config-card:hover{transform:translateY(-4px);border-color:rgba(124,106,255,.3)}
+    .config-card:hover::before{opacity:1}
+    .config-card h3{color:#fff;font-size:1.1rem;margin-bottom:6px}
+    .config-card .tag{
+      display:inline-block;padding:2px 12px;border-radius:20px;font-size:.7rem;
+      background:rgba(124,106,255,.2);color:#7c6aff;margin:6px 0 10px
+    }
+    .config-card .desc{color:#999;font-size:.9rem;margin-bottom:12px;line-height:1.5}
+    .config-card .meta{display:flex;gap:12px;font-size:.8rem;color:#666}
+    
+    .btn{
+      display:inline-block;padding:8px 20px;border-radius:10px;border:none;
+      font-weight:600;font-size:.85rem;cursor:pointer;transition:.3s;text-decoration:none
+    }
+    .btn-primary{background:linear-gradient(135deg,#7c6aff,#00d4ff);color:#fff}
+    .btn-primary:hover{transform:scale(1.04);box-shadow:0 8px 30px rgba(124,106,255,.3)}
+    .btn-sm{padding:6px 14px;font-size:.75rem}
+    .btn-outline{background:transparent;border:1px solid rgba(255,255,255,.1);color:#aaa}
+    .btn-outline:hover{background:rgba(255,255,255,.05)}
+    .btn-danger{background:rgba(255,50,50,.15);color:#ff6b6b;border:1px solid rgba(255,50,50,.2)}
+    .btn-danger:hover{background:rgba(255,50,50,.25)}
+    .btn-whatsapp{background:rgba(37,211,102,.15);color:#25D366;border:1px solid rgba(37,211,102,.2)}
+    .btn-whatsapp:hover{background:rgba(37,211,102,.25)}
+    .btn-success{background:rgba(50,255,50,.1);color:#4caf50;border:1px solid rgba(50,255,50,.15)}
+    .btn-success:hover{background:rgba(50,255,50,.2)}
+    
+    /* ===== SEARCH ===== */
+    .search-wrap{position:relative;margin-bottom:20px}
+    .search-wrap input{
+      width:100%;padding:14px 20px;background:rgba(15,15,25,.8);border:1px solid rgba(255,255,255,.06);
+      border-radius:14px;color:#fff;font-size:1rem;outline:none;transition:.3s
+    }
+    .search-wrap input:focus{border-color:#7c6aff;box-shadow:0 0 30px rgba(124,106,255,.1)}
+    .search-wrap input::placeholder{color:#555}
+    
+    /* ===== COMMUNITY ===== */
+    .post{
+      background:rgba(15,15,25,.6);border-radius:14px;padding:16px;margin-bottom:12px;
+      border-left:3px solid #7c6aff;transition:.3s
+    }
+    .post:hover{background:rgba(20,20,35,.6)}
+    .post .head{display:flex;justify-content:space-between;font-size:.85rem;color:#888;margin-bottom:6px}
+    .post .head .name{color:#7c6aff;font-weight:600}
+    .post .body{color:#ddd;line-height:1.6;word-break:break-word}
+    .post .actions{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
+    .post .actions button{background:none;border:none;color:#666;cursor:pointer;padding:4px 8px;border-radius:6px;transition:.3s;font-size:.8rem}
+    .post .actions button:hover{background:rgba(255,255,255,.05);color:#fff}
+    .post .actions .edit-btn{color:#7c6aff}
+    .post .actions .edit-btn:hover{color:#9b8aff}
+    .post .actions .del-btn{color:#ff6b6b}
+    .post .actions .del-btn:hover{color:#ff8a8a}
+    .post .post-time{color:#555;font-size:.75rem}
+    
+    /* ===== STATS ===== */
+    .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:24px}
+    .stat{
+      background:rgba(15,15,25,.6);border-radius:14px;padding:16px;text-align:center;border:1px solid rgba(255,255,255,.06)
+    }
+    .stat .num{font-size:2rem;font-weight:700;background:linear-gradient(135deg,#7c6aff,#00d4ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .stat .label{color:#666;font-size:.8rem;margin-top:4px}
+    
+    /* ===== PANEL ===== */
+    .panel-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    @media(max-width:768px){.panel-grid{grid-template-columns:1fr}}
+    
+    .panel-box{background:rgba(15,15,25,.6);border-radius:14px;padding:18px;border:1px solid rgba(255,255,255,.06)}
+    .panel-box h4{color:#fff;margin-bottom:12px;font-size:.95rem}
+    .panel-box input,.panel-box textarea{
+      width:100%;padding:10px 14px;background:rgba(10,10,18,.8);border:1px solid rgba(255,255,255,.06);
+      border-radius:10px;color:#fff;margin-bottom:8px;outline:none;font-size:.9rem
+    }
+    .panel-box input:focus,.panel-box textarea:focus{border-color:#7c6aff}
+    .panel-box textarea{resize:vertical;min-height:60px}
+    
+    /* ===== BROADCAST BANNER ===== */
+    .banner{
+      background:linear-gradient(135deg,rgba(124,106,255,.1),rgba(0,212,255,.1));
+      border:1px solid rgba(124,106,255,.2);border-radius:12px;padding:14px 20px;
+      margin-bottom:16px;display:none
+    }
+    .banner.show{display:block}
+    .banner .label{color:#7c6aff;font-weight:600;font-size:.8rem;text-transform:uppercase;letter-spacing:1px}
+    .banner .msg{color:#ddd;margin-top:4px}
+    
+    /* ===== RULES ===== */
+    .rules-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    @media(max-width:768px){.rules-grid{grid-template-columns:1fr}}
+    .rule-item{
+      background:rgba(15,15,25,.6);border-radius:12px;padding:16px;border:1px solid rgba(255,255,255,.06)
+    }
+    .rule-item .num{color:#7c6aff;font-weight:700;font-size:1.2rem}
+    .rule-item h4{color:#fff;margin:4px 0 8px}
+    .rule-item p{color:#999;font-size:.9rem;line-height:1.6}
+    
+    /* ===== REPORT ===== */
+    .report-box{background:rgba(255,50,50,.05);border:1px solid rgba(255,50,50,.15);border-radius:12px;padding:16px}
+    .report-box textarea{width:100%;padding:10px 14px;background:rgba(10,10,18,.8);border:1px solid rgba(255,50,50,.15);border-radius:10px;color:#fff;outline:none;resize:vertical;min-height:80px}
+    .report-box textarea:focus{border-color:#ff6b6b}
+    .report-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:12px 0}
+    .report-stat{background:rgba(15,15,25,.6);border-radius:10px;padding:12px;text-align:center}
+    .report-stat .num{font-size:1.5rem;font-weight:700;color:#7c6aff}
+    .report-stat .label{color:#666;font-size:.7rem}
+    .wa-numbers{background:rgba(37,211,102,.05);border-radius:10px;padding:10px;margin:10px 0;border:1px solid rgba(37,211,102,.1)}
+    .wa-numbers .num{color:#25D366;font-weight:600;font-size:.85rem}
+    
+    /* Report List */
+    .report-list{max-height:400px;overflow-y:auto;margin-top:12px}
+    .report-item{
+      background:rgba(15,15,25,.6);border-radius:10px;padding:12px;margin-bottom:8px;
+      border-left:3px solid #ff6b6b;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px
+    }
+    .report-item.resolved{border-left-color:#4caf50;opacity:0.7}
+    .report-item .info{flex:1}
+    .report-item .info .type{color:#7c6aff;font-weight:600;font-size:.85rem}
+    .report-item .info .msg{color:#ddd;font-size:.85rem;margin:2px 0}
+    .report-item .info .from{color:#666;font-size:.75rem}
+    .report-item .actions{display:flex;gap:6px;flex-wrap:wrap}
+    .report-item .actions button{padding:4px 12px;border-radius:6px;border:none;cursor:pointer;font-size:.7rem;font-weight:600}
+    .report-item .actions .resolve-btn{background:rgba(50,255,50,.15);color:#4caf50}
+    .report-item .actions .resolve-btn:hover{background:rgba(50,255,50,.25)}
+    .report-item .actions .delete-btn{background:rgba(255,50,50,.15);color:#ff6b6b}
+    .report-item .actions .delete-btn:hover{background:rgba(255,50,50,.25)}
+    
+    /* ===== FOOTER ===== */
+    .footer{text-align:center;padding:30px 0 10px;color:#444;font-size:.8rem;border-top:1px solid rgba(255,255,255,.04);margin-top:30px}
+    
+    /* ===== SCROLLBAR ===== */
+    ::-webkit-scrollbar{width:6px}
+    ::-webkit-scrollbar-track{background:transparent}
+    ::-webkit-scrollbar-thumb{background:rgba(124,106,255,.3);border-radius:10px}
+    ::-webkit-scrollbar-thumb:hover{background:rgba(124,106,255,.5)}
+    
+    /* ===== TOAST ===== */
+    .toast{
+     position:fixed;bottom:30px;right:30px;z-index:999;
+      background:rgba(10,10,15,.95);backdrop-filter:blur(10px);
+      border:1px solid rgba(37,211,102,.3);
+      border-radius:14px;padding:16px 24px;
+      color:#fff;font-size:.9rem;
+      transform:translateY(100px);opacity:0;
+      transition:.4s ease;max-width:400px
+    }
+    .toast.show{transform:translateY(0);opacity:1}
+    .toast .icon{font-size:1.5rem;margin-right:10px}
+    .toast .title{font-weight:700;color:#25D366}
+    .toast .msg{color:#999;font-size:.8rem;margin-top:4px}
+  </style>
+</head>
+<body>
 
-*{  
-margin:0;  
-padding:0;  
-box-sizing:border-box;  
-font-family:monospace;  
-}  
+<!-- ===== STATIC BACKGROUND ===== -->
+<div class="bg-image">
+  <div class="static-ring"></div>
+  <div class="static-ring"></div>
+  <div class="static-ring"></div>
+  <div class="static-ring"></div>
+  <div class="static-ring"></div>
+  <div class="static-lines"></div>
+  <div class="static-orb static-orb-1"></div>
+  <div class="static-orb static-orb-2"></div>
+  <div class="static-orb static-orb-3"></div>
+</div>
 
-body{  
-background:linear-gradient(to bottom,#030712,#071120);  
-color:white;  
-display:flex;  
-overflow-x:hidden;  
-position:relative;  
-}  
+<!-- ===== TOP BANNER ===== -->
+<div class="top-banner">
+  <div class="brand-text">JOLTZGOAT</div>
+  <div class="sub-text">FOUR SEVEN · TRELUX NeT-SiTe</div>
+</div>
 
-/* PARTICLE BACKGROUND */  
-#particles {  
-    position: fixed;  
-    top: 0; left: 0;  
-    width: 100%; height: 100%;  
-    pointer-events: none;  
-    z-index: 1;  
-    opacity: 0.12;  
-}  
+<!-- ===== MOBILE TOGGLE ===== -->
+<button class="menu-toggle" onclick="toggleSidebar()">☰</button>
 
-/* TOP CORNER BRANDING */  
-.top-corner{  
-position:fixed;  
-top:10px;  
-right:10px;  
-font-size:0.75rem;  
-font-weight:bold;  
-color:#00bfff;  
-text-align:center;  
-z-index:9999;  
-line-height:1.2;  
-text-shadow:0 0 10px #00bfff;  
-animation:glow 2s infinite alternate;  
-}  
-
-/* SIDEBAR NAVIGATION */  
-.sidebar{  
-width:280px;  
-height:100vh;  
-background:rgba(10,15,25,0.96);  
-border-right:1px solid #1f2b3d;  
-position:fixed;  
-padding:20px;  
-overflow-y:auto;  
-z-index:1000;  
-backdrop-filter:blur(10px);  
-}  
-
-.brand{  
-text-align:center;  
-font-size:1.3rem;  
-font-weight:900;  
-margin-bottom:25px;  
-color:white;  text-shadow:0 0 20px #00bfff;  
-animation:glow 2s infinite alternate;  
-}  
-
-.menu-title{  
-font-size:0.8rem;  
-color:#9aa4b2;  
-margin:15px 0 10px;  text-transform:uppercase;  
-}  
-
-.menu-btn{  
-display:block;  
-width:100%;  
-padding:14px;  
-margin-bottom:12px;  
-background:#111827;  
-border:1px solid #1f2b3d;  
-color:white;  
-text-decoration:none;  
-border-radius:12px;  
-transition:0.3s;  
-font-weight:700;  
-cursor:pointer;  
-}  
-
-.menu-btn:hover{  
-background:rgba(0,191,255,0.15);  
-transform:translateX(5px);  
-box-shadow:0 0 20px rgba(0,191,255,0.4);  
-}  
-
-/* MAIN CONTENT INTERFACE */  
-.main{  
-margin-left:280px;  
-padding:25px;  
-width:100%;  
-position:relative;  
-z-index:2;  
-}  
-
-/* HERO HEADER */  
-.header{  
-background:linear-gradient(135deg,#081120,#0d2038);  
-padding:35px;  
-border-radius:20px;  
-border:1px solid #16304f;  
-text-align:center;  
-margin-bottom:25px;  
-box-shadow:0 0 30px rgba(0,191,255,0.15);  
-}  
-
-.skull-logo{  
-font-size:4rem;  
-margin-bottom:10px;  
-animation:float 3s infinite ease-in-out;  
-filter:drop-shadow(0 0 20px #00bfff);  
-}  
-
-.main-title{  
-font-size:2rem;  
-font-weight:900;  
-color:white;  
-text-shadow:  
-0 0 10px #00bfff,  
-0 0 20px #0077ff,  
-0 0 40px #00bfff;  
-animation:glow 2s infinite alternate;  
-}  
-
-.header p{  
-margin-top:10px;  
-color:#c0d9ff;  
-}  
-
-/* DYNAMIC PAGES */  
-.page{  
-display:none;  
-animation:fade 0.4s ease;  
-}  
-
-.active-page{  
-display:block;  
-}  
-
-@keyframes fade{  
-from{opacity:0;transform:translateY(10px);}  
-to{opacity:1;transform:translateY(0);}  
-}  
-
-/* INTERFACE CARDS */  
-.card{  
-background:rgba(16,24,38,0.96);  
-padding:22px;  
-border-radius:18px;  
-border:1px solid #1f2b3d;  margin-bottom:20px;  
-}  
-
-/* CONFIG MODULE MODULES */  
-.config-box{  
-background:#0b1320;  
-padding:18px;  
-border-radius:14px;  
-border:1px solid #1d2b3f;  
-margin-bottom:20px;  
-transition:0.3s;  
-position:relative;  
-overflow:hidden;  
-}  
-
-.config-box:hover{  
-transform:translateY(-5px);  
-box-shadow:0 0 25px rgba(0,191,255,0.3);  
-border-color:var(--neon);  
-}  
-
-.config-box h3{  
-margin-bottom:10px;  
-}  
-
-.config-box p{  
-color:#9aa4b2;  
-margin-bottom:15px;  
-line-height:1.6;  
-}  
-
-/* INTERACTION BUTTONS */  
-.download-btn{  
-display:inline-block;  
-padding:12px 18px;  
-background:linear-gradient(to right,#00bfff,#0077ff);  
-border-radius:10px;  text-decoration:none;  
-color:white;  
-font-weight:800;  
-transition:0.3s;  
-}  
-
-.download-btn:hover{  
-transform:scale(1.05);  
-box-shadow:0 0 20px rgba(0,191,255,0.5);  
-}  
-
-/* MODULE TEXT INPUTS & FILTERS */  
-.search-bar {  
-    width: 100%;  
-    padding: 14px 18px;  
-    background: #0b1320;  
-    border: 1px solid #1f2b3d;  
-    border-radius: 12px;  
-    color: white;  
-    margin-bottom: 20px;  
-    font-size: 1rem;  
-}  
-
-/* UTILITY SUB-ACTIONS */  
-.config-actions{  
-display:flex;  
-gap:10px;  
-margin-top:15px;  
-margin-bottom:15px;  
-flex-wrap:wrap;  
-}  
-
-.action-btn{  
-padding:10px 14px;  
-border:none;  
-border-radius:10px;  
-background:#111827;  
-color:white;  
-font-weight:700;  
-cursor:pointer;  
-border:1px solid #1f2b3d;  
-}  
-
-/* LOCAL COMMENTS LAYER */  
-.comment-input{  
-width:100%;  
-padding:12px;  
-border-radius:10px;  
-border:1px solid #1f2b3d;  
-background:#0b1320;  
-color:white;  
-outline:none;  
-margin-bottom:10px;  
-}  
-
-.comment-btn{  
-padding:10px 16px;  
-border:none;  
-border-radius:10px;  
-background:linear-gradient(to right,#00bfff,#0077ff);  
-color:white;  
-font-weight:800;  
-cursor:pointer;  
-}  
-
-.comment{  
-background:#0f1724;  
-padding:10px;  
-border-radius:10px;  
-margin-top:10px;  
-border:1px solid #1d2b3f;  
-}  
-
-/* CHAT LAYER AND LIVE MODULE CONTAINER */  
-.chat-box {  
-    height: 320px;  
-    overflow-y: auto;  
-    background: #0b1320;  
-    border: 1px solid #1f2b3d;  
-    border-radius: 10px;  
-    padding: 12px;  
-    margin-bottom: 12px;  
-}  
-
-.chat-message {  
-    margin-bottom: 10px;  
-    padding: 8px 12px;  
-    border-radius: 8px;  
-    background: #1a2538;  
-    max-width: 85%;  
-}  
-
-.chat-message .time {  
-    font-size: 0.7rem;  
-    color: #9aa4b2;  
-    margin-top: 4px;  
-}  
-
-/* DYNAMIC LIVE COMMUNITY STREAM CONTAINER */
-.community-feed {
-    max-height: 500px;
-    overflow-y: auto;
-    border: 1px solid #1f2b3d;
-    background: #070d19;
-    padding: 15px;
-    border-radius: 12px;
-    margin-top: 20px;
-}
-
-.post-card {
-    background: #111a2e;
-    border-left: 4px solid var(--blue);
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-}
-
-.post-header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 8px;
-    font-size: 0.85rem;
-}
-
-.post-user {
-    color: var(--neon);
-    font-weight: bold;
-}
-
-.post-time {
-    color: var(--muted);
-}
-
-.post-body {
-    color: #f3f4f6;
-    line-height: 1.5;
-    word-break: break-word;
-}  
-
-/* LEGAL AND STRUCTURAL TEXT FORMATTING */  
-.legal-list {  
-    list-style: none;  
-    margin-top: 15px;  
-}  
-
-.legal-list li {  
-    background: #0b1320;  
-    border: 1px solid #1f2b3d;  
-    padding: 16px;  
-    border-radius: 10px;  
-    margin-bottom: 15px;  
-    line-height: 1.6;  
-}  
-
-.legal-list strong {  
-    color: var(--blue);  
-    display: block;  
-    font-size: 1.1rem;  
-    margin-bottom: 5px;  
-}  
-
-/* PROFILE COMPONENT BOX */  
-.owner-box{  
-text-align:center;  
-padding:25px;  
-background:#0b1320;  
-border-radius:16px;  
-border:1px solid #1d2b3f;  
-}  
-
-/* SYSTEM REAR LAYER FOOTER */  
-.footer{  
-text-align:center;  
-margin-top:30px;  
-color:#7f8ea3;  
-font-size:0.9rem;  
-}  
-
-/* STATS CARDS */
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
-    margin-bottom: 25px;
-}
-
-.stat-card {
-    background: linear-gradient(135deg, #0b1320, #071120);
-    padding: 20px;
-    border-radius: 16px;
-    border: 1px solid var(--neon);
-    text-align: center;
-    transition: 0.3s;
-}
-
-.stat-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 0 20px rgba(0,191,255,0.3);
-}
-
-.stat-number {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: var(--neon);
-    text-shadow: 0 0 10px var(--neon);
-}
-
-.stat-label {
-    color: var(--muted);
-    margin-top: 5px;
-    font-size: 0.85rem;
-}
-
-.member-list {
-    max-height: 300px;
-    overflow-y: auto;
-    margin-top: 15px;
-}
-
-.member-item {
-    background: #0b1320;
-    padding: 12px;
-    margin-bottom: 8px;
-    border-radius: 10px;
-    border-left: 3px solid var(--green);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.member-name {
-    color: var(--neon);
-    font-weight: bold;
-}
-
-.remove-member-btn {
-    background: var(--danger);
-    border: none;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 0.75rem;
-}
-
-.squad-member-display {
-    background: #0f1724;
-    padding: 8px 12px;
-    margin: 5px 0;
-    border-radius: 8px;
-    border-left: 3px solid var(--gold);
-    font-weight: bold;
-    color: var(--neon);
-}
-
-/* ADS STYLES - added without removing anything */
-.ad-container {
-    background: rgba(0,0,0,0.2);
-    border-radius: 12px;
-    padding: 10px;
-    margin: 15px 0;
-    text-align: center;
-    border: 1px dashed rgba(0,191,255,0.3);
-}
-.ad-label {
-    font-size: 0.65rem;
-    color: var(--muted);
-    margin-bottom: 5px;
-    letter-spacing: 1px;
-}
-.sidebar-ad {
-    margin: 15px 0;
-    padding: 10px;
-    background: rgba(0,0,0,0.2);
-    border-radius: 10px;
-}
+<!-- ===== LEFT SIDEBAR ===== -->
+<div class="sidebar" id="sidebar">
+  <div class="brand">TRELUX <span>NeT-SiTe</span></div>
   
-/* ANIMATIONS SCHEMA */  
-@keyframes glow{  
-from{text-shadow:0 0 10px #00bfff;}  
-to{text-shadow:0 0 20px #00bfff,0 0 40px #0077ff,0 0 60px #00bfff;}  
-}  
-
-@keyframes float{  
-0%{transform:translateY(0);}  
-50%{transform:translateY(-8px);}  
-100%{transform:translateY(0);}  
-}  
-
-/* MOBILE COMPATIBILITY OVERLAYS */  
-.mobile-btn{  
-display:none;  
-position:fixed;  
-top:15px;  
-left:15px;  
-z-index:2000;  
-background:#111827;  
-border:1px solid #1f2b3d;  
-color:white;  
-padding:12px 15px;  
-border-radius:10px;  
-cursor:pointer;  
-}  
-
-@media(max-width:768px){  
-.sidebar{  
-transform:translateX(-100%);  
-transition:0.3s;  
-}  
-.sidebar.show{  
-transform:translateX(0);  
-}  
-.main{  
-margin-left:0;  
-padding-top:80px;  
-}  
-.mobile-btn{  
-display:block;  
-}  
-.main-title{  
-font-size:1.6rem;  
-}  
-}  
-</style>  
-</head>  
-<body>  
-<!-- AMP Auto Ads -->
-<amp-auto-ads type="adsense"
-        data-ad-client="ca-pub-5991476915949722">
-</amp-auto-ads>
-
-<canvas id="particles"></canvas>
-
-<div class="top-corner">  
-╔☠︎═══☠︎╗<br>  
-FOUR SEVEN <br>  
-╚☠︎═══☠︎╝  
-</div>  
-<button class="mobile-btn" onclick="toggleMenu()">☰</button>
-
-<div class="sidebar" id="sidebar">  
-<div class="brand">☠️ FOUR SEVEN [R•S•T]</div>  
-
-<!-- Sidebar Ad Unit -->
-<div class="sidebar-ad">
-    <div class="ad-label">ADVERTISEMENT</div>
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-5991476915949722"
-         data-ad-slot="4481533034"
-         data-ad-format="auto"
-         data-full-width-responsive="true"></ins>
-    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  <button class="side-link active" onclick="showPage('home')">
+    <span class="icon">🏠</span> Home
+  </button>
+  <button class="side-link" onclick="showPage('configs')">
+    <span class="icon">📥</span> Configs
+  </button>
+  <button class="side-link" onclick="showPage('community')">
+    <span class="icon">💬</span> Community
+  </button>
+  <button class="side-link" onclick="showPage('rules')">
+    <span class="icon">📜</span> Rules
+  </button>
+  <button class="side-link" onclick="showPage('report')">
+    <span class="icon">🚨</span> Report
+  </button>
+  <a href="https://github.com/magabemack47-spec/four-seven-hub" target="_blank" class="side-link github-link">
+    <span class="icon">🐙</span> GitHub
+  </a>
+  <button class="side-link" onclick="showPage('panel')" style="color:#7c6aff;border-top:1px solid rgba(255,255,255,0.05);margin-top:8px;padding-top:12px">
+    <span class="icon">⚡</span> Panel
+  </button>
 </div>
 
-<div class="menu-title">MAIN MENU</div>  
-<a class="menu-btn" onclick="showPage('home-page')">🏠 Home</a>
-<a class="menu-btn" onclick="showPage('configs-page')">📥 Config Files</a>
-<a class="menu-btn" onclick="showPage('community-page')">💬 Community</a>
-<a class="menu-btn" onclick="showPage('earn-page')">💰 Earn Money</a>
-<a class="menu-btn" onclick="showPage('rules-page')">📜 Rules</a>
-<a class="menu-btn" onclick="showPage('safety-page')">🛡️ Safety</a>
-<a class="menu-btn" onclick="showPage('about-page')">👑 Owner</a>
-<a class="menu-btn" href="https://github.com/magabemack47-spec/four-seven-hub" target="_blank">🐙 GitHub</a>
-
-<div class="menu-title">ELITE SECTION</div>  
-<a class="menu-btn" onclick="showSquadPage()">🔰 Squad of RST 🇦🇶</a>  
-<a class="menu-btn" onclick="showPage('owner-panel-page')" style="border-color: var(--gold); color: var(--gold);">⚡ Owner Panel</a>
-
-<!-- Second Sidebar Ad -->
-<div class="sidebar-ad" style="margin-top:15px;">
-    <div class="ad-label">SPONSOR</div>
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-5991476915949722"
-         data-ad-slot="4481533034"
-         data-ad-format="rectangle"
-         data-full-width-responsive="true"></ins>
-    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-</div>
-</div>  
-
-<div class="main">  
-<div class="header">  
-<div class="skull-logo">☠️</div>  
-<h1 class="main-title">FOUR SEVEN [R•S•T] NeT-SiTE</h1>  
-<p>[ SYSTEM STATUS : ONLINE ]</p>  
-</div>  
-
-<!-- Header Banner Ad -->
-<div class="ad-container">
-    <div class="ad-label">ADVERTISEMENT</div>
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-5991476915949722"
-         data-ad-slot="4481533034"
-         data-ad-format="horizontal"
-         data-full-width-responsive="true"></ins>
-    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-</div>
-
-<div id="home-page" class="page active-page">  
-<div class="card">  
-<h2>☠️ Welcome</h2>  
-<div id="owner-broadcast-banner" style="display:none; background:rgba(255,215,0,0.1); border:1px solid var(--gold); padding:15px; border-radius:12px; margin-bottom:20px;">
-    <h3 style="color:var(--gold); margin-bottom:5px;">📢 OWNER BROADCAST:</h3>
-    <p id="broadcast-text" style="color:#ffffff; font-weight:bold;"></p>
-</div>
-
-<p style="line-height:1.8;color:#cbd5e1;">  
-Welcome to the official FOUR SEVEN [R•S•T] CONFIG HUB.  
-Download premium configs, join the community,  
-and enjoy fast secure access.  
-</p>  
-</div>  
-<!-- In-content Ad -->
-<div class="ad-container">
-    <div class="ad-label">RECOMMENDED</div>
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-5991476915949722"
-         data-ad-slot="4481533034"
-         data-ad-format="auto"
-         data-full-width-responsive="true"></ins>
-    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-</div>
-</div>  
-
-<div id="configs-page" class="page">  
-<div class="card">  
-<h2>📥 Config Files</h2>  
-<input type="text" id="searchInput" class="search-bar" placeholder="🔍 Search configs..." onkeyup="filterConfigs()">  
-
-<div id="firebase-configs-container"></div>
-
-<div id="owner-public-configs-container"></div>
-</div>
-<!-- In-content Ad -->
-<div class="ad-container">
-    <div class="ad-label">SPONSORED</div>
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-5991476915949722"
-         data-ad-slot="4481533034"
-         data-ad-format="auto"
-         data-full-width-responsive="true"></ins>
-    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-</div>
-</div>
-
-<div id="community-page" class="page">
-<div class="card">
-<h2>💬 Global Community Board</h2>
-<p style="color: var(--muted); margin-bottom: 15px;">Share information, network configurations, and updates. Visible to everyone.</p>
-
-<div class="config-box" style="background:#0f1724;">
-<h3 style="color:var(--blue); margin-bottom:12px;">Create Public Post</h3>
-<input type="text" id="com-name-input" class="comment-input" placeholder="Your Name / Alias" style="margin-bottom:10px;">
-<textarea id="com-msg-input" class="comment-input" placeholder="Type your message here..." style="height:100px; resize:vertical; margin-bottom:10px;"></textarea>
-<button class="comment-btn" onclick="submitCommunityPost()" style="width:100%;">🚀 Broadcast Message</button>
-</div>
-
-<!-- Native Ad -->
-<div class="ad-container">
-    <div class="ad-label">PROMOTION</div>
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-5991476915949722"
-         data-ad-slot="4481533034"
-         data-ad-format="rectangle"
-         data-full-width-responsive="true"></ins>
-    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-</div>
-
-<h3>📡 Live Feed</h3>
-<div id="community-reply-box" style="display:none;background:rgba(0,191,255,.1);border-left:3px solid #00bfff;padding:8px;margin-bottom:10px;">
-Replying to: <span id="community-reply-text"></span>
-<button onclick="cancelCommunityReply()" style="float:right;background:none;border:none;color:red;cursor:pointer;">X</button>
-</div>
-<div id="community-feed" class="community-feed"></div>
-</div>
-</div>
-
-<div id="earn-page" class="page">  
-<div class="card">  
-<h2>💰 Claiming Money Link</h2>  
-<p style="line-height:1.8;color:#cbd5e1;">  
-Join this platform and start earning real money for free.<br><br>  
-Click the button below to get started.  
-</p>  
-<a href="https://a1.wa710.cc/go/28258927" target="_blank" class="download-btn" style="background:linear-gradient(to right,#25D366,#00bfff);">🚀 Start Earning Now</a>  
-</div>  
-<!-- Earn page ad -->
-<div class="ad-container">
-    <div class="ad-label">PARTNER OFFER</div>
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-5991476915949722"
-         data-ad-slot="4481533034"
-         data-ad-format="auto"
-         data-full-width-responsive="true"></ins>
-    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-</div>
-</div>  
-
-<div id="rules-page" class="page">
-<div class="card">
-<h2>📜 Official Hub Regulations & Terms</h2>
-<p style="color: var(--muted)">Failure to comply with platform guidelines will result in an immediate and irreversible IP ban.</p>
-<ul class="legal-list">
-<li><strong>1. File Sharing & Config Integrity</strong> All payloads, files, and tunnel network data files shared must be thoroughly checked for malicious injection scripts. Modifying another developer's configuration files without appropriate credit is strictly illegal.</li>
-<li><strong>2. No Malicious Tool Distribution</strong> The upload or distribution of malware, ransomware, botnets, or link-shorteners redirecting users to hazardous, unverified scripts is explicitly prohibited on this platform.</li>
-<li><strong>3. Zero-Tolerance Spam Policy</strong> The global community board and comment fields must remain free of repetitive link spamming, advertising unverified channels, or flooding servers with artificial traffic.</li>
-<li><strong>4. Respect the Elite Hierarchy</strong> Squad configurations and instructions deployed within the RST layout must remain internal. Disclosing access patterns or passwords to outer channels is classified as breach of code.</li>
-<li><strong>5. No Account Scraping</strong> Automated web-scraping, denial of service attacks against this platform, or trying to harvest Firebase data links illegally will be intercepted and flagged directly to ISPs.</li>
-</ul>
-</div>
-</div>
-
-<div id="safety-page" class="page">
-<div class="card">
-<h2>🛡️ Cyber Security & Safety Manual</h2>
-<p style="color: var(--muted)">Protect your identity and hardware while deploying network configurations.</p>
-<ul class="legal-list">
-<li><strong>1. Secure Tunnel Execution</strong> Always inspect your client applications (such as TLS Tunnel, HTTP Custom, or custom RST tools) before initializing a configuration file. Keep your base software updated to avoid memory leak exploits.</li>
-<li><strong>2. Avoid Personal Information Exposure</strong> When posting onto the public community board, never expose your private phone number, network IP gateway addresses, hardware IMEI numbers, or specific location codes.</li>
-<li><strong>3. Link Redirection Protocols</strong> External download resources use link validation techniques. Always utilize ad-blockers or isolated sandbox environments if navigating unknown third-party shortener channels.</li>
-<li><strong>4. Account Credential Security</strong> Do not use your primary network keys or private security credentials for experimental proxy configuration scripts. Create distinct tester variables to prevent account termination from cellular carrier filters.</li>
-<li><strong>5. Reported Vulnerabilities</strong> If you discover an expired configuration producing a direct security hazard or a user violating safety practices, contact the platform administrator immediately via the provided serious inquiry channels.</li>
-</ul>
-</div>
-</div>
-
-<div id="squad-page" class="page">  
-<div class="card">  
-<h2>🔰 Squad of RST 🇦🇶</h2>  
-<p><strong>Password Protected Squad Chat & Configs</strong></p>  
-<div id="squad-login">  
-<input type="password" id="squad-password" placeholder="Enter Password" style="width:100%; padding:12px; margin:10px 0; background:#0b1320; border:1px solid #1f2b3d; color:white; border-radius:10px;">  
-<button class="action-btn" onclick="checkSquadPassword()" style="background:linear-gradient(to right,#00bfff,#0077ff); width:100%;">🔓 Join Squad</button>  
-</div>  
-<div id="squad-content" style="display:none;">  
-<h3>✅ Squad Members</h3>  
-<div id="dynamic-squad-members-list" style="background:#0f1724; padding:15px; border-radius:12px; margin-bottom:20px;"></div>  
-<h3 style="margin:20px 0 10px;">💬 Squad Live Chat</h3>  
-<div id="squad-reply-box" style="display:none; background:rgba(0,191,255,0.1); border-left:3px solid var(--blue); padding:8px; margin-bottom:8px; font-size:0.85rem;">
-    <span>Replying to: <span id="squad-reply-target-text" style="color:var(--muted);"></span></span>
-    <button onclick="cancelSquadReply()" style="background:none; border:none; color:var(--danger); cursor:pointer; float:right; font-weight:bold;">X</button>
-</div>
-<div id="chat-box" class="chat-box"></div>  
-<input type="text" id="chat-input" placeholder="Type message here..." style="width:78%; padding:12px; background:#0b1320; border:1px solid #1f2b3d; color:white; border-radius:10px;">  
-<button class="action-btn" onclick="sendChatMessage()" style="width:20%; background:linear-gradient(to right,#25D366,#00bfff);">Send</button>  
-<h3 style="margin-top:25px;">Post New Config (Squad Only)</h3>  
-<input type="text" id="new-config-name" placeholder="Config Name" style="width:100%;padding:12px;margin:8px 0;background:#0b1320;border:1px solid #1f2b3d;color:white;border-radius:10px;">  
-<textarea id="new-config-desc" placeholder="Description" style="width:100%;height:80px;padding:12px;margin:8px 0;background:#0b1320;border:1px solid #1f2b3d;color:white;border-radius:10px;"></textarea>  
-<input type="text" id="new-config-link" placeholder="Download Link" style="width:100%;padding:12px;margin:8px 0;background:#0b1320;border:1px solid #1f2b3d;color:white;border-radius:10px;">  
-<button class="action-btn" onclick="postSquadConfig()" style="background:linear-gradient(to right,#25D366,#00bfff); width:100%;">🚀 Post Config</button>  
-</div>  
-</div>  
-</div>  
-
-<div id="owner-panel-page" class="page">
-<div class="card">
-<h2>⚡ Exclusive Owner Controls</h2>
-<p style="color:var(--muted); margin-bottom:15px;">System identity gate validation required.</p>
-
-<div id="owner-login-box">
-    <input type="password" id="owner-system-key" placeholder="Enter System Password" style="width:100%; padding:12px; margin:10px 0; background:#0b1320; border:1px solid #1f2b3d; color:white; border-radius:10px;">  
-    <button class="action-btn" onclick="verifyOwnerIdentity()" style="background:linear-gradient(to right, var(--gold), #ff7700); width:100%;">🔓 Access Terminal</button>  
-</div>
-
-<div id="owner-terminal-content" style="display:none;">
-    <!-- STATS SECTION -->
-    <h3 style="color:var(--neon); margin-bottom:15px;">📊 Website Analytics</h3>
-    <div class="stats-grid">
-        <div class="stat-card">
-            <div class="stat-number" id="total-visitors-count">0</div>
-            <div class="stat-label">Total Visitors</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-number" id="active-users-count">0</div>
-            <div class="stat-label">Active Now</div>
-        </div>
+<!-- TOAST NOTIFICATION -->
+<div class="toast" id="toast">
+  <div style="display:flex;align-items:center">
+    <span class="icon">✅</span>
+    <div>
+      <div class="title" id="toastTitle">Success</div>
+      <div class="msg" id="toastMsg">Action completed!</div>
     </div>
+  </div>
+</div>
 
-    <h3 style="color:var(--gold); margin-bottom:10px;">📢 Broadcast Message to Home Screen</h3>
-    <textarea id="owner-broadcast-input" class="comment-input" placeholder="Type a message to show on the welcome page..." style="height:80px; resize:vertical;"></textarea>
-    <button class="action-btn" onclick="deployOwnerBroadcast()" style="background:var(--blue); width:100%; margin-bottom:25px;">📡 Deploy Broadcast</button>
+<!-- MAIN -->
+<div class="main">
 
-    <h3 style="color:var(--gold); margin-bottom:10px;">🔰 Manage Squad Members</h3>
-    <input type="text" id="new-squad-name" placeholder="Member Name" style="width:100%; padding:12px; margin-bottom:10px; background:#0b1320; border:1px solid #1f2b3d; color:white; border-radius:10px;">
-    <input type="text" id="new-squad-pass" placeholder="Member Password/Key" style="width:100%; padding:12px; margin-bottom:10px; background:#0b1320; border:1px solid #1f2b3d; color:white; border-radius:10px;">
-    <button class="action-btn" onclick="addSquadMember()" style="background:var(--green); width:48%;">+ Add Member</button>
-    <button class="action-btn" onclick="showRemoveMemberUI()" style="background:var(--danger); width:48%;">- Remove Member</button>
-    
-    <div id="remove-member-selector" style="display:none; margin-top:15px; padding:15px; background:#0b1320; border-radius:10px;">
-        <h4 style="color:var(--danger); margin-bottom:10px;">Select Member to Remove:</h4>
-        <div id="member-list-for-removal"></div>
+  <!-- ===== HOME ===== -->
+  <div id="home" class="page active">
+    <div class="hero">
+      <span class="hero-icon">🌐</span>
+      <h1>TRELUX NeT-SiTe</h1>
+      <p>Premium configs · Secure community · Fast connections</p>
     </div>
     
-    <div id="current-members-list" style="margin-top:15px;"></div>
+    <div class="banner" id="broadcastBanner">
+      <div class="label">📢 Broadcast</div>
+      <div class="msg" id="broadcastMsg"></div>
+    </div>
 
-    <h3 style="color:var(--neon); margin-bottom:10px;">🚀 Upload Global Configuration File</h3>
-    <input type="text" id="owner-file-name" placeholder="Config File Title (e.g. Vodacom Uncapped)" style="width:100%; padding:12px; margin-bottom:10px; background:#0b1320; border:1px solid #1f2b3d; color:white; border-radius:10px;">
-    <input type="text" id="owner-file-type" placeholder="File Type Format (e.g. HC, TLS, BDNET, EHI)" style="width:100%; padding:12px; margin-bottom:10px; background:#0b1320; border:1px solid #1f2b3d; color:white; border-radius:10px;">
-    <textarea id="owner-file-desc" class="comment-input" placeholder="Configuration features description payload details..."></textarea>
-    <input type="text" id="owner-file-link" placeholder="Download Link URL (Mediafire, ouo.io, etc)" style="width:100%; padding:12px; margin-bottom:15px; background:#0b1320; border:1px solid #1f2b3d; color:white; border-radius:10px;">
-    <button class="action-btn" onclick="deployOwnerPublicConfig()" style="background:var(--green); width:100%;">📦 Push File Live</button>
-    
-    <h3 style="color:var(--danger); margin-top:25px; margin-bottom:10px;">⚠️ Nuclear Options</h3>
-    <button class="action-btn" onclick="deleteAllOwnerConfigs()" style="background:var(--danger); width:100%; border-color:var(--danger);">🗑️ DELETE ALL FILES</button>
+    <div class="card">
+      <h2>🚀 Welcome</h2>
+      <p style="color:#999;line-height:1.8;font-size:1.05rem">
+        TRELUX is your premium hub for network configurations and community sharing. 
+        All configs are verified and optimized for performance.
+      </p>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="num" id="totalVisitors">0</div><div class="label">Total Visitors</div></div>
+      <div class="stat"><div class="num" id="activeUsers">0</div><div class="label">Active Now</div></div>
+      <div class="stat"><div class="num" id="configCount">0</div><div class="label">Configs Available</div></div>
+    </div>
+  </div>
+
+  <!-- ===== CONFIGS ===== -->
+  <div id="configs" class="page">
+    <div class="card">
+      <h2>📥 Config Library</h2>
+      <div class="search-wrap">
+        <input id="searchInput" placeholder="🔍 Search configs by name or type..." oninput="filterConfigs()">
+      </div>
+      <div class="config-grid" id="configGrid"></div>
+    </div>
+  </div>
+
+  <!-- ===== COMMUNITY ===== -->
+  <div id="community" class="page">
+    <div class="card">
+      <h2>💬 Community Board</h2>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px">
+        <input id="comName" placeholder="Your name..." style="flex:1;min-width:140px;padding:10px 14px;background:rgba(15,15,25,.8);border:1px solid rgba(255,255,255,.06);border-radius:10px;color:#fff;outline:none">
+        <input id="comMsg" placeholder="Share something..." style="flex:2;min-width:200px;padding:10px 14px;background:rgba(15,15,25,.8);border:1px solid rgba(255,255,255,.06);border-radius:10px;color:#fff;outline:none">
+        <button class="btn btn-primary" onclick="postCommunity()">📤 Post</button>
+      </div>
+      <div id="communityFeed"></div>
+    </div>
+  </div>
+
+  <!-- ===== RULES ===== -->
+  <div id="rules" class="page">
+    <div class="card">
+      <h2>📜 Website Rules</h2>
+      <div class="rules-grid">
+        <div class="rule-item">
+          <div class="num">01</div>
+          <h4>No Malicious Files</h4>
+          <p>All configs must be safe and free from malware. Any harmful files will be removed immediately.</p>
+        </div>
+        <div class="rule-item">
+          <div class="num">02</div>
+          <h4>Respect Others</h4>
+          <p>Be respectful in the community. No harassment, hate speech, or toxic behavior.</p>
+        </div>
+        <div class="rule-item">
+          <div class="num">03</div>
+          <h4>No Spam</h4>
+          <p>Don't spam the community board with repetitive messages or advertisements.</p>
+        </div>
+        <div class="rule-item">
+          <div class="num">04</div>
+          <h4>Share Original Content</h4>
+          <p>Only share configs you've created or have permission to share. Credit original creators.</p>
+        </div>
+        <div class="rule-item">
+          <div class="num">05</div>
+          <h4>Report Issues</h4>
+          <p>Use the Report page to flag any problematic content or users.</p>
+        </div>
+        <div class="rule-item">
+          <div class="num">06</div>
+          <h4>Stay Safe</h4>
+          <p>Never share personal information. Use unique passwords and stay secure.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== REPORT ===== -->
+  <div id="report" class="page">
+    <div class="card">
+      <h2>🚨 Report Center</h2>
+      <p style="color:#999;margin-bottom:16px">
+        Report any problematic configs, users, or content. 
+        <strong style="color:#25D366">Reports are sent directly to WhatsApp</strong> for immediate action.
+      </p>
+      
+      <div class="wa-numbers">
+        <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px">
+          <span>📱 <span class="num">+27 76 689 0045</span></span>
+          <span>📱 <span class="num">+27 62 268 6991</span></span>
+          <span>📱 <span class="num">+27 60 222 5117</span></span>
+        </div>
+        <p style="color:#555;font-size:.7rem;text-align:center;margin-top:6px">Reports sent to all 3 numbers</p>
+      </div>
+      
+      <div class="report-stats">
+        <div class="report-stat">
+          <div class="num" id="totalReports">0</div>
+          <div class="label">Total Reports</div>
+        </div>
+        <div class="report-stat">
+          <div class="num" id="pendingReports">0</div>
+          <div class="label">Pending</div>
+        </div>
+        <div class="report-stat">
+          <div class="num" id="resolvedReports">0</div>
+          <div class="label">Resolved</div>
+        </div>
+      </div>
+      
+      <div class="report-box">
+        <input id="reportName" placeholder="Your name (optional)" style="width:100%;padding:10px 14px;background:rgba(10,10,18,.8);border:1px solid rgba(255,50,50,.15);border-radius:10px;color:#fff;outline:none;margin-bottom:8px">
+        <input id="reportPhone" placeholder="Your phone number (optional - for follow-up)" style="width:100%;padding:10px 14px;background:rgba(10,10,18,.8);border:1px solid rgba(255,50,50,.15);border-radius:10px;color:#fff;outline:none;margin-bottom:8px">
+        <select id="reportType" style="width:100%;padding:10px 14px;background:rgba(10,10,18,.8);border:1px solid rgba(255,50,50,.15);border-radius:10px;color:#fff;outline:none;margin-bottom:8px">
+          <option value="malicious">🚫 Malicious Config</option>
+          <option value="spam">📢 Spam</option>
+          <option value="harassment">😡 Harassment</option>
+          <option value="broken">🔗 Broken Link</option>
+          <option value="other">❓ Other</option>
+        </select>
+        <textarea id="reportMsg" placeholder="Describe the issue in detail..." style="width:100%;padding:10px 14px;background:rgba(10,10,18,.8);border:1px solid rgba(255,50,50,.15);border-radius:10px;color:#fff;outline:none;resize:vertical;min-height:80px"></textarea>
+        <button class="btn btn-whatsapp" onclick="submitReport()" style="margin-top:8px;width:100%;font-size:1rem;padding:14px">
+          💬 Send Report via WhatsApp
+        </button>
+        <p style="color:#555;font-size:.7rem;text-align:center;margin-top:8px">
+          Reports sent to all 3 WhatsApp numbers
+        </p>
+      </div>
+
+      <!-- Report History List -->
+      <h3 style="color:#fff;margin-top:24px;margin-bottom:12px">📋 Report History</h3>
+      <div class="report-list" id="reportList"></div>
+    </div>
+  </div>
+
+  <!-- ===== PANEL ===== -->
+  <div id="panel" class="page">
+    <div class="card">
+      <h2>⚡ Owner Panel</h2>
+
+      <div id="panelLogin">
+        <p style="color:#999;margin-bottom:12px">System authentication required</p>
+        <div style="display:flex;gap:10px">
+          <input type="password" id="panelPass" placeholder="Enter system password..." style="flex:1;padding:12px 16px;background:rgba(15,15,25,.8);border:1px solid rgba(255,255,255,.06);border-radius:12px;color:#fff;outline:none">
+          <button class="btn btn-primary" onclick="verifyPanel()">🔓 Access</button>
+        </div>
+      </div>
+
+      <div id="panelContent" style="display:none;margin-top:16px">
+        <div class="panel-grid">
+          <div class="panel-box">
+            <h4>📢 Broadcast Message</h4>
+            <textarea id="broadcastInput" placeholder="Type message for home page..."></textarea>
+            <button class="btn btn-primary btn-sm" onclick="setBroadcast()" style="width:100%">📡 Deploy</button>
+          </div>
+          <div class="panel-box">
+            <h4>📦 Upload Config</h4>
+            <input id="confTitle" placeholder="Config title">
+            <input id="confType" placeholder="Type (HC, TLS, etc)">
+            <input id="confLink" placeholder="Download URL">
+            <button class="btn btn-primary btn-sm" onclick="uploadConfig()" style="width:100%">🚀 Publish</button>
+          </div>
+          <div class="panel-box" style="border-color:rgba(255,50,50,.2)">
+            <h4 style="color:#ff6b6b">⚠️ Danger Zone</h4>
+            <button class="btn btn-danger btn-sm" onclick="deleteAllConfigs()" style="width:100%">🗑 Delete All Configs</button>
+            <button class="btn btn-danger btn-sm" onclick="clearAllData()" style="width:100%;margin-top:6px">💀 Wipe All Data</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">© 2026 TRELUX NeT-SiTe</div>
 </div>
-</div>
-</div>
 
-<div id="about-page" class="page">  
-<div class="card">  
-<div class="owner-box">  
-<h2 style="color:#ffd700;">FOUR SEVEN [R•S•T]</h2>  
-<p style="margin:15px 0;color:#cbd5e1;font-size:1.1rem;">  
-Skilled developer and network specialist. I deploy powerful bots and help people create custom tunnel files for stable and fast connections.<br><br>  
-I created this website in <strong>May 2026</strong> to share premium resources with the community.  
-</p>  
-<p style="margin-top:20px;color:#00bfff;">  
-📞 Contact Me: <strong>+27602225117</strong><br>  
-💬 WhatsApp only for serious inquiries.  
-</p>  
-</div>  
-</div>  
-</div>  
+<script>
+// ===== FIREBASE =====
+const fbConfig = { databaseURL: "https://four-seven-net-site-default-rtdb.firebaseio.com" };
+firebase.initializeApp(fbConfig);
+const db = firebase.database();
 
-<div class="footer">  
-© 2026 FOUR SEVEN [R•S•T] — ALL RIGHTS RESERVED  
-</div>  
-</div>  
-
-<script>  
-// =============================================================
-// 1. FIREBASE APP & DATABASE INITIALIZATION
-// =============================================================
-const firebaseConfig = {
-    databaseURL: "https://four-seven-net-site-default-rtdb.firebaseio.com" 
+const $ = id => document.getElementById(id);
+const refs = {
+  community: db.ref('community'),
+  broadcast: db.ref('broadcast'),
+  publicConfigs: db.ref('public_configs'),
+  downloads: db.ref('downloads'),
+  likes: db.ref('likes'),
+  visitors: db.ref('visitors'),
+  active: db.ref('active'),
+  reports: db.ref('reports')
 };
-firebase.initializeApp(firebaseConfig);
-const database = firebase.database();
 
-const communityRef = database.ref('public_community_feed');
-const squadChatRef = database.ref('squad_secure_chat');
-const squadConfigRef = database.ref('squad_exclusive_configs');
+let isPanelOpen = false;
 
-const ownerBroadcastRef = database.ref('owner_global_broadcast');
-const ownerPublicConfigsRef = database.ref('owner_public_shared_configs');
+function esc(s) { if(!s)return ''; return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;') }
 
-const downloadsRef = database.ref('config_downloads');
-const likesRef = database.ref('config_likes');
-
-// NEW: Squad members reference
-const squadMembersRef = database.ref('squad_members');
-
-// NEW: Visitor tracking references
-const visitorStatsRef = database.ref('visitor_stats');
-const activeUsersRef = database.ref('active_users');
-
-let currentReplyTarget = null;
-let currentCommunityReply = null;
-let activeSquadUser = "";
-let currentVisitorId = null;
-
-// ==========================================
-// 2. VISITOR TRACKING SYSTEM
-// ==========================================
-function generateVisitorId() {
-    return 'visitor_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+function showToast(title, msg, icon='✅') {
+  const toast = $('toast');
+  $('toastTitle').textContent = title;
+  $('toastMsg').textContent = msg;
+  toast.querySelector('.icon').textContent = icon;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 5000);
 }
 
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+}
+
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const target = $(id);
+  if(target) target.classList.add('active');
+  document.querySelectorAll('.side-link').forEach(l => l.classList.remove('active'));
+  document.querySelectorAll('.side-link').forEach(l => {
+    const text = l.textContent.trim();
+    const map = {'Home':'home','Configs':'configs','Community':'community','Rules':'rules','Report':'report','Panel':'panel'};
+    Object.keys(map).forEach(key => {
+      if(text.includes(key) && map[key] === id) l.classList.add('active');
+    });
+  });
+  if(window.innerWidth <= 768) {
+    document.getElementById('sidebar').classList.remove('open');
+  }
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ===== VISITOR TRACKING =====
 function trackVisitor() {
-    let visitorId = localStorage.getItem('visitor_id');
-    if (!visitorId) {
-        visitorId = generateVisitorId();
-        localStorage.setItem('visitor_id', visitorId);
-        
-        // Increment total visitors
-        visitorStatsRef.transaction(current => {
-            return (current || 0) + 1;
-        });
-    }
-    currentVisitorId = visitorId;
-    
-    // Track active user
-    const userSessionRef = activeUsersRef.child(visitorId);
-    userSessionRef.set({
-        lastSeen: Date.now(),
-        userAgent: navigator.userAgent.substring(0, 100)
+  let id = localStorage.getItem('trelux_vid');
+  if(!id) {
+    id = 'v_'+Date.now()+'_'+Math.random().toString(36).slice(2,8);
+    localStorage.setItem('trelux_vid', id);
+    refs.visitors.transaction(v => (v||0)+1);
+  }
+  refs.active.child(id).set({lastSeen:Date.now()});
+  refs.active.child(id).onDisconnect().remove();
+  refs.visitors.on('value', s => { let el=$('totalVisitors'); if(el) el.textContent=s.val()||0 });
+  setInterval(() => {
+    refs.active.once('value', s => {
+      let now=Date.now(), count=0, data=s.val()||{};
+      Object.keys(data).forEach(k => {
+        if(now-data[k].lastSeen < 300000) count++;
+        else refs.active.child(k).remove();
+      });
+      let el=$('activeUsers'); if(el) el.textContent=count;
     });
-    
-    // Remove after 5 minutes of inactivity
-    userSessionRef.onDisconnect().remove();
-    
-    // Update total visitors display
-    visitorStatsRef.on('value', snapshot => {
-        const count = snapshot.val() || 0;
-        const totalElem = document.getElementById('total-visitors-count');
-        if(totalElem) totalElem.innerText = count;
-    });
-    
-    // Update active users count
-    function updateActiveCount() {
-        activeUsersRef.once('value', snapshot => {
-            const users = snapshot.val() || {};
-            let activeCount = 0;
-            const now = Date.now();
-            Object.keys(users).forEach(key => {
-                if(now - users[key].lastSeen < 300000) { // 5 minutes
-                    activeCount++;
-                } else {
-                    activeUsersRef.child(key).remove();
-                }
-            });
-            const activeElem = document.getElementById('active-users-count');
-            if(activeElem) activeElem.innerText = activeCount;
-        });
-    }
-    
-    updateActiveCount();
-    setInterval(updateActiveCount, 60000);
-    
-    // Refresh the user's session periodically
-    setInterval(() => {
-        activeUsersRef.child(visitorId).update({ lastSeen: Date.now() });
-    }, 60000);
+  }, 30000);
+  setInterval(() => refs.active.child(id).update({lastSeen:Date.now()}), 60000);
 }
-
-// Start tracking
 trackVisitor();
 
-// ==========================================
-// 3. BACKGROUND PARTICLE SYSTEMS EFFECT
-// ==========================================
-const canvas = document.getElementById('particles');  
-const ctx = canvas.getContext('2d');  
-canvas.width = window.innerWidth;  
-canvas.height = window.innerHeight;  
-  
-let particlesArray = [];  
-class Particle {  
-    constructor(){  
-        this.x = Math.random() * canvas.width;  
-        this.y = Math.random() * canvas.height;  
-        this.size = Math.random() * 2 + 0.5;  
-        this.speedX = Math.random() * 0.6 - 0.3;  
-        this.speedY = Math.random() * 0.6 - 0.3;  
-    }  
-    update(){  
-        this.x += this.speedX;  
-        this.y += this.speedY;  
-        if(this.x < 0 || this.x > canvas.width) this.speedX *= -1;  
-        if(this.y < 0 || this.y > canvas.height) this.speedY *= -1;  
-    }  
-    draw(){  
-        ctx.fillStyle = '#00bfff';
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-    }
-}
-
-function initParticles(){
-    particlesArray = [];
-    for(let i = 0; i < 65; i++){
-        particlesArray.push(new Particle());
-    }
-}
-
-function animateParticles(){
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    for(let i = 0; i < particlesArray.length; i++){
-        particlesArray[i].update();
-        particlesArray[i].draw();
-    }
-    requestAnimationFrame(animateParticles);
-}
-initParticles();
-animateParticles();
-
-window.addEventListener('resize', () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    initParticles();
-});
-
-// ==========================================
-// 4. AUTO-ERASE MECHANISM (5 DAYS)
-// ==========================================
-setInterval(() => {
-    const fiveDaysInMs = 5 * 24 * 60 * 60 * 1000;
-    const now = Date.now();
-    
-    communityRef.once('value', snapshot => {
-        snapshot.forEach(child => {
-            if (now - child.val().timestamp > fiveDaysInMs) {
-                child.ref.remove();
-            }
-        });
+// ===== CONFIGS =====
+function renderConfigs() {
+  refs.publicConfigs.on('value', s => {
+    const grid = $('configGrid');
+    if(!grid) return;
+    grid.innerHTML = '';
+    const data = s.val() || {};
+    let count = 0;
+    Object.keys(data).reverse().forEach(k => {
+      count++;
+      const c = data[k];
+      grid.innerHTML += `
+        <div class="config-card" data-search="${esc(c.title)} ${esc(c.type)}">
+          <h3>${esc(c.title)}</h3>
+          <span class="tag">${esc(c.type)}</span>
+          <div class="desc">${esc(c.desc||'Premium network configuration')}</div>
+          <div class="meta">
+            <span>⬇ <span id="dl_${k}">0</span></span>
+            <span id="like_${k}" style="cursor:pointer" onclick="toggleLike('${k}')">❤️ <span id="lk_${k}">0</span></span>
+          </div>
+          <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap">
+            <a href="${esc(c.link)}" target="_blank" class="btn btn-primary btn-sm" onclick="incDownload('${k}')">⬇ Download</a>
+          </div>
+        </div>
+      `;
     });
-}, 3600000);
-
-// ==========================================
-// 5. CORE SINGLE PAGE APPLICATION ROUTING
-// ==========================================
-function showPage(pageId) {
-    const pages = document.querySelectorAll('.page');
-    pages.forEach(page => page.classList.remove('active-page'));
-    
-    const targetPage = document.getElementById(pageId);
-    if(targetPage) {
-        targetPage.classList.add('active-page');
-    }
-    
-    if(window.innerWidth <= 768) {
-        document.getElementById('sidebar').classList.remove('show');
-    }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    let el = $('configCount'); if(el) el.textContent = count;
+    refs.downloads.once('value', s => { let d=s.val()||{}; Object.keys(d).forEach(k=>{ let el=$('dl_'+k); if(el)el.textContent=d[k] }) });
+    refs.likes.once('value', s => { let l=s.val()||{}; Object.keys(l).forEach(k=>{ let el=$('lk_'+k); if(el)el.textContent=l[k] }) });
+  });
 }
+renderConfigs();
 
-function toggleMenu() {
-    document.getElementById('sidebar').classList.toggle('show');
-}
-
-// ==========================================
-// 6. CONFIG MANAGEMENT & SEARCH FILTERING
-// ==========================================
 function filterConfigs() {
-    const input = document.getElementById('searchInput').value.toLowerCase();
-    const boxes = document.querySelectorAll('.config-box');
-    
-    boxes.forEach(box => {
-        const attrSearch = box.getAttribute('data-search') || "";
-        const searchData = attrSearch.toLowerCase();
-        const headingText = box.querySelector('h3') ? box.querySelector('h3').innerText.toLowerCase() : "";
-        
-        if(searchData.includes(input) || headingText.includes(input)) {
-            box.style.display = "block";
-        } else {
-            box.style.display = "none";
-        }
-    });
+  const q = $('searchInput').value.toLowerCase();
+  document.querySelectorAll('.config-card').forEach(c => {
+    const data = c.dataset.search || '';
+    c.style.display = data.includes(q) ? '' : 'none';
+  });
 }
 
-function increaseDownload(configKey) {
-    downloadsRef.child(configKey).transaction(currentCount => {
-        return (currentCount || 0) + 1;
-    });
-}
+function incDownload(k) { refs.downloads.child(k).transaction(v => (v||0)+1) }
 
-function likeConfig(configKey) {
-    likesRef.child(configKey).transaction(currentCount => {
-        return (currentCount || 0) + 1;
-    });
-}
-
-function deleteOwnerConfig(configKey) {
-    const pass = prompt("Enter password to delete this config:");
-    if (pass === "four seven" || pass === "Four Seven") {
-        ownerPublicConfigsRef.child(configKey).remove().then(() => {
-            alert("Config deleted successfully.");
-        });
+function toggleLike(k) {
+  const likeRef = refs.likes.child(k);
+  const userId = localStorage.getItem('trelux_vid') || 'anon';
+  likeRef.once('value', s => {
+    const data = s.val() || {};
+    const userLiked = data.likedBy && data.likedBy[userId];
+    if(userLiked) {
+      likeRef.update({ count: (data.count || 0) - 1, [`likedBy/${userId}`]: null });
     } else {
-        alert("Unauthorized.");
+      likeRef.update({ count: (data.count || 0) + 1, [`likedBy/${userId}`]: true });
     }
+  });
 }
 
-function deleteAllOwnerConfigs() {
-    const pass = prompt("CRITICAL: Enter password to delete ALL public files:");
-    if (pass === "four seven" || pass === "Four Seven") {
-        if(confirm("Are you ABSOLUTELY sure? This cannot be undone.")) {
-            ownerPublicConfigsRef.remove().then(() => {
-                alert("ALL files deleted successfully.");
-            });
-        }
-    } else {
-        alert("Unauthorized.");
-    }
-}
-
-downloadsRef.on('value', snapshot => {
-    const data = snapshot.val() || {};
-    Object.keys(data).forEach(key => {
-        const counterEl = document.getElementById(`downloads-${key}`);
-        if(counterEl) counterEl.innerText = data[key];
-    });
+refs.likes.on('value', s => {
+  const data = s.val() || {};
+  Object.keys(data).forEach(k => {
+    const el = $('lk_'+k);
+    if(el) el.textContent = data[k].count || 0;
+  });
 });
 
-likesRef.on('value', snapshot => {
-    const data = snapshot.val() || {};
-    Object.keys(data).forEach(key => {
-        const counterEl = document.getElementById(`likes-${key}`);
-        if(counterEl) counterEl.innerText = data[key];
-    });
+// ===== COMMUNITY =====
+function postCommunity() {
+  const name = $('comName').value.trim() || 'Anonymous';
+  const msg = $('comMsg').value.trim();
+  if(!msg) { showToast('Error', 'Please type a message', '❌'); return; }
+  refs.community.push({name, msg, time:Date.now()});
+  $('comMsg').value = '';
+  showToast('Posted!', 'Your message is live', '📤');
+}
+
+function editCommunityPost(id, currentMsg) {
+  const newMsg = prompt('Edit your message:', currentMsg);
+  if(newMsg !== null && newMsg.trim()) {
+    refs.community.child(id).update({msg: newMsg.trim(), edited: true, editTime: Date.now()});
+    showToast('Updated!', 'Your post has been edited', '✏️');
+  }
+}
+
+function deleteCommunityPost(id) {
+  if(confirm('Delete this post?')) {
+    refs.community.child(id).remove();
+    showToast('Deleted', 'Post removed successfully', '🗑️');
+  }
+}
+
+refs.community.limitToLast(30).on('value', s => {
+  const feed = $('communityFeed');
+  if(!feed) return;
+  feed.innerHTML = '';
+  const data = s.val() || {};
+  if(!Object.keys(data).length) {
+    feed.innerHTML = '<p style="color:#555;text-align:center;padding:20px">No posts yet. Be the first! 🚀</p>';
+    return;
+  }
+  Object.keys(data).reverse().forEach(k => {
+    const p = data[k];
+    const t = new Date(p.time).toLocaleString();
+    const edited = p.edited ? ' (edited)' : '';
+    feed.innerHTML += `
+      <div class="post" id="post_${k}">
+        <div class="head">
+          <span class="name">${esc(p.name)}</span>
+          <span class="post-time">${t}${edited}</span>
+        </div>
+        <div class="body" id="postBody_${k}">${esc(p.msg)}</div>
+        <div class="actions">
+          <button class="edit-btn" onclick="editCommunityPost('${k}','${esc(p.msg)}')">✏️ Edit</button>
+          <button class="del-btn" onclick="deleteCommunityPost('${k}')">🗑️ Delete</button>
+        </div>
+      </div>
+    `;
+  });
 });
 
-function simulateDownload(element) {
-    console.log("Config payload deployment initialized redirect to:", element.href);
+// ===== REPORT =====
+function submitReport() {
+  const name = $('reportName').value.trim() || 'Anonymous';
+  const phone = $('reportPhone').value.trim() || 'Not provided';
+  const type = $('reportType').value;
+  const msg = $('reportMsg').value.trim();
+  if(!msg) { showToast('Error', 'Please describe the issue', '❌'); return; }
+  const typeLabels = {
+    'malicious': '🚫 Malicious Config',
+    'spam': '📢 Spam',
+    'harassment': '😡 Harassment',
+    'broken': '🔗 Broken Link',
+    'other': '❓ Other'
+  };
+  const reportData = { 
+    name, 
+    phone, 
+    type, 
+    typeLabel: typeLabels[type], 
+    message: msg, 
+    time: Date.now(), 
+    status: 'pending',
+    read: false
+  };
+  refs.reports.push(reportData).then((newRef) => {
+    sendWhatsAppReport(reportData);
+    $('reportMsg').value = '';
+    $('reportName').value = '';
+    $('reportPhone').value = '';
+    showToast('Report Sent!', 'Sent to all 3 WhatsApp numbers', '✅');
+  }).catch(err => { showToast('Error', 'Failed to submit report', '❌'); console.error(err); });
 }
 
-function addComment(configKey) {
-    const inputEl = document.getElementById(`input-${configKey}`);
-    const commentContainer = document.getElementById(`comments-${configKey}`);
-    if(!inputEl || !inputEl.value.trim()) return;
-    
-    const commDiv = document.createElement('div');
-    commDiv.className = 'comment';
-    commDiv.innerText = inputEl.value;
-    commentContainer.appendChild(commDiv);
-    inputEl.value = '';
+function sendWhatsAppReport(data) {
+  // CORRECTED: WhatsApp numbers with country code 27, no spaces
+  const numbers = [
+    '27766890045',
+    '27622686991',
+    '27602225117'
+  ];
+  const timestamp = new Date(data.time).toLocaleString();
+  const message = `🚨 *NEW REPORT FROM TRELUX SITE* 🚨
+  
+📋 *Report Type:* ${data.typeLabel}
+👤 *From:* ${data.name}
+📱 *Phone:* ${data.phone}
+📝 *Message:* ${data.message}
+🕐 *Time:* ${timestamp}
+  
+⚠️ *Action Required:* Please review this report.`;
+  const encodedMsg = encodeURIComponent(message);
+  numbers.forEach((num, index) => {
+    const waUrl = `https://wa.me/${num}?text=${encodedMsg}`;
+    if(index === 0) { window.open(waUrl, '_blank'); }
+    else { setTimeout(() => { window.open(waUrl, '_blank'); }, 500 * (index + 1)); }
+  });
 }
 
-// ==========================================
-// 7. DYNAMIC SQUAD MEMBERS MANAGEMENT
-// ==========================================
-function loadSquadMembers() {
-    squadMembersRef.on('value', snapshot => {
-        const members = snapshot.val() || {};
-        
-        // Update dynamic list in squad page
-        const squadListContainer = document.getElementById('dynamic-squad-members-list');
-        if(squadListContainer) {
-            squadListContainer.innerHTML = '<h4 style="color:var(--neon); margin-bottom:10px;">👥 Active Squad Members:</h4>';
-            Object.keys(members).forEach(key => {
-                squadListContainer.innerHTML += `<div class="squad-member-display">⚡ ${escapeHtml(members[key].name)}</div>`;
-            });
-            if(Object.keys(members).length === 0) {
-                squadListContainer.innerHTML += '<div class="squad-member-display" style="color:var(--muted);">No members yet. Add them via Owner Panel.</div>';
-            }
-        }
-        
-        // Update current members list in owner panel
-        const currentMembersDiv = document.getElementById('current-members-list');
-        if(currentMembersDiv) {
-            if(Object.keys(members).length > 0) {
-                currentMembersDiv.innerHTML = '<h4 style="color:var(--green); margin-top:15px;">📋 Current Squad Members:</h4><div class="member-list">';
-                Object.keys(members).forEach(key => {
-                    currentMembersDiv.innerHTML += `
-                        <div class="member-item">
-                            <span class="member-name">⚡ ${escapeHtml(members[key].name)}</span>
-                            <span style="color:var(--muted); font-size:0.8rem;">Key: ${escapeHtml(key)}</span>
-                        </div>
-                    `;
-                });
-                currentMembersDiv.innerHTML += '</div>';
-            } else {
-                currentMembersDiv.innerHTML = '<p style="color:var(--muted); margin-top:15px;">No squad members yet.</p>';
-            }
-        }
-        
-        // Update removal list
-        const removalListDiv = document.getElementById('member-list-for-removal');
-        if(removalListDiv) {
-            removalListDiv.innerHTML = '';
-            Object.keys(members).forEach(key => {
-                removalListDiv.innerHTML += `
-                    <div class="member-item">
-                        <span class="member-name">${escapeHtml(members[key].name)}</span>
-                        <button class="remove-member-btn" onclick="removeSpecificMember('${key}')">Remove</button>
-                    </div>
-                `;
-            });
-            if(Object.keys(members).length === 0) {
-                removalListDiv.innerHTML = '<p style="color:var(--muted);">No members to remove.</p>';
-            }
-        }
-        
-        // Update the global SQUAD_KEYS_MATRIX equivalent for authentication
-        window.activeSquadKeys = members;
-    });
+// Resolve report (mark as resolved)
+function resolveReport(id) {
+  if(confirm('Mark this report as resolved?')) {
+    refs.reports.child(id).update({ status: 'resolved' });
+    showToast('Resolved!', 'Report marked as resolved', '✅');
+  }
 }
 
-function addSquadMember() {
-    const name = document.getElementById('new-squad-name').value.trim();
-    const pass = document.getElementById('new-squad-pass').value.trim();
-
-    if (!name || !pass) {
-        alert("Fill in all fields.");
-        return;
-    }
-
-    squadMembersRef.child(pass).set({
-        name: name,
-        key: pass,
-        timestamp: Date.now()
-    }).then(() => {
-        alert("Member added successfully!");
-        document.getElementById('new-squad-name').value = '';
-        document.getElementById('new-squad-pass').value = '';
-    }).catch(err => {
-        alert("Error: " + err.message);
-    });
+// Delete report
+function deleteReport(id) {
+  if(confirm('Delete this report?')) {
+    refs.reports.child(id).remove();
+    showToast('Deleted', 'Report removed', '🗑️');
+  }
 }
 
-function showRemoveMemberUI() {
-    const selector = document.getElementById('remove-member-selector');
-    if(selector.style.display === 'none') {
-        selector.style.display = 'block';
-        loadSquadMembers(); // Refresh list
-    } else {
-        selector.style.display = 'none';
-    }
-}
-
-function removeSpecificMember(passKey) {
-    if(confirm("Are you sure you want to remove this member?")) {
-        squadMembersRef.child(passKey).remove()
-            .then(() => {
-                alert("Member removed successfully.");
-                document.getElementById('remove-member-selector').style.display = 'none';
-            })
-            .catch(err => alert("Error: " + err.message));
-    }
-}
-
-function removeSquadMember() {
-    const pass = document.getElementById('new-squad-pass').value.trim();
-    if(!pass) {
-        alert("Enter a member key to remove.");
-        return;
-    }
-    
-    if(confirm("Remove member with key: " + pass + "?")) {
-        squadMembersRef.child(pass).remove()
-            .then(() => {
-                alert("Member removed successfully.");
-                document.getElementById('new-squad-pass').value = '';
-            })
-            .catch(err => alert("Error: " + err.message));
-    }
-}
-
-// ==========================================
-// 8. SQUAD AUTHENTICATION (UPDATED)
-// ==========================================
-function checkSquadPassword() {
-    const passwordInput = document.getElementById('squad-password').value.trim();
-    
-    squadMembersRef.child(passwordInput).once('value', snapshot => {
-        const member = snapshot.val();
-        if(member) {
-            activeSquadUser = member.name;
-            document.getElementById('squad-login').style.display = 'none';
-            document.getElementById('squad-content').style.display = 'block';
-            alert("ACCESS GRANTED: Welcome back " + activeSquadUser);
-            initializeSquadSynchronizations();
-        } else {
-            alert("ACCESS DENIED: Invalid squad key.");
-        }
-    });
-}
-
-function showSquadPage() {
-    showPage('squad-page');
-}
-
-function initializeSquadSynchronizations() {
-    squadChatRef.limitToLast(50).on('value', snapshot => {
-        const chatBox = document.getElementById('chat-box');
-        if(!chatBox) return;
-        chatBox.innerHTML = '';
-        
-        const messages = snapshot.val();
-        if(!messages) return;
-        
-        Object.keys(messages).forEach(key => {
-            const msg = messages[key];
-            const dateObj = new Date(msg.timestamp);
-            const timeString = dateObj.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-            
-            let replyBlockHTML = '';
-            if (msg.replyTo) {
-                replyBlockHTML = `
-                    <div style="background: rgba(0,0,0,0.2); border-left: 2px solid var(--blue); padding: 4px 8px; margin-bottom: 6px; font-size: 0.8rem; color: var(--muted);">
-                        🔄 Replying to <strong>${escapeHtml(msg.replyTo.sender)}</strong>: "${escapeHtml(msg.replyTo.text)}"
-                    </div>
-                `;
-            }
-
-            const msgHtml = `
-                <div class="chat-message" style="max-width:90%;">
-                    ${replyBlockHTML}
-                    <strong style="color:var(--neon);">${escapeHtml(msg.sender)}:</strong> 
-                    <span>${escapeHtml(msg.text)}</span>
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:4px;">
-                        <span class="time">${timeString}</span>
-                        <button onclick="setSquadReply('${escapeHtml(msg.sender)}', '${escapeHtml(msg.text)}')" style="background:none; border:none; color:var(--blue); font-size:0.75rem; cursor:pointer; padding:2px 6px;">Reply</button>
-                    </div>
-                </div>
-            `;
-            chatBox.innerHTML += msgHtml;
-        });
-        chatBox.scrollTop = chatBox.scrollHeight;
-    });
-}
-
-function setSquadReply(sender, text) {
-    currentReplyTarget = { sender: sender, text: text };
-    document.getElementById('squad-reply-target-text').innerText = sender + ': "' + text + '"';
-    document.getElementById('squad-reply-box').style.display = 'block';
-    document.getElementById('chat-input').focus();
-}
-
-function cancelSquadReply() {
-    currentReplyTarget = null;
-    document.getElementById('squad-reply-box').style.display = 'none';
-}
-
-function sendChatMessage() {
-    const chatInput = document.getElementById('chat-input');
-    const msgText = chatInput.value.trim();
-    if(!msgText || !activeSquadUser) return;
-    
-    const payload = {
-        sender: activeSquadUser,
-        text: msgText,
-        timestamp: Date.now()
-    };
-
-    if (currentReplyTarget) {
-        payload.replyTo = currentReplyTarget;
-    }
-    
-    squadChatRef.push(payload).then(() => {
-        chatInput.value = '';
-        cancelSquadReply();
-    }).catch(err => {
-        alert("Squad Message Failed to Sync: " + err.message);
-    });
-}
-
-document.getElementById('chat-input')?.addEventListener('keypress', function(e) {
-    if(e.key === 'Enter') {
-        sendChatMessage();
-    }
+// Report stats and list
+refs.reports.on('value', s => {
+  const data = s.val() || {};
+  const total = Object.keys(data).length;
+  let pending = 0, resolved = 0;
+  
+  Object.keys(data).forEach(k => {
+    if(data[k].status === 'pending') pending++;
+    if(data[k].status === 'resolved') resolved++;
+  });
+  
+  const totalEl = $('totalReports');
+  const pendingEl = $('pendingReports');
+  const resolvedEl = $('resolvedReports');
+  if(totalEl) totalEl.textContent = total;
+  if(pendingEl) pendingEl.textContent = pending;
+  if(resolvedEl) resolvedEl.textContent = resolved;
+  
+  // Render report list
+  const list = $('reportList');
+  if(!list) return;
+  list.innerHTML = '';
+  if(total === 0) {
+    list.innerHTML = '<p style="color:#555;text-align:center;padding:20px">No reports yet</p>';
+    return;
+  }
+  Object.keys(data).reverse().forEach(k => {
+    const r = data[k];
+    const time = new Date(r.time).toLocaleString();
+    const isResolved = r.status === 'resolved';
+    list.innerHTML += `
+      <div class="report-item ${isResolved ? 'resolved' : ''}">
+        <div class="info">
+          <div class="type">${r.typeLabel || 'Report'}</div>
+          <div class="msg">${esc(r.message).substring(0, 80)}${r.message.length > 80 ? '...' : ''}</div>
+          <div class="from">👤 ${esc(r.name)} · 📱 ${esc(r.phone)} · ${time} ${isResolved ? '✅ Resolved' : '⏳ Pending'}</div>
+        </div>
+        <div class="actions">
+          ${!isResolved ? `<button class="resolve-btn" onclick="resolveReport('${k}')">✅ Resolve</button>` : ''}
+          <button class="delete-btn" onclick="deleteReport('${k}')">🗑️ Delete</button>
+        </div>
+      </div>
+    `;
+  });
 });
 
-function postSquadConfig() {
-    const name = document.getElementById('new-config-name').value.trim();
-    const desc = document.getElementById('new-config-desc').value.trim();
-    const link = document.getElementById('new-config-link').value.trim();
-    
-    if(!name || !link) {
-        alert("Configuration operational fields missing parameters.");
-        return;
-    }
-    
-    squadConfigRef.push({
-        configName: name,
-        configDesc: desc,
-        downloadLink: link,
-        timestamp: Date.now()
-    }).then(() => {
-        alert("Operational deployment successful: Config broadcasted to database layer.");
-        document.getElementById('new-config-name').value = '';
-        document.getElementById('new-config-desc').value = '';
-        document.getElementById('new-config-link').value = '';
-    });
+// ===== PANEL =====
+function verifyPanel() {
+  const pass = $('panelPass').value.trim();
+  if(pass === 'Legends') {
+    $('panelLogin').style.display = 'none';
+    $('panelContent').style.display = 'block';
+    isPanelOpen = true;
+    showToast('Access Granted', 'Welcome to the Owner Panel', '🔓');
+  } else {
+    showToast('Access Denied', 'Invalid password', '❌');
+  }
 }
 
-squadConfigRef.on('value', snapshot => {
-    const container = document.getElementById('firebase-configs-container');
-    if(!container) return;
-    container.innerHTML = '';
-    
-    const configs = snapshot.val();
-    if(!configs) return;
-    
-    Object.keys(configs).reverse().forEach(key => {
-        const conf = configs[key];
-        const dateObj = new Date(conf.timestamp || Date.now());
-        const dateString = dateObj.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
-        
-        const configHTML = `
-            <div class="config-box" data-search="${escapeHtml(conf.configName)}">
-                <h3>👑 ${escapeHtml(conf.configName)} [SQUAD EXP]</h3>
-                <p>${escapeHtml(conf.configDesc || 'Exclusive connection asset shared via database connection layers.')}</p>
-                <p style="color:#ffd700;font-weight:bold;">↗️ File Type: DYNAMIC</p>
-                <p style="color:#00bfff;">🇦🇶 Posted: ${dateString}</p>
-                <a class="download-btn" href="${escapeHtml(conf.downloadLink)}" target="_blank" onclick="increaseDownload('${key}'); simulateDownload(this)">⬇ Download File</a>
-                <div class="config-actions">  
-                    <button class="action-btn">⬇ Downloads: <span id="downloads-${key}">0</span></button>  
-                    <button class="action-btn" onclick="likeConfig('${key}')" style="color: var(--danger);">❤ Likes: <span id="likes-${key}">0</span></button>
-                </div>  
-                <input type="text" class="comment-input" id="input-${key}" placeholder="Write a comment...">  
-                <button class="comment-btn" onclick="addComment('${key}')">Post</button>  
-                <div id="comments-${key}"></div>  
-            </div>
-        `;
-        container.innerHTML += configHTML;
-    });
-    
-    downloadsRef.once('value', s => {
-        const d = s.val() || {};
-        Object.keys(d).forEach(k => { const el = document.getElementById(`downloads-${k}`); if(el) el.innerText = d[k]; });
-    });
-    likesRef.once('value', s => {
-        const l = s.val() || {};
-        Object.keys(l).forEach(k => { const el = document.getElementById(`likes-${k}`); if(el) el.innerText = l[k]; });
-    });
+function setBroadcast() {
+  const msg = $('broadcastInput').value.trim();
+  if(!msg) return showToast('Error', 'Type a message', '❌');
+  refs.broadcast.set({msg, time:Date.now()});
+  $('broadcastInput').value = '';
+  showToast('Broadcast Deployed', 'Message sent to home page', '📡');
+}
+
+refs.broadcast.on('value', s => {
+  const data = s.val();
+  const banner = $('broadcastBanner');
+  const msg = $('broadcastMsg');
+  if(data && data.msg) {
+    banner.classList.add('show');
+    msg.textContent = data.msg;
+  } else {
+    banner.classList.remove('show');
+  }
 });
 
-// ==========================================
-// 9. GLOBAL PUBLIC COMMUNITY BOARD STREAM
-// ==========================================
-function setCommunityReply(id,name,text){
-    currentCommunityReply={postId:id,sender:name,text:text};
-    document.getElementById('community-reply-box').style.display='block';
-    document.getElementById('community-reply-text').innerText=name + ': ' + text;
+function uploadConfig() {
+  const title = $('confTitle').value.trim();
+  const type = $('confType').value.trim();
+  const link = $('confLink').value.trim();
+  if(!title || !type || !link) return showToast('Error', 'Fill all fields', '❌');
+  refs.publicConfigs.push({title, type, link, time:Date.now()});
+  $('confTitle').value = '';
+  $('confType').value = '';
+  $('confLink').value = '';
+  showToast('Config Published', 'File is now available to users', '📦');
 }
 
-function cancelCommunityReply(){
-    currentCommunityReply=null;
-    document.getElementById('community-reply-box').style.display='none';
+function deleteAllConfigs() {
+  if(confirm('Delete ALL public configs?')) {
+    refs.publicConfigs.remove().then(() => showToast('Deleted', 'All configs removed', '🗑'));
+  }
 }
 
-function submitCommunityPost() {
-    const nameInput = document.getElementById('com-name-input');
-    const msgInput = document.getElementById('com-msg-input');
-    
-    const name = nameInput.value.trim() || "Anonymous Rebel";
-    const message = msgInput.value.trim();
-    
-    if(!message) {
-        alert("Transmission payload content cannot be empty.");
-        return;
-    }
-    
-    const payload = {
-        username: name,
-        bodyText: message,
-        timestamp: Date.now()
-    };
-
-    if(currentCommunityReply){
-        payload.replyTo = currentCommunityReply;
-    }
-
-    communityRef.push(payload).then(() => {
-        msgInput.value = '';
-        cancelCommunityReply();
-    }).catch(err => {
-        alert("Database execution dropped: " + err.message);
-    });
+function clearAllData() {
+  if(confirm('⚠️ Wipe ALL data? This cannot be undone!')) {
+    refs.publicConfigs.remove();
+    refs.community.remove();
+    refs.broadcast.remove();
+    refs.downloads.remove();
+    refs.likes.remove();
+    refs.reports.remove();
+    showToast('Data Wiped', 'All data has been cleared', '💀');
+  }
 }
 
-communityRef.limitToLast(40).on('value', snapshot => {
-    const feedContainer = document.getElementById('community-feed');
-    if(!feedContainer) return;
-    feedContainer.innerHTML = '';
-    
-    const data = snapshot.val();
-    if(!data) {
-        feedContainer.innerHTML = `<p style="color:var(--muted); text-align:center;">No broadcast signals detected in this sector.</p>`;
-        return;
+document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('click', (e) => {
+    const sidebar = document.getElementById('sidebar');
+    const toggle = document.querySelector('.menu-toggle');
+    if(window.innerWidth <= 768 && sidebar.classList.contains('open') && !sidebar.contains(e.target) && !toggle.contains(e.target)) {
+      sidebar.classList.remove('open');
     }
-    
-    Object.keys(data).reverse().forEach(key => {
-        const item = data[key];
-        const dateObj = new Date(item.timestamp);
-        const timeString = dateObj.toLocaleDateString() + ' ' + dateObj.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-        
-        let replyHTML='';
-        if(item.replyTo){
-            replyHTML=`<div style="background:#0b1320;padding:8px;border-left:3px solid #00bfff;margin-bottom:8px;font-size:.8rem;">
-            ↩ Reply to <b>${escapeHtml(item.replyTo.sender)}</b><br>${escapeHtml(item.replyTo.text)}</div>`;
-        }
-
-        const postHTML = `
-            <div class="post-card">
-                <div class="post-header">
-                    <span class="post-user">⚡ ${escapeHtml(item.username)}</span>
-                    <span class="post-time">${timeString}</span>
-                </div>
-                ${replyHTML}
-                <div class="post-body">${escapeHtml(item.bodyText)}</div>
-                <div style="margin-top:10px;">
-                    <button onclick="setCommunityReply('${key}','${escapeHtml(item.username)}','${escapeHtml(item.bodyText)}')" style="background:none;border:none;color:#00bfff;cursor:pointer;margin-right:10px;">↩ Reply</button>
-                    <button onclick="editCommunityPost('${key}')" style="background:none;border:none;color:var(--gold);cursor:pointer;margin-right:10px;">✏ Edit</button>
-                    <button onclick="deleteCommunityPost('${key}')" style="background:none;border:none;color:var(--danger);cursor:pointer;">🗑 Delete</button>
-                </div>
-            </div>
-        `;
-        feedContainer.innerHTML += postHTML;
-    });
+  });
 });
-
-function editCommunityPost(key) {
-    const newText = prompt("Enter new message:");
-    if(newText) communityRef.child(key).update({bodyText: newText});
-}
-
-function deleteCommunityPost(key) {
-    const pass = prompt("Owner authentication required for deletion:");
-    if(pass === "Four Seven" || pass === "four seven") {
-        communityRef.child(key).remove();
-    } else {
-        alert("Unauthorized.");
-    }
-}
-
-// ==========================================
-// 10. OWNER PANEL LOGIC
-// ==========================================
-function verifyOwnerIdentity() {
-    const systemPass = document.getElementById('owner-system-key').value;
-    if(systemPass === "Four Seven" || systemPass === "four seven") {
-        document.getElementById('owner-login-box').style.display = 'none';
-        document.getElementById('owner-terminal-content').style.display = 'block';
-        loadSquadMembers(); // Load members when owner panel opens
-    } else {
-        alert("CRITICAL ERROR: Unauthorized system access denied.");
-    }
-}
-
-function deployOwnerBroadcast() {
-    const msg = document.getElementById('owner-broadcast-input').value.trim();
-    ownerBroadcastRef.set({
-        messageText: msg,
-        timestamp: Date.now()
-    }).then(() => {
-        alert("Broadcast array successfully pushed to home screen banner cloud execution layers.");
-    });
-}
-
-function deployOwnerPublicConfig() {
-    const title = document.getElementById('owner-file-name').value.trim();
-    const type = document.getElementById('owner-file-type').value.trim();
-    const desc = document.getElementById('owner-file-desc').value.trim();
-    const URL = document.getElementById('owner-file-link').value.trim();
-
-    if(!title || !type || !URL) {
-        alert("Operation aborted: Missing required configuration metadata parameter arrays.");
-        return;
-    }
-
-    ownerPublicConfigsRef.push({
-        title: title,
-        type: type,
-        description: desc,
-        link: URL,
-        timestamp: Date.now()
-    }).then(() => {
-        alert("Live file injection completed. Synced directly to user downloads index module.");
-        document.getElementById('owner-file-name').value = '';
-        document.getElementById('owner-file-type').value = '';
-        document.getElementById('owner-file-desc').value = '';
-        document.getElementById('owner-file-link').value = '';
-    });
-}
-
-ownerBroadcastRef.on('value', snapshot => {
-    const banner = document.getElementById('owner-broadcast-banner');
-    const bText = document.getElementById('broadcast-text');
-    const data = snapshot.val();
-
-    if(data && data.messageText) {
-        banner.style.display = 'block';
-        bText.innerText = data.messageText;
-    } else {
-        banner.style.display = 'none';
-    }
-});
-
-ownerPublicConfigsRef.on('value', snapshot => {
-    const container = document.getElementById('owner-public-configs-container');
-    if(!container) return;
-    container.innerHTML = '';
-
-    const files = snapshot.val();
-    if(!files) return;
-
-    Object.keys(files).reverse().forEach(key => {
-        const file = files[key];
-        const dateObj = new Date(file.timestamp || Date.now());
-        const dateString = dateObj.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
-
-        const boxHTML = `
-            <div class="config-box" data-search="${escapeHtml(file.title)} ${escapeHtml(file.type)}">
-                <h3 style="color:var(--neon);">☠️ ${escapeHtml(file.title)}</h3>
-                <p>${escapeHtml(file.description || 'Verified direct connection asset distributed by admin terminal protocols.')}</p>
-                <p style="color:#ffd700;font-weight:bold;">↗️ File Type: ${escapeHtml(file.type)}</p>
-                <p style="color:#00bfff;">🇦🇶 Posted: ${dateString} [BY OWNER]</p>
-                <a class="download-btn" href="${escapeHtml(file.link)}" target="_blank" onclick="increaseDownload('${key}'); simulateDownload(this)">⬇ Download File</a>
-                <div class="config-actions">  
-                    <button class="action-btn">⬇ Downloads: <span id="downloads-${key}">0</span></button>  
-                    <button class="action-btn" onclick="likeConfig('${key}')" style="color: var(--danger);">❤ Likes: <span id="likes-${key}">0</span></button>
-                    <button class="action-btn" onclick="deleteOwnerConfig('${key}')" style="color: var(--danger); border-color: var(--danger);">🗑 Delete</button>
-                </div>  
-                <input type="text" class="comment-input" id="input-${key}" placeholder="Write a comment...">  
-                <button class="comment-btn" onclick="addComment('${key}')">Post</button>  
-                <div id="comments-${key}"></div>  
-            </div>
-        `;
-        container.innerHTML += boxHTML;
-    });
-
-    downloadsRef.once('value', s => {
-        const d = s.val() || {};
-        Object.keys(d).forEach(k => { const el = document.getElementById(`downloads-${k}`); if(el) el.innerText = d[k]; });
-    });
-    likesRef.once('value', s => {
-        const l = s.val() || {};
-        Object.keys(l).forEach(k => { const el = document.getElementById(`likes-${k}`); if(el) el.innerText = l[k]; });
-    });
-});
-
-function escapeHtml(str) {
-    if(!str) return '';
-    return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
-}
-
-// Load squad members on page load
-loadSquadMembers();
-
-// Re-initialize ads after dynamic content loads
-setTimeout(() => {
-    if(window.adsbygoogle) {
-        (adsbygoogle = window.adsbygoogle || []).push({});
-    }
-}, 1500);
 </script>
 </body>
 </html>
