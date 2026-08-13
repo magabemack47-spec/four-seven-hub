@@ -249,22 +249,45 @@
     /* ===== COMMUNITY POSTS ===== */
     .post{
       background:rgba(15,15,25,.6);border-radius:14px;padding:16px;margin-bottom:12px;
-      border-left:3px solid #7c6aff;transition:.3s
+      border-left:3px solid #7c6aff;transition:.3s;
+      position:relative;
     }
     .post:hover{background:rgba(20,20,35,.6)}
-    .post .head{display:flex;justify-content:space-between;font-size:.85rem;color:#888;margin-bottom:6px}
+    .post .head{display:flex;justify-content:space-between;font-size:.85rem;color:#888;margin-bottom:6px;flex-wrap:wrap;gap:4px}
     .post .head .name{color:#7c6aff;font-weight:600}
+    .post .head .name .reply-to{color:#555;font-weight:400;font-size:.75rem}
+    .post .head .name .reply-to span{color:#ffd700}
     .post .body{color:#ddd;line-height:1.6;word-break:break-word}
-    .post .actions{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
-    .post .actions button{background:none;border:none;color:#666;cursor:pointer;padding:4px 8px;border-radius:6px;transition:.3s;font-size:.8rem}
+    .post .body .reply-content{
+      background:rgba(0,0,0,0.2);
+      padding:8px 12px;
+      border-radius:8px;
+      margin-bottom:8px;
+      border-left:2px solid #7c6aff;
+      font-size:.85rem;
+      color:#999;
+    }
+    .post .body .reply-content .reply-sender{color:#7c6aff;font-weight:600}
+    .post .actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+    .post .actions button{background:none;border:none;color:#666;cursor:pointer;padding:4px 8px;border-radius:6px;transition:.3s;font-size:.75rem}
     .post .actions button:hover{background:rgba(255,255,255,.05);color:#fff}
+    .post .actions .reply-btn{color:#00bfff}
+    .post .actions .reply-btn:hover{color:#4dc3ff}
     .post .actions .edit-btn{color:#7c6aff}
     .post .actions .edit-btn:hover{color:#9b8aff}
     .post .actions .del-btn{color:#ff6b6b}
     .post .actions .del-btn:hover{color:#ff8a8a}
     .post .post-time{color:#555;font-size:.75rem}
+    .post .post-id{color:#333;font-size:.6rem;font-family:monospace}
     .post.pending{border-left-color:#ffc107;opacity:0.7}
     .post .approve-badge{background:rgba(255,200,50,.15);color:#ffc107;padding:2px 10px;border-radius:12px;font-size:.7rem}
+    .post .reply-indicator{
+      background:rgba(0,191,255,0.1);
+      padding:4px 12px;
+      border-radius:12px;
+      font-size:.65rem;
+      color:#00bfff;
+    }
     
     .toast{position:fixed;bottom:30px;right:30px;z-index:999;background:rgba(10,10,15,.95);backdrop-filter:blur(10px);border:1px solid rgba(37,211,102,.3);border-radius:14px;padding:16px 24px;color:#fff;font-size:.9rem;transform:translateY(100px);opacity:0;transition:.4s ease;max-width:400px}
     .toast.show{transform:translateY(0);opacity:1}
@@ -296,6 +319,7 @@
     .password-box .btn-group .cancel-btn{background:rgba(255,255,255,.05);color:#aaa}
     .password-box .video-container{width:100%;max-width:200px;margin:0 auto 12px;border-radius:12px;overflow:hidden;border:2px solid rgba(255,50,50,0.3);position:relative}
     .password-box .video-container video{width:100%;display:block;transform:scaleX(-1)}
+    .password-box .video-container .cam-label{position:absolute;bottom:4px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.7);padding:2px 12px;border-radius:10px;font-size:.6rem;color:#ff6b6b}
     .password-box .attempts{color:#ff6b6b;font-size:.8rem;margin-top:8px;display:none}
     
     .alert-item{background:rgba(255,50,50,0.1);border:1px solid rgba(255,50,50,0.3);border-radius:10px;padding:14px;margin-bottom:10px;display:flex;gap:12px;align-items:flex-start}
@@ -304,8 +328,9 @@
     .alert-item .alert-content .alert-title{color:#ff6b6b;font-weight:700;font-size:.9rem}
     .alert-item .alert-content .alert-detail{color:#999;font-size:.8rem;margin:4px 0}
     .alert-item .alert-content .alert-time{color:#555;font-size:.7rem}
-    .alert-item .alert-image{width:80px;height:80px;border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.1);flex-shrink:0}
+    .alert-item .alert-image{width:80px;height:80px;border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.1);flex-shrink:0;background:rgba(255,50,50,0.1);display:flex;align-items:center;justify-content:center}
     .alert-item .alert-image img{width:100%;height:100%;object-fit:cover}
+    .alert-item .alert-image .no-image{font-size:2rem;color:#555}
     
     .rules-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
     @media(max-width:768px){.rules-grid{grid-template-columns:1fr}}
@@ -351,13 +376,13 @@
     .search-wrap input::placeholder{color:#555}
     
     /* Leaderboard styles */
-    .leaderboard-item{display:flex;justify-content:space-between;padding:8px 12px;background:rgba(10,10,18,.4);border-radius:6px;margin-bottom:4px}
-    .leaderboard-item .rank{color:#7c6aff;font-weight:700;width:30px}
-    .leaderboard-item .name{color:#fff;flex:1}
-    .leaderboard-item .count{color:#ffd700;font-weight:600}
-    .leaderboard-item.top1{background:rgba(255,215,0,.1);border:1px solid rgba(255,215,0,.2)}
-    .leaderboard-item.top2{background:rgba(192,192,192,.1);border:1px solid rgba(192,192,192,.2)}
-    .leaderboard-item.top3{background:rgba(205,127,50,.1);border:1px solid rgba(205,127,50,.2)}
+    .leaderboard-item{display:flex;justify-content:space-between;padding:8px 12px;background:rgba(10,10,18,.4);border-radius:6px;margin-bottom:4px;align-items:center}
+    .leaderboard-item .rank{color:#7c6aff;font-weight:700;width:35px;font-size:.85rem}
+    .leaderboard-item .name{color:#fff;flex:1;font-size:.85rem;word-break:break-all}
+    .leaderboard-item .count{color:#ffd700;font-weight:600;font-size:.85rem;white-space:nowrap}
+    .leaderboard-item.top1{background:rgba(255,215,0,.12);border:1px solid rgba(255,215,0,.2)}
+    .leaderboard-item.top2{background:rgba(192,192,192,.08);border:1px solid rgba(192,192,192,.15)}
+    .leaderboard-item.top3{background:rgba(205,127,50,.08);border:1px solid rgba(205,127,50,.15)}
     
     .bulk-actions{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0;padding:12px;background:rgba(10,10,18,.6);border-radius:10px;align-items:center}
     .bulk-actions .bulk-label{color:#999;font-size:.8rem;margin-right:8px}
@@ -375,6 +400,10 @@
     .log-item .log-time{color:#555;font-size:.7rem}
     .log-item .log-user{color:#7c6aff;font-weight:600}
     .log-item .log-action{color:#ddd}
+    
+    .reply-box{display:none;background:rgba(0,191,255,.05);border-left:3px solid #00bfff;padding:8px 12px;margin-bottom:8px;border-radius:6px;font-size:.85rem;color:#999}
+    .reply-box .reply-target{color:#00bfff;font-weight:600}
+    .reply-box .cancel-reply{float:right;background:none;border:none;color:#ff6b6b;cursor:pointer;font-weight:700}
   </style>
 </head>
 <body>
@@ -404,13 +433,13 @@
 <!-- ===== LEFT SIDEBAR ===== -->
 <div class="sidebar" id="sidebar">
   <div class="brand">TRELUX <span>NeT-SiTe</span></div>
-  <button class="side-link active" onclick="showPage('home')"><span class="icon">🏠</span> Home</button>
-  <button class="side-link" onclick="showPage('configs')"><span class="icon">📥</span> Configs</button>
-  <button class="side-link" onclick="showPage('configfiles')"><span class="icon">📂</span> Config Files</button>
+  <button class="side-link active" onclick="showPage('home')"><span class="icon">🌐</span> Home</button>
+  <button class="side-link" onclick="showPage('configs')"><span class="icon">⬇️</span> Configs</button>
+  <button class="side-link" onclick="showPage('configfiles')"><span class="icon">⤵️</span> Config Files</button>
   <button class="side-link" onclick="showPage('community')"><span class="icon">💬</span> Community</button>
   <button class="side-link" onclick="showPage('rules')"><span class="icon">📜</span> Rules</button>
   <button class="side-link" onclick="showPage('report')"><span class="icon">🚨</span> Report</button>
-  <button class="side-link" onclick="showPage('proff')" style="color:#ffd700"><span class="icon">🖼️</span> Proff</button>
+  <button class="side-link" onclick="showPage('proff')" style="color:#ffd700"><span class="icon">🌍</span></span> Proff</button>
   <a href="https://github.com/magabemack47-spec/four-seven-hub" target="_blank" class="side-link github-link"><span class="icon">🐙</span> GitHub</a>
   <button class="side-link" onclick="showPage('panel')" style="color:#7c6aff;border-top:1px solid rgba(255,255,255,0.05);margin-top:8px;padding-top:12px"><span class="icon">⚡</span> Panel</button>
 </div>
@@ -422,7 +451,7 @@
     <p>Enter the admin password to perform this action</p>
     <div class="video-container" id="cameraContainer">
       <video id="cameraPreview" autoplay playsinline></video>
-      <div class="cam-label">📸 SECURITY CAMERA</div>
+      <div class="cam-label">👁️ SECURITY CAMERA</div>
     </div>
     <input type="password" id="passwordInput" placeholder="Enter password..." onkeydown="if(event.key==='Enter')confirmPassword()">
     <div class="btn-group">
@@ -452,7 +481,7 @@
   <div id="home" class="page active">
     <div class="hero"><span class="hero-icon">🌐</span><h1>TRELUX NeT-SiTe</h1><p>Premium configs · Secure community · Fast connections</p></div>
     <div class="banner" id="broadcastBanner"><div class="label">📢 Broadcast</div><div class="msg" id="broadcastMsg"></div></div>
-    <div class="card"><h2>🚀 Welcome</h2><p style="color:#999;line-height:1.8;font-size:1.05rem">TRELUX is your premium hub for network configurations and community sharing. All configs are verified and optimized for performance.</p></div>
+    <div class="card"><h2>💀 Welcome</h2><p style="color:#999;line-height:1.8;font-size:1.05rem">TRELUX is your premium hub for network configurations and community sharing. All configs are verified and optimized for performance.</p></div>
     <div class="stats">
       <div class="stat"><div class="num" id="totalVisitors">0</div><div class="label">Total Visitors</div></div>
       <div class="stat"><div class="num" id="activeUsers">0</div><div class="label">Active Now</div></div>
@@ -472,7 +501,7 @@
   <!-- ===== CONFIG FILES PAGE ===== -->
   <div id="configfiles" class="page">
     <div class="card">
-      <h2>📂 Config Files</h2>
+      <h2>⤵️ Config Files</h2>
       <p style="color:#999;margin-bottom:16px">Browse and download configuration files shared by the community.</p>
       <div class="search-wrap"><input id="searchInput" placeholder="🔍 Search config files..." oninput="filterConfigFiles()"></div>
       <div class="config-grid" id="configFilesGrid"></div>
@@ -486,7 +515,12 @@
       <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px">
         <input id="comName" placeholder="Your name..." style="flex:1;min-width:140px;padding:10px 14px;background:rgba(15,15,25,.8);border:1px solid rgba(255,255,255,.06);border-radius:10px;color:#fff;outline:none">
         <input id="comMsg" placeholder="Share something..." style="flex:2;min-width:200px;padding:10px 14px;background:rgba(15,15,25,.8);border:1px solid rgba(255,255,255,.06);border-radius:10px;color:#fff;outline:none">
-        <button class="btn btn-primary" onclick="postCommunity()">📤 Post</button>
+        <button class="btn btn-primary" onclick="postCommunity()">⤵️ Post</button>
+      </div>
+      <!-- Reply indicator -->
+      <div class="reply-box" id="replyBox">
+        <span>↩ Replying to: <span class="reply-target" id="replyTarget">User</span></span>
+        <button class="cancel-reply" onclick="cancelReply()">✕</button>
       </div>
       <div id="communityFeed"></div>
     </div>
@@ -545,7 +579,7 @@
   <!-- ===== PROFF ===== -->
   <div id="proff" class="page">
     <div class="card">
-      <h2>🖼️ Proff Gallery</h2>
+      <h2>🎦 Proff Gallery</h2>
       <p style="color:#999;margin-bottom:16px">Uploaded images from the community. All visitors can view these images.</p>
       <div class="gallery-grid" id="galleryGrid"></div>
     </div>
@@ -554,7 +588,7 @@
   <!-- ===== PANEL ===== -->
   <div id="panel" class="page">
     <div class="card">
-      <h2>⚡ Owner Panel</h2>
+      <h2>↗️ Owner Panel</h2>
 
       <div id="panelLogin">
         <p style="color:#999;margin-bottom:12px">System authentication required</p>
@@ -569,13 +603,13 @@
         <!-- FEATURE 1: Most Downloaded/Liked Configs -->
         <div class="panel-box" style="border-color:rgba(255,215,0,0.2)">
           <h4 style="color:#ffd700">🏆 Most Popular Configs</h4>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
             <div>
-              <p style="color:#999;font-size:.8rem;margin-bottom:6px">⬇ Most Downloaded</p>
+              <p style="color:#999;font-size:.85rem;margin-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.05);padding-bottom:6px">⬇ Most Downloaded</p>
               <div id="mostDownloaded"></div>
             </div>
             <div>
-              <p style="color:#999;font-size:.8rem;margin-bottom:6px">❤️ Most Liked</p>
+              <p style="color:#999;font-size:.85rem;margin-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.05);padding-bottom:6px">🔥 Most Liked</p>
               <div id="mostLiked"></div>
             </div>
           </div>
@@ -646,11 +680,11 @@
         <div class="panel-box">
           <h4>💾 Export/Backup Data</h4>
           <div style="display:flex;gap:6px;flex-wrap:wrap">
-            <button class="btn btn-sm btn-outline" onclick="exportData('configs')">📤 Export Configs</button>
-            <button class="btn btn-sm btn-outline" onclick="exportData('reports')">📤 Export Reports</button>
-            <button class="btn btn-sm btn-outline" onclick="exportData('community')">📤 Export Posts</button>
+            <button class="btn btn-sm btn-outline" onclick="exportData('configs')">↘️ Export Configs</button>
+            <button class="btn btn-sm btn-outline" onclick="exportData('reports')">↘️ Export Reports</button>
+            <button class="btn btn-sm btn-outline" onclick="exportData('community')">↘️ Export Posts</button>
             <button class="btn btn-sm btn-primary" onclick="exportData('all')">📦 Export All</button>
-            <button class="btn btn-sm btn-warning" onclick="document.getElementById('importFile').click()">📥 Import Data</button>
+            <button class="btn btn-sm btn-warning" onclick="document.getElementById('importFile').click()">↗️ Import Data</button>
             <input type="file" id="importFile" accept=".json" style="display:none" onchange="handleImport(event)">
           </div>
         </div>
@@ -711,17 +745,17 @@
           <div class="contact-list" id="contactList"></div>
         </div>
 
-        <!-- Security Alerts -->
+        <!-- SECURITY ALERTS -->
         <div class="panel-box" style="border-color:rgba(255,50,50,0.3)">
           <h4 style="color:#ff6b6b">🚨 Security Alerts</h4>
           <p style="color:#999;font-size:.8rem;margin-bottom:8px">Shows when someone enters wrong password twice - their picture is captured</p>
-          <div id="securityAlerts" style="max-height:150px;overflow-y:auto"></div>
+          <div id="securityAlerts" style="max-height:200px;overflow-y:auto"></div>
           <button class="btn btn-sm btn-outline" onclick="clearAlerts()" style="margin-top:6px">🗑 Clear All Alerts</button>
         </div>
 
-        <!-- Post Config (NEW) -->
+        <!-- Post Config -->
         <div class="panel-box" style="border-color:rgba(0,212,255,0.3)">
-          <h4 style="color:#00d4ff">📥 Post New Config (with unique ID)</h4>
+          <h4 style="color:#00d4ff">↗️ Post New Config</h4>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
             <div>
               <input type="text" id="configTitle" placeholder="Config title">
@@ -732,7 +766,7 @@
             </div>
             <div>
               <textarea id="configDescription" placeholder="Config description..." style="min-height:100px"></textarea>
-              <button class="btn btn-success btn-sm" onclick="postConfig()" style="width:100%;margin-top:8px">📤 Post Config</button>
+              <button class="btn btn-success btn-sm" onclick="postConfig()" style="width:100%;margin-top:8px">↗️ Post Config</button>
             </div>
           </div>
           <div style="margin-top:6px;padding:8px;background:rgba(10,10,18,.4);border-radius:6px">
@@ -742,7 +776,7 @@
 
         <!-- Upload Config File -->
         <div class="panel-box" style="border-color:rgba(124,106,255,0.3)">
-          <h4 style="color:#7c6aff">📂 Upload Config File</h4>
+          <h4 style="color:#7c6aff">⬇️ Upload Config File</h4>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
             <div>
               <input id="confTitle" placeholder="Config title">
@@ -750,14 +784,14 @@
             </div>
             <div>
               <input id="confLink" placeholder="Download URL">
-              <button class="btn btn-primary btn-sm" onclick="uploadConfig()" style="width:100%;margin-top:8px">🚀 Upload</button>
+              <button class="btn btn-primary btn-sm" onclick="uploadConfig()" style="width:100%;margin-top:8px"> Upload</button>
             </div>
           </div>
         </div>
 
         <!-- Upload Image -->
         <div class="panel-box" style="border-color:rgba(255,215,0,0.3)">
-          <h4 style="color:#ffd700">🖼️ Upload Image to Proff</h4>
+          <h4 style="color:#ffd700">🎦 Upload Image to Proff</h4>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
             <div>
               <input type="text" id="proffTitle" placeholder="Image title...">
@@ -771,7 +805,7 @@
                 <input type="file" id="imageInput" accept="image/*" style="display:none" onchange="handleImageUpload(event)">
               </div>
               <div style="margin-top:8px;display:flex;gap:8px">
-                <button class="btn btn-success btn-sm" onclick="uploadImageToProff()" id="uploadBtn" disabled>📤 Upload</button>
+                <button class="btn btn-success btn-sm" onclick="uploadImageToProff()" id="uploadBtn" disabled>↗️ Upload</button>
                 <button class="btn btn-outline btn-sm" onclick="clearImageForm()">Clear</button>
               </div>
               <p id="uploadStatus" style="color:#666;font-size:.75rem;margin-top:4px">Select an image first</p>
@@ -792,8 +826,8 @@
           <h4 style="color:#ff6b6b">⚠️ Danger Zone</h4>
           <div style="display:flex;gap:8px;flex-wrap:wrap">
             <button class="btn btn-danger btn-sm" onclick="deleteAllConfigs()">🗑 Delete Config Files</button>
-            <button class="btn btn-danger btn-sm" onclick="deleteAllImages()">🖼️ Delete Images</button>
-            <button class="btn btn-danger btn-sm" onclick="deleteAllPostedConfigs()">📥 Delete Posted Configs</button>
+            <button class="btn btn-danger btn-sm" onclick="deleteAllImages()">🎦 Delete Images</button>
+            <button class="btn btn-danger btn-sm" onclick="deleteAllPostedConfigs()">↗️ Delete Posted Configs</button>
             <button class="btn btn-danger btn-sm" onclick="clearAllData()">💀 Wipe All Data</button>
           </div>
         </div>
@@ -842,6 +876,7 @@ let selectedImageData = null;
 let cameraStream = null;
 let isCameraActive = false;
 let customPasswords = { panel: 'Legends', report: 'Four Seven' };
+let currentReplyTarget = null; // For community replies
 
 // ===== HELPERS =====
 function esc(s) { if(!s)return ''; return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;') }
@@ -1005,32 +1040,43 @@ trackVisitor();
 
 // ===== FEATURE 1: Most Downloaded/Liked =====
 function loadPopularConfigs() {
+  // Most Downloaded
   refs.downloads.once('value', ds => {
     const d = ds.val() || {};
     const sorted = Object.entries(d).sort((a,b) => b[1] - a[1]).slice(0,5);
     const container = $('mostDownloaded');
     if(container) {
-      container.innerHTML = sorted.length ? sorted.map(([k,v],i) => 
-        `<div class="leaderboard-item ${i===0?'top1':i===1?'top2':i===2?'top3':''}">
-          <span class="rank">#${i+1}</span>
-          <span class="name">${esc(k)}</span>
-          <span class="count">⬇ ${v}</span>
-        </div>`
-      ).join('') : '<p style="color:#555;font-size:.85rem">No downloads yet</p>';
+      if(sorted.length) {
+        container.innerHTML = sorted.map(([k,v],i) => 
+          `<div class="leaderboard-item ${i===0?'top1':i===1?'top2':i===2?'top3':''}">
+            <span class="rank">#${i+1}</span>
+            <span class="name">${esc(k)}</span>
+            <span class="count">⬇ ${v}</span>
+          </div>`
+        ).join('');
+      } else {
+        container.innerHTML = '<p style="color:#555;font-size:.85rem;text-align:center;padding:10px">No downloads yet</p>';
+      }
     }
   });
+  
+  // Most Liked
   refs.likes.once('value', ls => {
     const l = ls.val() || {};
     const sorted = Object.entries(l).sort((a,b) => (b[1].count||0) - (a[1].count||0)).slice(0,5);
     const container = $('mostLiked');
     if(container) {
-      container.innerHTML = sorted.length ? sorted.map(([k,v],i) => 
-        `<div class="leaderboard-item ${i===0?'top1':i===1?'top2':i===2?'top3':''}">
-          <span class="rank">#${i+1}</span>
-          <span class="name">${esc(k)}</span>
-          <span class="count">❤️ ${v.count||0}</span>
-        </div>`
-      ).join('') : '<p style="color:#555;font-size:.85rem">No likes yet</p>';
+      if(sorted.length) {
+        container.innerHTML = sorted.map(([k,v],i) => 
+          `<div class="leaderboard-item ${i===0?'top1':i===1?'top2':i===2?'top3':''}">
+            <span class="rank">#${i+1}</span>
+            <span class="name">${esc(k)}</span>
+            <span class="count">🔥 ${v.count||0}</span>
+          </div>`
+        ).join('');
+      } else {
+        container.innerHTML = '<p style="color:#555;font-size:.85rem;text-align:center;padding:10px">No likes yet</p>';
+      }
     }
   });
 }
@@ -1041,6 +1087,10 @@ refs.activity.limitToLast(20).on('value', s => {
   if(!container) return;
   container.innerHTML = '';
   const data = s.val() || {};
+  if(!Object.keys(data).length) {
+    container.innerHTML = '<p style="color:#555;font-size:.85rem;text-align:center;padding:10px">No activity yet</p>';
+    return;
+  }
   Object.keys(data).reverse().forEach(k => {
     const entry = data[k];
     const time = new Date(entry.time).toLocaleString();
@@ -1052,7 +1102,6 @@ refs.activity.limitToLast(20).on('value', s => {
       </div>
     `;
   });
-  if(!Object.keys(data).length) container.innerHTML = '<p style="color:#555;font-size:.85rem">No activity yet</p>';
 });
 
 function clearActivityLog() {
@@ -1088,26 +1137,6 @@ function removeFeaturedConfig() {
   }
 }
 
-refs.featured.on('value', s => {
-  const featuredKey = s.val();
-  // Update config cards to show featured badge
-  document.querySelectorAll('.config-card').forEach(card => {
-    const badge = card.querySelector('.featured-badge');
-    if(badge) badge.style.display = 'none';
-  });
-  if(featuredKey) {
-    const cards = document.querySelectorAll('.config-card');
-    // Find the featured card by matching data
-    cards.forEach(card => {
-      // Check if this card matches the featured key
-      const downloadBtn = card.querySelector('a[href]');
-      if(downloadBtn) {
-        // We'll re-render with featured badge
-      }
-    });
-  }
-});
-
 // ===== FEATURE 4: Approve Posts =====
 refs.pendingPosts.on('value', s => {
   const container = $('pendingPosts');
@@ -1115,7 +1144,7 @@ refs.pendingPosts.on('value', s => {
   container.innerHTML = '';
   const data = s.val() || {};
   if(!Object.keys(data).length) {
-    container.innerHTML = '<p style="color:#555;font-size:.85rem">No pending posts</p>';
+    container.innerHTML = '<p style="color:#555;font-size:.85rem;text-align:center;padding:10px">No pending posts</p>';
     return;
   }
   Object.keys(data).reverse().forEach(k => {
@@ -1153,19 +1182,127 @@ function rejectPendingPost(id) {
   }
 }
 
+// ===== COMMUNITY WITH REPLY SYSTEM =====
 function postCommunity() {
   const name = $('comName').value.trim() || 'Anonymous';
   const msg = $('comMsg').value.trim();
   if(!msg) { showToast('Error', 'Please type a message', '❌'); return; }
+  
+  const postData = { 
+    name: name, 
+    msg: msg, 
+    time: Date.now(),
+    userId: localStorage.getItem('trelux_vid') || 'anon_' + Date.now()
+  };
+  
+  // Check if replying
+  if (currentReplyTarget) {
+    postData.replyTo = {
+      postId: currentReplyTarget.postId,
+      sender: currentReplyTarget.sender,
+      text: currentReplyTarget.text
+    };
+    currentReplyTarget = null;
+    document.getElementById('replyBox').style.display = 'none';
+  }
+  
   const autoApprove = localStorage.getItem('autoApprove') === 'true';
   const ref = autoApprove ? refs.community : refs.pendingPosts;
-  ref.push({name, msg, time:Date.now(), approved: autoApprove});
+  ref.push(postData);
   $('comMsg').value = '';
   logActivity('Post', name);
-  showToast('Posted!', autoApprove ? 'Your message is live' : 'Pending approval', '📤');
+  showToast('Posted!', autoApprove ? 'Your message is live' : 'Pending approval', '↘️');
 }
 
-// ===== FEATURE 5: Bulk Actions =====
+function setReply(postId, sender, text) {
+  currentReplyTarget = { postId: postId, sender: sender, text: text };
+  document.getElementById('replyTarget').textContent = sender + ': "' + text.substring(0, 30) + (text.length > 30 ? '...' : '') + '"';
+  document.getElementById('replyBox').style.display = 'block';
+  document.getElementById('comMsg').focus();
+}
+
+function cancelReply() {
+  currentReplyTarget = null;
+  document.getElementById('replyBox').style.display = 'none';
+}
+
+function deleteCommunityPost(id) {
+  refs.community.child(id).remove();
+  logActivity('Delete Post', 'Post removed');
+  showToast('Deleted', 'Post removed successfully', '🗑️');
+}
+
+function editCommunityPost(id, currentMsg, postName) {
+  const currentUser = localStorage.getItem('trelux_vid') || '';
+  // Check if the current user is the sender (we store userId in post)
+  refs.community.child(id).once('value', s => {
+    const data = s.val();
+    if(!data) { showToast('Error', 'Post not found', '❌'); return; }
+    // Only allow editing if same user or admin
+    const canEdit = (data.userId === currentUser) || (currentUser.includes('v_') && data.userId === currentUser);
+    if (!canEdit) {
+      showToast('Access Denied', 'You can only edit your own messages', '❌');
+      return;
+    }
+    const newMsg = prompt('Edit your message:', currentMsg);
+    if(newMsg !== null && newMsg.trim()) {
+      refs.community.child(id).update({msg: newMsg.trim(), edited: true, editTime: Date.now()});
+      showToast('Updated!', 'Your post has been edited', '🔀');
+    }
+  });
+}
+
+refs.community.limitToLast(50).on('value', s => {
+  const feed = $('communityFeed');
+  if(!feed) return;
+  feed.innerHTML = '';
+  const data = s.val() || {};
+  if(!Object.keys(data).length) {
+    feed.innerHTML = '<p style="color:#555;text-align:center;padding:20px">No posts yet. Be the first! </p>';
+    return;
+  }
+  Object.keys(data).reverse().forEach(k => {
+    const p = data[k];
+    const t = new Date(p.time).toLocaleString();
+    const edited = p.edited ? ' (edited)' : '';
+    const currentUser = localStorage.getItem('trelux_vid') || '';
+    const isOwner = (p.userId === currentUser) || (currentUser.includes('v_') && p.userId === currentUser);
+    
+    let replyHTML = '';
+    if (p.replyTo) {
+      replyHTML = `
+        <div class="reply-content">
+          ↩ <span class="reply-sender">@${esc(p.replyTo.sender)}</span>
+          <span style="color:#666">${esc(p.replyTo.text)}</span>
+        </div>
+      `;
+    }
+    
+    feed.innerHTML += `
+      <div class="post" id="post_${k}">
+        <div class="head">
+          <span class="name">
+            ${esc(p.name)}
+            ${p.replyTo ? `<span class="reply-to">↩ <span>${esc(p.replyTo.sender)}</span></span>` : ''}
+          </span>
+          <span class="post-time">${t}${edited}</span>
+        </div>
+        <div class="body" id="postBody_${k}">
+          ${replyHTML}
+          ${esc(p.msg)}
+        </div>
+        <div class="actions">
+          <button class="reply-btn" onclick="setReply('${k}','${esc(p.name)}','${esc(p.msg)}')">↩ Reply</button>
+          ${isOwner ? `<button class="edit-btn" onclick="editCommunityPost('${k}','${esc(p.msg)}','${esc(p.name)}')">🔀 Edit</button>` : ''}
+          <button class="del-btn" onclick="showPasswordPrompt('deletePost','${k}')">🗑️ Delete</button>
+        </div>
+        <div class="post-id">ID: ${k.substring(0, 8)}...</div>
+      </div>
+    `;
+  });
+});
+
+// ===== BULK ACTIONS =====
 function executeBulkAction() {
   const action = $('bulkAction').value;
   if(!confirm(`Execute: ${action}? This cannot be undone!`)) return;
@@ -1181,7 +1318,7 @@ function executeBulkAction() {
   if(actions[action]) actions[action]();
 }
 
-// ===== FEATURE 6: Change Passwords =====
+// ===== CHANGE PASSWORDS =====
 function changePassword(type) {
   const input = type === 'panel' ? $('newPanelPass') : $('newReportPass');
   const newPass = input.value.trim();
@@ -1193,7 +1330,7 @@ function changePassword(type) {
   logActivity('Password Change', type);
 }
 
-// ===== FEATURE 7: Export/Backup Data =====
+// ===== EXPORT/BACKUP =====
 function downloadJSON(data, filename) {
   const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
   const url = URL.createObjectURL(blob);
@@ -1201,7 +1338,7 @@ function downloadJSON(data, filename) {
   a.href = url; a.download = filename+'_'+new Date().toISOString().slice(0,10)+'.json';
   document.body.appendChild(a); a.click(); document.body.removeChild(a);
   URL.revokeObjectURL(url);
-  showToast('Exported', 'File downloaded', '📤');
+  showToast('Exported', 'File downloaded', '↘️');
 }
 
 function exportData(type) {
@@ -1227,7 +1364,7 @@ function handleImport(event) {
       if(data.configs) refs.publicConfigs.set(data.configs);
       if(data.reports) refs.reports.set(data.reports);
       if(data.community) refs.community.set(data.community);
-      showToast('Imported!', 'Data restored successfully', '📥');
+      showToast('Imported!', 'Data restored successfully', '↘️');
       logActivity('Import', 'Data restored');
     } catch(err) { showToast('Error', 'Invalid JSON file', '❌'); }
   };
@@ -1235,7 +1372,7 @@ function handleImport(event) {
   event.target.value = '';
 }
 
-// ===== FEATURE 8: System Settings =====
+// ===== SYSTEM SETTINGS =====
 function loadSettings() {
   refs.settings.child('siteName').on('value', s => {
     const val = s.val() || 'TRELUX NeT-SiTe';
@@ -1266,7 +1403,7 @@ function toggleAutoApprove() {
   showToast('Updated!', `Auto-approve ${val ? 'enabled' : 'disabled'}`, '⚙️');
 }
 
-// ===== FEATURE 9: Ad Management =====
+// ===== AD MANAGEMENT =====
 function loadAdData() {
   refs.adCode.on('value', s => {
     const code = s.val() || '';
@@ -1298,7 +1435,7 @@ function previewAd() {
   showToast('Preview', 'Ad displayed below', '👁');
 }
 
-// ===== FEATURE 10: Contact Management =====
+// ===== CONTACT MANAGEMENT =====
 function loadContacts() {
   refs.contacts.on('value', s => {
     const container = $('contactList');
@@ -1316,7 +1453,7 @@ function loadContacts() {
         <button class="remove-btn" onclick="removeContact('${num}')">✕</button>
       </div>
     `).join('');
-    if(!container.innerHTML) container.innerHTML = '<p style="color:#555;font-size:.85rem">No contacts added</p>';
+    if(!container.innerHTML) container.innerHTML = '<p style="color:#555;font-size:.85rem;text-align:center;padding:10px">No contacts added</p>';
   });
 }
 
@@ -1372,7 +1509,7 @@ function postConfig() {
     $('configTitle').value = ''; $('configVersion').value = ''; $('configPing').value = '';
     $('configDate').value = ''; $('configType').value = ''; $('configDescription').value = '';
     logActivity('Posted Config', title + ' (' + configId + ')');
-    showToast('Config Posted!', 'Config ID: ' + configId, '📥');
+    showToast('Config Posted!', 'Config ID: ' + configId, '↘️');
   }).catch(err => { showToast('Error', 'Failed to post config', '❌'); console.error(err); });
 }
 
@@ -1393,6 +1530,10 @@ refs.postedConfigs.on('value', s => {
   if(!grid) return;
   grid.innerHTML = '';
   const data = s.val() || {};
+  if(!Object.keys(data).length) {
+    grid.innerHTML = '<p style="color:#555;text-align:center;padding:40px;grid-column:1/-1">No configs posted yet.</p>';
+    return;
+  }
   Object.keys(data).reverse().forEach(k => {
     const c = data[k];
     grid.innerHTML += `
@@ -1404,8 +1545,8 @@ refs.postedConfigs.on('value', s => {
         <div class="config-meta">
           <span class="tag">📌 ${esc(c.version || 'v1.0')}</span>
           <span class="tag">📶 ${esc(c.ping || 'N/A')}</span>
-          <span class="tag">📁 ${esc(c.type || 'Network')}</span>
-          <span>📅 ${esc(c.date || 'N/A')}</span>
+          <span class="tag">↗️ ${esc(c.type || 'Network')}</span>
+          <span>♾️ ${esc(c.date || 'N/A')}</span>
         </div>
         <div class="config-actions">
           <button class="copy-btn" onclick="copyConfigId('${esc(c.id)}')">📋 Copy ID</button>
@@ -1414,9 +1555,6 @@ refs.postedConfigs.on('value', s => {
       </div>
     `;
   });
-  if(!Object.keys(data).length) {
-    grid.innerHTML = '<p style="color:#555;text-align:center;padding:40px;grid-column:1/-1">No configs posted yet.</p>';
-  }
 });
 
 // ===== CONFIG FILES =====
@@ -1439,7 +1577,7 @@ function renderConfigFiles() {
             <div class="desc">${esc(c.desc||'Premium network configuration')}</div>
             <div class="meta">
               <span>⬇ <span id="dl_${k}">0</span></span>
-              <span id="like_${k}" style="cursor:pointer" onclick="toggleLike('${k}')">❤️ <span id="lk_${k}">0</span></span>
+              <span id="like_${k}" style="cursor:pointer" onclick="toggleLike('${k}')">🔥 <span id="lk_${k}">0</span></span>
             </div>
             <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap">
               <a href="${esc(c.link)}" target="_blank" class="btn btn-primary btn-sm" onclick="incDownload('${k}')">⬇ Download</a>
@@ -1499,47 +1637,6 @@ function deleteAllConfigs() {
   if(confirm('Delete ALL config files?')) { refs.publicConfigs.remove(); showToast('Deleted', 'All config files removed', '🗑'); }
 }
 
-// ===== COMMUNITY =====
-function deleteCommunityPost(id) {
-  refs.community.child(id).remove();
-  logActivity('Delete Post', 'Post removed');
-  showToast('Deleted', 'Post removed successfully', '🗑️');
-}
-
-function editCommunityPost(id, currentMsg) {
-  const newMsg = prompt('Edit your message:', currentMsg);
-  if(newMsg !== null && newMsg.trim()) {
-    refs.community.child(id).update({msg: newMsg.trim(), edited: true, editTime: Date.now()});
-    showToast('Updated!', 'Your post has been edited', '✏️');
-  }
-}
-
-refs.community.limitToLast(30).on('value', s => {
-  const feed = $('communityFeed');
-  if(!feed) return;
-  feed.innerHTML = '';
-  const data = s.val() || {};
-  if(!Object.keys(data).length) {
-    feed.innerHTML = '<p style="color:#555;text-align:center;padding:20px">No posts yet. Be the first! 🚀</p>';
-    return;
-  }
-  Object.keys(data).reverse().forEach(k => {
-    const p = data[k];
-    const t = new Date(p.time).toLocaleString();
-    const edited = p.edited ? ' (edited)' : '';
-    feed.innerHTML += `
-      <div class="post" id="post_${k}">
-        <div class="head"><span class="name">${esc(p.name)}</span><span class="post-time">${t}${edited}</span></div>
-        <div class="body" id="postBody_${k}">${esc(p.msg)}</div>
-        <div class="actions">
-          <button class="edit-btn" onclick="editCommunityPost('${k}','${esc(p.msg)}')">✏️ Edit</button>
-          <button class="del-btn" onclick="showPasswordPrompt('deletePost','${k}')">🗑️ Delete</button>
-        </div>
-      </div>
-    `;
-  });
-});
-
 // ===== REPORT =====
 function submitReport() {
   const name = $('reportName').value.trim() || 'Anonymous';
@@ -1566,7 +1663,7 @@ function sendWhatsAppReport(data) {
       numbers = arr;
     }
     const timestamp = new Date(data.time).toLocaleString();
-    const message = `🚨 *NEW REPORT FROM TRELUX SITE* 🚨\n\n📋 *Report Type:* ${data.typeLabel}\n👤 *From:* ${data.name}\n📱 *Phone:* ${data.phone}\n📝 *Message:* ${data.message}\n🕐 *Time:* ${timestamp}\n\n⚠️ *Action Required:* Please review this report.`;
+    const message = `🚨 *NEW REPORT FROM TRELUX SITE* 🚨\n\n📋 *Report Type:* ${data.typeLabel}\n👤 *From:* ${data.name}\n📱 *Phone:* ${data.phone}\n🤖 *Message:* ${data.message}\n🕐 *Time:* ${timestamp}\n\n⚠️ *Action Required:* Please review this report.`;
     const encodedMsg = encodeURIComponent(message);
     numbers.forEach((num, index) => {
       const waUrl = `https://wa.me/${num}?text=${encodedMsg}`;
@@ -1639,7 +1736,7 @@ function uploadImageToProff() {
   const desc = $('proffDesc').value.trim() || '';
   const imageData = { title, description: desc, image: selectedImageData, time: Date.now() };
   refs.proffImages.push(imageData).then(() => {
-    showToast('Uploaded!', 'Image added to Proff gallery', '🖼️');
+    showToast('Uploaded!', 'Image added to Proff gallery', '🎦');
     logActivity('Upload Image', title);
     clearImageForm();
   }).catch(err => { showToast('Error', 'Failed to upload: ' + err.message, '❌'); });
@@ -1684,7 +1781,7 @@ refs.proffImages.on('value', s => {
         <div class="info">
           <div class="title">${esc(img.title)}</div>
           ${img.description ? `<div class="desc">${esc(img.description)}</div>` : ''}
-          <div class="meta">📅 ${time}</div>
+          <div class="meta">♾️ ${time}</div>
         </div>
       </div>
     `;
@@ -1711,7 +1808,7 @@ refs.securityAlerts.on('value', s => {
   container.innerHTML = '';
   const data = s.val() || {};
   if(!Object.keys(data).length) {
-    container.innerHTML = '<p style="color:#555;font-size:.85rem;padding:10px">✅ No security alerts</p>';
+    container.innerHTML = '<p style="color:#555;font-size:.85rem;text-align:center;padding:10px">✅ No security alerts</p>';
     return;
   }
   Object.keys(data).reverse().forEach(k => {
@@ -1721,11 +1818,13 @@ refs.securityAlerts.on('value', s => {
       <div class="alert-item">
         <div class="alert-icon">🚨</div>
         <div class="alert-content">
-          <div class="alert-title">Security Alert - Intruder Detected</div>
+          <div class="alert-title">⚠️ Security Alert - Intruder Detected</div>
           <div class="alert-detail">${esc(alert.message)}</div>
-          <div class="alert-time">⏰ ${time} · ${alert.attempts || 2} failed attempts</div>
+          <div class="alert-time">☯️ ${time} · ${alert.attempts || 2} failed attempts</div>
         </div>
-        ${alert.image ? `<div class="alert-image"><img src="${alert.image}" alt="Intruder picture"></div>` : `<div class="alert-image" style="background:rgba(255,50,50,0.1);display:flex;align-items:center;justify-content:center;font-size:2rem">😈</div>`}
+        <div class="alert-image">
+          ${alert.image ? `<img src="${alert.image}" alt="Intruder picture">` : '<span class="no-image">👁️‍🗨️</span>'}
+        </div>
       </div>
     `;
   });
