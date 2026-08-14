@@ -4,23 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TRELUX NeT-SiTe</title>
-<!-- ===== FAVICON ===== -->
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/site.webmanifest">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#7c6aff">
-<meta name="msapplication-TileColor" content="#7c6aff">
-<meta name="theme-color" content="#0a0a0f">
   <meta name="google-site-verification" content="RpvKoNq94CSJbNPX2TKN_fsMaZx_LGDb5MBONuBccFU" />
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
   <style>
-    /* ===== RESET & BASE ===== */
     *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',system-ui,sans-serif}
     body{background:#0a0a0f;color:#e0e0e0;min-height:100vh;overflow-x:hidden}
     
-    /* ===== STATIC BACKGROUND ===== */
     .bg-image{
       position:fixed;inset:0;z-index:0;
       background:radial-gradient(ellipse at 20% 50%,rgba(124,106,255,0.15) 0%,transparent 60%),
@@ -42,7 +32,6 @@
     .static-orb-2{width:400px;height:400px;background:rgba(0,212,255,0.08);bottom:-10%;right:-10%}
     .static-orb-3{width:250px;height:250px;background:rgba(124,106,255,0.06);top:50%;left:50%;transform:translate(-50%,-50%)}
     
-    /* ===== TOP BANNER ===== */
     .top-banner{
       background:linear-gradient(135deg,rgba(124,106,255,0.15),rgba(0,212,255,0.15));
       border-bottom:1px solid rgba(124,106,255,0.2);
@@ -52,7 +41,6 @@
     .top-banner .sub-text{font-size:0.75rem;color:rgba(255,255,255,0.35);letter-spacing:4px;margin-top:1px;font-weight:300}
     @keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
     
-    /* ===== LEFT SIDEBAR ===== */
     .sidebar{
       position:fixed;left:0;top:56px;bottom:0;width:200px;z-index:100;
       background:rgba(10,10,15,0.85);backdrop-filter:blur(20px);
@@ -67,6 +55,12 @@
     .side-link.github-link{color:#7c6aff;border:1px solid rgba(124,106,255,0.15);margin-top:8px}
     .side-link.github-link:hover{background:rgba(124,106,255,0.1);border-color:#7c6aff}
     .side-link .icon{font-size:1.1rem;width:24px;text-align:center}
+    .side-link.owner-link{color:#ffd700;border:1px solid rgba(255,215,0,0.15)}
+    .side-link.owner-link:hover{background:rgba(255,215,0,0.1)}
+    .side-link.whatsapp-link{color:#25D366;border:1px solid rgba(37,211,102,0.15)}
+    .side-link.whatsapp-link:hover{background:rgba(37,211,102,0.1)}
+    .side-link.storage-link{color:#00bfff;border:1px solid rgba(0,191,255,0.15)}
+    .side-link.storage-link:hover{background:rgba(0,191,255,0.1)}
     
     .menu-toggle{display:none;position:fixed;left:12px;top:62px;z-index:102;background:rgba(10,10,15,0.9);border:1px solid rgba(255,255,255,0.08);color:#fff;padding:8px 12px;border-radius:8px;cursor:pointer;font-size:1.2rem}
     @media(max-width:768px){
@@ -78,7 +72,6 @@
       .top-banner .sub-text{font-size:0.6rem}
     }
     
-    /* ===== MAIN ===== */
     .main{margin-left:200px;padding:80px 30px 40px;max-width:1200px;position:relative;z-index:1}
     @media(max-width:768px){.main{margin-left:0;padding:80px 16px 40px}}
     
@@ -123,7 +116,6 @@
     .panel-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
     @media(max-width:768px){.panel-grid{grid-template-columns:1fr}}
     
-    /* ===== CONFIGS PAGE ===== */
     .configs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px}
     .config-item{
       background:rgba(15,15,25,.85);
@@ -207,15 +199,16 @@
       position:absolute;
       top:12px;
       right:12px;
-      background:rgba(50,255,50,.1);
-      color:#4caf50;
       padding:2px 10px;
       border-radius:12px;
       font-size:.6rem;
       font-weight:600;
     }
+    .config-item .status-badge.online{background:rgba(50,255,50,.1);color:#4caf50;}
+    .config-item .status-badge.offline{background:rgba(255,50,50,.1);color:#ff6b6b;}
+    .config-item .timer{font-size:.7rem;color:#555;margin-top:4px}
+    .config-item .timer .countdown{color:#ffc107;font-weight:600}
     
-    /* ===== CONFIG FILES PAGE ===== */
     .config-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
     .config-card{
       background:rgba(15,15,25,.8);
@@ -255,7 +248,6 @@
     .config-card .desc{color:#999;font-size:.9rem;margin-bottom:12px;line-height:1.5}
     .config-card .meta{display:flex;gap:12px;font-size:.8rem;color:#666}
     
-    /* ===== COMMUNITY POSTS ===== */
     .post{
       background:rgba(15,15,25,.6);border-radius:14px;padding:16px;margin-bottom:12px;
       border-left:3px solid #7c6aff;transition:.3s;
@@ -277,6 +269,48 @@
       color:#999;
     }
     .post .body .reply-content .reply-sender{color:#7c6aff;font-weight:600}
+    .post .voice-message{
+      background:rgba(0,0,0,0.2);
+      border-radius:8px;
+      padding:10px 14px;
+      margin:8px 0;
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .post .voice-message .play-btn{
+      background:linear-gradient(135deg,#7c6aff,#00d4ff);
+      border:none;
+      color:#fff;
+      width:36px;
+      height:36px;
+      border-radius:50%;
+      cursor:pointer;
+      font-size:1rem;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      transition:.3s;
+    }
+    .post .voice-message .play-btn:hover{transform:scale(1.1)}
+    .post .voice-message .waveform{
+      flex:1;
+      height:30px;
+      display:flex;
+      align-items:center;
+      gap:3px;
+    }
+    .post .voice-message .waveform .bar{
+      width:4px;
+      background:linear-gradient(to top,#7c6aff,#00d4ff);
+      border-radius:2px;
+      animation:waveAnim 1s ease-in-out infinite;
+    }
+    @keyframes waveAnim{
+      0%,100%{height:10px}
+      50%{height:25px}
+    }
+    .post .voice-message .duration{color:#666;font-size:.8rem;min-width:40px}
     .post .actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
     .post .actions button{background:none;border:none;color:#666;cursor:pointer;padding:4px 8px;border-radius:6px;transition:.3s;font-size:.75rem}
     .post .actions button:hover{background:rgba(255,255,255,.05);color:#fff}
@@ -290,12 +324,114 @@
     .post .post-id{color:#333;font-size:.6rem;font-family:monospace}
     .post.pending{border-left-color:#ffc107;opacity:0.7}
     .post .approve-badge{background:rgba(255,200,50,.15);color:#ffc107;padding:2px 10px;border-radius:12px;font-size:.7rem}
-    .post .reply-indicator{
-      background:rgba(0,191,255,0.1);
-      padding:4px 12px;
-      border-radius:12px;
-      font-size:.65rem;
-      color:#00bfff;
+    
+    .record-btn{
+      background:rgba(255,50,50,.15);
+      color:#ff6b6b;
+      border:1px solid rgba(255,50,50,.2);
+      padding:8px 16px;
+      border-radius:10px;
+      cursor:pointer;
+      font-weight:600;
+      transition:.3s;
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .record-btn:hover{background:rgba(255,50,50,.25)}
+    .record-btn.recording{background:rgba(255,50,50,.3);animation:pulse 1s infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
+    
+    .gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;margin-top:16px}
+    .gallery-item{
+      background:rgba(15,15,25,.8);
+      border-radius:16px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.06);
+      transition:.3s;
+    }
+    .gallery-item:hover{transform:translateY(-5px);border-color:rgba(124,106,255,.3)}
+    .gallery-item .image-wrap{position:relative;cursor:pointer;overflow:hidden}
+    .gallery-item .image-wrap img{width:100%;height:250px;object-fit:cover;display:block;transition:.3s}
+    .gallery-item .image-wrap:hover img{transform:scale(1.05)}
+    .gallery-item .image-wrap .fullscreen-btn{
+      position:absolute;bottom:10px;right:10px;
+      background:rgba(0,0,0,0.6);border:none;color:#fff;
+      width:36px;height:36px;border-radius:50%;
+      cursor:pointer;font-size:1.1rem;
+      display:flex;align-items:center;justify-content:center;
+      transition:.3s;backdrop-filter:blur(5px);
+    }
+    .gallery-item .image-wrap .fullscreen-btn:hover{background:rgba(124,106,255,0.6);transform:scale(1.1)}
+    .gallery-item .image-wrap .download-btn{
+      position:absolute;bottom:10px;right:56px;
+      background:rgba(0,0,0,0.6);border:none;color:#fff;
+      width:36px;height:36px;border-radius:50%;
+      cursor:pointer;font-size:1.1rem;
+      display:flex;align-items:center;justify-content:center;
+      transition:.3s;backdrop-filter:blur(5px);
+    }
+    .gallery-item .image-wrap .download-btn:hover{background:rgba(0,212,255,0.6);transform:scale(1.1)}
+    .gallery-item .info{padding:12px 16px}
+    .gallery-item .info .title{color:#fff;font-weight:600;font-size:.95rem}
+    .gallery-item .info .desc{color:#999;font-size:.8rem;margin-top:4px;line-height:1.4}
+    .gallery-item .info .meta{color:#555;font-size:.7rem;margin-top:6px;display:flex;gap:12px;flex-wrap:wrap}
+    .gallery-item .info .actions{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+    .gallery-item .info .actions button{
+      background:none;border:none;color:#666;cursor:pointer;padding:4px 12px;border-radius:6px;transition:.3s;font-size:.75rem;
+    }
+    .gallery-item .info .actions button:hover{background:rgba(255,255,255,.05);color:#fff}
+    .gallery-item .info .actions .like-btn{color:#ff6b6b}
+    .gallery-item .info .actions .like-btn:hover{background:rgba(255,50,50,.1)}
+    .gallery-item .info .actions .comment-btn{color:#00bfff}
+    .gallery-item .info .actions .comment-btn:hover{background:rgba(0,191,255,.1)}
+    .gallery-item .comments{
+      padding:8px 16px 12px;
+      border-top:1px solid rgba(255,255,255,0.04);
+      max-height:150px;overflow-y:auto;
+    }
+    .gallery-item .comments .comment{
+      font-size:.75rem;
+      color:#888;
+      padding:4px 0;
+      border-bottom:1px solid rgba(255,255,255,0.03);
+    }
+    .gallery-item .comments .comment .cname{color:#7c6aff;font-weight:600}
+    .gallery-item .comments .comment-input-wrap{
+      display:flex;gap:6px;margin-top:6px;
+    }
+    .gallery-item .comments .comment-input-wrap input{
+      flex:1;padding:6px 10px;background:rgba(10,10,18,.6);border:1px solid rgba(255,255,255,.05);border-radius:6px;color:#fff;font-size:.8rem;outline:none;
+    }
+    .gallery-item .comments .comment-input-wrap input:focus{border-color:#7c6aff}
+    .gallery-item .comments .comment-input-wrap button{
+      padding:6px 12px;background:linear-gradient(135deg,#7c6aff,#00d4ff);border:none;border-radius:6px;color:#fff;cursor:pointer;font-size:.7rem;font-weight:600;
+    }
+    
+    .fullscreen-overlay{
+      position:fixed;inset:0;z-index:99999;
+      background:rgba(0,0,0,0.95);
+      display:none;justify-content:center;align-items:center;
+      cursor:pointer;
+    }
+    .fullscreen-overlay.show{display:flex}
+    .fullscreen-overlay img{max-width:95%;max-height:95%;object-fit:contain;border-radius:8px}
+    .fullscreen-overlay .close-btn{
+      position:absolute;top:20px;right:30px;
+      background:none;border:none;color:#fff;
+      font-size:2.5rem;cursor:pointer;transition:.3s;
+    }
+    .fullscreen-overlay .close-btn:hover{transform:scale(1.2);color:#ff6b6b}
+    .fullscreen-overlay .save-btn{
+      position:absolute;bottom:30px;right:30px;
+      background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);
+      color:#fff;padding:10px 20px;border-radius:10px;
+      cursor:pointer;font-size:.9rem;transition:.3s;backdrop-filter:blur(10px);
+    }
+    .fullscreen-overlay .save-btn:hover{background:rgba(124,106,255,.3);border-color:#7c6aff}
+    .fullscreen-overlay .img-info{
+      position:absolute;bottom:30px;left:30px;
+      color:#888;font-size:.8rem;
     }
     
     .toast{position:fixed;bottom:30px;right:30px;z-index:999;background:rgba(10,10,15,.95);backdrop-filter:blur(10px);border:1px solid rgba(37,211,102,.3);border-radius:14px;padding:16px 24px;color:#fff;font-size:.9rem;transform:translateY(100px);opacity:0;transition:.4s ease;max-width:400px}
@@ -304,10 +440,18 @@
     .toast .title{font-weight:700;color:#25D366}
     .toast .msg{color:#999;font-size:.8rem;margin-top:4px}
     
-    .banner{background:linear-gradient(135deg,rgba(124,106,255,.1),rgba(0,212,255,.1));border:1px solid rgba(124,106,255,.2);border-radius:12px;padding:14px 20px;margin-bottom:16px;display:none}
+    .banner{
+      background:linear-gradient(135deg,rgba(124,106,255,.1),rgba(0,212,255,.1));
+      border:1px solid rgba(124,106,255,.2);
+      border-radius:12px;
+      padding:14px 20px;
+      margin-bottom:16px;
+      display:none;
+    }
     .banner.show{display:block}
     .banner .label{color:#7c6aff;font-weight:600;font-size:.8rem;text-transform:uppercase;letter-spacing:1px}
     .banner .msg{color:#ddd;margin-top:4px}
+    .banner .timer{color:#ffc107;font-size:.8rem;margin-top:4px}
     
     .footer{text-align:center;padding:30px 0 10px;color:#444;font-size:.8rem;border-top:1px solid rgba(255,255,255,.04);margin-top:30px}
     ::-webkit-scrollbar{width:6px}
@@ -348,15 +492,6 @@
     .rule-item h4{color:#fff;margin:4px 0 8px}
     .rule-item p{color:#999;font-size:.9rem;line-height:1.6}
     
-    .gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px;margin-top:16px}
-    .gallery-item{background:rgba(15,15,25,.8);border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,.06);transition:.3s}
-    .gallery-item:hover{transform:translateY(-5px);border-color:rgba(124,106,255,.3)}
-    .gallery-item img{width:100%;height:220px;object-fit:cover;display:block}
-    .gallery-item .info{padding:12px 16px}
-    .gallery-item .info .title{color:#fff;font-weight:600;font-size:.95rem}
-    .gallery-item .info .desc{color:#999;font-size:.8rem;margin-top:4px;line-height:1.4}
-    .gallery-item .info .meta{color:#555;font-size:.7rem;margin-top:6px}
-    
     .wa-numbers{background:rgba(37,211,102,.05);border-radius:10px;padding:10px;margin:10px 0;border:1px solid rgba(37,211,102,.1)}
     .wa-numbers .num{color:#25D366;font-weight:600;font-size:.85rem}
     
@@ -384,7 +519,6 @@
     .search-wrap input:focus{border-color:#7c6aff;box-shadow:0 0 30px rgba(124,106,255,.1)}
     .search-wrap input::placeholder{color:#555}
     
-    /* Leaderboard styles */
     .leaderboard-item{display:flex;justify-content:space-between;padding:8px 12px;background:rgba(10,10,18,.4);border-radius:6px;margin-bottom:4px;align-items:center}
     .leaderboard-item .rank{color:#7c6aff;font-weight:700;width:35px;font-size:.85rem}
     .leaderboard-item .name{color:#fff;flex:1;font-size:.85rem;word-break:break-all}
@@ -413,6 +547,39 @@
     .reply-box{display:none;background:rgba(0,191,255,.05);border-left:3px solid #00bfff;padding:8px 12px;margin-bottom:8px;border-radius:6px;font-size:.85rem;color:#999}
     .reply-box .reply-target{color:#00bfff;font-weight:600}
     .reply-box .cancel-reply{float:right;background:none;border:none;color:#ff6b6b;cursor:pointer;font-weight:700}
+    
+    .config-detector{
+      background:rgba(15,15,25,.4);
+      border-radius:10px;
+      padding:12px 16px;
+      margin-top:10px;
+      border:1px solid rgba(255,255,255,0.04);
+    }
+    .config-detector .detected-config{
+      color:#7c6aff;
+      font-weight:600;
+      font-size:.85rem;
+    }
+    .config-detector .detected-status{
+      color:#4caf50;
+      font-size:.8rem;
+    }
+    
+    .storage-stats{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+      gap:10px;
+      margin:12px 0;
+    }
+    .storage-stat{
+      background:rgba(10,10,18,.4);
+      border-radius:8px;
+      padding:12px;
+      text-align:center;
+      border:1px solid rgba(255,255,255,.04);
+    }
+    .storage-stat .num{font-size:1.2rem;font-weight:700;color:#00bfff}
+    .storage-stat .label{color:#666;font-size:.7rem}
   </style>
 </head>
 <body>
@@ -430,601 +597,7 @@
   <div class="static-orb static-orb-3"></div>
 </div>
 
-<!-- ===== TOP BANNER ===== -->
-<div class="top-banner">
-  <div class="brand-text">JOLTZGOAT</div>
-  <div class="sub-text">FOUR SEVEN · TRELUX NeT-SiTe</div>
-</div>
 
-<!-- ===== MOBILE TOGGLE ===== -->
-<button class="menu-toggle" onclick="toggleSidebar()">☰</button>
-
-<!-- ===== LEFT SIDEBAR ===== -->
-<div class="sidebar" id="sidebar">
-  <div class="brand">TRELUX <span>NeT-SiTe</span></div>
-  <button class="side-link active" onclick="showPage('home')"><span class="icon">🌐</span> Home</button>
-  <button class="side-link" onclick="showPage('configs')"><span class="icon">⬇️</span> Configs</button>
-  <button class="side-link" onclick="showPage('configfiles')"><span class="icon">⤵️</span> Config Files</button>
-  <button class="side-link" onclick="showPage('community')"><span class="icon">💬</span> Community</button>
-  <button class="side-link" onclick="showPage('rules')"><span class="icon">📜</span> Rules</button>
-  <button class="side-link" onclick="showPage('report')"><span class="icon">🚨</span> Report</button>
-  <button class="side-link" onclick="showPage('proff')" style="color:#ffd700"><span class="icon">🌍</span></span> Proff</button>
-  <a href="https://github.com/magabemack47-spec/four-seven-hub" target="_blank" class="side-link github-link"><span class="icon">🐙</span> GitHub</a>
-  <button class="side-link" onclick="showPage('panel')" style="color:#7c6aff;border-top:1px solid rgba(255,255,255,0.05);margin-top:8px;padding-top:12px"><span class="icon">⚡</span> Panel</button>
-</div>
-
-<!-- ===== PASSWORD OVERLAY ===== -->
-<div class="password-overlay" id="passwordOverlay">
-  <div class="password-box">
-    <h3>🔐 Authentication Required</h3>
-    <p>Enter the admin password to perform this action</p>
-    <div class="video-container" id="cameraContainer">
-      <video id="cameraPreview" autoplay playsinline></video>
-      <div class="cam-label">👁️ SECURITY CAMERA</div>
-    </div>
-    <input type="password" id="passwordInput" placeholder="Enter password..." onkeydown="if(event.key==='Enter')confirmPassword()">
-    <div class="btn-group">
-      <button class="confirm-btn" onclick="confirmPassword()">Confirm</button>
-      <button class="cancel-btn" onclick="cancelPassword()">Cancel</button>
-    </div>
-    <p id="passwordError" style="color:#ff6b6b;font-size:.8rem;margin-top:8px;display:none">❌ Incorrect password</p>
-    <p id="attemptsDisplay" class="attempts">⚠️ Failed attempts: 1 of 2</p>
-  </div>
-</div>
-
-<!-- TOAST -->
-<div class="toast" id="toast">
-  <div style="display:flex;align-items:center">
-    <span class="icon">✅</span>
-    <div>
-      <div class="title" id="toastTitle">Success</div>
-      <div class="msg" id="toastMsg">Action completed!</div>
-    </div>
-  </div>
-</div>
-
-<!-- MAIN -->
-<div class="main">
-
-  <!-- ===== HOME ===== -->
-  <div id="home" class="page active">
-    <div class="hero"><span class="hero-icon">🌐</span><h1>TRELUX NeT-SiTe</h1><p>Premium configs · Secure community · Fast connections</p></div>
-    <div class="banner" id="broadcastBanner"><div class="label">📢 Broadcast</div><div class="msg" id="broadcastMsg"></div></div>
-    <div class="card"><h2>💀 Welcome</h2><p style="color:#999;line-height:1.8;font-size:1.05rem">TRELUX is your premium hub for network configurations and community sharing. All configs are verified and optimized for performance.</p></div>
-    <div class="stats">
-      <div class="stat"><div class="num" id="totalVisitors">0</div><div class="label">Total Visitors</div></div>
-      <div class="stat"><div class="num" id="activeUsers">0</div><div class="label">Active Now</div></div>
-      <div class="stat"><div class="num" id="configCount">0</div><div class="label">Configs Available</div></div>
-    </div>
-  </div>
-
-  <!-- ===== CONFIGS PAGE ===== -->
-  <div id="configs" class="page">
-    <div class="card">
-      <h2>📥 Configs</h2>
-      <p style="color:#999;margin-bottom:16px">Network configuration files with unique IDs. Each config is verified and secure.</p>
-      <div class="configs-grid" id="configsGrid"></div>
-    </div>
-  </div>
-
-  <!-- ===== CONFIG FILES PAGE ===== -->
-  <div id="configfiles" class="page">
-    <div class="card">
-      <h2>⤵️ Config Files</h2>
-      <p style="color:#999;margin-bottom:16px">Browse and download configuration files shared by the community.</p>
-      <div class="search-wrap"><input id="searchInput" placeholder="🔍 Search config files..." oninput="filterConfigFiles()"></div>
-      <div class="config-grid" id="configFilesGrid"></div>
-    </div>
-  </div>
-
-  <!-- ===== COMMUNITY ===== -->
-  <div id="community" class="page">
-    <div class="card">
-      <h2>💬 Community Board</h2>
-      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px">
-        <input id="comName" placeholder="Your name..." style="flex:1;min-width:140px;padding:10px 14px;background:rgba(15,15,25,.8);border:1px solid rgba(255,255,255,.06);border-radius:10px;color:#fff;outline:none">
-        <input id="comMsg" placeholder="Share something..." style="flex:2;min-width:200px;padding:10px 14px;background:rgba(15,15,25,.8);border:1px solid rgba(255,255,255,.06);border-radius:10px;color:#fff;outline:none">
-        <button class="btn btn-primary" onclick="postCommunity()">⤵️ Post</button>
-      </div>
-      <!-- Reply indicator -->
-      <div class="reply-box" id="replyBox">
-        <span>↩ Replying to: <span class="reply-target" id="replyTarget">User</span></span>
-        <button class="cancel-reply" onclick="cancelReply()">✕</button>
-      </div>
-      <div id="communityFeed"></div>
-    </div>
-  </div>
-
-  <!-- ===== RULES ===== -->
-  <div id="rules" class="page">
-    <div class="card"><h2>📜 Website Rules</h2>
-      <div class="rules-grid">
-        <div class="rule-item"><div class="num">01</div><h4>No Malicious Files</h4><p>All configs must be safe and free from malware.</p></div>
-        <div class="rule-item"><div class="num">02</div><h4>Respect Others</h4><p>Be respectful in the community. No harassment.</p></div>
-        <div class="rule-item"><div class="num">03</div><h4>No Spam</h4><p>Don't spam the community board with repetitive messages.</p></div>
-        <div class="rule-item"><div class="num">04</div><h4>Share Original Content</h4><p>Only share configs you've created or have permission to share.</p></div>
-        <div class="rule-item"><div class="num">05</div><h4>Report Issues</h4><p>Use the Report page to flag any problematic content.</p></div>
-        <div class="rule-item"><div class="num">06</div><h4>Stay Safe</h4><p>Never share personal information. Use unique passwords.</p></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ===== REPORT ===== -->
-  <div id="report" class="page">
-    <div class="card">
-      <h2>🚨 Report Center</h2>
-      <p style="color:#999;margin-bottom:16px">Report any problematic configs, users, or content. <strong style="color:#25D366">Reports are sent directly to WhatsApp</strong> for immediate action.</p>
-      <div class="wa-numbers">
-        <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px">
-          <span>📱 <span class="num">+27 76 689 0045</span></span>
-          <span>📱 <span class="num">+27 62 268 6991</span></span>
-          <span>📱 <span class="num">+27 60 222 5117</span></span>
-        </div>
-        <p style="color:#555;font-size:.7rem;text-align:center;margin-top:6px">Reports sent to all 3 numbers</p>
-      </div>
-      <div class="report-stats">
-        <div class="report-stat"><div class="num" id="totalReports">0</div><div class="label">Total Reports</div></div>
-        <div class="report-stat"><div class="num" id="pendingReports">0</div><div class="label">Pending</div></div>
-        <div class="report-stat"><div class="num" id="resolvedReports">0</div><div class="label">Resolved</div></div>
-      </div>
-      <div style="background:rgba(255,50,50,.05);border:1px solid rgba(255,50,50,.15);border-radius:12px;padding:16px">
-        <input id="reportName" placeholder="Your name (optional)" style="width:100%;padding:10px 14px;background:rgba(10,10,18,.8);border:1px solid rgba(255,50,50,.15);border-radius:10px;color:#fff;outline:none;margin-bottom:8px">
-        <input id="reportPhone" placeholder="Your phone number (optional - for follow-up)" style="width:100%;padding:10px 14px;background:rgba(10,10,18,.8);border:1px solid rgba(255,50,50,.15);border-radius:10px;color:#fff;outline:none;margin-bottom:8px">
-        <select id="reportType" style="width:100%;padding:10px 14px;background:rgba(10,10,18,.8);border:1px solid rgba(255,50,50,.15);border-radius:10px;color:#fff;outline:none;margin-bottom:8px">
-          <option value="malicious">🚫 Malicious Config</option>
-          <option value="spam">📢 Spam</option>
-          <option value="harassment">😡 Harassment</option>
-          <option value="broken">🔗 Broken Link</option>
-          <option value="other">❓ Other</option>
-        </select>
-        <textarea id="reportMsg" placeholder="Describe the issue in detail..." style="width:100%;padding:10px 14px;background:rgba(10,10,18,.8);border:1px solid rgba(255,50,50,.15);border-radius:10px;color:#fff;outline:none;resize:vertical;min-height:80px"></textarea>
-        <button class="btn btn-whatsapp" onclick="submitReport()" style="margin-top:8px;width:100%;font-size:1rem;padding:14px;background:rgba(37,211,102,.15);color:#25D366;border:1px solid rgba(37,211,102,.2);border-radius:10px;border:none;font-weight:600;cursor:pointer;transition:.3s">💬 Send Report via WhatsApp</button>
-      </div>
-      <h3 style="color:#fff;margin-top:24px;margin-bottom:12px">📋 Report History</h3>
-      <div class="report-list" id="reportList"></div>
-    </div>
-  </div>
-
-  <!-- ===== PROFF ===== -->
-  <div id="proff" class="page">
-    <div class="card">
-      <h2>🎦 Proff Gallery</h2>
-      <p style="color:#999;margin-bottom:16px">Uploaded images from the community. All visitors can view these images.</p>
-      <div class="gallery-grid" id="galleryGrid"></div>
-    </div>
-  </div>
-
-  <!-- ===== PANEL ===== -->
-  <div id="panel" class="page">
-    <div class="card">
-      <h2>↗️ Owner Panel</h2>
-
-      <div id="panelLogin">
-        <p style="color:#999;margin-bottom:12px">System authentication required</p>
-        <div style="display:flex;gap:10px">
-          <input type="password" id="panelPass" placeholder="Enter system password..." style="flex:1;padding:12px 16px;background:rgba(15,15,25,.8);border:1px solid rgba(255,255,255,.06);border-radius:12px;color:#fff;outline:none">
-          <button class="btn btn-primary" onclick="verifyPanel()">🔓 Access</button>
-        </div>
-      </div>
-
-      <div id="panelContent" style="display:none;margin-top:16px">
-        
-        <!-- FEATURE 1: Most Downloaded/Liked Configs -->
-        <div class="panel-box" style="border-color:rgba(255,215,0,0.2)">
-          <h4 style="color:#ffd700">🏆 Most Popular Configs</h4>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
-            <div>
-              <p style="color:#999;font-size:.85rem;margin-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.05);padding-bottom:6px">⬇ Most Downloaded</p>
-              <div id="mostDownloaded"></div>
-            </div>
-            <div>
-              <p style="color:#999;font-size:.85rem;margin-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.05);padding-bottom:6px">🔥 Most Liked</p>
-              <div id="mostLiked"></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- FEATURE 2: User Activity Log -->
-        <div class="panel-box">
-          <h4>📋 User Activity Log</h4>
-          <div id="activityLogPanel" style="max-height:200px;overflow-y:auto"></div>
-          <button class="btn btn-sm btn-outline" onclick="clearActivityLog()" style="margin-top:6px">🗑 Clear Log</button>
-        </div>
-
-        <!-- FEATURE 3: Pin/Feature Configs -->
-        <div class="panel-box" style="border-color:rgba(255,215,0,0.2)">
-          <h4 style="color:#ffd700">📌 Manage Featured Configs</h4>
-          <p style="color:#999;font-size:.8rem;margin-bottom:6px">Select a config to feature (shows gold badge)</p>
-          <select id="featuredSelect" style="width:100%;padding:10px;background:rgba(10,10,18,.8);border:1px solid rgba(255,255,255,.06);border-radius:10px;color:#fff;outline:none;margin-bottom:6px"></select>
-          <div style="display:flex;gap:8px">
-            <button class="btn btn-sm btn-warning" onclick="setFeaturedConfig()">⭐ Set as Featured</button>
-            <button class="btn btn-sm btn-outline" onclick="removeFeaturedConfig()">Remove Featured</button>
-          </div>
-        </div>
-
-        <!-- FEATURE 4: Approve Posts -->
-        <div class="panel-box" style="border-color:rgba(255,200,50,0.2)">
-          <h4 style="color:#ffc107">✅ Approve Posts</h4>
-          <div id="pendingPosts" style="max-height:200px;overflow-y:auto"></div>
-        </div>
-
-        <!-- FEATURE 5: Bulk Actions -->
-        <div class="panel-box" style="border-color:rgba(255,50,50,0.2)">
-          <h4 style="color:#ff6b6b">📦 Bulk Actions</h4>
-          <div class="bulk-actions">
-            <span class="bulk-label">Action:</span>
-            <select id="bulkAction">
-              <option value="delete_configs">🗑 Delete All Configs</option>
-              <option value="delete_reports">🗑 Delete All Reports</option>
-              <option value="delete_posts">🗑 Delete All Posts</option>
-              <option value="resolve_reports">✅ Resolve All Reports</option>
-              <option value="delete_posted_configs">🗑 Delete All Posted Configs</option>
-            </select>
-            <button class="btn btn-sm btn-danger" onclick="executeBulkAction()">Execute</button>
-          </div>
-        </div>
-
-        <!-- FEATURE 6: Change Passwords -->
-        <div class="panel-box">
-          <h4>🔑 Change Passwords</h4>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-            <div>
-              <p style="color:#999;font-size:.8rem">Panel Password</p>
-              <div style="display:flex;gap:6px">
-                <input type="password" id="newPanelPass" placeholder="New password" style="flex:1;padding:8px 12px;background:rgba(10,10,18,.8);border:1px solid rgba(255,255,255,.06);border-radius:8px;color:#fff;outline:none">
-                <button class="btn btn-sm btn-primary" onclick="changePassword('panel')">Update</button>
-              </div>
-            </div>
-            <div>
-              <p style="color:#999;font-size:.8rem">Report Password</p>
-              <div style="display:flex;gap:6px">
-                <input type="password" id="newReportPass" placeholder="New password" style="flex:1;padding:8px 12px;background:rgba(10,10,18,.8);border:1px solid rgba(255,255,255,.06);border-radius:8px;color:#fff;outline:none">
-                <button class="btn btn-sm btn-primary" onclick="changePassword('report')">Update</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- FEATURE 7: Export/Backup Data -->
-        <div class="panel-box">
-          <h4>💾 Export/Backup Data</h4>
-          <div style="display:flex;gap:6px;flex-wrap:wrap">
-            <button class="btn btn-sm btn-outline" onclick="exportData('configs')">↘️ Export Configs</button>
-            <button class="btn btn-sm btn-outline" onclick="exportData('reports')">↘️ Export Reports</button>
-            <button class="btn btn-sm btn-outline" onclick="exportData('community')">↘️ Export Posts</button>
-            <button class="btn btn-sm btn-primary" onclick="exportData('all')">📦 Export All</button>
-            <button class="btn btn-sm btn-warning" onclick="document.getElementById('importFile').click()">↗️ Import Data</button>
-            <input type="file" id="importFile" accept=".json" style="display:none" onchange="handleImport(event)">
-          </div>
-        </div>
-
-        <!-- FEATURE 8: System Settings -->
-        <div class="panel-box">
-          <h4>⚙️ System Settings</h4>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-            <div>
-              <p style="color:#999;font-size:.8rem">Site Name</p>
-              <div style="display:flex;gap:6px">
-                <input type="text" id="siteNameInput" placeholder="TRELUX NeT-SiTe" style="flex:1;padding:8px 12px;background:rgba(10,10,18,.8);border:1px solid rgba(255,255,255,.06);border-radius:8px;color:#fff;outline:none">
-                <button class="btn btn-sm btn-primary" onclick="updateSiteName()">Save</button>
-              </div>
-            </div>
-            <div>
-              <p style="color:#999;font-size:.8rem">Auto-approve Posts</p>
-              <div style="display:flex;gap:8px;align-items:center;padding-top:4px">
-                <label style="color:#fff;font-size:.85rem">
-                  <input type="checkbox" id="autoApprove" onchange="toggleAutoApprove()"> Enable
-                </label>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- FEATURE 9: Ad Management -->
-        <div class="panel-box">
-          <h4>📢 Ad Management</h4>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-            <div>
-              <p style="color:#999;font-size:.8rem">Ad Code (HTML)</p>
-              <textarea id="adCode" placeholder="Paste your ad code here..." style="width:100%;padding:8px;background:rgba(10,10,18,.8);border:1px solid rgba(255,255,255,.06);border-radius:8px;color:#fff;outline:none;resize:vertical;min-height:60px"></textarea>
-              <button class="btn btn-sm btn-primary" onclick="saveAdCode()" style="margin-top:4px">💾 Save Ad</button>
-            </div>
-            <div>
-              <p style="color:#999;font-size:.8rem">Ad Position</p>
-              <select id="adPosition" style="width:100%;padding:8px;background:rgba(10,10,18,.8);border:1px solid rgba(255,255,255,.06);border-radius:8px;color:#fff;outline:none">
-                <option value="top">Top of Page</option>
-                <option value="bottom">Bottom of Page</option>
-                <option value="sidebar">Sidebar</option>
-                <option value="between">Between Content</option>
-              </select>
-              <button class="btn btn-sm btn-outline" onclick="previewAd()" style="margin-top:4px">👁 Preview Ad</button>
-            </div>
-          </div>
-          <div id="adPreview" style="margin-top:12px;padding:12px;background:rgba(10,10,18,.4);border-radius:8px;border:1px dashed rgba(255,255,255,.1);display:none"></div>
-        </div>
-
-        <!-- FEATURE 10: Contact Management -->
-        <div class="panel-box">
-          <h4>📱 WhatsApp Contact Management</h4>
-          <p style="color:#999;font-size:.8rem;margin-bottom:6px">Manage numbers that receive reports</p>
-          <div style="display:flex;gap:6px;margin-bottom:10px">
-            <input type="text" id="newContact" placeholder="+27 76 689 0045" style="flex:1;padding:8px 12px;background:rgba(10,10,18,.8);border:1px solid rgba(255,255,255,.06);border-radius:8px;color:#fff;outline:none">
-            <button class="btn btn-sm btn-success" onclick="addContact()">➕ Add</button>
-          </div>
-          <div class="contact-list" id="contactList"></div>
-        </div>
-
-        <!-- SECURITY ALERTS -->
-        <div class="panel-box" style="border-color:rgba(255,50,50,0.3)">
-          <h4 style="color:#ff6b6b">🚨 Security Alerts</h4>
-          <p style="color:#999;font-size:.8rem;margin-bottom:8px">Shows when someone enters wrong password twice - their picture is captured</p>
-          <div id="securityAlerts" style="max-height:200px;overflow-y:auto"></div>
-          <button class="btn btn-sm btn-outline" onclick="clearAlerts()" style="margin-top:6px">🗑 Clear All Alerts</button>
-        </div>
-
-        <!-- Post Config -->
-        <div class="panel-box" style="border-color:rgba(0,212,255,0.3)">
-          <h4 style="color:#00d4ff">↗️ Post New Config</h4>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-            <div>
-              <input type="text" id="configTitle" placeholder="Config title">
-              <input type="text" id="configVersion" placeholder="Version">
-              <input type="text" id="configPing" placeholder="Ping time">
-              <input type="text" id="configDate" placeholder="Date">
-              <input type="text" id="configType" placeholder="Type">
-            </div>
-            <div>
-              <textarea id="configDescription" placeholder="Config description..." style="min-height:100px"></textarea>
-              <button class="btn btn-success btn-sm" onclick="postConfig()" style="width:100%;margin-top:8px">↗️ Post Config</button>
-            </div>
-          </div>
-          <div style="margin-top:6px;padding:8px;background:rgba(10,10,18,.4);border-radius:6px">
-            <p style="color:#555;font-size:.7rem">💡 Config ID auto-generated: <span style="color:#7c6aff;font-family:monospace">6fcd7a91-de41-4856-a401-c3a61b213428</span></p>
-          </div>
-        </div>
-
-        <!-- Upload Config File -->
-        <div class="panel-box" style="border-color:rgba(124,106,255,0.3)">
-          <h4 style="color:#7c6aff">⬇️ Upload Config File</h4>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-            <div>
-              <input id="confTitle" placeholder="Config title">
-              <input id="confType" placeholder="Type (HC, TLS, etc)">
-            </div>
-            <div>
-              <input id="confLink" placeholder="Download URL">
-              <button class="btn btn-primary btn-sm" onclick="uploadConfig()" style="width:100%;margin-top:8px"> Upload</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Upload Image -->
-        <div class="panel-box" style="border-color:rgba(255,215,0,0.3)">
-          <h4 style="color:#ffd700">🎦 Upload Image to Proff</h4>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-            <div>
-              <input type="text" id="proffTitle" placeholder="Image title...">
-              <textarea id="proffDesc" placeholder="Image description..." style="min-height:60px"></textarea>
-            </div>
-            <div>
-              <div style="border:2px dashed rgba(255,255,255,0.1);border-radius:10px;padding:20px;text-align:center;cursor:pointer;transition:.3s" id="uploadZone" onclick="document.getElementById('imageInput').click()">
-               <div style="font-size:2rem;color:#555">📷</div>
-                <p style="color:#666;font-size:.85rem;margin-top:4px">Click to select image</p>
-                <p style="color:#444;font-size:.7rem">JPG, PNG, GIF (Max 5MB)</p>
-                <input type="file" id="imageInput" accept="image/*" style="display:none" onchange="handleImageUpload(event)">
-              </div>
-              <div style="margin-top:8px;display:flex;gap:8px">
-                <button class="btn btn-success btn-sm" onclick="uploadImageToProff()" id="uploadBtn" disabled>↗️ Upload</button>
-                <button class="btn btn-outline btn-sm" onclick="clearImageForm()">Clear</button>
-              </div>
-              <p id="uploadStatus" style="color:#666;font-size:.75rem;margin-top:4px">Select an image first</p>
-            </div>
-          </div>
-          <div id="panelGalleryPreview" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:6px;margin-top:10px;max-height:120px;overflow-y:auto"></div>
-        </div>
-
-        <!-- Broadcast -->
-        <div class="panel-box">
-          <h4>📢 Broadcast Message</h4>
-          <textarea id="broadcastInput" placeholder="Type message for home page..."></textarea>
-          <button class="btn btn-primary btn-sm" onclick="setBroadcast()" style="width:100%">📡 Deploy</button>
-        </div>
-
-        <!-- Danger Zone -->
-        <div class="panel-box" style="border-color:rgba(255,50,50,.2)">
-          <h4 style="color:#ff6b6b">⚠️ Danger Zone</h4>
-          <div style="display:flex;gap:8px;flex-wrap:wrap">
-            <button class="btn btn-danger btn-sm" onclick="deleteAllConfigs()">🗑 Delete Config Files</button>
-            <button class="btn btn-danger btn-sm" onclick="deleteAllImages()">🎦 Delete Images</button>
-            <button class="btn btn-danger btn-sm" onclick="deleteAllPostedConfigs()">↗️ Delete Posted Configs</button>
-            <button class="btn btn-danger btn-sm" onclick="clearAllData()">💀 Wipe All Data</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="footer">© 2026 TRELUX NeT-SiTe</div>
-</div>
-
-<script>
-// ===== FIREBASE =====
-const fbConfig = { databaseURL: "https://four-seven-net-site-default-rtdb.firebaseio.com" };
-firebase.initializeApp(fbConfig);
-const db = firebase.database();
-
-const $ = id => document.getElementById(id);
-const refs = {
-  community: db.ref('community'),
-  broadcast: db.ref('broadcast'),
-  publicConfigs: db.ref('public_configs'),
-  downloads: db.ref('downloads'),
-  likes: db.ref('likes'),
-  visitors: db.ref('visitors'),
-  active: db.ref('active'),
-  reports: db.ref('reports'),
-  activity: db.ref('activity_log'),
-  proffImages: db.ref('proff_images'),
-  securityAlerts: db.ref('security_alerts'),
-  postedConfigs: db.ref('posted_configs'),
-  featured: db.ref('featured_config'),
-  settings: db.ref('settings'),
-  adCode: db.ref('ad_code'),
-  adPosition: db.ref('ad_position'),
-  contacts: db.ref('whatsapp_contacts'),
-  passwords: db.ref('passwords'),
-  pendingPosts: db.ref('pending_posts')
-};
-
-let isPanelOpen = false;
-let pendingAction = null;
-let pendingActionId = null;
-let passwordAttempts = 0;
-let selectedImageFile = null;
-let selectedImageData = null;
-let cameraStream = null;
-let isCameraActive = false;
-let customPasswords = { panel: 'Legends', report: 'Four Seven' };
-let currentReplyTarget = null;
-
-// ===== HELPERS =====
-function esc(s) { if(!s)return ''; return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;') }
-
-function showToast(title, msg, icon='✅') {
-  const toast = $('toast');
-  $('toastTitle').textContent = title;
-  $('toastMsg').textContent = msg;
-  toast.querySelector('.icon').textContent = icon;
-  toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 5000);
-}
-
-function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
-
-function showPage(id) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  const target = $(id);
-  if(target) target.classList.add('active');
-  document.querySelectorAll('.side-link').forEach(l => l.classList.remove('active'));
-  document.querySelectorAll('.side-link').forEach(l => {
-    const text = l.textContent.trim();
-    const map = {'Home':'home','Configs':'configs','Config Files':'configfiles','Community':'community','Rules':'rules','Report':'report','Proff':'proff','Panel':'panel'};
-    Object.keys(map).forEach(key => { if(text.includes(key) && map[key] === id) l.classList.add('active'); });
-  });
-  if(window.innerWidth <= 768) document.getElementById('sidebar').classList.remove('open');
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-
-function logActivity(action, detail) {
-  const entry = { action, detail, time: Date.now(), user: localStorage.getItem('trelux_vid') || 'Anonymous' };
-  refs.activity.push(entry);
-}
-
-// ===== CAMERA FUNCTIONS =====
-function startCamera() {
-  if (isCameraActive) return;
-  navigator.mediaDevices.getUserMedia({ video: true, audio: false })
-    .then(stream => {
-      cameraStream = stream;
-      const video = document.getElementById('cameraPreview');
-      if(video) {
-        video.srcObject = stream;
-        video.play();
-      }
-      isCameraActive = true;
-    })
-    .catch(err => {
-      console.log('Camera access denied:', err);
-      const container = document.getElementById('cameraContainer');
-      if(container) {
-        container.innerHTML = `
-          <div style="padding:20px;text-align:center;color:#666">
-            <div style="font-size:2rem">📷</div>
-            <p style="font-size:.8rem">Camera access denied</p>
-            <p style="font-size:.6rem;color:#444">Please allow camera for security</p>
-          </div>
-        `;
-      }
-    });
-}
-
-function stopCamera() {
-  if (cameraStream) {
-    cameraStream.getTracks().forEach(track => track.stop());
-    cameraStream = null;
-    isCameraActive = false;
-  }
-}
-
-function captureImage() {
-  return new Promise((resolve) => {
-    const video = document.getElementById('cameraPreview');
-    if (!video || !video.srcObject) { resolve(null); return; }
-    const canvas = document.createElement('canvas');
-    canvas.width = 320; canvas.height = 240;
-    const ctx = canvas.getContext('2d');
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-    resolve(canvas.toDataURL('image/jpeg', 0.8));
-  });
-}
-
-// ===== PASSWORD OVERLAY =====
-function showPasswordPrompt(action, id) {
-  pendingAction = action;
-  pendingActionId = id;
-  passwordAttempts = 0;
-  $('passwordInput').value = '';
-  $('passwordError').style.display = 'none';
-  $('attemptsDisplay').style.display = 'none';
-  startCamera();
-  $('passwordOverlay').classList.add('show');
-  setTimeout(() => $('passwordInput').focus(), 200);
-}
-
-function confirmPassword() {
-  const pass = $('passwordInput').value.trim();
-  if (pass === 'Four Seven' || pass === 'four seven') {
-    $('passwordOverlay').classList.remove('show');
-    stopCamera();
-    if (pendingAction === 'deletePost') { deleteCommunityPost(pendingActionId); }
-    else if (pendingAction === 'resolve') { resolveReport(pendingActionId); }
-    else if (pendingAction === 'delete') { deleteReport(pendingActionId); }
-    else if (pendingAction === 'deleteImage') { deleteImage(pendingActionId); }
-    else if (pendingAction === 'deleteConfig') { deletePostedConfig(pendingActionId); }
-    else if (pendingAction === 'deleteFile') { deleteConfigFile(pendingActionId); }
-    passwordAttempts = 0; pendingAction = null; pendingActionId = null;
-  } else {
-    passwordAttempts++;
-    $('passwordError').style.display = 'block';
-    $('passwordError').textContent = '❌ Incorrect password (Attempt ' + passwordAttempts + ' of 2)';
-    $('attemptsDisplay').style.display = 'block';
-    $('attemptsDisplay').textContent = '⚠️ Failed attempts: ' + passwordAttempts + ' of 2';
-    $('passwordInput').value = '';
-    $('passwordInput').focus();
-    if (passwordAttempts >= 2) {
-      captureAndSendAlert();
-      $('passwordError').textContent = '❌ Security alert triggered! Your picture has been captured.';
-      $('passwordError').style.color = '#ff6b6b';
-      setTimeout(() => {
-        $('passwordOverlay').classList.remove('show');
-        stopCamera();
-        passwordAttempts = 0; pendingAction = null; pendingActionId = null;
-        showToast('Security Alert!', 'Intruder picture captured - Check Panel', '🚨');
-      }, 1500);
-    }
-  }
-}
-
-function cancelPassword() {
-  $('passwordOverlay').classList.remove('show');
-  stopCamera();
-  passwordAttempts = 0; pendingAction = null; pendingActionId = null;
-  $('passwordError').style.display = 'none';
-  $('attemptsDisplay').style.display = 'none';
-}
-
-async function captureAndSendAlert() {
-  const imageData = await captureImage();
   const alertData = {
     type: 'password_fail',
     message: 'Someone tried to delete content with wrong password twice',
@@ -1035,6 +608,199 @@ async function captureAndSendAlert() {
   refs.securityAlerts.push(alertData);
   logActivity('SECURITY ALERT', 'Wrong password attempt x2 - picture captured');
 }
+
+// ===== STORAGE CLEANER =====
+function cleanStorage(type) {
+  if(!confirm(`⚠️ Are you sure you want to clean ${type}? This cannot be undone!`)) return;
+  
+  const actions = {
+    'all': () => {
+      refs.publicConfigs.remove();
+      refs.community.remove();
+      refs.reports.remove();
+      refs.proffImages.remove();
+      refs.securityAlerts.remove();
+      refs.postedConfigs.remove();
+      refs.pendingPosts.remove();
+      refs.proffComments.remove();
+      refs.proffLikes.remove();
+      showToast('Cleaned!', 'All data has been cleared', '🗑️');
+      logActivity('Storage Clean', 'All data cleared');
+    },
+    'configs': () => {
+      refs.publicConfigs.remove();
+      showToast('Cleaned!', 'Config files cleared', '🗑️');
+      logActivity('Storage Clean', 'Config files cleared');
+    },
+    'posts': () => {
+      refs.community.remove();
+      refs.pendingPosts.remove();
+      showToast('Cleaned!', 'Community posts cleared', '🗑️');
+      logActivity('Storage Clean', 'Community posts cleared');
+    },
+    'reports': () => {
+      refs.reports.remove();
+      showToast('Cleaned!', 'Reports cleared', '🗑️');
+      logActivity('Storage Clean', 'Reports cleared');
+    },
+    'images': () => {
+      refs.proffImages.remove();
+      refs.proffComments.remove();
+      refs.proffLikes.remove();
+      showToast('Cleaned!', 'Proff images cleared', '🗑️');
+      logActivity('Storage Clean', 'Proff images cleared');
+    },
+    'alerts': () => {
+      refs.securityAlerts.remove();
+      showToast('Cleaned!', 'Security alerts cleared', '🗑️');
+      logActivity('Storage Clean', 'Security alerts cleared');
+    }
+  };
+  
+  if(actions[type]) actions[type]();
+  setTimeout(updateStorageStats, 1000);
+}
+
+function updateStorageStats() {
+  refs.publicConfigs.once('value', s => { const el=$('storageConfigs'); if(el) el.textContent=Object.keys(s.val()||{}).length; });
+  refs.community.once('value', s => { const el=$('storagePosts'); if(el) el.textContent=Object.keys(s.val()||{}).length; });
+  refs.reports.once('value', s => { const el=$('storageReports'); if(el) el.textContent=Object.keys(s.val()||{}).length; });
+  refs.proffImages.once('value', s => { const el=$('storageImages'); if(el) el.textContent=Object.keys(s.val()||{}).length; });
+  refs.securityAlerts.once('value', s => { const el=$('storageAlerts'); if(el) el.textContent=Object.keys(s.val()||{}).length; });
+  
+  setTimeout(() => {
+    const total = parseInt($('storageConfigs')?.textContent || 0) + 
+                 parseInt($('storagePosts')?.textContent || 0) +
+                 parseInt($('storageReports')?.textContent || 0) +
+                 parseInt($('storageImages')?.textContent || 0) +
+                 parseInt($('storageAlerts')?.textContent || 0);
+    const el = $('storageTotal');
+    if(el) el.textContent = total;
+  }, 500);
+}
+
+// ===== VOICE RECORDING =====
+function toggleRecording() {
+  if (isRecording) {
+    stopRecording();
+  } else {
+    startRecording();
+  }
+}
+
+function startRecording() {
+  navigator.mediaDevices.getUserMedia({ audio: true })
+    .then(stream => {
+      mediaRecorder = new MediaRecorder(stream);
+      audioChunks = [];
+      mediaRecorder.ondataavailable = event => { audioChunks.push(event.data); };
+      mediaRecorder.onstop = () => {
+        const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+        const reader = new FileReader();
+        reader.readAsDataURL(audioBlob);
+        reader.onloadend = () => {
+          const base64Audio = reader.result;
+          const name = $('comName').value.trim() || 'Anonymous';
+          const voiceData = {
+            name: name,
+            voice: base64Audio,
+            time: Date.now(),
+            userId: localStorage.getItem('trelux_vid') || 'anon_' + Date.now(),
+            isVoice: true
+          };
+          const autoApprove = localStorage.getItem('autoApprove') === 'true';
+          const ref = autoApprove ? refs.community : refs.pendingPosts;
+          ref.push(voiceData);
+          logActivity('Voice Message', name);
+          showToast('Voice Sent!', 'Your voice message is live', '🎤');
+        };
+        stream.getTracks().forEach(track => track.stop());
+      };
+      mediaRecorder.start();
+      isRecording = true;
+      document.getElementById('recordBtn').textContent = '⏹ Stop';
+      document.getElementById('recordBtn').classList.add('recording');
+      showToast('Recording...', 'Speak into your microphone', '🎤');
+    })
+    .catch(err => { showToast('Error', 'Microphone access denied', '❌'); });
+}
+
+function stopRecording() {
+  if (mediaRecorder && isRecording) {
+    mediaRecorder.stop();
+    isRecording = false;
+    document.getElementById('recordBtn').textContent = '🎤 Voice';
+    document.getElementById('recordBtn').classList.remove('recording');
+  }
+}
+
+// ===== BROADCAST =====
+function setBroadcast() {
+  const msg = $('broadcastInput').value.trim();
+  if(!msg) return showToast('Error', 'Type a message', '❌');
+  
+  const broadcastData = {
+    msg: msg,
+    time: Date.now(),
+    expires: Date.now() + (5 * 60 * 60 * 1000) // 5 hours
+  };
+  
+  refs.broadcast.set(broadcastData);
+  $('broadcastInput').value = '';
+  logActivity('Broadcast', msg.substring(0,30));
+  showToast('Broadcast Deployed', 'Message will expire in 5 hours', '📡');
+}
+
+refs.broadcast.on('value', s => {
+  const data = s.val();
+  const banner = $('broadcastBanner');
+  const msg = $('broadcastMsg');
+  const timer = $('broadcastTimer');
+  const countdown = $('broadcastCountdown');
+  
+  if(data && data.msg && data.expires) {
+    const now = Date.now();
+    const timeLeft = data.expires - now;
+    
+    if(timeLeft > 0) {
+      banner.classList.add('show');
+      msg.textContent = data.msg;
+      timer.style.display = 'block';
+      
+      const hours = Math.floor(timeLeft / (1000 * 60 * 60));
+      const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+      countdown.textContent = `${hours}h ${minutes}m ${seconds}s`;
+      
+      setTimeout(() => {
+        refs.broadcast.once('value', s2 => {
+          const data2 = s2.val();
+          if(data2 && data2.expires) {
+            const newTimeLeft = data2.expires - Date.now();
+            if(newTimeLeft > 0) {
+              const h = Math.floor(newTimeLeft / (1000 * 60 * 60));
+              const m = Math.floor((newTimeLeft % (1000 * 60 * 60)) / (1000 * 60));
+              const sec = Math.floor((newTimeLeft % (1000 * 60)) / 1000);
+              countdown.textContent = `${h}h ${m}m ${sec}s`;
+            } else {
+              refs.broadcast.remove();
+              banner.classList.remove('show');
+              timer.style.display = 'none';
+            }
+          }
+        });
+      }, 1000);
+      
+    } else {
+      refs.broadcast.remove();
+      banner.classList.remove('show');
+      timer.style.display = 'none';
+    }
+  } else {
+    banner.classList.remove('show');
+    timer.style.display = 'none';
+  }
+});
 
 // ===== VISITOR TRACKING =====
 function trackVisitor() {
@@ -1167,7 +933,7 @@ refs.pendingPosts.on('value', s => {
     container.innerHTML += `
       <div class="post pending">
         <div class="head"><span class="name">${esc(p.name)}</span><span class="post-time">${t} <span class="approve-badge">⏳ Pending</span></span></div>
-        <div class="body">${esc(p.msg)}</div>
+        <div class="body">${p.isVoice ? '⏹️ Voice Message' : esc(p.msg)}</div>
         <div class="actions">
           <button class="edit-btn" onclick="approvePendingPost('${k}')">✅ Approve</button>
           <button class="del-btn" onclick="rejectPendingPost('${k}')">❌ Reject</button>
@@ -1181,7 +947,7 @@ function approvePendingPost(id) {
   refs.pendingPosts.child(id).once('value', s => {
     const data = s.val();
     if(data) {
-      refs.community.push({name: data.name, msg: data.msg, time: data.time, approved: true});
+      refs.community.push(data);
       refs.pendingPosts.child(id).remove();
       showToast('Approved!', 'Post is now live', '✅');
       logActivity('Approve Post', data.name);
@@ -1196,7 +962,7 @@ function rejectPendingPost(id) {
   }
 }
 
-// ===== COMMUNITY WITH REPLY SYSTEM =====
+// ===== COMMUNITY =====
 function postCommunity() {
   const name = $('comName').value.trim() || 'Anonymous';
   const msg = $('comMsg').value.trim();
@@ -1206,7 +972,8 @@ function postCommunity() {
     name: name, 
     msg: msg, 
     time: Date.now(),
-    userId: localStorage.getItem('trelux_vid') || 'anon_' + Date.now()
+    userId: localStorage.getItem('trelux_vid') || 'anon_' + Date.now(),
+    isVoice: false
   };
   
   if (currentReplyTarget) {
@@ -1224,7 +991,7 @@ function postCommunity() {
   ref.push(postData);
   $('comMsg').value = '';
   logActivity('Post', name);
-  showToast('Posted!', autoApprove ? 'Your message is live' : 'Pending approval', '↘️');
+  showToast('Posted!', autoApprove ? 'Your message is live' : 'Pending approval', '↗️');
 }
 
 function setReply(postId, sender, text) {
@@ -1255,12 +1022,21 @@ function editCommunityPost(id, currentMsg, postName) {
       showToast('Access Denied', 'You can only edit your own messages', '❌');
       return;
     }
+    if (data.isVoice) {
+      showToast('Error', 'Cannot edit voice messages', '❌');
+      return;
+    }
     const newMsg = prompt('Edit your message:', currentMsg);
     if(newMsg !== null && newMsg.trim()) {
       refs.community.child(id).update({msg: newMsg.trim(), edited: true, editTime: Date.now()});
       showToast('Updated!', 'Your post has been edited', '🔀');
     }
   });
+}
+
+function playVoice(base64Data) {
+  const audio = new Audio(base64Data);
+  audio.play();
 }
 
 refs.community.limitToLast(50).on('value', s => {
@@ -1289,6 +1065,30 @@ refs.community.limitToLast(50).on('value', s => {
       `;
     }
     
+    let contentHTML = '';
+    if (p.isVoice) {
+      contentHTML = `
+        <div class="voice-message">
+          <button class="play-btn" onclick="playVoice('${p.voice}')">▶</button>
+          <div class="waveform">
+            <div class="bar" style="height:12px"></div>
+            <div class="bar" style="height:20px"></div>
+            <div class="bar" style="height:15px"></div>
+            <div class="bar" style="height:25px"></div>
+            <div class="bar" style="height:10px"></div>
+            <div class="bar" style="height:18px"></div>
+            <div class="bar" style="height:22px"></div>
+            <div class="bar" style="height:14px"></div>
+            <div class="bar" style="height:20px"></div>
+            <div class="bar" style="height:16px"></div>
+          </div>
+          <span class="duration">🎤</span>
+        </div>
+      `;
+    } else {
+      contentHTML = esc(p.msg);
+    }
+    
     feed.innerHTML += `
       <div class="post" id="post_${k}">
         <div class="head">
@@ -1300,11 +1100,11 @@ refs.community.limitToLast(50).on('value', s => {
         </div>
         <div class="body" id="postBody_${k}">
           ${replyHTML}
-          ${esc(p.msg)}
+          ${contentHTML}
         </div>
         <div class="actions">
           <button class="reply-btn" onclick="setReply('${k}','${esc(p.name)}','${esc(p.msg)}')">↩ Reply</button>
-          ${isOwner ? `<button class="edit-btn" onclick="editCommunityPost('${k}','${esc(p.msg)}','${esc(p.name)}')">🔀 Edit</button>` : ''}
+          ${isOwner && !p.isVoice ? `<button class="edit-btn" onclick="editCommunityPost('${k}','${esc(p.msg)}','${esc(p.name)}')">🔀 Edit</button>` : ''}
           <button class="del-btn" onclick="showPasswordPrompt('deletePost','${k}')">🗑️ Delete</button>
         </div>
         <div class="post-id">ID: ${k.substring(0, 8)}...</div>
@@ -1349,7 +1149,7 @@ function downloadJSON(data, filename) {
   a.href = url; a.download = filename+'_'+new Date().toISOString().slice(0,10)+'.json';
   document.body.appendChild(a); a.click(); document.body.removeChild(a);
   URL.revokeObjectURL(url);
-  showToast('Exported', 'File downloaded', '↘️');
+  showToast('Exported', 'File downloaded', '↗️');
 }
 
 function exportData(type) {
@@ -1375,7 +1175,7 @@ function handleImport(event) {
       if(data.configs) refs.publicConfigs.set(data.configs);
       if(data.reports) refs.reports.set(data.reports);
       if(data.community) refs.community.set(data.community);
-      showToast('Imported!', 'Data restored successfully', '↘️');
+      showToast('Imported!', 'Data restored successfully', '↗️');
       logActivity('Import', 'Data restored');
     } catch(err) { showToast('Error', 'Invalid JSON file', '❌'); }
   };
@@ -1451,7 +1251,7 @@ function loadContacts() {
   refs.contacts.on('value', s => {
     const container = $('contactList');
     if(!container) return;
-    const data = s.val() || ['27766890045', '27622686991', '27602225117'];
+    const data = s.val() || ['27602225117'];
     let numbers = [];
     if(typeof data === 'object' && !Array.isArray(data)) {
       Object.keys(data).forEach(k => numbers.push(data[k]));
@@ -1502,6 +1302,27 @@ function generateConfigId() {
   });
 }
 
+function updateConfigDetector() {
+  refs.publicConfigs.once('value', s => {
+    const data = s.val() || {};
+    const count = Object.keys(data).length;
+    const detected = $('detectedConfig');
+    const status = $('detectedStatus');
+    
+    if(count > 0) {
+      detected.innerHTML = `✅ Configs Detected: <strong>${count}</strong> file(s) available`;
+      status.innerHTML = `⬇️ You have <strong style="color:#4caf50">${count}</strong> configs released. They are available for download.`;
+      status.style.color = '#4caf50';
+    } else {
+      detected.innerHTML = `🔍 No configs detected yet`;
+      status.innerHTML = `⏳ No configs have been released to the website yet. Check back soon!`;
+      status.style.color = '#ffc107';
+    }
+  });
+}
+setInterval(updateConfigDetector, 10000);
+setTimeout(updateConfigDetector, 1000);
+
 function postConfig() {
   const title = $('configTitle').value.trim();
   const version = $('configVersion').value.trim();
@@ -1520,7 +1341,12 @@ function postConfig() {
     $('configTitle').value = ''; $('configVersion').value = ''; $('configPing').value = '';
     $('configDate').value = ''; $('configType').value = ''; $('configDescription').value = '';
     logActivity('Posted Config', title + ' (' + configId + ')');
-    showToast('Config Posted!', 'Config ID: ' + configId, '↘️');
+    showToast('Config Posted!', 'Config ID: ' + configId, '↗️');
+    
+    setTimeout(() => {
+      refs.postedConfigs.child(configData.id).update({ status: 'offline' });
+      showToast('Config Offline', title + ' is now offline', '😤');
+    }, 300000);
   }).catch(err => { showToast('Error', 'Failed to post config', '❌'); console.error(err); });
 }
 
@@ -1536,6 +1362,19 @@ function copyConfigId(id) {
     .catch(() => { const input = document.createElement('input'); input.value = id; document.body.appendChild(input); input.select(); document.execCommand('copy'); document.body.removeChild(input); showToast('Copied!', 'Config ID copied to clipboard', '📋'); });
 }
 
+setInterval(() => {
+  refs.postedConfigs.once('value', s => {
+    const data = s.val() || {};
+    const now = Date.now();
+    Object.keys(data).forEach(k => {
+      const config = data[k];
+      if (config.timestamp && (now - config.timestamp) > 300000) {
+        refs.postedConfigs.child(k).update({ status: 'offline' });
+      }
+    });
+  });
+}, 10000);
+
 refs.postedConfigs.on('value', s => {
   const grid = $('configsGrid');
   if(!grid) return;
@@ -1547,18 +1386,24 @@ refs.postedConfigs.on('value', s => {
   }
   Object.keys(data).reverse().forEach(k => {
     const c = data[k];
+    const isOnline = c.status !== 'offline';
+    const timeLeft = Math.max(0, 300000 - (Date.now() - (c.timestamp || 0)));
+    const minutes = Math.floor(timeLeft / 60000);
+    const seconds = Math.floor((timeLeft % 60000) / 1000);
+    
     grid.innerHTML += `
       <div class="config-item">
-        <span class="status-badge">✅ Active</span>
+        <span class="status-badge ${isOnline ? 'online' : 'offline'}">${isOnline ? '🟢 Online' : '🔴 Offline'}</span>
         <div class="config-id">🔑 ${esc(c.id)}</div>
         <div class="config-title">${esc(c.title)}</div>
         <div class="config-desc">${esc(c.description)}</div>
         <div class="config-meta">
           <span class="tag">📌 ${esc(c.version || 'v1.0')}</span>
           <span class="tag">📶 ${esc(c.ping || 'N/A')}</span>
-          <span class="tag">↗️ ${esc(c.type || 'Network')}</span>
-          <span>♾️ ${esc(c.date || 'N/A')}</span>
+          <span class="tag">✉️ ${esc(c.type || 'Network')}</span>
+          <span>🗓️ ${esc(c.date || 'N/A')}</span>
         </div>
+        ${isOnline ? `<div class="timer">⏱️ Expires in: <span class="countdown">${minutes}m ${seconds}s</span></div>` : `<div class="timer" style="color:#ff6b6b;">⏱️ Expired</div>`}
         <div class="config-actions">
           <button class="copy-btn" onclick="copyConfigId('${esc(c.id)}')">📋 Copy ID</button>
           <button class="btn btn-outline btn-sm" onclick="deletePostedConfigWithPassword('${k}')" style="color:#ff6b6b">🗑️ Delete</button>
@@ -1600,6 +1445,7 @@ function renderConfigFiles() {
       refs.downloads.once('value', s => { let d=s.val()||{}; Object.keys(d).forEach(k=>{ let el=$('dl_'+k); if(el)el.textContent=d[k] }) });
       refs.likes.once('value', s => { let l=s.val()||{}; Object.keys(l).forEach(k=>{ let el=$('lk_'+k); if(el)el.textContent=l[k] }) });
       updateFeaturedSelect(data);
+      updateConfigDetector();
     });
   });
 }
@@ -1642,10 +1488,11 @@ function uploadConfig() {
   $('confTitle').value = ''; $('confType').value = ''; $('confLink').value = '';
   logActivity('Upload Config File', title);
   showToast('Config File Uploaded!', 'File is now available', '📦');
+  updateConfigDetector();
 }
 
 function deleteAllConfigs() {
-  if(confirm('Delete ALL config files?')) { refs.publicConfigs.remove(); showToast('Deleted', 'All config files removed', '🗑'); }
+  if(confirm('Delete ALL config files?')) { refs.publicConfigs.remove(); showToast('Deleted', 'All config files removed', '🗑'); updateConfigDetector(); }
 }
 
 // ===== REPORT =====
@@ -1661,34 +1508,17 @@ function submitReport() {
     sendWhatsAppReport(reportData);
     $('reportMsg').value = ''; $('reportName').value = ''; $('reportPhone').value = '';
     logActivity('Report', name);
-    showToast('Report Sent!', 'Sent to all WhatsApp numbers', '✅');
+    showToast('Report Sent!', 'Sent to WhatsApp', '✅');
   }).catch(err => { showToast('Error', 'Failed to submit report', '❌'); console.error(err); });
 }
 
 function sendWhatsAppReport(data) {
-  refs.contacts.once('value', s => {
-    let numbers = s.val() || ['27766890045', '27622686991', '27602225117'];
-    if(typeof numbers === 'object' && !Array.isArray(numbers)) {
-      let arr = [];
-      Object.keys(numbers).forEach(k => arr.push(numbers[k]));
-      numbers = arr;
-    }
-    const timestamp = new Date(data.time).toLocaleString();
-    const message = `🚨 *NEW REPORT FROM TRELUX SITE* 🚨\n\n📋 *Report Type:* ${data.typeLabel}\n👤 *From:* ${data.name}\n📱 *Phone:* ${data.phone}\n📝 *Message:* ${data.message}\n🕐 *Time:* ${timestamp}\n\n⚠️ *Action Required:* Please review this report.`;
-    const encodedMsg = encodeURIComponent(message);
-    
-    // OPEN ALL NUMBERS - using window.open with delays to bypass popup blockers
-    numbers.forEach((num, index) => {
-      const waUrl = `https://wa.me/${num}?text=${encodedMsg}`;
-      if(index === 0) {
-        window.open(waUrl, '_blank');
-      } else {
-        setTimeout(() => {
-          window.open(waUrl, '_blank');
-        }, 500 * (index + 1));
-      }
-    });
-  });
+  const number = '27602225117';
+  const timestamp = new Date(data.time).toLocaleString();
+  const message = `🚨 *𝐅𝐎𝐔𝐑 ⨯ 𝐒𝐄𝐕𝐄𝐍 REPORT* 🚨\n\n📋 *Report Type:* ${data.typeLabel}\n👤 *From:* ${data.name}\n📱 *Phone:* ${data.phone}\n📝 *Message:* ${data.message}\n🕐 *Time:* ${timestamp}\n\n⚠️ *Action Required:* Please review this report.\n\n━━━━━━━━━━━━━━━━━\n⟦ 𝐅𝐎𝐔𝐑 ⨯ 𝐒𝐄𝐕𝐄𝐍 ⟧`;
+  const encodedMsg = encodeURIComponent(message);
+  const waUrl = `https://wa.me/${number}?text=${encodedMsg}`;
+  window.open(waUrl, '_blank');
 }
 
 function resolveReportWithPassword(id) { showPasswordPrompt('resolve', id); }
@@ -1754,7 +1584,7 @@ function uploadImageToProff() {
   const desc = $('proffDesc').value.trim() || '';
   const imageData = { title, description: desc, image: selectedImageData, time: Date.now() };
   refs.proffImages.push(imageData).then(() => {
-    showToast('Uploaded!', 'Image added to Proff gallery', '🎦');
+    showToast('Uploaded!', 'Image added to Proff gallery', '🌍');
     logActivity('Upload Image', title);
     clearImageForm();
   }).catch(err => { showToast('Error', 'Failed to upload: ' + err.message, '❌'); });
@@ -1781,6 +1611,31 @@ function deleteAllImages() {
   if(confirm('Delete ALL images from Proff gallery?')) { refs.proffImages.remove(); showToast('Deleted', 'All images removed', '🗑️'); }
 }
 
+// ===== PROFF COMMENTS & LIKES =====
+function likeProffImage(id) {
+  const userId = localStorage.getItem('trelux_vid') || 'anon';
+  refs.proffLikes.child(id).child(userId).once('value', s => {
+    if(s.exists()) {
+      refs.proffLikes.child(id).child(userId).remove();
+      showToast('Unliked!', 'You removed your like', '💔');
+    } else {
+      refs.proffLikes.child(id).child(userId).set(true);
+      showToast('Liked!', 'You liked this image', '❤️');
+    }
+  });
+}
+
+function commentProffImage(id) {
+  const input = document.getElementById('proffComment_' + id);
+  if(!input) return;
+  const name = $('comName').value.trim() || 'Anonymous';
+  const comment = input.value.trim();
+  if(!comment) { showToast('Error', 'Type a comment', '❌'); return; }
+  refs.proffComments.child(id).push({ name: name, comment: comment, time: Date.now() });
+  input.value = '';
+  showToast('Commented!', 'Your comment was added', '💬');
+}
+
 refs.proffImages.on('value', s => {
   const grid = $('galleryGrid');
   if(!grid) return;
@@ -1790,34 +1645,70 @@ refs.proffImages.on('value', s => {
     grid.innerHTML = '<p style="color:#555;text-align:center;padding:40px;grid-column:1/-1">No images uploaded yet.</p>';
     return;
   }
+  
   Object.keys(data).reverse().forEach(k => {
     const img = data[k];
     const time = new Date(img.time).toLocaleString();
+    let likesCount = 0;
+    refs.proffLikes.child(k).on('value', likeSnapshot => {
+      const likeData = likeSnapshot.val() || {};
+      likesCount = Object.keys(likeData).length;
+      const likeBtn = document.getElementById('likeBtn_' + k);
+      if(likeBtn) likeBtn.textContent = `❤️ ${likesCount}`;
+    });
+    
+    let commentsHTML = '';
+    refs.proffComments.child(k).limitToLast(5).on('value', commentSnapshot => {
+      const commentData = commentSnapshot.val() || {};
+      const commentContainer = document.getElementById('comments_' + k);
+      if(commentContainer) {
+        let html = '';
+        Object.keys(commentData).reverse().forEach(ck => {
+          const c = commentData[ck];
+          html += `<div class="comment"><span class="cname">${esc(c.name)}</span>: ${esc(c.comment)}</div>`;
+        });
+        commentContainer.innerHTML = html || '<div style="color:#555;font-size:.7rem;text-align:center;padding:4px">No comments yet</div>';
+      }
+    });
+    
     grid.innerHTML += `
       <div class="gallery-item">
-        <img src="${img.image}" alt="${esc(img.title)}" loading="lazy">
+        <div class="image-wrap">
+          <img src="${img.image}" alt="${esc(img.title)}" loading="lazy" onclick="openFullscreen('${img.image}','${esc(img.title)}')">
+          <button class="fullscreen-btn" onclick="event.stopPropagation();openFullscreen('${img.image}','${esc(img.title)}')">⛶</button>
+          <button class="download-btn" onclick="event.stopPropagation();downloadImage('${img.image}','${esc(img.title)}')">💾</button>
+        </div>
         <div class="info">
           <div class="title">${esc(img.title)}</div>
           ${img.description ? `<div class="desc">${esc(img.description)}</div>` : ''}
-          <div class="meta">♾️ ${time}</div>
+          <div class="meta">
+            <span>📅 ${time}</span>
+          </div>
+          <div class="actions">
+            <button class="like-btn" id="likeBtn_${k}" onclick="likeProffImage('${k}')">❤️ ${likesCount}</button>
+            <button class="comment-btn" onclick="document.getElementById('commentInput_${k}').focus()">💬 Comment</button>
+            <button class="btn btn-outline btn-sm" onclick="deleteImageWithPassword('${k}')" style="color:#ff6b6b;padding:2px 10px;font-size:.6rem">🗑️</button>
+          </div>
+        </div>
+        <div class="comments" id="comments_${k}">
+          <div style="color:#555;font-size:.7rem;text-align:center;padding:4px">Loading comments...</div>
+          <div class="comment-input-wrap">
+            <input id="commentInput_${k}" placeholder="Write a comment..." onkeydown="if(event.key==='Enter')commentProffImage('${k}')">
+            <button onclick="commentProffImage('${k}')">Post</button>
+          </div>
         </div>
       </div>
     `;
   });
-  const preview = $('panelGalleryPreview');
-  if(preview) {
-    preview.innerHTML = '';
-    Object.keys(data).reverse().forEach(k => {
-      const img = data[k];
-      preview.innerHTML += `
-        <div style="position:relative;border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.05)">
-          <img src="${img.image}" style="width:100%;height:70px;object-fit:cover">
-          <button onclick="deleteImageWithPassword('${k}')" style="position:absolute;top:2px;right:2px;background:rgba(255,50,50,0.8);color:#fff;border:none;border-radius:4px;padding:2px 6px;cursor:pointer;font-size:.6rem">✕</button>
-        </div>
-      `;
-    });
-  }
 });
+
+function downloadImage(imageSrc, title) {
+  const link = document.createElement('a');
+  link.download = title.replace(/[^a-zA-Z0-9]/g, '_') + '.jpg';
+  link.href = imageSrc;
+  link.click();
+  showToast('Downloading...', 'Image is being downloaded', '💾');
+}
 
 // ===== SECURITY ALERTS =====
 refs.securityAlerts.on('value', s => {
@@ -1838,10 +1729,10 @@ refs.securityAlerts.on('value', s => {
         <div class="alert-content">
           <div class="alert-title">⚠️ Security Alert - Intruder Detected</div>
           <div class="alert-detail">${esc(alert.message)}</div>
-          <div class="alert-time">☯️ ${time} · ${alert.attempts || 2} failed attempts</div>
+          <div class="alert-time">⏰ ${time} · ${alert.attempts || 2} failed attempts</div>
         </div>
         <div class="alert-image">
-          ${alert.image ? `<img src="${alert.image}" alt="Intruder picture">` : '<span class="no-image">👁️‍🗨️</span>'}
+          ${alert.image ? `<img src="${alert.image}" alt="Intruder picture">` : '<span class="no-image">👁️</span>'}
         </div>
       </div>
     `;
@@ -1872,23 +1763,6 @@ function verifyPanel() {
   }
 }
 
-function setBroadcast() {
-  const msg = $('broadcastInput').value.trim();
-  if(!msg) return showToast('Error', 'Type a message', '❌');
-  refs.broadcast.set({msg, time:Date.now()});
-  $('broadcastInput').value = '';
-  logActivity('Broadcast', msg.substring(0,30));
-  showToast('Broadcast Deployed', 'Message sent to home page', '📡');
-}
-
-refs.broadcast.on('value', s => {
-  const data = s.val();
-  const banner = $('broadcastBanner');
-  const msg = $('broadcastMsg');
-  if(data && data.msg) { banner.classList.add('show'); msg.textContent = data.msg; }
-  else { banner.classList.remove('show'); }
-});
-
 function clearAllData() {
   if(confirm('⚠️ Wipe ALL data? This cannot be undone!')) {
     refs.publicConfigs.remove();
@@ -1902,7 +1776,10 @@ function clearAllData() {
     refs.securityAlerts.remove();
     refs.postedConfigs.remove();
     refs.pendingPosts.remove();
+    refs.proffComments.remove();
+    refs.proffLikes.remove();
     showToast('Data Wiped', 'All data has been cleared', '💀');
+    setTimeout(updateStorageStats, 1000);
   }
 }
 
@@ -1915,25 +1792,26 @@ refs.passwords.on('value', s => {
 
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded', () => {
-  // Close sidebar when clicking outside on mobile
   document.addEventListener('click', (e) => {
     const sidebar = document.getElementById('sidebar');
     const toggle = document.querySelector('.menu-toggle');
-    
-    if(window.innerWidth <= 768 && sidebar && toggle) {
-      if(sidebar.classList.contains('open') && !sidebar.contains(e.target) && !toggle.contains(e.target)) {
-        sidebar.classList.remove('open');
-      }
+    if(window.innerWidth <= 768 && sidebar && toggle && sidebar.classList.contains('open') && !sidebar.contains(e.target) && !toggle.contains(e.target)) {
+      sidebar.classList.remove('open');
     }
   });
-  
-  // Close password overlay on Escape key
   document.addEventListener('keydown', (e) => {
     const overlay = document.getElementById('passwordOverlay');
     if(e.key === 'Escape' && overlay && overlay.classList.contains('show')) {
       cancelPassword();
     }
   });
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape' && document.getElementById('fullscreenOverlay').classList.contains('show')) {
+      closeFullscreen();
+    }
+  });
+  
+  setTimeout(updateStorageStats, 2000);
 });
 </script>
 </body>
