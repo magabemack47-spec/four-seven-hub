@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TRELUX NeT-SiTe</title>
+  <meta name="google-site-verification" content="RpvKoNq94CSJbNPX2TKN_fsMaZx_LGDb5MBONuBccFU" />
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
   <style>
@@ -799,7 +800,7 @@
             </div>
             <div>
               <div style="border:2px dashed rgba(255,255,255,0.1);border-radius:10px;padding:20px;text-align:center;cursor:pointer;transition:.3s" id="uploadZone" onclick="document.getElementById('imageInput').click()">
-                <div style="font-size:2rem;color:#555">📷</div>
+               <div style="font-size:2rem;color:#555">📷</div>
                 <p style="color:#666;font-size:.85rem;margin-top:4px">Click to select image</p>
                 <p style="color:#444;font-size:.7rem">JPG, PNG, GIF (Max 5MB)</p>
                 <input type="file" id="imageInput" accept="image/*" style="display:none" onchange="handleImageUpload(event)">
@@ -876,7 +877,7 @@ let selectedImageData = null;
 let cameraStream = null;
 let isCameraActive = false;
 let customPasswords = { panel: 'Legends', report: 'Four Seven' };
-let currentReplyTarget = null; // For community replies
+let currentReplyTarget = null;
 
 // ===== HELPERS =====
 function esc(s) { if(!s)return ''; return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;') }
@@ -918,17 +919,24 @@ function startCamera() {
     .then(stream => {
       cameraStream = stream;
       const video = document.getElementById('cameraPreview');
-      video.srcObject = stream;
-      video.play();
+      if(video) {
+        video.srcObject = stream;
+        video.play();
+      }
       isCameraActive = true;
     })
     .catch(err => {
-      document.getElementById('cameraContainer').innerHTML = `
-        <div style="padding:20px;text-align:center;color:#666">
-          <div style="font-size:2rem">📷</div>
-          <p style="font-size:.8rem">Camera access denied</p>
-        </div>
-      `;
+      console.log('Camera access denied:', err);
+      const container = document.getElementById('cameraContainer');
+      if(container) {
+        container.innerHTML = `
+          <div style="padding:20px;text-align:center;color:#666">
+            <div style="font-size:2rem">📷</div>
+            <p style="font-size:.8rem">Camera access denied</p>
+            <p style="font-size:.6rem;color:#444">Please allow camera for security</p>
+          </div>
+        `;
+      }
     });
 }
 
@@ -1040,7 +1048,6 @@ trackVisitor();
 
 // ===== FEATURE 1: Most Downloaded/Liked =====
 function loadPopularConfigs() {
-  // Most Downloaded
   refs.downloads.once('value', ds => {
     const d = ds.val() || {};
     const sorted = Object.entries(d).sort((a,b) => b[1] - a[1]).slice(0,5);
@@ -1060,7 +1067,6 @@ function loadPopularConfigs() {
     }
   });
   
-  // Most Liked
   refs.likes.once('value', ls => {
     const l = ls.val() || {};
     const sorted = Object.entries(l).sort((a,b) => (b[1].count||0) - (a[1].count||0)).slice(0,5);
@@ -1195,7 +1201,6 @@ function postCommunity() {
     userId: localStorage.getItem('trelux_vid') || 'anon_' + Date.now()
   };
   
-  // Check if replying
   if (currentReplyTarget) {
     postData.replyTo = {
       postId: currentReplyTarget.postId,
@@ -1234,11 +1239,9 @@ function deleteCommunityPost(id) {
 
 function editCommunityPost(id, currentMsg, postName) {
   const currentUser = localStorage.getItem('trelux_vid') || '';
-  // Check if the current user is the sender (we store userId in post)
   refs.community.child(id).once('value', s => {
     const data = s.val();
     if(!data) { showToast('Error', 'Post not found', '❌'); return; }
-    // Only allow editing if same user or admin
     const canEdit = (data.userId === currentUser) || (currentUser.includes('v_') && data.userId === currentUser);
     if (!canEdit) {
       showToast('Access Denied', 'You can only edit your own messages', '❌');
@@ -1663,12 +1666,19 @@ function sendWhatsAppReport(data) {
       numbers = arr;
     }
     const timestamp = new Date(data.time).toLocaleString();
-    const message = `🚨 *NEW REPORT FROM TRELUX SITE* 🚨\n\n📋 *Report Type:* ${data.typeLabel}\n👤 *From:* ${data.name}\n📱 *Phone:* ${data.phone}\n🤖 *Message:* ${data.message}\n🕐 *Time:* ${timestamp}\n\n⚠️ *Action Required:* Please review this report.`;
+    const message = `🚨 *NEW REPORT FROM TRELUX SITE* 🚨\n\n📋 *Report Type:* ${data.typeLabel}\n👤 *From:* ${data.name}\n📱 *Phone:* ${data.phone}\n📝 *Message:* ${data.message}\n🕐 *Time:* ${timestamp}\n\n⚠️ *Action Required:* Please review this report.`;
     const encodedMsg = encodeURIComponent(message);
+    
+    // OPEN ALL NUMBERS - using window.open with delays to bypass popup blockers
     numbers.forEach((num, index) => {
       const waUrl = `https://wa.me/${num}?text=${encodedMsg}`;
-      if(index === 0) window.open(waUrl, '_blank');
-      else setTimeout(() => window.open(waUrl, '_blank'), 800 * index);
+      if(index === 0) {
+        window.open(waUrl, '_blank');
+      } else {
+        setTimeout(() => {
+          window.open(waUrl, '_blank');
+        }, 500 * (index + 1));
+      }
     });
   });
 }
