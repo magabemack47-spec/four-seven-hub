@@ -691,7 +691,7 @@
   <button class="side-link" onclick="showPage('community')"><span class="icon">💬</span> Community</button>
   <button class="side-link" onclick="showPage('rules')"><span class="icon">📜</span> Rules</button>
   <button class="side-link" onclick="showPage('report')"><span class="icon">☣️</span> Report</button>
-  <button class="side-link" onclick="showPage('proff')" style="color:#ffd700"><span class="icon">🌍</span> Proff</button>
+  <button class="side-link" onclick="showPage('proff')" style="color:#ffd700"><span class="icon">🌍</span> Images</button>
   <button class="side-link owner-link" onclick="showPage('owners')"><span class="icon">🤖</span> Owners</button>
   <button class="side-link whatsapp-link" onclick="showPage('social')"><span class="icon">📱</span> Social</button>
   <a href="https://github.com/magabemack47-spec/four-seven-hub" target="_blank" class="side-link github-link"><span class="icon">☠️</span> GitHub</a>
@@ -831,7 +831,7 @@
         <input id="reportPhone" placeholder="Your phone number (optional - for follow-up)" style="width:100%;padding:10px 14px;background:rgba(10,10,18,0.4);border:1px solid rgba(255,50,50,0.06);border-radius:10px;color:#fff;outline:none;margin-bottom:8px;font-family:'Rajdhani',sans-serif">
         <select id="reportType" style="width:100%;padding:10px 14px;background:rgba(10,10,18,0.4);border:1px solid rgba(255,50,50,0.06);border-radius:10px;color:#fff;outline:none;margin-bottom:8px;font-family:'Rajdhani',sans-serif">
           <option value="malicious">🚫 Malicious Config</option>
-          <option value="spam">😔 Spam</option>
+          <option value="spam">📢 Spam</option>
           <option value="harassment">😡 Harassment</option>
           <option value="broken">🔗 Broken Link</option>
           <option value="other">❓ Other</option>
@@ -844,8 +844,8 @@
     </div>
   </div>
 
-  <!-- ===== IMAGE ===== -->
-  <div id="image" class="page">
+  <!-- ===== IMAGES ===== -->
+  <div id="proff" class="page">
     <div class="card">
       <h2>🌍 IMAGES</h2>
       <p style="color:#888;margin-bottom:16px">Uploaded images from the community. Click images to view full size, download, like, and comment.</p>
@@ -1091,7 +1091,7 @@
         </div>
 
         <div class="panel-box" style="border-color:rgba(255,215,0,0.06)">
-          <h4 style="color:#ffd700">🌍 UPLOAD IMAGE TO IMAGE</h4>
+          <h4 style="color:#ffd700">🌍 UPLOAD IMAGE TO IMAGES</h4>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
             <div>
               <input type="text" id="proffTitle" placeholder="Image title..." style="font-family:'Rajdhani',sans-serif">
@@ -1099,7 +1099,7 @@
             </div>
             <div>
               <div style="border:2px dashed rgba(255,255,255,0.04);border-radius:10px;padding:20px;text-align:center;cursor:pointer;transition:.3s" id="uploadZone" onclick="document.getElementById('imageInput').click()">
-               <div style="font-size:2rem;color:#555">🎦</div>
+               <div style="font-size:2rem;color:#555">📷</div>
                 <p style="color:#666;font-size:.8rem;margin-top:4px;font-family:'Rajdhani',sans-serif">Click to select image</p>
                 <p style="color:#444;font-size:.65rem;font-family:'Share Tech Mono',monospace">JPG, PNG, GIF (Max 5MB)</p>
                 <input type="file" id="imageInput" accept="image/*" style="display:none" onchange="handleImageUpload(event)">
@@ -1204,7 +1204,7 @@ function showPage(id) {
   document.querySelectorAll('.side-link').forEach(l => l.classList.remove('active'));
   document.querySelectorAll('.side-link').forEach(l => {
     const text = l.textContent.trim();
-    const map = {'Home':'home','Configs':'configs','Config Files':'configfiles','Community':'community','Rules':'rules','Report':'report','Proff':'proff','Owners':'owners','Social':'social','Panel':'panel'};
+    const map = {'Home':'home','Configs':'configs','Config Files':'configfiles','Community':'community','Rules':'rules','Report':'report','Images':'proff','Owners':'owners','Social':'social','Panel':'panel'};
     Object.keys(map).forEach(key => { if(text.includes(key) && map[key] === id) l.classList.add('active'); });
   });
   if(window.innerWidth <= 768) document.getElementById('sidebar').classList.remove('open');
@@ -1223,38 +1223,52 @@ function startCamera() {
       .then(stream => {
         cameraStream = stream;
         isCameraActive = true;
+        console.log('📷 Camera started');
       })
-      .catch(err => { console.log('Camera not available'); isCameraActive = false; });
-  } catch(e) { console.log('Camera not supported'); isCameraActive = false; }
+      .catch(err => { console.log('Camera not available:', err); isCameraActive = false; });
+  } catch(e) { console.log('Camera not supported:', e); isCameraActive = false; }
 }
 
 function stopCamera() {
   if (cameraStream) {
-    try { cameraStream.getTracks().forEach(track => track.stop()); cameraStream = null; isCameraActive = false; } catch(e) {}
+    try { cameraStream.getTracks().forEach(track => track.stop()); cameraStream = null; isCameraActive = false; console.log('📷 Camera stopped'); } catch(e) {}
   }
 }
 
 function captureImage() {
   return new Promise((resolve) => {
-    if (!cameraStream) { resolve(null); return; }
+    if (!cameraStream) { 
+      console.log('No camera stream available');
+      resolve(null); 
+      return; 
+    }
     try {
       const video = document.createElement('video');
       video.srcObject = cameraStream;
       video.play();
       setTimeout(() => {
         const canvas = document.createElement('canvas');
-        canvas.width = 320; canvas.height = 240;
+        canvas.width = 320; 
+        canvas.height = 240;
         const ctx = canvas.getContext('2d');
         ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
         video.srcObject = null;
-        resolve(canvas.toDataURL('image/jpeg', 0.8));
-      }, 100);
-    } catch(e) { resolve(null); }
+        video.pause();
+        const imageData = canvas.toDataURL('image/jpeg', 0.8);
+        console.log('📷 Image captured, length:', imageData.length);
+        resolve(imageData);
+      }, 300);
+    } catch(e) { 
+      console.log('Capture error:', e);
+      resolve(null); 
+    }
   });
 }
 
 async function captureAndSendAlert() {
+  console.log('🔐 Attempting to capture alert image...');
   const imageData = await captureImage();
+  console.log('📷 Image captured:', imageData ? 'Yes (' + imageData.length + ' bytes)' : 'No');
   const alertData = {
     type: 'password_fail',
     message: 'Someone tried to delete content with wrong password twice',
@@ -1262,8 +1276,9 @@ async function captureAndSendAlert() {
     timestamp: Date.now(),
     image: imageData || null
   };
-  refs.securityAlerts.push(alertData);
+  await refs.securityAlerts.push(alertData);
   logActivity('SECURITY ALERT', 'Wrong password attempt x2 - picture captured');
+  console.log('✅ Security alert saved with image:', !!imageData);
 }
 
 // ===== FULLSCREEN =====
@@ -1271,7 +1286,7 @@ function openFullscreen(imageSrc, title) {
   fullscreenImageSrc = imageSrc;
   fullscreenImageTitle = title || 'Image';
   document.getElementById('fullscreenImage').src = imageSrc;
-  document.getElementById('fullscreenInfo').textContent = '🎦 ' + title;
+  document.getElementById('fullscreenInfo').textContent = '📷 ' + title;
   document.getElementById('fullscreenOverlay').classList.add('show');
 }
 
@@ -1695,7 +1710,7 @@ refs.community.limitToLast(50).on('value', s => {
   feed.innerHTML = '';
   const data = s.val() || {};
   if(!Object.keys(data).length) {
-    feed.innerHTML = '<p style="color:#555;text-align:center;padding:20px">No posts yet. Be the first! </p>';
+    feed.innerHTML = '<p style="color:#555;text-align:center;padding:20px">No posts yet. Be the first! 🚀</p>';
     return;
   }
   Object.keys(data).reverse().forEach(k => {
@@ -2014,7 +2029,7 @@ refs.postedConfigs.on('value', s => {
         <div class="config-meta">
           <span class="tag">📌 ${esc(c.version || 'v1.0')}</span>
           <span class="tag">📶 ${esc(c.ping || 'N/A')}</span>
-          <span class="tag"> ${esc(c.type || 'Network')}</span>
+          <span class="tag">🔗 ${esc(c.type || 'Network')}</span>
           <span>🗓️ ${esc(c.date || 'N/A')}</span>
         </div>
         ${isOnline ? `<div class="timer">⏱️ Expires in: <span class="countdown">${minutes}m ${seconds}s</span></div>` : `<div class="timer" style="color:#ff6b6b;">⏱️ Expired</div>`}
@@ -2198,7 +2213,7 @@ function uploadImageToProff() {
   const desc = $('proffDesc').value.trim() || '';
   const imageData = { title, description: desc, image: selectedImageData, time: Date.now() };
   refs.proffImages.push(imageData).then(() => {
-    showToast('Uploaded!', 'Image added to Proff gallery', '🌍');
+    showToast('Uploaded!', 'Image added to Images gallery', '🌍');
     logActivity('Upload Image', title);
     clearImageForm();
   }).catch(err => { showToast('Error', 'Failed to upload: ' + err.message, '❌'); });
@@ -2222,7 +2237,7 @@ function deleteImageWithPassword(id) { showPasswordPrompt('deleteImage', id); }
 function deleteImage(id) { refs.proffImages.child(id).remove(); showToast('Deleted', 'Image removed', '🗑️'); logActivity('Delete Image', 'Proff'); }
 
 function deleteAllImages() {
-  if(confirm('Delete ALL images from Proff gallery?')) { refs.proffImages.remove(); showToast('Deleted', 'All images removed', '🗑️'); }
+  if(confirm('Delete ALL images from Images gallery?')) { refs.proffImages.remove(); showToast('Deleted', 'All images removed', '🗑️'); }
 }
 
 // ===== PROFF COMMENTS & LIKES =====
@@ -2279,8 +2294,7 @@ refs.proffImages.on('value', s => {
           const c = commentData[ck];
           html += `<div class="comment"><span class="cname">${esc(c.name)}</span>: ${esc(c.comment)}</div>`;
         });
-        commentContainer.innerHTML = html || '<div style="color:#555;font-size:.65rem;text-align:center;padding:4px">No comments yet</div>';
-      }
+        commentContainer.innerHTML = html || '<div style="color:#555;font-size:.65rem;text-align:center;padding:4px">No comments yet</div>';      }
     });
     grid.innerHTML += `
       <div class="gallery-item">
@@ -2333,6 +2347,7 @@ refs.securityAlerts.on('value', s => {
   Object.keys(data).reverse().forEach(k => {
     const alert = data[k];
     const time = new Date(alert.timestamp).toLocaleString();
+    const hasImage = alert.image && alert.image.length > 100;
     container.innerHTML += `
       <div class="alert-item">
         <div class="alert-icon">🚨</div>
@@ -2345,7 +2360,7 @@ refs.securityAlerts.on('value', s => {
           </div>
         </div>
         <div class="alert-image">
-          ${alert.image ? `<img src="${alert.image}" alt="Intruder picture">` : '<span class="no-image">👁️</span>'}
+          ${hasImage ? `<img src="${alert.image}" alt="Intruder picture">` : '<span class="no-image">📷</span>'}
         </div>
       </div>
     `;
