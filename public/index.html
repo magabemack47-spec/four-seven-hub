@@ -2549,13 +2549,14 @@ document.addEventListener('DOMContentLoaded', () => {
       sidebar.classList.remove('open');
     }
   });
-  document.addEventListener('keydown', (e) => {
-    const overlay = document.getElementById('passwordOverlay');
-    if(e.key === 'Escape' && overlay && overlay.classList.contains('show')) {
-      cancelPassword();
-    }
-    if(e.key === 'Escape' && document.getElementById('fullscreenOverlay').classList.contains('show')) {
-      closeFullscreen();
+  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('click', (e) => {
+    const sidebar = document.getElementById('sidebar');
+    const toggle = document.querySelector('.menu-toggle');
+    if(window.innerWidth <= 768 && sidebar && toggle &&
+    sidebar.classList.contains('open') && !sidebar.contains(e.target) &&
+    !toggle.contains(e.target)) {
+    sidebar.classList.remove('open');
     }
   });
 });
