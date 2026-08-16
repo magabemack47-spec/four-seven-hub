@@ -1281,28 +1281,65 @@ function captureImage() {
       return; 
     }
     try {
+      // Create a video element
       const video = document.createElement('video');
       video.srcObject = cameraStream;
-      video.play();
+      video.setAttribute('playsinline', '');
+      video.setAttribute('autoplay', '');
+      video.muted = true;
+      
+      video.onloadedmetadata = function() {
+        video.play();
+        setTimeout(() => {
+          try {
+            const canvas = document.createElement('canvas');
+            canvas.width = 320; 
+            canvas.height = 240;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            const imageData = canvas.toDataURL('image/jpeg', 0.8);
+            console.log('📷 Image captured successfully, length:', imageData.length);
+            video.pause();
+            video.srcObject = null;
+            resolve(imageData);
+          } catch(e) {
+            console.log('Canvas error:', e);
+            resolve(null);
+          }
+        }, 500);
+      };
+      
+      video.onerror = function(e) {
+        console.log('Video error:', e);
+        resolve(null);
+      };
+      
+      // Fallback timeout
       setTimeout(() => {
-        const canvas = document.createElement('canvas');
-        canvas.width = 320; 
-        canvas.height = 240;
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-        video.srcObject = null;
-        video.pause();
-        const imageData = canvas.toDataURL('image/jpeg', 0.8);
-        console.log('📷 Image captured, length:', imageData.length);
-        resolve(imageData);
-      }, 300);
+        if (video.srcObject) {
+          console.log('Video timeout - trying fallback');
+          try {
+            const canvas = document.createElement('canvas');
+            canvas.width = 320; 
+            canvas.height = 240;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            const imageData = canvas.toDataURL('image/jpeg', 0.8);
+            video.pause();
+            video.srcObject = null;
+            resolve(imageData);
+          } catch(e) {
+            resolve(null);
+          }
+        }
+      }, 3000);
+      
     } catch(e) { 
       console.log('Capture error:', e);
       resolve(null); 
     }
   });
 }
-
 async function captureAndSendAlert() {
   console.log('🔐 Attempting to capture alert image...');
   const imageData = await captureImage();
