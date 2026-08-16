@@ -2542,21 +2542,31 @@ refs.passwords.on('value', s => {
 
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded', () => {
+  // Close sidebar when clicking outside on mobile
   document.addEventListener('click', (e) => {
     const sidebar = document.getElementById('sidebar');
     const toggle = document.querySelector('.menu-toggle');
-    if(window.innerWidth <= 768 && sidebar && toggle && sidebar.classList.contains('open') && !sidebar.contains(e.target) && !toggle.contains(e.target)) {
-      sidebar.classList.remove('open');
+    
+    if(window.innerWidth <= 768 && sidebar && toggle) {
+      if(sidebar.classList.contains('open') && !sidebar.contains(e.target) && !toggle.contains(e.target)) {
+        sidebar.classList.remove('open');
+      }
     }
   });
-  document.addEventListener('DOMContentLoaded', () => {
-  document.addEventListener('click', (e) => {
-    const sidebar = document.getElementById('sidebar');
-    const toggle = document.querySelector('.menu-toggle');
-    if(window.innerWidth <= 768 && sidebar && toggle &&
-    sidebar.classList.contains('open') && !sidebar.contains(e.target) &&
-    !toggle.contains(e.target)) {
-    sidebar.classList.remove('open');
+  
+  // Close password overlay on Escape key
+  document.addEventListener('keydown', (e) => {
+    const overlay = document.getElementById('passwordOverlay');
+    if(e.key === 'Escape' && overlay && overlay.classList.contains('show')) {
+      cancelPassword();
+    }
+  });
+  
+  // Close fullscreen on Escape key
+  document.addEventListener('keydown', (e) => {
+    const fullscreen = document.getElementById('fullscreenOverlay');
+    if(e.key === 'Escape' && fullscreen && fullscreen.classList.contains('show')) {
+      closeFullscreen();
     }
   });
 });
