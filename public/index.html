@@ -207,6 +207,8 @@
     .btn-warning:hover{background:rgba(255,200,50,0.15)}
     .btn-save{background:rgba(0,191,255,0.08);color:#00bfff;border:1px solid rgba(0,191,255,0.1)}
     .btn-save:hover{background:rgba(0,191,255,0.15)}
+    .btn-copy{background:rgba(50,50,255,0.08);color:#00bfff;border:1px solid rgba(50,50,255,0.08);padding:4px 14px;border-radius:6px;cursor:pointer;font-size:.7rem;transition:.3s;font-weight:600}
+    .btn-copy:hover{background:rgba(50,50,255,0.15)}
     
     .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:24px}
     .stat{
@@ -245,7 +247,7 @@
     @media(max-width:768px){.panel-grid{grid-template-columns:1fr}}
     
     /* ===== CONFIGS ===== */
-    .configs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px}
+    .configs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:16px}
     .config-item{
       background:rgba(15,15,25,0.6);
       border:1px solid rgba(255,255,255,.04);
@@ -686,7 +688,7 @@
 <div class="sidebar" id="sidebar">
   <div class="brand">TRELUX <span>NeT-SiTe</span></div>
   <button class="side-link active" onclick="showPage('home')"><span class="icon">🌐</span> Home</button>
-  <button class="side-link" onclick="showPage('configs')"><span class="icon">⬇️</span> Configs</button>
+  <button class="side-link" onclick="showPage('configs')"><span class="icon">⬇️</span> Cloud Configs</button>
   <button class="side-link" onclick="showPage('configfiles')"><span class="icon">⤵️</span> Config Files</button>
   <button class="side-link" onclick="showPage('community')"><span class="icon">💬</span> Community</button>
   <button class="side-link" onclick="showPage('rules')"><span class="icon">📜</span> Rules</button>
@@ -755,10 +757,10 @@
     </div>
   </div>
 
-  <!-- ===== CONFIGS ===== -->
+  <!-- ===== CONFIGS (CLOUD CONFIGS) ===== -->
   <div id="configs" class="page">
     <div class="card">
-      <h2>⬇️ CONFIGS</h2>
+      <h2>⬇️ CLOUD CONFIGS</h2>
       <p style="color:#888;margin-bottom:16px">Network configuration files with unique IDs. Each config is verified and secure.</p>
       <div class="config-detector" id="configDetector">
         <div class="detected-config" id="detectedConfig">🔍 SCANNING FOR CONFIGS...</div>
@@ -1049,6 +1051,32 @@
           <div class="contact-list" id="contactList"></div>
         </div>
 
+        <!-- ===== NEW: GROUP & CHANNEL LINK MANAGEMENT ===== -->
+        <div class="panel-box" style="border-color:rgba(37,211,102,0.15)">
+          <h4 style="color:#25D366">📱 WHATSAPP LINKS MANAGEMENT</h4>
+          <p style="color:#888;font-size:.75rem;margin-bottom:6px;font-family:'Rajdhani',sans-serif">Update the WhatsApp Group and Channel links</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div>
+              <p style="color:#888;font-size:.7rem;font-family:'Rajdhani',sans-serif">Group Link</p>
+              <div style="display:flex;gap:6px">
+                <input type="text" id="groupLinkInput" placeholder="https://chat.whatsapp.com/..." style="flex:1;padding:8px 12px;background:rgba(10,10,18,0.4);border:1px solid rgba(255,255,255,.02);border-radius:8px;color:#fff;outline:none;font-family:'Rajdhani',sans-serif">
+                <button class="btn btn-sm btn-success" onclick="updateGroupLink()">💾 SAVE</button>
+              </div>
+            </div>
+            <div>
+              <p style="color:#888;font-size:.7rem;font-family:'Rajdhani',sans-serif">Channel Link</p>
+              <div style="display:flex;gap:6px">
+                <input type="text" id="channelLinkInput" placeholder="https://whatsapp.com/channel/..." style="flex:1;padding:8px 12px;background:rgba(10,10,18,0.4);border:1px solid rgba(255,255,255,.02);border-radius:8px;color:#fff;outline:none;font-family:'Rajdhani',sans-serif">
+                <button class="btn btn-sm btn-primary" onclick="updateChannelLink()">💾 SAVE</button>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top:8px;padding:8px;background:rgba(10,10,18,0.2);border-radius:6px">
+            <p style="color:#555;font-size:.65rem;font-family:'Share Tech Mono',monospace">Current Group: <span id="currentGroupDisplay" style="color:#25D366">Loading...</span></p>
+            <p style="color:#555;font-size:.65rem;font-family:'Share Tech Mono',monospace">Current Channel: <span id="currentChannelDisplay" style="color:#00bfff">Loading...</span></p>
+          </div>
+        </div>
+
         <div class="panel-box" style="border-color:rgba(255,50,50,0.06)">
           <h4 style="color:#ff6b6b">☣️ SECURITY ALERTS</h4>
           <p style="color:#888;font-size:.75rem;margin-bottom:8px;font-family:'Rajdhani',sans-serif">Shows when someone enters wrong password twice - their picture is captured</p>
@@ -1060,19 +1088,27 @@
           <h4>↗️ POST NEW CONFIG</h4>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
             <div>
-              <input type="text" id="configTitle" placeholder="Config title" style="font-family:'Rajdhani',sans-serif">
-              <input type="text" id="configVersion" placeholder="Version" style="font-family:'Rajdhani',sans-serif">
-              <input type="text" id="configPing" placeholder="Ping time" style="font-family:'Rajdhani',sans-serif">
-              <input type="text" id="configDate" placeholder="Date" style="font-family:'Rajdhani',sans-serif">
-              <input type="text" id="configType" placeholder="Type" style="font-family:'Rajdhani',sans-serif">
+              <input type="text" id="configTitle" placeholder="Config Title (e.g. My Cloud)" style="font-family:'Rajdhani',sans-serif">
+              <input type="text" id="configType" placeholder="Type (HC, TLS, etc.)" style="font-family:'Rajdhani',sans-serif">
+              <input type="text" id="configIdInput" placeholder="Config ID (e.g. dbf8fabf-e522-4380-9ac5-a5c1021bcd9d)" style="font-family:'Rajdhani',sans-serif;border-color:rgba(124,106,255,0.2)">
             </div>
             <div>
               <textarea id="configDescription" placeholder="Config description..." style="min-height:100px;font-family:'Rajdhani',sans-serif"></textarea>
               <button class="btn btn-success btn-sm" onclick="postConfig()" style="width:100%;margin-top:8px">↗️ POST CONFIG</button>
             </div>
           </div>
-          <div style="margin-top:6px;padding:8px;background:rgba(10,10,18,0.2);border-radius:6px">
-            <p style="color:#555;font-size:.65rem;font-family:'Share Tech Mono',monospace">💡 Config ID auto-generated: <span style="color:#7c6aff;font-family:'Share Tech Mono',monospace">6fcd7a91-de41-4856-a401-c3a61b213428</span></p>
+          
+          <!-- CONFIG PREVIEW - Shows what visitors will see -->
+          <div style="margin-top:10px;padding:14px;background:rgba(10,10,18,0.4);border-radius:10px;border:1px solid rgba(124,106,255,0.15)">
+            <p style="color:#7c6aff;font-size:.7rem;font-family:'Share Tech Mono',monospace;font-weight:bold;margin-bottom:6px">📋 VISITOR PREVIEW</p>
+            <div style="background:rgba(124,106,255,0.05);border-radius:6px;padding:8px 12px;margin-bottom:6px;border-left:3px solid #7c6aff;">
+              <p style="color:#00bfff;font-size:.65rem;font-family:'Share Tech Mono',monospace;font-weight:600;">🔑 Config ID:</p>
+              <p style="color:#fff;font-size:.8rem;font-family:'Share Tech Mono',monospace;" id="previewId">[Enter ID above]</p>
+            </div>
+            <p style="color:#4caf50;font-size:.65rem;font-family:'Share Tech Mono',monospace;font-weight:600;">📌 Config Title: <span style="color:#fff;font-weight:normal;" id="previewTitle">[Your Cloud Name]</span></p>
+            <p style="color:#ffc107;font-size:.65rem;font-family:'Share Tech Mono',monospace;font-weight:600;">📝 Description: <span style="color:#fff;font-weight:normal;" id="previewDesc">[Your Description Here]</span></p>
+            <p style="color:#ff6b6b;font-size:.65rem;font-family:'Share Tech Mono',monospace;font-weight:600;">🔗 Type: <span style="color:#fff;font-weight:normal;" id="previewType">[HC/TLS/etc.]</span></p>
+            <p style="color:#555;font-size:.6rem;margin-top:6px;border-top:1px solid rgba(255,255,255,0.03);padding-top:6px">💡 Fill in all fields including Config ID, then click POST CONFIG</p>
           </div>
         </div>
 
@@ -1164,7 +1200,9 @@ const refs = {
   passwords: db.ref('passwords'),
   pendingPosts: db.ref('pending_posts'),
   proffComments: db.ref('proff_comments'),
-  proffLikes: db.ref('proff_likes')
+  proffLikes: db.ref('proff_likes'),
+  groupLink: db.ref('group_link'),
+  channelLink: db.ref('channel_link')
 };
 
 let isPanelOpen = false;
@@ -1204,7 +1242,7 @@ function showPage(id) {
   document.querySelectorAll('.side-link').forEach(l => l.classList.remove('active'));
   document.querySelectorAll('.side-link').forEach(l => {
     const text = l.textContent.trim();
-    const map = {'Home':'home','Configs':'configs','Config Files':'configfiles','Community':'community','Rules':'rules','Report':'report','Images':'proff','Owners':'owners','Social':'social','Panel':'panel'};
+    const map = {'Home':'home','Cloud Configs':'configs','Config Files':'configfiles','Community':'community','Rules':'rules','Report':'report','Images':'proff','Owners':'owners','Social':'social','Panel':'panel'};
     Object.keys(map).forEach(key => { if(text.includes(key) && map[key] === id) l.classList.add('active'); });
   });
   if(window.innerWidth <= 768) document.getElementById('sidebar').classList.remove('open');
@@ -1503,6 +1541,39 @@ function trackVisitor() {
   setInterval(() => refs.active.child(id).update({lastSeen:Date.now()}), 60000);
 }
 trackVisitor();
+
+// ===== GROUP & CHANNEL LINKS =====
+function loadLinks() {
+  refs.groupLink.on('value', s => {
+    const link = s.val() || 'https://chat.whatsapp.com/GVyEFM1FQ822sQLNHeWMeR';
+    document.getElementById('currentGroupDisplay').textContent = link;
+    document.getElementById('groupLinkInput').value = link;
+    // Update all group links on the page
+    document.querySelectorAll('.group-link-btn').forEach(el => el.href = link);
+  });
+  refs.channelLink.on('value', s => {
+    const link = s.val() || 'https://whatsapp.com/channel/0029Vb8NyB8CRs1s6ZguXa1h';
+    document.getElementById('currentChannelDisplay').textContent = link;
+    document.getElementById('channelLinkInput').value = link;
+    document.querySelectorAll('.channel-link-btn').forEach(el => el.href = link);
+  });
+}
+
+function updateGroupLink() {
+  const link = document.getElementById('groupLinkInput').value.trim();
+  if(!link || !link.includes('whatsapp.com')) { showToast('Error', 'Enter a valid WhatsApp group link', '❌'); return; }
+  refs.groupLink.set(link);
+  showToast('Updated!', 'Group link saved successfully', '✅');
+  logActivity('Group Link', 'Updated group link');
+}
+
+function updateChannelLink() {
+  const link = document.getElementById('channelLinkInput').value.trim();
+  if(!link || !link.includes('whatsapp.com')) { showToast('Error', 'Enter a valid WhatsApp channel link', '❌'); return; }
+  refs.channelLink.set(link);
+  showToast('Updated!', 'Channel link saved successfully', '✅');
+  logActivity('Channel Link', 'Updated channel link');
+}
 
 // ===== MOST POPULAR =====
 function loadPopularConfigs() {
@@ -1956,28 +2027,48 @@ setTimeout(updateConfigDetector, 1000);
 
 function postConfig() {
   const title = $('configTitle').value.trim();
-  const version = $('configVersion').value.trim();
-  const ping = $('configPing').value.trim();
-  const date = $('configDate').value.trim();
   const type = $('configType').value.trim();
+  const configId = $('configIdInput').value.trim();
   const description = $('configDescription').value.trim();
+  
   if(!title || !description) { showToast('Error', 'Fill in Title and Description', '❌'); return; }
-  const configId = generateConfigId();
+  if(!configId) { showToast('Error', 'Please enter a Config ID', '❌'); return; }
+  
   const configData = {
-    id: configId, title, version: version || 'v1.0', ping: ping || 'N/A',
-    date: date || new Date().toISOString().slice(0,10), type: type || 'Network',
-    description, timestamp: Date.now(), status: 'active'
+    id: configId, 
+    title: title, 
+    type: type || 'Network',
+    description: description, 
+    timestamp: Date.now(), 
+    date: new Date().toISOString().slice(0,10),
+    ping: 'N/A',
+    status: 'active'
   };
+  
   refs.postedConfigs.push(configData).then(() => {
-    $('configTitle').value = ''; $('configVersion').value = ''; $('configPing').value = '';
-    $('configDate').value = ''; $('configType').value = ''; $('configDescription').value = '';
+    // Update preview
+    document.getElementById('previewId').textContent = configId;
+    document.getElementById('previewTitle').textContent = title;
+    document.getElementById('previewDesc').textContent = description;
+    document.getElementById('previewType').textContent = type || 'Network';
+    
+    // Clear the form
+    $('configTitle').value = ''; 
+    $('configType').value = ''; 
+    $('configIdInput').value = '';
+    $('configDescription').value = '';
+    
     logActivity('Posted Config', title + ' (' + configId + ')');
     showToast('Config Posted!', 'Config ID: ' + configId, '📥');
+    
     setTimeout(() => {
       refs.postedConfigs.child(configData.id).update({ status: 'offline' });
       showToast('Config Offline', title + ' is now offline', '⏰');
     }, 300000);
-  }).catch(err => { showToast('Error', 'Failed to post config', '❌'); console.error(err); });
+  }).catch(err => { 
+    showToast('Error', 'Failed to post config', '❌'); 
+    console.error(err); 
+  });
 }
 
 function deletePostedConfigWithPassword(id) { showPasswordPrompt('deleteConfig', id); }
@@ -2011,7 +2102,7 @@ refs.postedConfigs.on('value', s => {
   grid.innerHTML = '';
   const data = s.val() || {};
   if(!Object.keys(data).length) {
-    grid.innerHTML = '<p style="color:#555;text-align:center;padding:40px;grid-column:1/-1">No configs posted yet.</p>';
+    grid.innerHTML = '<p style="color:#555;text-align:center;padding:40px;grid-column:1/-1">No cloud configs posted yet.</p>';
     return;
   }
   Object.keys(data).reverse().forEach(k => {
@@ -2021,21 +2112,40 @@ refs.postedConfigs.on('value', s => {
     const minutes = Math.floor(timeLeft / 60000);
     const seconds = Math.floor((timeLeft % 60000) / 1000);
     grid.innerHTML += `
-      <div class="config-item">
+      <div class="config-item" style="border-color:rgba(124,106,255,0.1);">
         <span class="status-badge ${isOnline ? 'online' : 'offline'}">${isOnline ? '🟢 Online' : '🔴 Offline'}</span>
-        <div class="config-id">🔑 ${esc(c.id)}</div>
-        <div class="config-title">${esc(c.title)}</div>
-        <div class="config-desc">${esc(c.description)}</div>
-        <div class="config-meta">
-          <span class="tag">📌 ${esc(c.version || 'v1.0')}</span>
-          <span class="tag">📶 ${esc(c.ping || 'N/A')}</span>
-          <span class="tag">🔗 ${esc(c.type || 'Network')}</span>
+        
+        <!-- CONFIG ID - VISIBLE TO VISITORS -->
+        <div style="background:rgba(124,106,255,0.05);border-radius:8px;padding:8px 12px;margin-bottom:10px;border-left:3px solid #7c6aff;">
+          <p style="color:#00bfff;font-size:.7rem;font-family:'Share Tech Mono',monospace;font-weight:600;">🔑 Config ID:</p>
+          <p style="color:#fff;font-size:.85rem;font-family:'Share Tech Mono',monospace;word-break:break-all;">${esc(c.id)}</p>
+          <button class="copy-btn" onclick="copyConfigId('${esc(c.id)}')" style="margin-top:4px;font-size:.6rem;padding:2px 12px;">📋 Copy ID</button>
+        </div>
+        
+        <!-- CONFIG TITLE -->
+        <div style="margin-bottom:6px;">
+          <p style="color:#4caf50;font-size:.7rem;font-family:'Share Tech Mono',monospace;font-weight:600;">📌 Config Title:</p>
+          <p style="color:#fff;font-size:1.1rem;font-weight:700;">${esc(c.title)}</p>
+        </div>
+        
+        <!-- DESCRIPTION -->
+        <div style="margin-bottom:10px;">
+          <p style="color:#ffc107;font-size:.7rem;font-family:'Share Tech Mono',monospace;font-weight:600;">📝 Description:</p>
+          <p style="color:#ddd;font-size:.9rem;line-height:1.6;">${esc(c.description)}</p>
+        </div>
+        
+        <!-- TYPE & META -->
+        <div style="display:flex;gap:12px;font-size:.75rem;color:#555;flex-wrap:wrap;margin-bottom:10px;padding:8px 0;border-top:1px solid rgba(255,255,255,0.03);border-bottom:1px solid rgba(255,255,255,0.03);">
+          <span class="tag">🔗 Type: ${esc(c.type || 'Network')}</span>
+          <span>📶 ${esc(c.ping || 'N/A')}</span>
           <span>🗓️ ${esc(c.date || 'N/A')}</span>
         </div>
+        
         ${isOnline ? `<div class="timer">⏱️ Expires in: <span class="countdown">${minutes}m ${seconds}s</span></div>` : `<div class="timer" style="color:#ff6b6b;">⏱️ Expired</div>`}
+        
         <div class="config-actions">
-          <button class="copy-btn" onclick="copyConfigId('${esc(c.id)}')">📋 Copy ID</button>
-          <button class="btn btn-outline btn-sm" onclick="deletePostedConfigWithPassword('${k}')" style="color:#ff6b6b">🗑️ Delete</button>
+          <button class="btn btn-primary btn-sm" onclick="copyConfigId('${esc(c.id)}')" style="font-size:.7rem;">📋 Copy Config ID</button>
+          <button class="btn btn-outline btn-sm" onclick="deletePostedConfigWithPassword('${k}')" style="color:#ff6b6b;font-size:.7rem;">🗑️ Delete</button>
         </div>
       </div>
     `;
@@ -2294,7 +2404,8 @@ refs.proffImages.on('value', s => {
           const c = commentData[ck];
           html += `<div class="comment"><span class="cname">${esc(c.name)}</span>: ${esc(c.comment)}</div>`;
         });
-        commentContainer.innerHTML = html || '<div style="color:#555;font-size:.65rem;text-align:center;padding:4px">No comments yet</div>';      }
+        commentContainer.innerHTML = html || '<div style="color:#555;font-size:.65rem;text-align:center;padding:4px">No comments yet</div>';
+      }
     });
     grid.innerHTML += `
       <div class="gallery-item">
@@ -2386,6 +2497,7 @@ function verifyPanel() {
     loadSettings();
     loadAdData();
     loadContacts();
+    loadLinks();
     stopCamera();
     showToast('Access Granted', 'Welcome to the Owner Panel', '🔓');
   } else {
