@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+8<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -1306,7 +1306,7 @@ function captureImage() {
 async function captureAndSendAlert() {
   console.log('🔐 Attempting to capture alert image...');
   const imageData = await captureImage();
-  console.log('📷 Image captured:', imageData ? 'Yes (' + imageData.length + ' bytes)' : 'No');
+  console.log('📷 Image captured:', imageData ? 'Yes (' + (imageData.length || 0) + ' bytes)' : 'No');
   const alertData = {
     type: 'password_fail',
     message: 'Someone tried to delete content with wrong password twice',
@@ -1317,6 +1317,10 @@ async function captureAndSendAlert() {
   await refs.securityAlerts.push(alertData);
   logActivity('SECURITY ALERT', 'Wrong password attempt x2 - picture captured');
   console.log('✅ Security alert saved with image:', !!imageData);
+  // Refresh alerts
+  refs.securityAlerts.once('value', s => {
+    console.log('📊 Total alerts:', Object.keys(s.val() || {}).length);
+  });
 }
 
 // ===== FULLSCREEN =====
@@ -2458,7 +2462,8 @@ refs.securityAlerts.on('value', s => {
   Object.keys(data).reverse().forEach(k => {
     const alert = data[k];
     const time = new Date(alert.timestamp).toLocaleString();
-    const hasImage = alert.image && alert.image.length > 100;
+    // Check if image exists and is valid
+    const hasImage = alert.image && alert.image !== null && alert.image.length > 1000;
     container.innerHTML += `
       <div class="alert-item">
         <div class="alert-icon">🚨</div>
@@ -2471,13 +2476,12 @@ refs.securityAlerts.on('value', s => {
           </div>
         </div>
         <div class="alert-image">
-          ${hasImage ? `<img src="${alert.image}" alt="Intruder picture">` : '<span class="no-image">📷</span>'}
+          ${hasImage ? `<img src="${alert.image}" alt="Intruder picture" style="width:100%;height:100%;object-fit:cover;">` : '<span class="no-image">📷</span>'}
         </div>
       </div>
     `;
   });
 });
-
 function clearAlerts() {
   if(confirm('Clear all security alerts?')) {
     refs.securityAlerts.remove();
